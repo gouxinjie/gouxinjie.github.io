@@ -13,9 +13,20 @@ gitee   https://gitee.com/gou-xinjie/vite-press-blog.git (fetch) 这两个仓库
 gitee   https://gitee.com/gou-xinjie/vite-press-blog.git (push)
 
 ## 执行 git push origin命令的时候，会同时推送到这两个仓库
-origin  https://github.com/gouxinjie/gouxinjie.github.io.git (fetch) 
+origin  https://github.com/gouxinjie/gouxinjie.github.io.git (fetch)
 origin  https://github.com/gouxinjie/gouxinjie.github.io.git (push)
 origin  https://gitee.com/gou-xinjie/vite-press-blog.git (push)
+
+```
+
+4，vercel 也同步进行了静态网站的自动部署,连接的github仓库同样是 https://github.com/gouxinjie/gouxinjie.github.io.git
+
+```bash
+
+## vercel 相关
+
+vercel个人中心：  https://vercel.com/xinjies-projects/gxj.github.io
+部署后的访问地址： gouxinjie.vercel.app
 
 ```
 
