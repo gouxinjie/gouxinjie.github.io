@@ -80,7 +80,7 @@ const createTitle = computed(() => {
       transition: all 0.3s ease-in-out;
 
       &:hover {
-        transform: translateY(-5px); /* 轻微上移模拟抬升效果 */
+        transform: translateY(-6px); /* 轻微上移模拟抬升效果 */
         border: 1px solid var(--vp-c-brand);
         background: #fff;
       }
@@ -126,7 +126,7 @@ const createTitle = computed(() => {
         background-color: var(--vp-c-bg-alt);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         &:hover {
-          // transform: translateY(-6px); /* 轻微上移模拟抬升效果 */
+          transform: translateY(-6px); /* 轻微上移模拟抬升效果 */
           background: var(--vp-c-bg-alt);
         }
         .name {
