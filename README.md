@@ -1,59 +1,42 @@
+### 需要注意
+
+1，当前发布并没有使用 pnpm，后续如果使用 pnpm，需要在 yaml 脚本文件进行配置；参考：https://github.com/maomao1996/mm-notes/tree/master/.github/workflows
+
+2，当前项目打包后的静态资源存放在 gh-pages 分支中；由 github page 自动构建用发布；
+
+3，当前项目我同时绑定了两个远程仓库，另外一个是 gitee 都是 main 分支，用户同时同步两个平台的代码
+
+```git
+
+## git remote -v
+gitee   https://gitee.com/gou-xinjie/vite-press-blog.git (fetch) 这两个仓库都指向了 gitee 的仓库
+gitee   https://gitee.com/gou-xinjie/vite-press-blog.git (push)
+
+## 执行 git push origin命令的时候，会同时推送到这两个仓库
+origin  https://github.com/gouxinjie/gouxinjie.github.io.git (fetch) 
+origin  https://github.com/gouxinjie/gouxinjie.github.io.git (push)
+origin  https://gitee.com/gou-xinjie/vite-press-blog.git (push)
+
+```
+
 ### 安装依赖
 
 ```
-pnpm i
+npm i
 ```
 
 #### 运行项目
 
 ```
-pnpm run dev
+npm run dev
+```
+
+#### 项目打包
+
+```
+npm run build
 ```
 
 ### 项目介绍
 
 苟新节的个人博客，使用 vitepress 搭建的静态网站。
-
-#### 1，.vitepress/components
-
-一些自定义组件
-
-#### 2，vitepress/relaCong
-
-首页的配置项和文章列表的配置
-
-#### 3，vitepress/confing.mts
-
-配置项的入口文件
-
-#### 4，column - 文章列表相关的模块
-
-**1、技术笔记分类：**
-
-1. css 相关 -css
-2. js 相关 - es5/es6
-3. vue 相关 - vue2/vue3
-4. react 相关 - react
-5. 小程序相关 -miniProgram
-6. vite 相关 - vite
-7. 小程序相关 - uniapp/微信小程序/支付宝小程序
-8. 项目相关 - 后台管理/前端工程化
-
-**2、前端生态：**
-
-1. 框架组件
-2. Html/Css
-3. 工程化相关
-4. ts 语法
-
-**3、工具推荐**
-
-**4、面试题总结**
-
-#### 5，/public
-
-一些公共资源相关的图片和图标
-
-#### 6，/index.md
-
-主页展示的配置项
