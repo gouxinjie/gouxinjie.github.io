@@ -30,13 +30,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'  # 推荐使用 LTS 版本
-          cache: 'npm'        # 缓存 npm 依赖，加速构建
+          cache: 'pnpm'        # 缓存 npm 依赖，加速构建
 
       - name: Install dependencies
-        run: npm ci           # 使用 ci 命令确保依赖一致性
+        run: pnpm ci           # 使用 ci 命令确保依赖一致性
 
       - name: Build VitePress site
-        run: npm run build  # 执行 VitePress 构建命令
+        run: pnpm run build  # 执行 VitePress 构建命令
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3  # 专门用于部署到 GH Pages 的 Action
