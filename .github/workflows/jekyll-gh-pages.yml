@@ -1,0 +1,47 @@
+name: Deploy VitePress to GitHub Pages
+
+on:
+  # 当推送到 gouxinjie 分支时触发（根据你的分支名）
+  push:
+    branches: ["gouxinjie"]
+
+  # 允许从 Actions 选项卡手动运行此工作流
+  workflow_dispatch:
+
+# 设置权限以允许部署到 GitHub Pages
+permissions:
+  contents: write  # 需要写入权限来推送构建结果到 gh-pages 分支
+  pages: read
+  id-token: write
+
+# 并发控制
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'  # 推荐使用 LTS 版本
+          cache: 'npm'        # 缓存 npm 依赖，加速构建
+
+      - name: Install dependencies
+        run: npm ci           # 使用 ci 命令确保依赖一致性
+
+      - name: Build VitePress site
+        run: npm run docs:build  # 执行 VitePress 构建命令
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3  # 专门用于部署到 GH Pages 的 Action
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/.vitepress/dist  # VitePress 默认输出目录
+          # 如果使用自定义域名，取消下面注释并填写你的域名
+          # cname: your-domain.com
