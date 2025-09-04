@@ -1,0 +1,70 @@
+{
+  "hash": "b570aed1",
+  "configHash": "669865eb",
+  "lockfileHash": "b55416c8",
+  "browserHash": "acc81588",
+  "optimized": {
+    "vue": {
+      "src": "../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "7b727a28",
+      "needsInterop": false
+    },
+    "vitepress > @vue/devtools-api": {
+      "src": "../../../../node_modules/@vue/devtools-api/dist/index.js",
+      "file": "vitepress___@vue_devtools-api.js",
+      "fileHash": "033a8606",
+      "needsInterop": false
+    },
+    "vitepress > @vueuse/core": {
+      "src": "../../../../node_modules/vitepress/node_modules/@vueuse/core/index.mjs",
+      "file": "vitepress___@vueuse_core.js",
+      "fileHash": "202959e1",
+      "needsInterop": false
+    },
+    "element-plus": {
+      "src": "../../../../node_modules/element-plus/es/index.mjs",
+      "file": "element-plus.js",
+      "fileHash": "b6feaea7",
+      "needsInterop": false
+    },
+    "busuanzi.pure.js": {
+      "src": "../../../../node_modules/busuanzi.pure.js/index.js",
+      "file": "busuanzi__pure__js.js",
+      "fileHash": "aad9e2b3",
+      "needsInterop": true
+    },
+    "medium-zoom": {
+      "src": "../../../../node_modules/medium-zoom/dist/medium-zoom.esm.js",
+      "file": "medium-zoom.js",
+      "fileHash": "016416af",
+      "needsInterop": false
+    },
+    "@mdit-vue/shared": {
+      "src": "../../../../node_modules/@mdit-vue/shared/dist/index.mjs",
+      "file": "@mdit-vue_shared.js",
+      "fileHash": "4f9f559d",
+      "needsInterop": false
+    },
+    "lodash.debounce": {
+      "src": "../../../../node_modules/lodash.debounce/index.js",
+      "file": "lodash__debounce.js",
+      "fileHash": "51570b14",
+      "needsInterop": true
+    },
+    "canvas-confetti": {
+      "src": "../../../../node_modules/canvas-confetti/dist/confetti.module.mjs",
+      "file": "canvas-confetti.js",
+      "fileHash": "46664095",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-OPBUY5DS": {
+      "file": "chunk-OPBUY5DS.js"
+    },
+    "chunk-5WRI5ZAA": {
+      "file": "chunk-5WRI5ZAA.js"
+    }
+  }
+}
