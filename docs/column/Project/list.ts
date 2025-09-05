@@ -1,6 +1,45 @@
 // 日常项目模块相关
 const projectList = [
   {
+    text: "git相关",
+    collapsed: false,
+    items: [
+      {
+        text: "git常用命令"
+      },
+      {
+        text: "github设置ssh密钥"
+      },
+      {
+        text: "工作中常用的git操作-1"
+      },
+      {
+        text: "工作中常用的git操作-2"
+      }
+    ]
+  },
+  {
+    text: "组件封装",
+    collapsed: false,
+    items: [
+      {
+        text: "录音组件"
+      },
+      {
+        text: "png序列动画"
+      },
+      {
+        text: "可编辑模板字符串"
+      },
+      {
+        text: "各格式文件预览"
+      },
+      {
+        text: "神策埋点"
+      }
+    ]
+  },
+  {
     text: "表单与表格专题",
     collapsed: false,
     items: [
@@ -62,39 +101,6 @@ const projectList = [
         text: "前端常用加密方式"
       },
       { text: "防抖和节流函数细节" }
-    ]
-  },
-  {
-    text: "组件封装",
-    collapsed: false,
-    items: [
-      {
-        text: "录音组件"
-      },
-      {
-        text: "png序列动画"
-      },
-      {
-        text: "可编辑模板字符串"
-      },
-      {
-        text: "各格式文件预览"
-      },
-      {
-        text: "神策埋点"
-      }
-    ]
-  },
-  {
-    text: "git相关",
-    collapsed: false,
-    items: [
-      {
-        text: "工作中常用的git操作-1"
-      },
-      {
-        text: "工作中常用的git操作-2"
-      }
     ]
   }
 ];

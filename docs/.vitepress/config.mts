@@ -7,6 +7,10 @@ export default defineConfig({
   title: "苟新节",
   description: "Xinjie's Blog Web Site",
   head: [["link", { rel: "icon", href: "/xinjie.png" }]], // 导航栏
+
+  lastUpdated: true,
+  cleanUrls: true,
+
   themeConfig: {
     logo: "/avatar.png",
     nav: nav,
@@ -17,7 +21,16 @@ export default defineConfig({
       label: "本页目录"
     },
     // socialLinks: [{ icon: "github", link: "https://github.com/vuejs/vitepress" }], 顶部社交链接配置github 暂不显示
+
     lastUpdatedText: "最近更新",
+    lastUpdated: {
+      text: "最后更新于",
+      formatOptions: {
+        dateStyle: "short",
+        timeStyle: "medium"
+      }
+    },
+
     docFooter: {
       prev: "前一篇",
       next: "后一篇"
@@ -31,10 +44,14 @@ export default defineConfig({
       }
     }
   },
+  
   // 配置 Markdown 解析 - 和代码高亮
   markdown: {
     theme: { light: "github-light", dark: "github-dark" },
     lineNumbers: true,
+    image: {
+      lazyLoading: true
+    },
     // 容器以中文形式
     container: {
       tipLabel: "提示",

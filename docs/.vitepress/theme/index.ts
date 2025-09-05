@@ -18,6 +18,29 @@ import BackTop from "../components/BackTop.vue"; // 返回顶部
 import SearchList from "../components/SearchList.vue"; // 搜索列表
 import Confetti from "../components/Confetti.vue"; // 首页纸屑动画
 
+/** 把站点曾经可能存在的 PWA 缓存和 Service Worker 全部清掉 */
+if (typeof window !== "undefined") {
+  /* 注销 PWA 服务 */
+  if (window.navigator && navigator.serviceWorker) {
+    navigator.serviceWorker.getRegistrations().then(function (registrations) {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+  /* 删除浏览器中的缓存 */
+  if ("caches" in window) {
+    caches.keys().then(function (keyList) {
+      return Promise.all(
+        keyList.map(function (key) {
+          return caches.delete(key);
+        })
+      );
+    });
+  }
+}
+
+
 export default {
   ...DefaultTheme,
   NotFound: () => "404",

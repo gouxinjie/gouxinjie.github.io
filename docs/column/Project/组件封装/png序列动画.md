@@ -13,8 +13,11 @@
 4、响应式尺寸调整  
 5、高性能的动画渲染
 
-## 组件实现
+## 实现效果
 
+![png序列帧动画](../images/png序列.gif)
+
+## 组件实现
 
 ### 1、tsx
 
@@ -179,7 +182,6 @@ export default SequenceAnimation;
 }
 ```
 
-
 ## 组件使用
 
 `isPlaying` 控制动画播放，为 `true` 时播放，为 `false` 时暂停。
@@ -187,13 +189,5 @@ export default SequenceAnimation;
 ```tsx
 import { SequenceAnimation } from "@/components/SequenceAnimation";
 
-<SequenceAnimation
-  style={{ marginLeft: "-2px" }}
-  imageUrl={`${config.ossIconBaseUrl}/messageItem/sequence-network-48.png`}
-  isPlaying={message.loading}
-></SequenceAnimation>;
+<SequenceAnimation style={{ marginLeft: "-2px" }} imageUrl={`${config.ossIconBaseUrl}/messageItem/sequence-network-48.png`} isPlaying={message.loading}></SequenceAnimation>;
 ```
-
-## 实现效果
-
-![png序列帧动画](../images/png序列.gif)

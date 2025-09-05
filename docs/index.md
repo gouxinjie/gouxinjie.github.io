@@ -10,7 +10,7 @@ lastUpdated: true
 hero:
   name: Xinjie's Personal Blog
   text: Web Developer
-  tagline: warmly welcome your visit
+  tagline: 光而不耀，静水流深。
   image:
     src: /xinjie.png # 首页右边的图片
     alt: avatar # 图片的描述
