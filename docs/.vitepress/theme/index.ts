@@ -25,6 +25,7 @@ import MouseClick from "../components/MouseClick.vue"; // 鼠标点击效果
 import MouseFollower from "../components/MouseFollower.vue"; // 鼠标跟随效果
 import Update from "../components/update.vue"; // 更新时间
 import ArticleMetadata from "../components/ArticleMetadata.vue"; // 字数及阅读时间
+import BackToTop from "../components/BackToTop.vue";
 
 /** 把站点曾经可能存在的 PWA 缓存和 Service Worker 全部清掉 */
 if (typeof window !== "undefined") {
@@ -69,7 +70,7 @@ export default {
     app.component("MouseFollower", MouseFollower);
     app.component("Update", Update); // 更新时间
     app.component("ArticleMetadata", ArticleMetadata); // 字数及阅读时间
-
+    app.component("BackToTop", BackToTop);
 
     // 彩虹背景动画样式
     if (typeof window !== "undefined") {
