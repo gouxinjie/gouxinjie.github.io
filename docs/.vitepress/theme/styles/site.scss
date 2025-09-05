@@ -1,6 +1,6 @@
 
 
-/** 网址导航页面样式 **/
+/** 前端生态页面导航样式 - 把右侧侧边栏放到左边 **/
 .site-layout {
   .VPDoc {
     .container {
@@ -14,7 +14,7 @@
           width: 124px;
         }
       }
-      //
+      // 内容区域
       .content {
         order: 2;
         max-width: 100% !important;

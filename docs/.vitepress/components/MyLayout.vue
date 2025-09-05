@@ -24,6 +24,12 @@ watch(
     <template #doc-top>
       <div class="shade" :class="{ 'shade-active': isTransitioning }">&nbsp;</div>
     </template>
+    <!-- 由于我们一个插槽使用了多个组件，我们将其放在 MyLayout.vue 组件中 -->
+    <template #layout-top>
+      <!-- MouseFollower 由于有点乱，所以暂时关闭 -->
+      <MouseFollower />
+      <MouseClick />
+    </template>
   </Layout>
 </template>
 

@@ -43,6 +43,9 @@ const angularList = [
     items: [
       {
         text: "基本使用"
+      },
+      {
+        text:'样式测试'
       }
     ]
   }

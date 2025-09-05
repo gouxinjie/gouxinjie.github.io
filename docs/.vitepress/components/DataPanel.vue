@@ -1,5 +1,6 @@
 <script setup lang="ts"></script>
 
+<!-- 访问量展示 -->
 <template>
   <div class="panel">
     <div class="container">
@@ -8,7 +9,8 @@
           本站总访问量
           <span id="busuanzi_value_site_pv" class="font-bold">99999</span> 次
         </span>
-        <img src="/xinjie.png" alt="heart" width="100" height="100" />
+        <!-- <img src="/xinjie.png" alt="heart" width="100" height="100" /> -->
+        <img src="/tap.gif" alt="我让你敲" width="150" height="150" />
         <span class="text">
           本站访客数
           <span id="busuanzi_value_site_uv" class="font-bold">9999</span> 人次

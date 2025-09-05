@@ -5,10 +5,12 @@
 import { onMounted, watch, nextTick } from "vue";
 import { useRoute } from "vitepress";
 import DefaultTheme from "vitepress/theme";
-import "./styles2/index.scss"; // 启用新样式 参考茂茂物语
 import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 import { inBrowser } from "vitepress";
+
+import "./styles/index.scss"; // 启用新样式
+
 // import SiteList from "../components/siteList.vue"; 暂未使用
 import busuanzi from "busuanzi.pure.js"; // 访问量统计
 import DataPanel from "../components/DataPanel.vue"; // 浏览量统计
@@ -18,6 +20,11 @@ import BackTop from "../components/BackTop.vue"; // 返回顶部
 import SearchList from "../components/SearchList.vue"; // 搜索列表
 import Confetti from "../components/Confetti.vue"; // 首页纸屑动画
 import MyLayout from "../components/MyLayout.vue"; // 布局组件 添加页面上下渐变出现的效果
+import HomeUnderline from "../components/HomeUnderline.vue"; // 首页hero文字下划线
+import MouseClick from "../components/MouseClick.vue"; // 鼠标点击效果
+import MouseFollower from "../components/MouseFollower.vue"; // 鼠标跟随效果
+import Update from "../components/update.vue"; // 更新时间
+import ArticleMetadata from "../components/ArticleMetadata.vue"; // 字数及阅读时间
 
 /** 把站点曾经可能存在的 PWA 缓存和 Service Worker 全部清掉 */
 if (typeof window !== "undefined") {
@@ -41,6 +48,9 @@ if (typeof window !== "undefined") {
   }
 }
 
+// 彩虹背景动画样式
+let homePageStyle: HTMLStyleElement | undefined;
+
 export default {
   ...DefaultTheme,
   NotFound: () => "404",
@@ -54,7 +64,22 @@ export default {
     app.component("MyCard", MyCard);
     app.component("DataPanel", DataPanel);
     app.component("Confetti", Confetti);
+    app.component("HomeUnderline", HomeUnderline); // 首页hero文字下划线
+    app.component("MouseClick", MouseClick);
+    app.component("MouseFollower", MouseFollower);
+    app.component("Update", Update); // 更新时间
+    app.component("ArticleMetadata", ArticleMetadata); // 字数及阅读时间
 
+
+    // 彩虹背景动画样式
+    if (typeof window !== "undefined") {
+      watch(
+        () => router.route.data.relativePath,
+        () => updateHomePageStyle(location.pathname === "/"),
+        { immediate: true }
+      );
+    }
+    // 访问量统计
     if (inBrowser) {
       router.onAfterRouteChanged = () => {
         busuanzi.fetch();
@@ -78,3 +103,22 @@ export default {
     );
   }
 };
+
+// 彩虹背景动画样式
+function updateHomePageStyle(value: boolean) {
+  if (value) {
+    if (homePageStyle) return;
+
+    homePageStyle = document.createElement("style");
+    homePageStyle.innerHTML = `
+    :root {
+      animation: rainbow 12s linear infinite;
+    }`;
+    document.body.appendChild(homePageStyle);
+  } else {
+    if (!homePageStyle) return;
+
+    homePageStyle.remove();
+    homePageStyle = undefined;
+  }
+}

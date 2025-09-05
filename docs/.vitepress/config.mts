@@ -7,7 +7,9 @@ export default defineConfig({
   title: "苟新节",
   description: "Xinjie's Blog Web Site",
   head: [["link", { rel: "icon", href: "/xinjie.png" }]], // 导航栏
+  appearance: 'force-dark',// force-dark: 强制dark模式   light:浅色模式
 
+  // 开启最后更新时间
   lastUpdated: true,
   cleanUrls: true,
 
@@ -20,6 +22,7 @@ export default defineConfig({
       level: [2, 6],
       label: "本页目录"
     },
+
     // socialLinks: [{ icon: "github", link: "https://github.com/vuejs/vitepress" }], 顶部社交链接配置github 暂不显示
 
     lastUpdatedText: "最近更新",
@@ -30,6 +33,12 @@ export default defineConfig({
         timeStyle: "medium"
       }
     },
+
+    // 先不设置footer
+    // footer: {
+    //   message: "如有转载或 CV 的请标注本站原文地址",
+    //   copyright: "Copyright © 2019-present maomao"
+    // },
 
     docFooter: {
       prev: "前一篇",
@@ -42,11 +51,17 @@ export default defineConfig({
         apiKey: "f0fc71dd05d2daf1a73e3765c484bee6",
         indexName: "gouxinjieio"
       }
-    }
+    },
+    returnToTopLabel: "回到顶部",
+    sidebarMenuLabel: "菜单",
+    darkModeSwitchLabel: "主题",
+    lightModeSwitchTitle: "切换到浅色模式",
+    darkModeSwitchTitle: "切换到深色模式"
   },
-  
-  // 配置 Markdown 解析 - 和代码高亮
+
+  // 配置 Markdown 解析
   markdown: {
+    // 代码主题
     theme: { light: "github-light", dark: "github-dark" },
     lineNumbers: true,
     image: {
@@ -59,6 +74,14 @@ export default defineConfig({
       dangerLabel: "危险",
       infoLabel: "信息",
       detailsLabel: "详细信息"
+    },
+    // 字数及阅读时间组件插入h1标题下
+    config: (md) => {
+      md.renderer.rules.heading_close = (tokens, idx, options, env, slf) => {
+        let htmlResult = slf.renderToken(tokens, idx, options);
+        if (tokens[idx].tag === "h1") htmlResult += `<ArticleMetadata />`;
+        return htmlResult;
+      };
     }
   },
 

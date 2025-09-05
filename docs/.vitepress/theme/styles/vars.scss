@@ -95,6 +95,22 @@
 }
 
 /**
+ * 去除a链接下面的下划线
+ */
+.vp-doc a {
+  text-decoration: none;
+}
+
+/* 首页 卡片悬浮效果 */
+.VPFeatures .items .item {
+  transition: transform 0.3s;
+}
+
+.VPFeatures .items .item:hover {
+  transform: translateY(-5px);
+}
+
+/**
  * 修改全局滚动条样式
  * -------------------------------------------------------------------------- */
 ::-webkit-scrollbar {

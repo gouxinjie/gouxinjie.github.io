@@ -75,14 +75,18 @@ features:
 ---
 
 <style>
-/* 隐藏小图标 */
+/* 先隐藏小图标 */
 .box .VPImage{
   display: none;
 }
+
 </style>
 
-<!-- 统计组件 -->
-<DataPanel />
+<!-- 首页hero文字下划线 -->
+<HomeUnderline />
 
 <!-- 碎纸屑组件 -->
 <Confetti />
+
+<!-- 统计组件 -->
+<DataPanel />
