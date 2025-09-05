@@ -17,6 +17,7 @@ import MyCard from "../components/MyCard.vue"; // 卡片组件
 import BackTop from "../components/BackTop.vue"; // 返回顶部
 import SearchList from "../components/SearchList.vue"; // 搜索列表
 import Confetti from "../components/Confetti.vue"; // 首页纸屑动画
+import MyLayout from "../components/MyLayout.vue"; // 布局组件 添加页面上下渐变出现的效果
 
 /** 把站点曾经可能存在的 PWA 缓存和 Service Worker 全部清掉 */
 if (typeof window !== "undefined") {
@@ -40,10 +41,11 @@ if (typeof window !== "undefined") {
   }
 }
 
-
 export default {
   ...DefaultTheme,
   NotFound: () => "404",
+  Layout: MyLayout, // 自定义 Layout
+
   enhanceApp({ app, router, siteData }) {
     app.use(ElementPlus);
     // 注册全局组件
