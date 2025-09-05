@@ -7,11 +7,16 @@ export default defineConfig({
   title: "苟新节",
   description: "Xinjie's Blog Web Site",
   head: [["link", { rel: "icon", href: "/xinjie.png" }]], // 导航栏
-  appearance: 'dark',// force-dark: 强制dark模式   light:浅色模式
+  appearance: "dark", // force-dark: 强制dark模式   light:浅色模式
 
   // 开启最后更新时间
   lastUpdated: true,
   cleanUrls: true,
+
+  // 设置站点地图
+  sitemap: {
+    hostname: "https://gouxinjie.github.io"
+  },
 
   themeConfig: {
     logo: "/avatar.png",
