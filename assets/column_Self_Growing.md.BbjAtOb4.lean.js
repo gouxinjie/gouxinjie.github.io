@@ -1,1 +1,0 @@
-import{_ as e,c as t,o}from"./chunks/framework.ZszFOjJI.js";const p=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"column/Self/Growing.md","filePath":"column/Self/Growing.md"}'),n={name:"column/Self/Growing.md"};function r(a,c,s,i,l,m){return o(),t("div")}const _=e(n,[["render",r]]);export{p as __pageData,_ as default};
