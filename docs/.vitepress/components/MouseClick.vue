@@ -3,11 +3,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
-
 /**
  * @description 鼠标点击五彩屑效果
+ * @author gxj
+ * @date 2025-09-8
  */
+
+import { ref, onMounted, onUnmounted } from "vue";
+
 const canvas = ref(null);
 let animationFrameId = null;
 let particles = [];

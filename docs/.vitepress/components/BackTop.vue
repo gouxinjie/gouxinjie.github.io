@@ -4,12 +4,13 @@
   </div>
 </template>
 <script setup>
+
 /**
- * @name BackTop
  * @description  返回到顶部
  * @author gxj
  * @date 2024/7/18
  */
+
   import debounce from "lodash.debounce";
   import { ref, onMounted, onUnmounted } from "vue";
   import "../../public/font/iconfont.css";

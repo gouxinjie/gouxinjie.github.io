@@ -1,4 +1,10 @@
 <script setup lang="ts">
+/**
+ * @description  自定义布局组件
+ * @author gxj
+ * @date 2025-09-8
+ */
+
 import { useRouter, useData } from "vitepress";
 import DefaultTheme from "vitepress/theme";
 import { watch, ref, computed, nextTick, provide } from "vue";

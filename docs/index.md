@@ -79,8 +79,11 @@ features:
 .box .VPImage{
   display: none;
 }
-
 </style>
+
+<script setup>
+import { NAV_DATA } from './utils/homenav-data.ts'
+</script>
 
 <!-- 首页hero文字下划线 -->
 <HomeUnderline />
@@ -90,3 +93,9 @@ features:
 
 <!-- 统计组件 -->
 <DataPanel />
+
+<!-- 首页站点导航 -->
+<MNavLinks v-for="{title, items} in NAV_DATA" :title="title" :items="items"/>
+
+<!-- 回到顶部组件 -->
+<BackToTop />

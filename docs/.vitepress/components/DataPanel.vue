@@ -22,7 +22,7 @@
 
 <style scoped>
 .panel {
-  margin-top: 12px;
+  margin-top: 30px;
   margin-bottom: 8px;
 }
 

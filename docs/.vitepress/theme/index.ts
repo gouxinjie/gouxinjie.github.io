@@ -18,7 +18,7 @@ import mediumZoom from "medium-zoom"; // 图片预览插件
 import MyCard from "../components/MyCard.vue"; // 卡片组件
 import BackTop from "../components/BackTop.vue"; // 返回顶部
 import SearchList from "../components/SearchList.vue"; // 搜索列表
-import Confetti from "../components/Confetti.vue"; // 首页纸屑动画
+import Confetti from "../components/Confetti.vue"; // 首页五彩纸屑动画
 import MyLayout from "../components/MyLayout.vue"; // 布局组件 添加页面上下渐变出现的效果
 import HomeUnderline from "../components/HomeUnderline.vue"; // 首页hero文字下划线
 import MouseClick from "../components/MouseClick.vue"; // 鼠标点击效果
@@ -28,6 +28,7 @@ import ArticleMetadata from "../components/ArticleMetadata.vue"; // 字数及阅
 import BackToTop from "../components/BackToTop.vue";
 import { NProgress } from "nprogress-v2/dist/index.js"; // 进度条组件
 import "nprogress-v2/dist/index.css"; // 进度条样式
+import MNavLinks from "../components/MNavLinks.vue";
 
 /** 把站点曾经可能存在的 PWA 缓存和 Service Worker 全部清掉 */
 if (typeof window !== "undefined") {
@@ -73,6 +74,7 @@ export default {
     app.component("Update", Update); // 更新时间
     app.component("ArticleMetadata", ArticleMetadata); // 字数及阅读时间
     app.component("BackToTop", BackToTop);
+    app.component("MNavLinks", MNavLinks);// 导航组件
 
     // 彩虹背景动画样式
     if (typeof window !== "undefined") {

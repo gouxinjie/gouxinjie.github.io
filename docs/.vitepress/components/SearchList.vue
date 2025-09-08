@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { ref, shallowRef, onMounted, computed } from "vue";
-import { withBase } from "vitepress";
-
 /**
  * @name SearchList
  * @description  搜索列表组件(全局)
  * @author gxj
  * @date 2024/7/18
  */
+
+import { ref, shallowRef, onMounted, computed } from "vue";
+import { withBase } from "vitepress";
 
 interface SidebarItem {
   text: string;

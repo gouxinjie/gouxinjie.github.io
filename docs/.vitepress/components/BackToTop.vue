@@ -1,10 +1,11 @@
 <script setup>
-import { onBeforeUnmount, onMounted, ref, computed } from "vue";
-
 /**
  * @description  返回顶部组件
  * @author gxj
+ * @date 2025-08-10
  */
+
+import { onBeforeUnmount, onMounted, ref, computed } from "vue";
 
 const showBackTop = ref(false); // 初始状态设为false
 const scrollProgress = ref(0);

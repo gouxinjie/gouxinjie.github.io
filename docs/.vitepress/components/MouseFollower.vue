@@ -3,10 +3,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+
 /**
  * @description 鼠标跟随五彩屑特效
+ * @author gxj
+ * @date 2025-09-8
  */
+
+import { ref, onMounted, onUnmounted } from "vue";
+
 const canvas = ref(null);
 let ctx = null;
 let particles = [];

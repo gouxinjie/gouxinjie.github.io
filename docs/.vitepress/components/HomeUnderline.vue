@@ -4,7 +4,7 @@ import { onMounted, onUnmounted } from "vue";
 
 /**
  * @description 首页hero文字下划线
- * @author gouxinjie
+ * @author gxj
  * @date 2025-9-5
  */
 
