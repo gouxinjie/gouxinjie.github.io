@@ -5,6 +5,7 @@ dist-ssr
 *.local
 /dist*
 /docs/.vitepress/dist*
+cache 
 # *-lock.*
 pnpm-debug
 auto-*.d.ts

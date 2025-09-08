@@ -1,5 +1,7 @@
 import { defineConfig } from "vitepress";
 import { nav, sidebar } from "./relaConf";
+import markdownItTaskCheckbox from "markdown-it-task-checkbox"; // todoList 任务列表
+import { MermaidMarkdown, MermaidPlugin } from "vitepress-plugin-mermaid";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -80,25 +82,40 @@ export default defineConfig({
       infoLabel: "信息",
       detailsLabel: "详细信息"
     },
-    // 字数及阅读时间组件插入h1标题下
+
+    // md 配置插件
     config: (md) => {
+      // 字数及阅读时间组件插入h1标题下
       md.renderer.rules.heading_close = (tokens, idx, options, env, slf) => {
         let htmlResult = slf.renderToken(tokens, idx, options);
         if (tokens[idx].tag === "h1") htmlResult += `<ArticleMetadata />`;
         return htmlResult;
       };
+      // 配置任务列表 todoList
+      md.use(markdownItTaskCheckbox);
+      // 配置mermaid
+      md.use(MermaidMarkdown);
     }
   },
 
-  // vite相关配置内网穿透：允许ngrok访问的主机
+  // vite相关配置
   vite: {
     server: {
       host: "0.0.0.0",
       port: 5174,
+      // 内网穿透：允许ngrok访问的主机
       allowedHosts: [
         "eagerly-flowing-woodcock.ngrok-free.app", // 你的ngrok域名
         ".ngrok-free.app" // 允许所有ngrok免费域名
       ]
+    },
+    // 配置mermaid
+    plugins: [MermaidPlugin()],
+    optimizeDeps: {
+      include: ["mermaid"]
+    },
+    ssr: {
+      noExternal: ["mermaid"]
     }
   }
 });

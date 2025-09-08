@@ -26,6 +26,8 @@ import MouseFollower from "../components/MouseFollower.vue"; // 鼠标跟随效�
 import Update from "../components/update.vue"; // 更新时间
 import ArticleMetadata from "../components/ArticleMetadata.vue"; // 字数及阅读时间
 import BackToTop from "../components/BackToTop.vue";
+import { NProgress } from "nprogress-v2/dist/index.js"; // 进度条组件
+import "nprogress-v2/dist/index.css"; // 进度条样式
 
 /** 把站点曾经可能存在的 PWA 缓存和 Service Worker 全部清掉 */
 if (typeof window !== "undefined") {
@@ -84,6 +86,15 @@ export default {
     if (inBrowser) {
       router.onAfterRouteChanged = () => {
         busuanzi.fetch();
+      };
+      // 进度条配置
+      NProgress.configure({ showSpinner: false });
+      router.onBeforeRouteChange = () => {
+        NProgress.start(); // 开始进度条
+      };
+      router.onAfterRouteChanged = () => {
+        busuanzi.fetch();
+        NProgress.done(); // 停止进度条
       };
     }
   },
