@@ -62,7 +62,7 @@ features:
   - title: OAuth2.0授权流程讲解
     icon:
       src: /terminal.svg
-    details: OAuth 2.0 是一种授权框架，用于使第三方应用能够以安全的方式访问用户在某个服务提供商处的资源，而无需将用户的凭证（如用户名和密码）直接暴露给第三方应用。
+    details: OAuth 2.0 是一种授权框架，使第三方应用能够以安全的方式访问用户在某个服务提供商处的资源，无需将用户的信息直接暴露给第三方应用。
     link: /column/Network/Web传输/OAuth2.0授权流程.html
     linkText: 查看详情
 

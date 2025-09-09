@@ -47,6 +47,12 @@ export const NAV_DATA: NavData[] = [
         icon: "https://docsmall.com/favicon.png"
       },
       {
+        icon: "https://www.emojiall.com/favicon.ico",
+        title: "Emoji 图标",
+        desc: "笑脸和情感相关表情符号合集",
+        link: "https://www.emojiall.com/zh-hans"
+      },
+      {
         icon: "https://cli.im/favicon.ico",
         title: "草料二维码",
         desc: "文本/网址/文件一键生成二维码",

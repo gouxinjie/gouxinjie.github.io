@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import confetti from "canvas-confetti";
+import { useData } from "vitepress"; // 导入 useData API
+
+const { isDark } = useData(); // 获取当前主题模式
 
 onMounted(() => {
   /* 第一个特效：五彩纸屑 */
@@ -31,7 +34,7 @@ onMounted(() => {
         // since particles fall down, skew start toward the top
         y: Math.random() * skew - 0.2
       },
-      colors: ["#ffffff"],
+      colors: [isDark.value ? "#ffffff" : "#ffffff"], // 根据主题模式动态设置颜色 #bfbfbf
       shapes: ["circle"],
       gravity: randomInRange(0.4, 0.6),
       scalar: randomInRange(0.4, 1),
