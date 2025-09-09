@@ -26,7 +26,14 @@ export const JSList = [
       },
       {
         text: "异步编程",
-        items: [{ text: "promise讲解" }, { text: "promise.all和race" }, { text: "generator和async" }, { text: "AbortController请求中断" }]
+        items: [
+          { text: "promise讲解" },
+          { text: "promise.all和race" },
+          { text: "generator和async" },
+          { text: "AbortController请求中断" },
+          { text: "requestAnimationFrame" },
+          { text: "IntersectionObserver" }
+        ]
       }
     ]
   },
