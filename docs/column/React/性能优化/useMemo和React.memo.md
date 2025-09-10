@@ -1,8 +1,10 @@
 # useMemo 和 React.memo
 
-`useMemo` 是 React 提供的一个性能优化 Hook。它的主要功能是避免在每次渲染时执行复杂的计算和对象重建。通过记忆上一次的计算结果，仅当依赖项变化时才会重新计算，提高了性能，有点类似于 Vue 的`computed`。
+---
 
-## React.memo
+[[toc]]
+
+## 一、React.memo
 
 `React.memo` 是一个 React API，用于优化性能。它通过记忆上一次的渲染结果，仅当 props 发生变化时才会重新渲染, 避免重新渲染。
 
@@ -22,11 +24,17 @@ const App = () => {
 
 ### 使用场景
 
-1、当子组件接收的 props 不经常变化时 2、当组件重新渲染的开销较大时 2、当需要避免不必要的渲染时
+1. 当子组件接收的 props 不经常变化时
+2. 当组件重新渲染的开销较大时
+3. 当需要避免不必要的渲染时
 
-**优点：** 1、通过记忆化避免不必要的重新渲染 2、提高应用性能 3、减少资源消耗
+**优点：**
 
-## useMemo
+1. 通过记忆化避免不必要的重新渲染
+2. 提高应用性能
+3. 减少资源消耗
+
+## 二、useMemo
 
 `useMemo` 允许你在组件渲染期间缓存计算结果，只有当依赖项发生变化时才会重新计算。这类似于 Vue 中的计算属性(computed property)。
 
@@ -97,19 +105,18 @@ export default App;
 
 现在的效果是：每一次点击技术按钮 ，`ExpensiveComponent`子组件就会打印一次 "执行昂贵计算"。
 
-**解决方案：** 
+**解决方案：**
 
 使用 `useMemo` 缓存计算结果，如果`useMemo`所依赖的数据不变，那么就不会执行重新计算；代码改动如下:
 
 ```tsx
-  const processedList = useMemo(() => {
-    console.log("执行昂贵计算"); // 只有 list 变化时才会打印
-    const sortedList = [...list].sort((a, b) => a.value - b.value);
-    const filteredList = sortedList.filter((item) => item.active);
-    return filteredList.map((item) => ({
-      ...item,
-      doubleValue: item.value * 2
-    }));
-  }, [list]); // 依赖项：只有 list 变化时才重新计算
-
+const processedList = useMemo(() => {
+  console.log("执行昂贵计算"); // 只有 list 变化时才会打印
+  const sortedList = [...list].sort((a, b) => a.value - b.value);
+  const filteredList = sortedList.filter((item) => item.active);
+  return filteredList.map((item) => ({
+    ...item,
+    doubleValue: item.value * 2
+  }));
+}, [list]); // 依赖项：只有 list 变化时才重新计算
 ```

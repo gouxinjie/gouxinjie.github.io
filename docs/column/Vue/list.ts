@@ -200,9 +200,6 @@ const vueList = [
     collapsed: false,
     items: [
       {
-        text: "项目部署完成后静态文件404找不到"
-      },
-      {
         text: "路由传参的三种方式"
       },
       {
@@ -218,13 +215,7 @@ const vueList = [
         text: "优雅的vue2项目总体结构"
       },
       {
-        text: "路由匹配"
-      },
-      {
-        text: "sort排序报死循环"
-      },
-      {
-        text: "IOS橡皮筋回弹问题"
+        text: "路由匹配和懒加载"
       },
       {
         text: "webpack的基本使用和总结"

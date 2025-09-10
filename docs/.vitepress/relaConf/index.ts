@@ -9,6 +9,7 @@ import { transformNetworkList } from "../../column/Network/list";
 import { transformNodeList } from "../../column/Node/list";
 import { transformAngularList } from "../../column/Angular/list";
 import { transformTSList } from "../../column/TS/list";
+import { transformProblemList } from "../../column/ProblemNotes/list";
 
 /**
  * 顶部导航区
@@ -92,6 +93,10 @@ export const nav: DefaultTheme.NavItem[] = [
         link: "/column/Interview/index.md"
       }
     ]
+  },
+  {
+    text: "问题笔记",
+    link: "/column/ProblemNotes/index.md"
   }
 
   // {
@@ -153,5 +158,8 @@ export const sidebar: DefaultTheme.Sidebar = {
   "/column/miniProgram/": transformMiniProgramList("/column/miniProgram/"),
 
   /** 项目相关 */
-  "/column/Project/": transformProjectList("/column/Project/")
+  "/column/Project/": transformProjectList("/column/Project/"),
+
+  /** 问题笔记相关 */
+  "/column/ProblemNotes/": transformProblemList("/column/ProblemNotes/")
 };

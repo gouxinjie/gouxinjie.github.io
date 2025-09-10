@@ -2,13 +2,14 @@
 
 [[toc]]
 
-## 前言：
+## 问题描述：
 
-> 在做一个项目的过程中，需要对后端返回的数据做`sort()`排序处理，然后使用 v-for 指令渲染页面数据；视图虽然渲染出来了，但是控制台报错如下： 
-> 
-> You may have an infinite update loop in a component render function
+在做一个项目的过程中，需要对后端返回的数据做`sort()`排序处理，然后使用 v-for 指令渲染页面数据；视图虽然渲染出来了，但是控制台报错如下：   
 
-> 意思是：`组件渲染函数中可能有一个无限更新循环`
+```js
+// 组件渲染函数中可能有一个无限更新循环
+You may have an infinite update loop in a component render function
+```
 
 ## 1，报错的代码如下：
 
@@ -47,9 +48,9 @@
 
 ```
 
-运行效果图如下：
+**运行效果图如下：**
 
-![在这里插入图片描述](../images/sort-error.png)
+![在这里插入图片描述](../images/sort-error.png){width=70%}
 
 如上代码所示：先在 mounted 里面请求数据，然后赋值给 data 里面的`copyTextList`数组，v-for 的时候再对数组进行排序操作；
 

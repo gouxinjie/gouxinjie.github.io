@@ -104,6 +104,9 @@ const ReactList = [
     collapsed: false,
     items: [
       {
+        text: "父组件变化导致子组件重新渲染"
+      },
+      {
         text: "useMemo和React.memo"
       },
       {
