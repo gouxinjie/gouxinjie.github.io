@@ -165,7 +165,7 @@ module.exports = {
 
 ## 三、常用配置项说明：
 
-### 1，outputDir
+### 3.1，outputDir
 
 打包后的文件输出路径，比如`：dist/video`就是默认在根目录下面新建 dist 目录和 video 文件夹(打包好的包)
 
@@ -173,7 +173,7 @@ module.exports = {
 outputDir: 'dist/video',
 ```
 
-### 2，publicPath
+### 3.2，publicPath
 
 publicPath 是部署应用包时的基本 URL；写法上可以使用三元运算符进行判断是否是生产环境和开发环境； 这个配置在项目部署时比较重要；`详细介绍见这篇文章`：[vue 中的 publicPath 讲解](https://blog.csdn.net/qq_43886365/article/details/128372030?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167818765716800211549947%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=167818765716800211549947&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-6-128372030-null-null.blog_rank_default&utm_term=vue.cofig&spm=1018.2226.3001.4450)
 
@@ -183,7 +183,7 @@ publicPath: process.env.NODE_ENV === 'production' ? '/video/' : '/',
 
 注意：baseUrl 从 原先的 Vue CLI 3.3 版本起被已弃用从而使用 publicPath 来替代；
 
-### 3，lintOnSave
+### 3.3，lintOnSave
 
 设置是否在开发环境下每次保存代码时都启用`eslint`进行验证。
 
@@ -192,7 +192,7 @@ publicPath: process.env.NODE_ENV === 'production' ? '/video/' : '/',
   lintOnSave: false,
 ```
 
-### 4，devServer 模块
+### 3.4，devServer 模块
 
 此模块也比较重要，涉及到开发时项目的一些基本配置和解决接口的跨域问题( Node 代理)；
 
@@ -233,7 +233,7 @@ publicPath: process.env.NODE_ENV === 'production' ? '/video/' : '/',
 
 proxy 中的参数 `target`是要代理的后端接口 ip；`changeOrigin：true`设置跨域请求； `ws: true`如果要代理 websockets，配置这个参数；`pathRewrite：{ '/api': '' }`为重写路径，我这样设置的效果为接口开头是`/api`的就替换为空，这个要根据实际情况进行变换；
 
-### 5，css 相关设置
+### 3.5，css 相关设置
 
 ```javascript
  css: {
@@ -250,7 +250,7 @@ proxy 中的参数 `target`是要代理的后端接口 ip；`changeOrigin：true
   },
 ```
 
-### 6，webpack 相关配置
+### 3.6，webpack 相关配置
 
 webpack 配置分为两个配置模块：`configureWebpack`和`chainWebpack`配置项；
 
@@ -367,7 +367,7 @@ chainWebpack 是可以进行链式操作的，它允许我们更加精确的进�
   },
 ```
 
-### 7，pluginOptions(第三方插件配置)
+### 3.7，pluginOptions(第三方插件配置)
 
 `pluginOptions`模块是第三方插件配置：我这边配置了 使用`vue-cli-plugin-mock` 模拟后端的请求数据流程；不想使用此插件的时候直接注释掉即可；
 

@@ -10,6 +10,7 @@ import { transformNodeList } from "../../column/Node/list";
 import { transformAngularList } from "../../column/Angular/list";
 import { transformTSList } from "../../column/TS/list";
 import { transformProblemList } from "../../column/ProblemNotes/list";
+import { transformPoetryList } from "../../column/Poetry/list";
 
 /**
  * 顶部导航区
@@ -97,6 +98,10 @@ export const nav: DefaultTheme.NavItem[] = [
   {
     text: "问题 / 笔记",
     link: "/column/ProblemNotes/index.md"
+  },
+  {
+    text: "诗词",
+    link: "/column/Poetry/index.md"
   }
 
   // {
@@ -161,5 +166,8 @@ export const sidebar: DefaultTheme.Sidebar = {
   "/column/Project/": transformProjectList("/column/Project/"),
 
   /** 问题笔记相关 */
-  "/column/ProblemNotes/": transformProblemList("/column/ProblemNotes/")
+  "/column/ProblemNotes/": transformProblemList("/column/ProblemNotes/"),
+
+  /** 诗词相关 */
+  "/column/Poetry/": transformPoetryList("/column/Poetry/")
 };
