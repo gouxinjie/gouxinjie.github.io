@@ -24,7 +24,7 @@ const ReactList = [
         text: "异步组件"
       },
       {
-        text:'严格模式'
+        text: "严格模式"
       }
     ]
   },
@@ -129,7 +129,7 @@ const ReactList = [
         text: "自定义Hooks的封装"
       },
       {
-        text:'函数式组件中使用Redux'
+        text: "函数式组件中使用Redux"
       }
     ]
   },
@@ -155,5 +155,6 @@ const ReactList = [
 
 // 模块导出
 export const ReactListExport = (path: string, isFilterList: boolean = false) => {
+  console.log("ReactList", transformMenuList(ReactList, path, isFilterList));
   return transformMenuList(ReactList, path, isFilterList);
 };

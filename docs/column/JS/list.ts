@@ -76,8 +76,7 @@ export const JSList = [
       },
       {
         text: "offset、client、scroll区别"
-      },
-      { text: "ios中video标签poster属性兼容问题" }
+      }
     ]
   }
 ];

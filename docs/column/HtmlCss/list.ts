@@ -19,6 +19,9 @@ const HtmlCssList = [
         text: "CSS理论知识点"
       },
       {
+        text: "实现上下渐变的框线"
+      },
+      {
         text: "盒子水平垂直居中的几种方式"
       },
       {

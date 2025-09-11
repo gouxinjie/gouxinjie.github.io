@@ -15,6 +15,9 @@ const problemList = [
         text: "IOS手机橡皮筋回弹问题"
       },
       {
+        text: "IOS手机video标签poster属性兼容问题"
+      },
+      {
         text:'Mac版钉钉微应用流式输出时前端报TypeError Load failed'
       },
       {
@@ -26,6 +29,9 @@ const problemList = [
     text: "日常笔记",
     collapsed: false,
     items: [
+      {
+        text: "软件设计五大核心原则"
+      },
       {
         text: "JS常见算法总结"
       },
