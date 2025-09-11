@@ -1,7 +1,7 @@
 // 问题笔记模块相关
 const problemList = [
   {
-    text: "问题笔记",
+    text: "踩坑记录",
     collapsed: false,
     items: [
       {
@@ -18,6 +18,18 @@ const problemList = [
       },
       {
         text:'前端流式输出被浏览器截断问题'
+      }
+    ]
+  },
+  {
+    text: "日常笔记",
+    collapsed: false,
+    items: [
+      {
+        text: "JS常见算法总结"
+      },
+      {
+        text: "JS常见算法进阶"
       }
     ]
   }

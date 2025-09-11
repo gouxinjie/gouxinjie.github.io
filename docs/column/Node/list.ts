@@ -31,6 +31,9 @@ const nodeList = [
       },
       {
         text: "nvm相关"
+      },
+      {
+        text:'npm serve'
       }
     ]
   },

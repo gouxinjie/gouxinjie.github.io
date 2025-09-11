@@ -84,6 +84,9 @@ const networkList = [
       },
       {
         text: "PWA简单介绍"
+      },
+      {
+        text:'GET和POST请求区别'
       }
     ]
   },

@@ -95,7 +95,7 @@ export const nav: DefaultTheme.NavItem[] = [
     ]
   },
   {
-    text: "问题笔记",
+    text: "问题 / 笔记",
     link: "/column/ProblemNotes/index.md"
   }
 
