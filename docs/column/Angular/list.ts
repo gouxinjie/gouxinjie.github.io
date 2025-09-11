@@ -1,3 +1,5 @@
+import { transformMenuList } from '../../utils/functions';
+
 const angularList = [
   {
     text: "基础",
@@ -58,17 +60,5 @@ const angularList = [
  * @example transformAngularList("/column/Angular/", true)
  */
 export const transformAngularList = (path: string, isFilterList: boolean = false) => {
-  angularList.forEach((colum) => {
-    if (colum.items.length > 0) {
-      colum.items = colum.items.map((subItem, index) => {
-        // 是否是筛选页面的展示 link做特殊处理
-        // const link = isFilterList ? `${path}${subItem.text}` : `${path}${subItem.text}.md`;
-        // const text = isFilterList ? subItem.text : `${index + 1}. ${subItem.text}`;
-        const link = isFilterList ? `${path}${colum.text}/${subItem.text}` : `${path}${colum.text}/${subItem.text}.md`;
-        const text = isFilterList ? subItem.text : `${subItem.text}`;
-        return { ...subItem, link, text };
-      });
-    }
-  });
-  return angularList;
+  return transformMenuList(angularList, path, isFilterList, false);
 };

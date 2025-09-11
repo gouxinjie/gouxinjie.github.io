@@ -1,3 +1,5 @@
+import { transformMenuList } from "../../utils/functions";
+
 // node模块相关
 const nodeList = [
   {
@@ -33,7 +35,7 @@ const nodeList = [
         text: "nvm相关"
       },
       {
-        text:'npm serve'
+        text: "npm serve"
       }
     ]
   },
@@ -94,24 +96,6 @@ const nodeList = [
   }
 ];
 
-/**
- * @description  导出左侧菜单栏的列表
- * @param {String} path 路径前缀
- * @param {Boolean} isFilterList  是否用于筛选页面的处理
- * @example transformNodeList("/column/Node/", true)
- */
 export const transformNodeList = (path: string, isFilterList: boolean = false) => {
-  nodeList.forEach((colum) => {
-    if (colum.items.length > 0) {
-      colum.items = colum.items.map((subItem, index) => {
-        // 是否是筛选页面的展示 link做特殊处理
-        // const link = isFilterList ? `${path}${subItem.text}` : `${path}${subItem.text}.md`;
-        // const text = isFilterList ? subItem.text : `${index + 1}. ${subItem.text}`;
-        const link = isFilterList ? `${path}${colum.text}/${subItem.text}` : `${path}${colum.text}/${subItem.text}.md`;
-        const text = isFilterList ? subItem.text : `${subItem.text}`;
-        return { ...subItem, link, text };
-      });
-    }
-  });
-  return nodeList;
+  return transformMenuList(nodeList, path, isFilterList);
 };

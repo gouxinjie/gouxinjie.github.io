@@ -1,3 +1,4 @@
+import { transformMenuList } from "../../utils/functions";
 // 问题笔记模块相关
 const problemList = [
   {
@@ -35,23 +36,7 @@ const problemList = [
   }
 ];
 
-/**
- * @description  导出左侧菜单栏的列表
- * @param {String} path 路径前缀
- * @param {Boolean} isFilterList  是否用于筛选页面的处理
- * @example transformProblemList("/column/ProblemNotes/", true)
- */
-export const transformProblemList = (path: string, isFilterList: boolean = false) => {
-  problemList.forEach((col) => {
-    if (col.items.length > 0) {
-      col.items = col.items.map((subItem, index) => {
-        // 是否是筛选页面的展示 link做特殊处理
-        const link = isFilterList ? `${path}${col.text}/${subItem.text}` : `${path}${col.text}/${subItem.text}.md`;
-        const text = isFilterList ? subItem.text : `${index + 1}. ${subItem.text}`;
-        return { ...subItem, link, text };
-      });
-    }
-  });
 
-  return problemList;
+export const transformProblemList = (path: string, isFilterList: boolean = false) => {
+  return transformMenuList(problemList, path, isFilterList);
 };

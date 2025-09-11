@@ -1,3 +1,4 @@
+import { transformMenuList } from "../../utils/functions";
 // js模块
 export const JSList = [
   {
@@ -80,64 +81,8 @@ export const JSList = [
     ]
   }
 ];
-/**
- * @description  导出左侧菜单栏的列表
- * @param {String} path 路径前缀
- * @param {Boolean} isFilterList  是否用于筛选页面的处理
- */
-// export const transformJSList = (path: string, isFilterList: boolean = false) => {
-//   JSList.forEach((col) => {
-//     if (col.items.length > 0) {
-//       col.items = col.items.map((subItem, index) => {
-//         // 是否是筛选页面的展示 link做特殊处理
-//         const link = isFilterList ? `${path}${col.text}/${subItem.text}` : `${path}${col.text}/${subItem.text}.md`;
-//         const text = isFilterList ? subItem.text : `${index + 1}. ${subItem.text}`;
-//         return { ...subItem, link, text };
-//       });
-//     }
-//   });
-//   return JSList;
-// };
 
-interface MenuItem {
-  text: string;
-  link?: string;
-  items?: MenuItem[];
-}
-
-/**
- * @description 处理任意深度的嵌套结构
- * @param path
- * @param isFilterList
- * @returns
- */
-export const transformJSList = (path: string, isFilterList: boolean = false): MenuItem[] => {
-  // 使用深度优先遍历处理嵌套结构
-  const transformItems = (items: MenuItem[], parentPath: string = ""): MenuItem[] => {
-    return items.map((item, index) => {
-      const currentPath = `${parentPath}${parentPath ? "/" : ""}${item.text}`;
-
-      // 处理当前项
-      const transformedItem: MenuItem = {
-        ...item,
-        text: isFilterList ? item.text : `${item.text}`
-      };
-
-      // 如果是筛选页面，添加链接（只对叶子节点添加）
-      if (isFilterList && !item.items?.length) {
-        transformedItem.link = `${path}${currentPath}`;
-      } else if (!isFilterList) {
-        transformedItem.link = `${path}${currentPath}.md`;
-      }
-
-      // 递归处理子项
-      if (item.items) {
-        transformedItem.items = transformItems(item.items, currentPath);
-      }
-
-      return transformedItem;
-    });
-  };
-
-  return transformItems(JSList);
+// 导出左侧菜单栏的列表
+export const transformJSList = (path: string, isFilterList: boolean = false) => {
+  return transformMenuList(JSList, path, isFilterList, false);
 };

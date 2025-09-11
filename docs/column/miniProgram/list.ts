@@ -1,4 +1,5 @@
-// 日常项目模块相关
+import { transformMenuList } from '../../utils/functions';
+
 const miniProgramList = [
   {
     text: "uniApp",
@@ -51,16 +52,5 @@ const miniProgramList = [
  * @example transformVueList("/column/miniProgram/", true)
  */
 export const transformMiniProgramList = (path: string, isFilterList: boolean = false) => {
-  miniProgramList.forEach((colum) => {
-    if (colum.items.length > 0) {
-      colum.items = colum.items.map((subItem, index) => {
-        // 是否是筛选页面的展示 link做特殊处理
-        const link = isFilterList ? `${path}${colum.text}/${subItem.text}` : `${path}${colum.text}/${subItem.text}.md`;
-        const text = isFilterList ? subItem.text : `${index + 1}. ${subItem.text}`;
-        return { ...subItem, link, text };
-      });
-    }
-  });
-
-  return miniProgramList;
+  return transformMenuList(miniProgramList, path, isFilterList, true);
 };

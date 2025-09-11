@@ -1,3 +1,5 @@
+import { transformMenuList } from "../../utils/functions";
+
 // vue模块相关
 const vueList = [
   {
@@ -224,24 +226,6 @@ const vueList = [
   }
 ];
 
-/**
- * @description  导出左侧菜单栏的列表
- * @param {String} path 路径前缀
- * @param {Boolean} isFilterList  是否用于筛选页面的处理
- * @example transformVueList("/column/JS/", true)
- */
 export const transformVueList = (path: string, isFilterList: boolean = false) => {
-  vueList.forEach((col) => {
-    if (col.items.length > 0) {
-      col.items = col.items.map((subItem, index) => {
-        // 是否是筛选页面的展示 link做特殊处理
-        const link = isFilterList ? `${path}${col.text}/${subItem.text}` : `${path}${col.text}/${subItem.text}.md`;
-        // const text = isFilterList ? subItem.text : `${index + 1}. ${subItem.text}`;
-        const text = isFilterList ? subItem.text : `${subItem.text}`;
-
-        return { ...subItem, link, text };
-      });
-    }
-  });
-  return vueList;
+  return transformMenuList(vueList, path, isFilterList);
 };

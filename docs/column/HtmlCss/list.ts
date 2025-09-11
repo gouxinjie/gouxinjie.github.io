@@ -1,3 +1,5 @@
+import { transformMenuList } from "../../utils/functions";
+
 // CSS 模块相关 这里写入的顺序和渲染的顺序是一致的
 const HtmlCssList = [
   {
@@ -37,15 +39,5 @@ const HtmlCssList = [
 
 /** 模块导出 */
 export const HtmlCssListExport = (path: string, isFilterList: boolean = false) => {
-  HtmlCssList.forEach((col) => {
-    if (col.items.length > 0) {
-      col.items = col.items.map((subItem, index) => {
-        // 是否是筛选页面的展示 link做特殊处理
-        const link = isFilterList ? `${path}${col.text}/${subItem.text}` : `${path}${col.text}/${subItem.text}.md`;
-        const text = isFilterList ? subItem.text : `${subItem.text}`;
-        return { ...subItem, link, text };
-      });
-    }
-  });
-  return HtmlCssList;
+  return transformMenuList(HtmlCssList, path, isFilterList, false);
 };

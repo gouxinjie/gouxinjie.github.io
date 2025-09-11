@@ -1,3 +1,4 @@
+import { transformMenuList } from "../../utils/functions";
 // react模块相关 这里写入的顺序和渲染的顺序是一致的
 const ReactList = [
   {
@@ -154,17 +155,5 @@ const ReactList = [
 
 // 模块导出
 export const ReactListExport = (path: string, isFilterList: boolean = false) => {
-  ReactList.forEach((colum) => {
-    if (colum.items.length > 0) {
-      colum.items = colum.items.map((subItem, index) => {
-        // 是否是筛选页面的展示 link做特殊处理
-        // const link = isFilterList ? `${path}${subItem.text}` : `${path}${subItem.text}.md`;
-        // const text = isFilterList ? subItem.text : `${index + 1}. ${subItem.text}`;
-        const link = isFilterList ? `${path}${colum.text}/${subItem.text}` : `${path}${colum.text}/${subItem.text}.md`;
-        const text = isFilterList ? subItem.text : `${subItem.text}`;
-        return { ...subItem, link, text };
-      });
-    }
-  });
-  return ReactList;
+  return transformMenuList(ReactList, path, isFilterList);
 };

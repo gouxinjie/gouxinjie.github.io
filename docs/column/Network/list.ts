@@ -1,3 +1,5 @@
+import { transformMenuList } from "../../utils/functions";
+
 // 网络相关模块
 const networkList = [
   {
@@ -86,7 +88,7 @@ const networkList = [
         text: "PWA简单介绍"
       },
       {
-        text:'GET和POST请求区别'
+        text: "GET和POST请求区别"
       }
     ]
   },
@@ -112,23 +114,7 @@ const networkList = [
     ]
   }
 ];
-
-/**
- * @description  导出左侧菜单栏的列表
- * @param {String} path 路径前缀
- * @param {Boolean} isFilterList  是否用于筛选页面的处理
- * @example transformNetworkList("/column/Network/", true)
- */
+// 导出左侧菜单栏的列表
 export const transformNetworkList = (path: string, isFilterList: boolean = false) => {
-  networkList.forEach((col) => {
-    if (col.items.length > 0) {
-      col.items = col.items.map((subItem, index) => {
-        // 是否是筛选页面的展示 link做特殊处理
-        const link = isFilterList ? `${path}${col.text}/${subItem.text}` : `${path}${col.text}/${subItem.text}.md`;
-        const text = isFilterList ? subItem.text : `${subItem.text}`;
-        return { ...subItem, link, text };
-      });
-    }
-  });
-  return networkList;
+  return transformMenuList(networkList, path, isFilterList, false);
 };

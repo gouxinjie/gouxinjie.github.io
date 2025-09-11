@@ -1,3 +1,5 @@
+import { transformMenuList } from "../../utils/functions";
+
 const TSList = [
   {
     text: "基础类型系统",
@@ -49,14 +51,5 @@ const TSList = [
 
 // 模块导出
 export const transformTSList = (path: string, isFilterList: boolean = false) => {
-  TSList.forEach((colum) => {
-    if (colum.items.length > 0) {
-      colum.items = colum.items.map((subItem, index) => {
-        const link = isFilterList ? `${path}${colum.text}/${subItem.text}` : `${path}${colum.text}/${subItem.text}.md`;
-        const text = isFilterList ? subItem.text : `${subItem.text}`;
-        return { ...subItem, link, text };
-      });
-    }
-  });
-  return TSList;
+  return transformMenuList(TSList, path, isFilterList);
 };
