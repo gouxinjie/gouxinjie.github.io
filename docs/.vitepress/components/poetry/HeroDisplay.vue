@@ -29,7 +29,7 @@ const props = withDefaults(defineProps<PoetryProps>(), {
 
     <!-- 注释部分 -->
     <div class="poetry-notes" v-if="notes.length > 0">
-      <note class="note">收束：</note>
+      <span class="note">译文：</span>
       <p v-for="(note, index) in notes" :key="index">{{ note }}</p>
     </div>
 
