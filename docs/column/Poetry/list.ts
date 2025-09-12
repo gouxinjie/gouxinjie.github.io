@@ -6,16 +6,43 @@ const problemList = [
     collapsed: false,
     items: [
       {
-        text: "蝶恋花"
+        text: "词牌名-蝶恋花"
       },
       {
-        text: "浣溪沙"
+        text: "词牌名-浣溪沙"
       },
       {
-        text: "菩萨蛮"
+        text: "词牌名-菩萨蛮"
       },
       {
-        text: "临江仙"
+        text: "词牌名-临江仙"
+      },
+      {
+        text: "写尽相思"
+      },
+      {
+        text: "道尽离别"
+      }
+    ]
+  },
+  {
+    text: "其他",
+    collapsed: false,
+    items: [
+      {
+        text: "励志"
+      },
+      {
+        text: "哲理"
+      },
+      {
+        text: "情感"
+      },
+      {
+        text: "人生"
+      },
+      {
+        text:'感悟'
       }
     ]
   }

@@ -1,24 +1,18 @@
 <script setup lang="ts">
 /**
- * @name PoetryDisplay
- * @description 诗词展示组件
+ * @name HeroDisplay
+ * @description 励志文本展示组件
  * @author gxj
- * @date 2025/9/10
+ * @date 2025/9/12
  */
 
 interface PoetryProps {
-  /** 诗词标题 */
-  title: string;
-  /** 作者信息 */
-  author: string;
-  /** 朝代 */
-  dynasty: string;
   /** 诗词内容 */
   content: string[];
   /** 注释信息（可选） */
   notes?: string[];
   /** 主旨 */
-  main: string;
+  main?: string;
 }
 
 const props = withDefaults(defineProps<PoetryProps>(), {
@@ -28,17 +22,6 @@ const props = withDefaults(defineProps<PoetryProps>(), {
 
 <template>
   <div class="poetry-container">
-    <!-- 标题部分 -->
-    <h3 class="poetry-title">{{ title }}</h3>
-
-    <!-- 作者信息 -->
-    <div class="poetry-author">
-      <div class="author-avatar">
-        <span>{{ author.charAt(0) }}</span>
-      </div>
-      <span>{{ author }}〔{{ dynasty }}〕</span>
-    </div>
-
     <!-- 诗词内容 -->
     <div class="poetry-content">
       <p v-for="(line, index) in content" :key="index">{{ line }}</p>
@@ -46,12 +29,12 @@ const props = withDefaults(defineProps<PoetryProps>(), {
 
     <!-- 注释部分 -->
     <div class="poetry-notes" v-if="notes.length > 0">
-      <note class="note">译文：</note>
+      <note class="note">收束：</note>
       <p v-for="(note, index) in notes" :key="index">{{ note }}</p>
     </div>
 
     <!-- 主旨 -->
-    <div class="poetry-main">{{ main }}</div>
+    <div v-if="main" class="poetry-main">{{ main }}</div>
   </div>
 </template>
 
@@ -59,9 +42,9 @@ const props = withDefaults(defineProps<PoetryProps>(), {
 // 最大容器
 .poetry-container {
   position: relative;
-  margin-bottom: 20px;
+  margin: 40px 0 20px;
   border-radius: 8px;
-  padding: 24px;
+  padding: 18px 24px;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
   border: 1px solid var(--vp-c-divider);
@@ -79,40 +62,6 @@ const props = withDefaults(defineProps<PoetryProps>(), {
   }
 }
 
-.poetry-title {
-  margin: 0;
-  padding-top: 0;
-  border: none;
-}
-
-.poetry-author {
-  margin: 16px 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  .author-avatar {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--vp-c-bg-soft);
-    span {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--vp-c-text-2);
-      color: var(--vp-c-brand-1);
-    }
-  }
-
-  span {
-    font-size: 13px;
-    color: var(--vp-c-text-2);
-  }
-}
-
 .poetry-content {
   margin-bottom: 8px;
   p {
@@ -127,7 +76,7 @@ const props = withDefaults(defineProps<PoetryProps>(), {
 .poetry-notes {
   .note {
     display: block;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--vp-c-text-1);
     margin: 10px 0;
@@ -136,10 +85,10 @@ const props = withDefaults(defineProps<PoetryProps>(), {
   border-top: 1px solid var(--vp-c-divider);
   p {
     font-size: 14px;
-    //  line-height: 1;
+    line-height: 1.5;
     // font-style: italic;
     color: var(--vp-c-text-3);
-    margin: 0;
+    margin: 5px 0;
   }
 }
 // 主旨部分
