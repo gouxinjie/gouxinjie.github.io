@@ -17,6 +17,8 @@ interface PoetryProps {
   content: string[];
   /** 注释信息（可选） */
   notes?: string[];
+  /** 主旨 */
+  main: string;
 }
 
 const props = withDefaults(defineProps<PoetryProps>(), {
@@ -44,13 +46,19 @@ const props = withDefaults(defineProps<PoetryProps>(), {
 
     <!-- 注释部分 -->
     <div class="poetry-notes" v-if="notes.length > 0">
+      <note class="note">译文：</note>
       <p v-for="(note, index) in notes" :key="index">{{ note }}</p>
     </div>
+
+    <!-- 主旨 -->
+    <div class="poetry-main">{{ main }}</div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+// 最大容器
 .poetry-container {
+  position: relative;
   margin-bottom: 20px;
   border-radius: 8px;
   padding: 24px;
@@ -95,6 +103,7 @@ const props = withDefaults(defineProps<PoetryProps>(), {
       font-size: 13px;
       font-weight: 500;
       color: var(--vp-c-text-2);
+      color: var(--vp-c-brand-1);
     }
   }
 
@@ -116,6 +125,13 @@ const props = withDefaults(defineProps<PoetryProps>(), {
 }
 // 注释部分
 .poetry-notes {
+  .note {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--vp-c-text-1);
+    margin: 10px 0;
+  }
   margin-top: 22px;
   border-top: 1px solid var(--vp-c-divider);
   p {
@@ -125,6 +141,19 @@ const props = withDefaults(defineProps<PoetryProps>(), {
     color: var(--vp-c-text-3);
     margin: 0;
   }
+}
+// 主旨部分
+.poetry-main {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border: 1px solid var(--vp-badge-info-border);
+  border-radius: 12px;
+  padding: 0px 10px;
+  font-size: 13px;
+  // color: var(--vp-badge-info-text);
+  color: var(--vp-c-brand-1);
+  background-color: var(--vp-badge-info-bg);
 }
 
 /* 响应式设计 */

@@ -19,6 +19,9 @@ const HtmlCssList = [
         text: "CSS理论知识点"
       },
       {
+        text: "root选择器"
+      },
+      {
         text: "实现上下渐变的框线"
       },
       {
