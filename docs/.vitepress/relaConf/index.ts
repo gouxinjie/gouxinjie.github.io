@@ -99,10 +99,10 @@ export const nav: DefaultTheme.NavItem[] = [
     text: "问题 / 笔记",
     link: "/column/ProblemNotes/index.md"
   },
-  {
-    text: "诗词",
-    link: "/column/Poetry/index.md"
-  }
+  // {
+  //   text: "诗词",
+  //   link: "/column/Poetry/index.md"
+  // }
 
   // {
   //   text: "个人成长",
