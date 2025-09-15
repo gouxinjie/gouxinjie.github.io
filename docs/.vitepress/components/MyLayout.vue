@@ -62,7 +62,7 @@ watch(
 
     <!-- 由于我们一个插槽使用了多个组件，我们将其放在 MyLayout.vue 组件中 -->
     <template #layout-top>
-      <MouseFollower v-if="true" />
+      <MouseFollower v-if="false" />
       <MouseClick />
     </template>
 

@@ -155,6 +155,5 @@ const ReactList = [
 
 // 模块导出
 export const ReactListExport = (path: string, isFilterList: boolean = false) => {
-  console.log("ReactList", transformMenuList(ReactList, path, isFilterList));
   return transformMenuList(ReactList, path, isFilterList);
 };

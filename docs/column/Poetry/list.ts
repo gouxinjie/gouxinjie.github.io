@@ -18,11 +18,8 @@ const problemList = [
         text: "词牌名-临江仙"
       },
       {
-        text: "写尽相思"
+        text: "写尽相思-道尽别离"
       },
-      {
-        text: "道尽离别"
-      }
     ]
   },
   {
@@ -30,19 +27,7 @@ const problemList = [
     collapsed: false,
     items: [
       {
-        text: "励志"
-      },
-      {
-        text: "哲理"
-      },
-      {
-        text: "情感"
-      },
-      {
-        text: "人生"
-      },
-      {
-        text:'感悟'
+        text: "人性"
       }
     ]
   }

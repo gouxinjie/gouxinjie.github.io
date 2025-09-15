@@ -24,6 +24,7 @@ interface PoetryProps {
 const props = withDefaults(defineProps<PoetryProps>(), {
   notes: () => []
 });
+
 </script>
 
 <template>
