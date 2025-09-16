@@ -13,11 +13,12 @@ export const JSList = [
           { text: "常用的逻辑运算符" },
           { text: "展开运算符的使用" },
           { text: "类型转换" },
+          { text: "Error精细化处理" },
           {
             text: "ES6Module模块化跨域问题"
           },
           {
-            text: "console打印相关"
+            text: "console多种打印方式"
           }
         ]
       },
