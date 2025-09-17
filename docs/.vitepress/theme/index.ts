@@ -31,6 +31,7 @@ import "nprogress-v2/dist/index.css"; // 进度条样式
 import MNavLinks from "../components/MNavLinks.vue";
 import PoetryDisplay from "../components/poetry/PoetryDisplay.vue"; // 诗词展示组件
 import HeroDisplay from "../components/poetry/HeroDisplay.vue"; // 励志文本展示组件
+import FamousDisplay from "../components/poetry/FamousDisplay.vue"; // 名句展示组件
 
 /** 把站点曾经可能存在的 PWA 缓存和 Service Worker 全部清掉 */
 if (typeof window !== "undefined") {
@@ -79,6 +80,7 @@ export default {
     app.component("MNavLinks", MNavLinks);// 导航组件
     app.component("PoetryDisplay", PoetryDisplay); // 诗词组件
     app.component("HeroDisplay", HeroDisplay); // 励志文本组件
+    app.component("FamousDisplay", FamousDisplay); // 名句组件
 
     // 彩虹背景动画样式
     if (typeof window !== "undefined") {

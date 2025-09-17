@@ -1,9 +1,9 @@
 <script setup lang="ts">
 /**
- * @name HeroDisplay
- * @description 励志文本展示组件
+ * @name FamousDisplay
+ * @description 名句展示组件
  * @author gxj
- * @date 2025/9/12
+ * @date 2025/9/17
  */
 
 interface PoetryProps {
@@ -29,7 +29,7 @@ const props = withDefaults(defineProps<PoetryProps>(), {
 
     <!-- 注释部分 -->
     <div class="poetry-notes" v-if="notes.length > 0">
-      <span class="note">收束：</span>
+      <span class="note">译文：</span>
       <p v-for="(note, index) in notes" :key="index">{{ note }}</p>
     </div>
 
@@ -48,7 +48,7 @@ const props = withDefaults(defineProps<PoetryProps>(), {
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
   border: 1px solid var(--vp-c-divider);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
   &:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);

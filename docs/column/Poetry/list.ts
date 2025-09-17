@@ -27,6 +27,9 @@ const problemList = [
     collapsed: false,
     items: [
       {
+        text:'名句总结'
+      },
+      {
         text: "人性"
       }
     ]

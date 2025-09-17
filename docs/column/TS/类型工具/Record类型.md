@@ -1,8 +1,10 @@
 # TypeScript 中的 `Record` 类型详解
 
+[[toc]]
+
 `Record` 是 `TypeScript` 内置的一个实用工具类型`（Utility Type）`，用于创建对象类型的键值映射。它提供了一种简洁的方式来定义具有特定键类型和值类型的对象结构。
 
-## 基本语法
+## 一、基本语法
 
 ```typescript
 Record<Keys, Type>;
@@ -11,7 +13,7 @@ Record<Keys, Type>;
 - `Keys`：表示对象键的类型，通常是字符串、数字或符号的联合类型
 - `Type`：表示对象值的类型
 
-## 基本示例
+## 二、 基本示例
 
 ### 1. 简单键值映射
 
@@ -24,6 +26,52 @@ const scores: StringToNumber = {
   // 可以添加任意string键，值必须是number
 };
 ```
+
+这是一个通过 `MIME` **文件类型映射**成所需要的字符串的示例：
+
+**例如：**  
+把 `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet` 映射成 `EXCEL`  
+把`application/vnd.openxmlformats-officedocument.presentationml.presentation` 映射成 `PPT`
+
+```typescript
+const MIME_MAP: Record<string, string> = {
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "EXCEL",
+  "application/vnd.ms-excel": "EXCEL",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "WORD",
+  "application/vnd.ms-word": "WORD",
+  "application/vnd.openxmlformats-officedocument.presentationml.presentation": "PPT",
+  "application/vnd.ms-powerpoint": "PPT",
+  "application/pdf": "PDF",
+  "image/png": "PNG",
+  "image/jpeg": "JPG",
+  "image/jpg": "JPG",
+  "image/gif": "GIF",
+  "image/svg+xml": "SVG",
+  "text/plain": "TXT",
+  "text/csv": "CSV",
+  "application/zip": "ZIP",
+  "application/json": "JSON"
+};
+
+/**
+ * 友好型 MIME → 短名称
+ * @param mime MIME 类型
+ * @param fallback 找不到时回退为文件后缀（不含点）
+ * @returns 大写短格式，如 EXCEL / PDF / PNG
+ */
+export function mimeToShort(mime: string, fallback: string = "UNKNOWN"): string {
+  return MIME_MAP[mime.toLowerCase()] ?? fallback.toUpperCase();
+}
+
+/* 测试 */
+console.log(mimeToShort("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")); // EXCEL
+console.log(mimeToShort("image/png")); // PNG
+console.log(mimeToShort("application/octet-stream", "bin")); // BIN
+```
+
+**效果如图所示：**
+
+![record-1.png](../images/record-1.png){width=500}
 
 ### 2. 使用联合类型作为键
 
@@ -42,7 +90,7 @@ const workSchedule: Schedule = {
 };
 ```
 
-## `Record` 与索引签名的比较
+## 三、`Record` 与索引签名的比较
 
 `Record` 和索引签名都可以用来定义对象类型，但它们有一些关键区别：
 
@@ -66,7 +114,7 @@ interface IndexSignatureStyle {
 }
 ```
 
-## 实际应用场景
+## 四、实际应用场景
 
 ### 1. 配置对象
 
@@ -123,7 +171,7 @@ const iconClasses: IconProps = {
 };
 ```
 
-## 高级用法
+## 五、高级用法
 
 ### 1. 嵌套 Record
 
@@ -163,7 +211,7 @@ const palette: ColorPalette = {
 };
 ```
 
-## 注意事项
+## 六、注意事项
 
 1. **键的完整性**：当使用联合类型作为键时，必须提供所有键的值
 

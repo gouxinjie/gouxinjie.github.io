@@ -160,29 +160,7 @@ const props = withDefaults(defineProps<PoetryProps>(), {
 /* 响应式设计 */
 @media (max-width: 640px) {
   .poetry-container {
-    padding: 40px 20px;
-  }
-
-  .poetry-title {
-    font-size: 20px;
-  }
-
-  .poetry-content p {
-    font-size: 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .poetry-container {
-    padding: 30px 16px;
-  }
-
-  .poetry-title {
-    font-size: 18px;
-  }
-
-  .poetry-content p {
-    font-size: 15px;
+    padding: 40px 20px 20px 20px;
   }
 }
 </style>
