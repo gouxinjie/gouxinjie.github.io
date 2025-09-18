@@ -53,7 +53,7 @@ export const nav: DefaultTheme.NavItem[] = [
         link: "/column/TS/index.md"
       },
       {
-        text: "JS相关",
+        text: "JS进阶",
         link: "/column/JS/index.md"
       },
       {
@@ -100,7 +100,7 @@ export const nav: DefaultTheme.NavItem[] = [
     link: "/column/ProblemNotes/index.md"
   },
   {
-    text: "诗词",
+    text: "日常总结",
     link: "/column/Poetry/index.md"
   }
 

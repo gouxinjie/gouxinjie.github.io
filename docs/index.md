@@ -18,16 +18,16 @@ hero:
   # 按钮相关
   actions:
     - theme: brand
-      text: 技术笔记
+      text: React
       link: /column/React/
 
     - theme: alt
-      text: 工具推荐
-      link: column/Recommend/
+      text: Vue
+      link: /column/Vue/
 
     - theme: alt
-      text: 前端面试题
-      link: /column/Interview/index.md
+      text: 问题笔记
+      link: /column/ProblemNotes/
 
 # 按钮下方的描述
 features:

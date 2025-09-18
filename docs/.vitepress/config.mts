@@ -7,7 +7,7 @@ import { MermaidMarkdown, MermaidPlugin } from "vitepress-plugin-mermaid";
 export default defineConfig({
   base: "/",
   title: "苟新节",
-  description: "Xinjie's Blog Web Site",
+  description: "XinJie's Blog Web Site",
   head: [["link", { rel: "icon", href: "/xinjie.png" }]], // 导航栏
   // appearance: "dark", // force-dark: 强制dark模式   light:浅色模式
 

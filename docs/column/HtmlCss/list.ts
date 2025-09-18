@@ -7,7 +7,10 @@ const HtmlCssList = [
     collapsed: false,
     items: [
       {
-        text: "HTML理论知识点"
+        text: "HTML理论基础"
+      },
+      {
+        text: "HTML5新特性"
       }
     ]
   },
