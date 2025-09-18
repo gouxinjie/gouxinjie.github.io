@@ -18,10 +18,13 @@ const problemList = [
         text: "IOS手机video标签poster属性兼容问题"
       },
       {
-        text:'Mac版钉钉微应用流式输出时前端报TypeError Load failed'
+        text: "Mac版钉钉微应用流式输出时前端报TypeError Load failed"
       },
       {
-        text:'前端流式输出被浏览器截断问题'
+        text: "前端流式输出被浏览器截断问题"
+      },
+      {
+        text:'发版后浏览器缓存问题'
       }
     ]
   },
@@ -37,11 +40,13 @@ const problemList = [
       },
       {
         text: "JS常见算法进阶"
+      },
+      {
+        text: "使用有限状态机"
       }
     ]
   }
 ];
-
 
 export const transformProblemList = (path: string, isFilterList: boolean = false) => {
   return transformMenuList(problemList, path, isFilterList);

@@ -11,6 +11,9 @@ const HtmlCssList = [
       },
       {
         text: "HTML5新特性"
+      },
+      {
+        text: "HTML5视频做天气卡片背景"
       }
     ]
   },
