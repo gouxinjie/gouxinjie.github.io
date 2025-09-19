@@ -1,8 +1,10 @@
-# Promise 使用
+# Promise 讲解和使用
 
-`Promise` 是 `JavaScript` 异步编程的核心解决方案，它解决了传统回调地狱问题，提供了更优雅的异步控制流。
+[[toc]]
 
 ![在这里插入图片描述](../../images/promise-all.png)
+
+`Promise` 是 `JavaScript` 异步编程的核心解决方案，它解决了传统回调地狱问题，提供了更优雅的异步控制流。
 
 **面试官：谈谈你对 Promise 的理解？**
 
@@ -82,16 +84,26 @@ Promise.reject("错误").catch(console.error); // "错误"
 
 #### **Promise.all()**
 
-`Promise.all()`方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。
-等待所有 Promise 完成，或任意一个失败：
+`Promise.all()`方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。等待所有 Promise 完成，或任意一个失败。
+
+**“致命伤”：一个失败，全盘皆输**
 
 ```javascript
-const p1 = Promise.resolve(1);
-const p2 = Promise.resolve(2);
+// 假设有三个异步请求：获取用户信息、获取商品列表、获取消息通知
+const fetchUserInfo = fetch("/api/user");
+const fetchProducts = fetch("/api/products");
+const fetchNotifications = fetch("/api/notifications");
 
-Promise.all([p1, p2]).then((values) => {
-  console.log(values); // [1, 2]
-});
+Promise.all([fetchUserInfo, fetchProducts, fetchNotifications])
+  .then(([userInfo, products, notifications]) => {
+    // 只有当三个请求都成功时，才会进入这里
+    renderUserPage(userInfo, products, notifications);
+  })
+  .catch((error) => {
+    // 如果任何一个请求失败，就会跳到这里
+    console.error("有一个请求失败了:", error);
+    showErrorPage("页面加载失败，请重试！");
+  });
 ```
 
 #### **Promise.race()**
@@ -109,20 +121,46 @@ Promise.race([p1, p2]).then((winner) => {
 
 #### **Promise.allSettled()**
 
-等待所有 Promise 完成（无论成功或失败）：
+为了解决  `Promise.all `一个失败，全盘皆输的这个痛点，ES2020 引入了` Promise.allSettled`  方法。它的行为更加宽容和稳健：
+
+- 等待所有：它会等待所有输入的 Promise 都“敲定”（settled），即无论是成功（fulfilled）还是失败（rejected）。
+- 永不失败：**Promise.allSettled  自身永远不会被 reject**，它总是会成功返回一个数组。
+- 详情可知：返回的数组中的每个对象都包含了每个 Promise 的最终状态和结果（或原因）。
+
+每个结果对象都有两种形态：
+
+- 成功：`{ status: 'fulfilled', value: 结果值 }`
+- 失败：`{ status: 'rejected', reason: 错误原因 }`
+
+**如何使用 Promise.allSettled:**
 
 ```javascript
-const p1 = Promise.resolve(1);
-const p2 = Promise.reject("错误");
+Promise.allSettled([fetchUserInfo, fetchProducts, fetchNotifications]).then((results) => {
+  // 注意：这里永远不会 catch
+  // results 是一个包含三个对象的数组
+  const userInfo = results[0].status === "fulfilled" ? results[0].value : null;
+  const products = results[1].status === "fulfilled" ? results[1].value : null;
+  const notifications = results[2].status === "fulfilled" ? results[2].value : null; // 我们可以针对每个结果进行精细化处理
 
-Promise.allSettled([p1, p2]).then((results) => {
-  console.log(results);
-  // [
-  //   { status: 'fulfilled', value: 1 },
-  //   { status: 'rejected', reason: '错误' }
-  // ]
+  if (userInfo && products) {
+    // 只要核心数据（用户和商品）还在，就渲染页面
+    renderUserPage(userInfo, products, notifications); // notifications 可能是 null
+    if (!notifications) {
+      showToast("通知获取失败，不影响主要功能");
+    }
+  } else {
+    // 如果核心数据缺失，再显示错误页
+    showErrorPage("核心数据加载失败");
+  }
 });
+// 不需要 .catch，因为它永远不会被触发
 ```
+
+**使用 Promise.allSettled 优势：**
+
+- 体验提升：即使通知接口挂了，用户依然能看到页面主体内容，只会收到一个轻量的提示。
+- 韧性增强：单个接口的失败不会导致整个页面或功能的崩溃。
+- 信息完整：我们可以确切地知道每个任务的执行结果，并据此做出更细致的 UI 响应。
 
 #### **Promise.any()**
 

@@ -30,8 +30,8 @@ export const JSList = [
         text: "异步编程",
         items: [
           { text: "promise讲解" },
-          { text: "promise.all和race" },
-          { text: "generator和async" },
+          { text: "promise.all和race进阶" },
+          { text: "generator和async讲解" },
           { text: "AbortController请求中断" },
           { text: "requestAnimationFrame" },
           { text: "IntersectionObserver" }

@@ -1,6 +1,8 @@
-# promise.all 和 race 方法的用法详解
+# promise.all 和 race 方法的用法详细分析
 
-## 1、`Promise.all()`
+[[toc]]
+
+## 一、`Promise.all()`
 
 `Promise.all()`方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。
 
@@ -8,9 +10,9 @@
 const p = Promise.all([p1, p2, p3]);
 ```
 
-上面代码中，`Promise.all()`方法接受一个数组作为参数，`p1`、`p2`、`p3`都是一个 Promise 实例，如果不是，就会先调 Promise.resolve 方法，将参数转为 Promise 实例再进一步处理。另外，`Promise.all()`方法的参数可以不是数组，但必须具有 `Iterator` 接口，且返回的每个成员都是 `Promise` 实例。
+上面代码中，`Promise.all()`方法接受一个数组作为参数，`p1`、`p2`、`p3`都是一个 `Promise` 实例，如果不是，就会先调` Promise.resolve` 方法，将参数转为 Promise 实例再进一步处理。另外，`Promise.all()`方法的参数可以不是数组，但必须具有 `Iterator` 接口，且返回的每个成员都是 `Promise` 实例。
 
-该怎么理解这句话呢，下面将逐句说明；
+**该怎么理解这句话呢，下面将逐句说明；**
 
 #### 1，第一句：Promise.all()方法接受一个数组作为参数，且每一个都是 Promise 实例
 
@@ -103,7 +105,7 @@ error: 失败;
 
 如果我们传入的数组项不是 promsie 对象，还会正常执行吗：
 
-（1）：传入的数组每一项都不是 promise 实例
+（1）传入的数组每一项都不是 promise 实例
 
 ```js
 		## 直接传 几个number类型
@@ -163,11 +165,13 @@ Promise.all([1, 2, p2, p1])
 
 怎么理解这句话呢，说明 all 方法传入的不一定是数组，还可能是支持遍历（Iterator）的其他数据结构；那这个数据结构不就是 ES6 新增的 `Set集合`吗；
 
-**概述 Set 集合**：
+::: tip Set 集合概述
 
-> Set 也是 ES6 的数据结构。特点是无序不重复，它类似于数组，但是成员的值都是唯一的，没有重复的值。Set 本身是一个构造函数，用来生成 Set 数据结构，Set 函数可以接受一个数组作为参数，用来初始化。
+Set 也是 ES6 的数据结构。特点是无序不重复，它类似于数组，但是成员的值都是唯一的，没有重复的值。Set 本身是一个构造函数，用来生成 Set 数据结构，Set 函数可以接受一个数组作为参数，用来初始化。
 
-使用 Promise.all()传入 Set 集合：
+:::
+
+使用`Promise.all()传入 Set `集合：
 
 ```js
       let p1 = new Promise((resolve, reject) => {
@@ -208,19 +212,21 @@ Promise.all([1, 2, p2, p1])
 
 可以看出，执行的结果是和数组的方式是一样的；
 
-## 2、`Promise.race()`
+## 二、`Promise.race()`
 
-Promise.race()方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例。
+`Promise.race`方法同样是将多个 `Promise` 实例，包装成一个新的 `Promise` 实例。
 
 ```js
 const p = Promise.race([p1, p2, p3]);
 ```
 
-Promise.race 是赛跑的意思，也就是说`Promise.race([p1, p2, p3])`里面的结果哪个获取的快，就返回哪个结果，不管结果本身是成功还是失败。
+`Promise.race` 是赛跑的意思，也就是说`Promise.race([p1, p2, p3])`里面的结果哪个获取的快，就返回哪个结果，不管结果本身是成功还是失败。
 
-使用场景:
+::: tip 使用场景
 
-> 有时我们比如说有好几个服务器的好几个接口都提供同样的服务，我们不知道哪个接口更快，就可以使用 Promise.race，哪个接口的数据先回来我们就用哪个接口的数据；
+有时我们比如说有好几个服务器的好几个接口都提供同样的服务，我们不知道哪个接口更快，就可以使用` Promise.race`，哪个接口的数据先回来我们就用哪个接口的数据；
+
+:::
 
 代码如下：
 
@@ -259,7 +265,7 @@ p1 确实是执行最快的，返回执行最快的那个 `promise` 的 `resolve
 
 当然，如果最快的这个执行`promise`失败了，也是会走 catch 回调的；
 
-## 3、总结
+## 三、总结
 
 1. `promise.all 接收的 promise 数组`，总是按顺序且同步执行并返回的；只要有一个 `promise` 失败,最终状态就是失败的（reject）就会被 catch 捕获。
 2. `promise.race 也接收 promise 数组`，总是返回执行最快的那一个，其他 `promise` 的状态并不关心。

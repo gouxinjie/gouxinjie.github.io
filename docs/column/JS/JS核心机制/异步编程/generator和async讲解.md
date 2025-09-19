@@ -1,4 +1,6 @@
-# generator 和 async 函数
+# generator 和 async 函数讲解
+
+[[toc]]
 
 ![在这里插入图片描述](../../images/generator.png)
 
@@ -52,9 +54,9 @@ Generator 函数将 JavaScript 异步编程带入了一个全新的阶段。
 
 ### 二、简介
 
-Generator 函数是 ES6 提供的解决异步编程的方案之一；​
+`Generator` 函数是 `ES6` 提供的解决异步编程的方案之一；​
 
-整个 Generator 函数就是一个封装的异步任务，或者说是异步任务的容器。异步操作需要暂停的地方，都用 yield 语句注明。Generator 函数的执行方法如下。
+整个 `Generator` 函数就是一个封装的异步任务，或者说是异步任务的容器。异步操作需要暂停的地方，都用 yield 语句注明。`Generator` 函数的执行方法如下。
 
 ```js
 function* gen(x) {
@@ -67,9 +69,10 @@ g.next(); // { value: 3, done: false }
 g.next(); // { value: undefined, done: true }
 ```
 
-上面代码中，调用 Generator 函数，会返回一个内部指针（即遍历器）g。这是 Generator 函数不同于普通函数的另一个地方，即执行它不会返回结果，返回的是指针对象。调用指针 g 的 next 方法，会移动内部指针（即执行异步任务的第一段），指向第一个遇到的 yield 语句，上例是执行到 x + 2 为止。
+上面代码中，调用 `Generator` 函数，会返回一个内部指针（即遍历器）g。  
+这是 `Generator` 函数不同于普通函数的另一个地方，即执行它不会返回结果，返回的是指针对象。调用指针 g 的 next 方法，会移动内部指针（即执行异步任务的第一段），指向第一个遇到的 `yield` 语句，上例是执行到 x + 2 为止。
 
-换言之，next 方法的作用是分阶段执行 Generator 函数。每次调用 next 方法，会返回一个对象，表示当前阶段的信息（value 属性和 done 属性）。value 属性是 yield 语句后面表达式的值，表示当前阶段的值；done 属性是一个布尔值，表示 Generator 函数是否执行完毕，即是否还有下一个阶段。
+**换言之**`，next` 方法的作用是分阶段执行 `Generator` 函数。每次调用 next 方法，会返回一个对象，表示当前阶段的信息（value 属性和 done 属性）。value 属性是 `yield` 语句后面表达式的值，表示当前阶段的值；`done` 属性是一个布尔值，表示 `Generator` 函数是否执行完毕，即是否还有下一个阶段。
 
 ### 三、特点
 

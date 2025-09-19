@@ -1,8 +1,10 @@
 # JavaScript 的 AbortController：请求中止
 
-## 介绍
+[[toc]]
 
-在现代 `Web` 开发中，异步操作（特别是网络请求）的管理变得至关重要。`AbortController` 是 `JavaScript` 提供的一个强大工具，它允许开发者中止一个或多个 `Web` 请求。这个 API 最初是为了 `fetch` 请求设计的，但现在已经被许多其他浏览器 API 和第三方库所采用。
+## 一、介绍
+
+`AbortController` 是 `JavaScript` 提供的一个强大工具，它允许开发者中止一个或多个 `Web` 请求。这个 API 最初是为了 `fetch` 请求设计的，但现在已经被许多其他浏览器 API 和第三方库所采用。
 
 ::: tip `AbortController` 的主要用途包括
 
@@ -13,16 +15,16 @@
 
 :::
 
-## 基本使用
+## 二、基本使用
 
-### 创建 AbortController
+### 2.1 创建 AbortController
 
 ```javascript
 const controller = new AbortController();
 const signal = controller.signal;
 ```
 
-### 与 fetch 结合使用
+### 2.2 与 fetch 结合使用
 
 ```javascript
 const controller = new AbortController();
@@ -43,9 +45,9 @@ fetch("https://api.example.com/data", { signal })
 controller.abort();
 ```
 
-## 常用场景
+## 三、常用场景
 
-### 1. 用户触发的取消
+### 3.1 用户触发的取消
 
 ```javascript
 const controller = new AbortController();
@@ -61,7 +63,7 @@ cancelButton.addEventListener("click", () => {
 });
 ```
 
-### 2. 请求超时
+### 3.2 请求超时
 
 ```javascript
 function fetchWithTimeout(url, options, timeout = 5000) {
@@ -83,7 +85,7 @@ fetchWithTimeout("https://api.example.com/data", {}, 3000)
   });
 ```
 
-### 3. React 组件卸载时取消请求
+### 3.3 React 组件卸载时取消请求
 
 ```jsx
 import { useEffect, useState } from "react";
@@ -110,7 +112,7 @@ function DataFetcher() {
 }
 ```
 
-### 4. 并行请求的统一取消
+### 3.4 并行请求的统一取消
 
 ```javascript
 const controller = new AbortController();
@@ -130,9 +132,9 @@ Promise.all(requests)
 controller.abort();
 ```
 
-## 高级细节
+## 四、高级细节
 
-### 1. 信号状态
+### 4.1 信号状态
 
 `signal.aborted` 属性可以检查信号是否已被中止：
 
@@ -144,7 +146,7 @@ controller.abort();
 console.log(controller.signal.aborted); // true
 ```
 
-### 2. 事件监听
+### 4.2 事件监听
 
 可以监听 abort 事件：
 
@@ -158,7 +160,7 @@ controller.signal.addEventListener("abort", () => {
 controller.abort();
 ```
 
-### 3. 重用与限制
+### 4.3 重用与限制
 
 一个 AbortController 只能中止一次，之后就不能再使用了：
 
@@ -170,7 +172,7 @@ controller.abort(); // 第二次调用不会有任何效果
 
 如果需要多次中止操作，需要创建新的 AbortController 实例。
 
-### 4. 与其他 API 集成
+### 4.4 与其他 API 集成
 
 除了 fetch，AbortController 还可以用于其他 API：
 
@@ -189,7 +191,7 @@ axios.get("/api/data", {
 source.cancel();
 ```
 
-### 5. 自定义中止逻辑
+### 4.5 自定义中止逻辑
 
 你可以基于 AbortSignal 实现自己的可中止操作：
 
