@@ -11,6 +11,7 @@ import { transformAngularList } from "../../column/Angular/list";
 import { transformTSList } from "../../column/TS/list";
 import { transformProblemList } from "../../column/ProblemNotes/list";
 import { transformPoetryList } from "../../column/Poetry/list";
+import { transformPythonList } from "../../column/Python/list";
 
 /**
  * 顶部导航区
@@ -36,6 +37,10 @@ export const nav: DefaultTheme.NavItem[] = [
   {
     text: "Node.js",
     link: "/column/Node/index.md"
+  },
+  {
+    text: "Python",
+    link: "/column/Python/index.md"
   },
   {
     text: "网络相关",
@@ -144,11 +149,14 @@ export const sidebar: DefaultTheme.Sidebar = {
   /** react模块 */
   "/column/React/": ReactListExport("/column/React/"),
 
-  /** 网络相关 */
-  "/column/Network/": transformNetworkList("/column/Network/"),
-
   /** Node.js相关 */
   "/column/Node/": transformNodeList("/column/Node/"),
+
+  /** python模块 */
+  "/column/Python/": transformPythonList("/column/Python/"),
+
+  /** 网络相关 */
+  "/column/Network/": transformNetworkList("/column/Network/"),
 
   /** angular模块 */
   "/column/Angular/": transformAngularList("/column/Angular/"),

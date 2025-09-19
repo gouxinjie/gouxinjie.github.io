@@ -19,12 +19,14 @@ interface PoetryProps {
   notes?: string[];
   /** 主旨 */
   main: string;
+  /** 寓意 */
+  moral?: string;
 }
 
 const props = withDefaults(defineProps<PoetryProps>(), {
-  notes: () => []
+  notes: () => [],
+  moral: ""
 });
-
 </script>
 
 <template>
@@ -49,6 +51,12 @@ const props = withDefaults(defineProps<PoetryProps>(), {
     <div class="poetry-notes" v-if="notes.length > 0">
       <span class="note">译文：</span>
       <p v-for="(note, index) in notes" :key="index">{{ note }}</p>
+    </div>
+
+    <!-- 寓意 -->
+    <div class="poetry-notes" v-if="moral">
+      <span class="note">寓意：</span>
+      <p>{{ moral }}</p>
     </div>
 
     <!-- 主旨 -->

@@ -20,6 +20,10 @@ const problemList = [
       {
         text: "写尽相思-道尽别离"
       },
+      { text: "借物喻人-移情于物" },
+      {
+        text: "名句总结"
+      }
     ]
   },
   {
@@ -27,28 +31,25 @@ const problemList = [
     collapsed: false,
     items: [
       {
-        text:'名句总结'
-      },
-      {
         text: "人性"
       },
       {
         text: "廿四节气"
       },
       {
-        text:'我国的行政区域划分'
+        text: "我国的行政区域划分"
       },
       {
-        text:'我国的政权划分'
+        text: "我国的政权划分"
       },
       {
-        text:'我国的官衔划分'
+        text: "我国的官衔划分"
       },
       {
-        text:'我国教育学历划分'
+        text: "我国教育学历划分"
       },
       {
-        text:'我国的社保体系'
+        text: "我国的社保体系"
       }
     ]
   }
