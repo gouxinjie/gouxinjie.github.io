@@ -15,6 +15,7 @@
     "@mdit-vue/shared": "^1.0.0",
     "@vue/repl": "^4.2.1",
     "@vue/theme": "^2.2.12",
+    "autoprefixer": "^10.4.21",
     "element-plus": "^2.3.14",
     "lodash.debounce": "^4.0.8",
     "vitepress": "^1.2.3",

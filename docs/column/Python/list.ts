@@ -8,6 +8,24 @@ const pythonList = [
     items: [
       {
         text: "基础入门"
+      },
+      {
+        text: "内置模块"
+      },
+      {
+        text: "模块化"
+      }
+    ]
+  },
+  {
+    text: "第三方库",
+    collapsed: false,
+    items: [
+      {
+        text: "Flask"
+      },
+      {
+        text: "try"
       }
     ]
   }

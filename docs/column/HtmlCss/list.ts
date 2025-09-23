@@ -28,7 +28,13 @@ const HtmlCssList = [
         text: "CSS理论知识点"
       },
       {
-        text: "root选择器"
+        text: "CSS的root选择器"
+      },
+      {
+        text:'CSS预处理器和后处理器'
+      },
+      {
+        text:"自动前缀autoprefixer"
       },
       {
         text: "实现上下渐变的框线"
