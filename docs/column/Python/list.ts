@@ -7,13 +7,25 @@ const pythonList = [
     collapsed: false,
     items: [
       {
-        text: "基础入门"
+        text: "基础语法入门"
       },
       {
-        text: "内置模块"
+        text: "常用内置模块"
       },
       {
-        text: "模块化"
+        text: "__name__和__main__"
+      },
+      {
+        text: "导入导出模块化"
+      },
+      {
+        text: "env环境变量管理"
+      },
+      {
+        text: "pip包管理工具"
+      },
+      {
+        text: "async异步编程"
       }
     ]
   },
@@ -22,10 +34,19 @@ const pythonList = [
     collapsed: false,
     items: [
       {
-        text: "Flask"
+        text: "flask"
       },
       {
-        text: "try"
+        text: "fastapi"
+      },
+      {
+        text: "typing"
+      },
+      {
+        text: "requests"
+      },
+      {
+        text:'sqlalchemy'
       }
     ]
   }
