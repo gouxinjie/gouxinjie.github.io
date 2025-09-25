@@ -12,6 +12,7 @@ import { transformTSList } from "../../column/TS/list";
 import { transformProblemList } from "../../column/ProblemNotes/list";
 import { transformPoetryList } from "../../column/Poetry/list";
 import { transformPythonList } from "../../column/Python/list";
+import { transformNextList } from "../../column/Next/list";
 
 /**
  * 顶部导航区
@@ -41,6 +42,10 @@ export const nav: DefaultTheme.NavItem[] = [
   {
     text: "Python",
     link: "/column/Python/index.md"
+  },
+  {
+    text: "Next.js",
+    link: "/column/Next/index.md"
   },
   {
     text: "网络相关",
@@ -151,6 +156,9 @@ export const sidebar: DefaultTheme.Sidebar = {
 
   /** Node.js相关 */
   "/column/Node/": transformNodeList("/column/Node/"),
+
+  /** nextjs模块 */
+  "/column/Next/": transformNextList("/column/Next/"),
 
   /** python模块 */
   "/column/Python/": transformPythonList("/column/Python/"),
