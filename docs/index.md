@@ -26,8 +26,8 @@ hero:
       link: /column/Vue/
 
     - theme: alt
-      text: 问题笔记
-      link: /column/ProblemNotes/
+      text: Next.js
+      link: /column/Next/
 
 # 按钮下方的描述
 features:

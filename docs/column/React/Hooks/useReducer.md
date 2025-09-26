@@ -1,6 +1,8 @@
 # 深入理解 React 的 useReducer Hook
 
-## 什么是 useReducer？
+[[toc]]
+
+## 一、什么是 useReducer？
 
 `useReducer` 是 React 提供的一个状态管理 Hook，它适合管理包含多个子值的复杂状态逻辑。它借鉴了 Redux 的核心概念，但更加轻量级，内置于 React 中。
 
@@ -21,7 +23,7 @@ const [state, dispatch] = useReducer(reducer, initialState);
 
 `useReducer` 通过引入 Redux 风格的状态管理解决了这些问题。
 
-## 基本概念
+## 二、基本概念
 
 ### 1. Reducer 函数
 
@@ -57,7 +59,7 @@ Action 是一个描述发生了什么的对象，通常有 `type` 属性：
 dispatch({ type: "increment" });
 ```
 
-## 基本用法
+## 三、基本用法
 
 ### 1. 简单计数器示例
 
@@ -103,7 +105,7 @@ function reducer(state, action) {
 dispatch({ type: "add", payload: 5 });
 ```
 
-## 高级用法
+## 四、高级用法
 
 ### 1. 惰性初始化
 
@@ -151,7 +153,7 @@ function ChildComponent() {
 }
 ```
 
-## 与 useState 的比较
+## 五、与 useState 的比较
 
 | 特性         | useState     | useReducer            |
 | ------------ | ------------ | --------------------- |

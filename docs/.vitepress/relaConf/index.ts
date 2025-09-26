@@ -36,16 +36,16 @@ export const nav: DefaultTheme.NavItem[] = [
     link: "/column/Vue/index.md"
   },
   {
+    text: "Next.js",
+    link: "/column/Next/index.md"
+  },
+  {
     text: "Node.js",
     link: "/column/Node/index.md"
   },
   {
     text: "Python",
     link: "/column/Python/index.md"
-  },
-  {
-    text: "Next.js",
-    link: "/column/Next/index.md"
   },
   {
     text: "网络相关",

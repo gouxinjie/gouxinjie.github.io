@@ -3,7 +3,7 @@ import { transformMenuList } from "../../utils/functions";
 // vue模块相关
 const vueList = [
   {
-    text: "组件基础",
+    text: "基础",
     collapsed: false,
     items: [
       {
