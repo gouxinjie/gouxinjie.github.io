@@ -2,7 +2,7 @@
 
 [[toc]]
 
-[**书接上文（NextAuth 认证）**](/column/Next/nextjs/NextAuth认证)
+[**书接上文（NextAuth 认证）**](/column/Next/进阶/NextAuth认证.html)
 
 ::: tip 提示
 

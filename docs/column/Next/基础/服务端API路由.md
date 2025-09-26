@@ -28,7 +28,7 @@ export async function GET() {
 }
 ```
 
-访问 http://localhost:3000/api/hello 会返回：
+访问 `http://localhost:3000/api/hello` 会返回：
 
 ```json
 {
@@ -94,7 +94,7 @@ export async function GET() {
 }
 ```
 
-**浏览器访问**：http://localhost:3000/api/hello 返回：
+**浏览器访问**：`http://localhost:3000/api/hello` 返回：
 
 ```json
 { "message": "Hello from API!" }
