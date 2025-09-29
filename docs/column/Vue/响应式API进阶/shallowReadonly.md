@@ -1,124 +1,96 @@
-# Vue shallowReadonly ：浅层只读响应式数据
+# shallowReadonly 函数
 
-## 一、核心概念与基本用法
+[[toc]]
 
-`shallowReadonly` 是 Vue 3 提供的响应式 API，用于创建一个**浅层只读**的响应式对象，具有以下特性：
+在 **Vue 3** 中，`shallowReadonly` 是一个用于创建 **浅层只读响应式对象** 的 API，它与 `readonly` 类似，但有一个重要区别：**它只会让顶层属性只读，而不会递归地把嵌套对象也变成只读**。
 
-- 🔒 **表层只读**：直接属性不能被修改
-- 🌀 **浅层响应**：嵌套对象保持原样（非响应式且可修改）
-- ⚡ **性能优化**：避免不必要的深度响应式转换
+下面我详细讲解 `shallowReadonly` 的作用、用法，以及与 `readonly` 的区别。
 
-### 基础示例
+## 1. `shallowReadonly` 的作用
 
-```javascript
+- 将对象转换为 **只读响应式对象**。
+- **只对顶层属性只读**，嵌套对象仍然可以被修改。
+- 适合只需要保护顶层属性不被修改，而嵌套对象无需深度只读的场景。
+- 与 `readonly` 相比，它不会对嵌套对象递归处理，从而减少性能开销。
+
+## 2. 基本用法
+
+```vue
+<template>
+  <div>
+    <h1>{{ state.count }}</h1>
+    <h1>{{ state.nested.name }}</h1>
+    <button @click="updateCount">修改顶层属性</button> <br />
+    <button @click="updateShallowReadonly">强行修改嵌套属性</button>
+  </div>
+</template>
+<script setup lang="ts">
 import { shallowReadonly } from "vue";
 
 const state = shallowReadonly({
   count: 0,
-  user: {
-    name: "John"
-  }
+  nested: { name: "Vue" }
 });
 
-// 允许（但不会响应式更新）
-state.user.name = "Alice";
+console.log(state.count); // 0
+console.log(state.nested.name); // 'Vue'
 
-// 不允许（控制台警告）
-state.count = 1;
-```
-
-## 二、与 readonly 的关键差异
-
-| 特性           | readonly           | shallowReadonly        |
-| -------------- | ------------------ | ---------------------- |
-| **响应式深度** | 深度只读           | 仅浅层只读             |
-| **嵌套对象**   | 递归转换为只读     | 保持原始状态           |
-| **性能开销**   | 较高               | 较低                   |
-| **使用场景**   | 需要完全保护的对象 | 只需保护顶层属性的对象 |
-
-## 三、典型应用场景
-
-### 1. 组件 props 的扩展处理
-
-```javascript
-const extendedProps = shallowReadonly({
-  ...props,
-  localConfig: {
-    /* 可修改的本地配置 */
-  }
-});
-```
-
-### 2. 大型对象性能优化
-
-```javascript
-const largeConfig = shallowReadonly({
-  // 顶层属性受保护
-  version: "1.0",
-  // 深层结构不转换（节省性能）
-  metadata: {
-    /* 可能很大的数据结构 */
-  }
-});
-```
-
-### 3. 与第三方库集成
-
-```javascript
-const libInstance = shallowReadonly({
-  instance: thirdPartyLib, // 内部方法需要保持可调用
-  config: {
-    /* 可修改的配置 */
-  }
-});
-```
-
-## 四、进阶用法与技巧
-
-### 1. 类型定义 (TypeScript)
-
-```typescript
-import type { ShallowReadonly } from "vue";
-
-interface State {
-  count: number;
-  user: {
-    name: string;
-  };
+// 定义一个方法来修改顶层属性
+function updateCount() {
+  state.count++; // 修改顶层属性，会触发警告（开发模式下）
+  console.log("修改顶层属性:", state.count); // 警告：避免直接修改只读属性
 }
-
-const state: ShallowReadonly<State> = shallowReadonly({
-  count: 0,
-  user: { name: "John" }
-});
+// 定义一个方法来强行修改 shallowReadonly
+function updateShallowReadonly() {
+  // 修改嵌套对象的属性，不会触发视图更新
+  state.nested.name = "React";
+  console.log("强行修改嵌套属性后:", state.nested.name); // 输出 React
+}
+</script>
 ```
 
-### 2. 配合 shallowRef 使用
+- `state.count` 是顶层属性，Vue 会阻止修改。
+- `state.nested.name` 是嵌套属性，Vue 不会阻止修改，也不会触发警告,但视图不会更新。
+
+**如图所示：**
+
+![shallowReadonly 示例](../images/shallowReadonly-1.gif)
+
+## 3. `shallowReadonly` 与 `readonly` 的区别
+
+| 特性             | `readonly`                         | `shallowReadonly`                          |
+| ---------------- | ---------------------------------- | ------------------------------------------ |
+| 响应式深度       | 深度只读（递归处理嵌套对象）       | 浅层只读（只处理顶层属性）                 |
+| 修改嵌套对象行为 | 嵌套对象不可修改，会触发警告       | 嵌套对象可修改，不触发警告，视图也不会更新 |
+| 性能开销         | 较大（递归代理整个对象）           | 较小（只代理顶层属性）                     |
+| 适用场景         | 需要完整深度保护对象，防止所有修改 | 只需保护顶层属性，优化性能                 |
+
+## 4. 使用场景
+
+1. **性能优化**
+
+   - 对大对象或深层嵌套对象，使用 `shallowReadonly` 可以避免递归代理，减少性能开销。
+
+2. **只保护顶层属性**
+
+   - 如果你只希望顶层属性保持只读，嵌套对象不必严格保护，使用 `shallowReadonly` 更合适。
+
+## 5. 与 `readonly` 对比示例
 
 ```javascript
-const state = shallowRef({
-  count: 0,
-  nested: { value: 1 }
-});
+import { readonly, shallowReadonly } from "vue";
 
-const readonlyState = shallowReadonly(state.value);
+const deepObj1 = readonly({ nested: { value: 0 } });
+const deepObj2 = shallowReadonly({ nested: { value: 0 } });
 
-// 修改源会反映到readonly版本
-state.value.count++;
+// 修改嵌套属性
+deepObj1.nested.value = 1; // 会触发警告（深度只读）
+deepObj2.nested.value = 1; // 不会触发警告（浅层只读）
+
+// 修改顶层属性
+deepObj1.nested = { value: 2 }; // 会触发警告
+deepObj2.nested = { value: 2 }; // 会触发警告
 ```
 
-### 3. 开发环境警告增强
-
-```javascript
-const state = shallowReadonly(
-  {
-    value: 42
-  },
-  {
-    onWarn: (msg, instance) => {
-      console.error("非法修改:", msg);
-      // 可以集成到错误监控系统
-    }
-  }
-);
-```
+- **`readonly`**：无论是顶层属性还是嵌套属性，都不可修改。
+- **`shallowReadonly`**：只阻止顶层属性修改，嵌套属性可以修改。

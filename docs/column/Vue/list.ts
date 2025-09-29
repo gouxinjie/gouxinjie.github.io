@@ -91,7 +91,13 @@ const vueList = [
     collapsed: false,
     items: [
       {
+        text:'readonly'
+      },
+      {
         text: "toRaw"
+      },
+      {
+        text: "markRaw"
       },
       {
         text: "shallowRef"

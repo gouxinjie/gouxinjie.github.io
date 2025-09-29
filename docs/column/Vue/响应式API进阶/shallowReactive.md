@@ -1,79 +1,79 @@
-# 浅层响应式shallowRef和shallowReactive使用
+# shallowReactive 函数
 
----
+[[toc]]
 
+在 **Vue 3** 中，`shallowReactive` 是响应式系统提供的一个函数，它与 `reactive` 类似，但有一个关键区别：它只对对象的 **顶层属性** 进行响应式处理，而不会递归地对嵌套对象或数组进行响应式代理。这与 `shallowRef` 的思想类似，但作用在 **对象本身** 而不是引用上。
 
-`在 Vue 3 中，shallowRef 和 shallowReactive `是用于创建浅层响应式数据的工具。
+## 1. `shallowReactive` 的作用
 
-`与 ref 和 reactive 不同`，它们只对顶层属性进行响应式处理，而不递归地处理嵌套的对象或数组。这可以提高性能，特别是在处理大型数据结构时。
+- 创建一个 **浅层响应式对象**。
+- 顶层属性（第一层属性）会被 Vue 的响应式系统代理。
+- 嵌套的对象或数组不会被代理为响应式。
+- 适合那些只需要顶层响应式、或者嵌套对象不需要深度追踪的场景。
 
-## 1、shallowRef
+## 2. 基本用法
 
-::: tip 简述
+```vue
+<template>
+  <div>
+    <h1>{{ state.count }}</h1>
+    <h1>{{ state.nested.name }}</h1>
+    <button @click="updateCount">修改顶层属性</button> <br />
+    <button @click="updateShallowReactive">强行修改嵌套属性</button>
+  </div>
+</template>
+<script setup lang="ts">
+import { shallowReactive } from "vue";
 
-ref的浅层作用形式。shallowRef与普通的 ref 的区别在于，shallowRef 不会对对象进行深度的响应式处理。
-
-也就是 shallowRef 包含的对象内部的属性发生变化时，shallowRef 本身不会触发重新渲染或响应式更新，所以使用shallowRef时只关心顶层的引用变化。
-:::
-
-
-创建一个浅层的 `ref`，只对顶层值进行响应式处理。
-
-```js
-<script lang="ts" setup>
-  import { shallowRef } from 'vue';
-
-  const state = shallowRef({ name: 'xinjie', age: 18 });
-
-  // 修改顶层引用会触发响应式更新
-  state.value = { name: 'Eula', age: 20 };
-
-  // 修改内部属性不会触发响应式更新  既视图不会更新
-  state.value.age = 30;
-</script>
-
-```
-
-从下面图上就可以看出：
-
-浅层响应式里面的属性：`__v_isShallow：true`  
-_value也是通过Proxy代理的。
-
-::: info shallowRef
-![](../images/shallow.png)
-:::
-
-
-上面的例子说明只有对 `state.value `进行整体赋值操作才会触发响应式更新，对内部属性修改不会触发视图的更新。
-
-**总结：**
-
-这对于一些列表数据需要重新替换或赋值的场景非常有用。减少不必要的视图更新，提高性能。
-
-
-## 2、shallowReactive
-
- `reactive` 的浅层作用形式, 和 `shallowRef` 的功能比较类似。
- 
- `shallowReactive` 与普通的 `reactive` 的区别在于，shallowReactive 不会对对象进行深度的响应式处理，也就是 shallowReactive 包含的对象内部的属性发生变化时，shallowReactive 本身不会触发重新渲染或响应式更新，所以使用shallowReactive时只关心顶层的引用变化。
-
-```js
-<script lang="ts" setup>
 const state = shallowReactive({
-  foo: 1,
-  nested: {
-    bar: 2
-  }
-})
+  count: 0,
+  nested: { name: "Vue", version: 3 }
+});
 
-// 更改状态自身的属性是响应式的
-state.foo++
+console.log(state.count); // 0
+console.log(state.nested.name); // 'Vue'
 
-// ...但下层嵌套对象不会被转为响应式
-isReactive(state.nested) // false
-
-// 不是响应式的
-state.nested.bar++
+// 定义一个方法来修改顶层属性
+function updateCount() {
+  state.count++; // 修改顶层属性，会触发视图更新
+  console.log("修改顶层属性:", state.count); // 输出 累加
+}
+// 定义一个方法来强行修改 shallowReactive
+function updateShallowReactive() {
+  // 修改嵌套对象的属性，不会触发视图更新
+  state.nested.name = "React";
+  console.log("强行修改嵌套属性后:", state.nested.name); // 输出 React
+}
 </script>
-
 ```
+
+- `state.count` 是顶层属性，修改它会触发响应式更新。
+- `state.nested` 是嵌套对象，其内部属性 `name` 不会被代理，因此修改它不会触发更新。
+
+**如图所示：**
+
+![shallowReactive](../images/shallowReactive-1.gif)
+
+### **`shallowReactive` 与 `reactive` 的区别**
+
+| 特性       | `reactive`                     | `shallowReactive`              |
+| ---------- | ------------------------------ | ------------------------------ |
+| 响应式深度 | 深度响应式（递归代理嵌套对象） | 浅层响应式（只代理顶层属性）   |
+| 性能开销   | 较大                           | 较小                           |
+| 适用场景   | 需要深度追踪对象变化           | 只关心顶层属性变化，或优化性能 |
+
+## 3. 使用场景
+
+1. **性能优化**
+
+   - 当对象嵌套层级较深或对象很大时，使用 `shallowReactive` 可以减少 Vue 对嵌套对象递归代理的开销。
+
+2. **只关心顶层属性**
+
+   - 如果你只关心对象顶层的变化，而不需要追踪嵌套对象的变化，可以使用 `shallowReactive`。
+
+## 4. 总结
+
+- **`shallowReactive`** 创建一个 **浅层响应式对象**，只代理顶层属性。
+- 它适合 **性能优化**、只关心顶层属性变化或嵌套对象不需要响应式的场景。
+- 与 `reactive` 相比，它减少了不必要的代理和性能开销，但使用时要注意嵌套对象的变化不会被追踪。
