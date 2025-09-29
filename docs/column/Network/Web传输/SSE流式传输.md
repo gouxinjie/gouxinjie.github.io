@@ -1,14 +1,20 @@
 # SSE 流式传输实现 ai 聊天案例
 
-当前实现的流式接收使用的是 `Fetch API + ReadableStream`;
+[[toc]]
 
-不使用`EventSource`因为它有以下缺点： 1、不支持自定义协议头 2、不支持自定义状态码 3、浏览器兼容性不够。
-
-另外还要介绍一下 `@microsoft/fetch-event-source` 这个库，它是微软官方提供的一个用于处理 SSE 流式传输的库。
-
-**最终实现的效果如下：**
+**效果如下：**
 
 ![](../images/stream.gif)
+
+当前实现的流式接收最流行的方案是 `Fetch API + ReadableStream`;
+
+不使用`EventSource`因为它有以下缺点：
+
+1. 不支持自定义协议头
+2. 不支持自定义状态码
+3. 浏览器兼容性不够
+
+另外还要介绍一下 `@microsoft/fetch-event-source` 这个库，它是微软官方提供的一个用于处理 SSE 流式传输的库。
 
 ## 一、Fetch API + ReadableStream 使用（推荐）
 

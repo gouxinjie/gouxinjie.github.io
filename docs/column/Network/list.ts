@@ -61,7 +61,7 @@ const networkList = [
         text: "HTTPS(TSL和SSL)"
       },
       {
-        text: "JWT鉴权"
+        text: "JWT与Cookie"
       },
       {
         text: "CDN内容分发"
@@ -73,7 +73,7 @@ const networkList = [
         text: "IndexDB缓存"
       },
       {
-        text: "网络状态"
+        text: "获取网络状态"
       },
       {
         text: "对象存储"
