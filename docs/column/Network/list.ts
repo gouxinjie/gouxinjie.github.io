@@ -41,6 +41,9 @@ const networkList = [
       },
       {
         text: "浏览器输入URL发生了什么"
+      },
+      {
+        text:'本地开发为什么需要端口'
       }
     ]
   },
@@ -97,16 +100,25 @@ const networkList = [
     collapsed: false,
     items: [
       {
-        text: "基本介绍"
+        text: "核心概念"
       },
       {
-        text: "常用命令"
+        text: "location匹配规则"
+      },
+      {
+        text: "alias和root区别"
       },
       {
         text: "部署项目和代理"
       },
       {
         text: "负载均衡策略"
+      },
+      {
+        text: "开启gzip压缩"
+      },
+      {
+        text: "开启域名跳转"
       },
       {
         text: "History路由404问题"
