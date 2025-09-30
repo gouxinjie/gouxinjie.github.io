@@ -1,4 +1,4 @@
-# shallowReadonly 函数
+# shallowReadonly：浅层只读响应式对象
 
 [[toc]]
 

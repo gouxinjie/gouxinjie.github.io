@@ -1,4 +1,4 @@
-# markRaw 函数
+# markRaw：标记为非响应式对象
 
 [[toc]]
 

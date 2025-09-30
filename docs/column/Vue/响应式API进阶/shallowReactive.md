@@ -1,4 +1,4 @@
-# shallowReactive 函数
+# shallowReactive：浅层响应式对象
 
 [[toc]]
 

@@ -1,8 +1,12 @@
-# Vue watchSyncEffect 深度解析：同步执行的响应式副作用
+# watchSyncEffect：同步执行的响应式副作用
+
+[[toc]]
 
 ## 一、核心概念与基本用法
 
 `watchSyncEffect` 是 Vue 3.2+ 引入的特殊版本 `watchEffect`，它会在**依赖变化时同步立即执行**副作用函数。这种执行方式使其成为需要即时反应的场景的理想选择。
+
+它让你能够在响应式数据变化时，同步执行副作用。与 `watchEffect` 不同，`watchSyncEffect` 是同步的，这意味着它会在数据变化后的当前执行周期内执行，而不是异步等待。
 
 ### 基础示例
 

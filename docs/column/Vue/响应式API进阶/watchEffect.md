@@ -1,155 +1,97 @@
-# Vue watchEffect ：响应式副作用管理
+# watchEffect：响应式副作用管理
 
-## 一、核心概念与基本用法
+[[toc]]
 
-`watchEffect` 是 Vue 3 组合式 API 提供的一个强大的响应式副作用管理工具，它会**立即执行传入的函数**，并**自动追踪其依赖**的响应式数据，当依赖变化时重新执行。
+`watchEffect` 会在组件初始化时 **自动执行** 回调函数，并且会 **自动追踪** 在回调函数内部访问的响应式数据。当这些数据发生变化时，`watchEffect` 会重新执行回调函数。它与 `watch` 的区别在于，`watch` 需要显式声明依赖，而 `watchEffect` 是 **自动侦测** 依赖的变化。
 
-### 基础示例
+### 1. 基本用法
+
+```vue
+<template>
+  <div>
+    <h1>{{ count.num }}</h1>
+    <h1>{{ message }}</h1>
+    <button @click="updateCount">修改 count</button> <br />
+    <button @click="updateMessage">修改 message</button>
+  </div>
+</template>
+<script setup lang="ts">
+import { ref, watchEffect } from "vue";
+
+const count = ref({ num: 0 });
+const message = ref("Hello, Vue 3!");
+
+watchEffect(() => {
+  console.log(`自动监听 Count: ${count.value.num}, Message: ${message.value}`);
+});
+
+function updateCount() {
+  count.value.num++;
+}
+function updateMessage() {
+  message.value = "Updated!";
+}
+</script>
+```
+
+**如图所示：**
+
+当点击 `修改 count` 按钮时，`watchEffect` 会自动监听 `count.value.num` 的变化，并重新执行回调函数。而点击 `修改 message` 按钮时，`watchEffect` 会自动监听 `message.value` 的变化，并重新执行回调函数。
+
+![watchEffect 自动监听](../images/watchEffect-1.gif)
+
+### 2. `watchEffect` 的特点和工作原理
+
+**特点：**
+
+- **自动依赖追踪**：`watchEffect` 会自动追踪回调函数中访问的响应式数据，无需手动声明依赖。
+- **立即执行**：`watchEffect` 会在第一次定义时立即执行一次回调函数。
+- **多次执行**：每当被追踪的数据发生变化时，`watchEffect` 会重新执行回调函数。
+
+**工作原理**
+
+当你调用 `watchEffect` 时，它会在内部创建一个副作用（effect），并且 **自动收集** 你在回调函数中使用的所有响应式数据（比如 `ref`、`reactive` 中的属性）。然后，任何一个被追踪的数据发生变化时，`watchEffect` 会重新执行回调。
+
+### 3. 与 `watch` 的区别
+
+`watch` 和 `watchEffect` 都可以用来监听响应式数据的变化，但它们的使用方式有所不同：
+
+- **`watchEffect`**：
+
+  - 自动追踪依赖，不需要显式声明要观察的数据。
+  - 一开始就执行一次，并且每次依赖的变化都会触发回调。
+  - 适用于简单的响应式数据变化场景。
+
+- **`watch`**：
+
+  - 需要显式声明要观察的数据。
+  - 只有当被观察的数据发生变化时，才会执行回调。
+  - 适用于需要精准控制、或者依赖变化较为复杂的场景。
+
+### 4. `watchEffect` 的停止机制
+
+`watchEffect` 会在组件销毁时自动停止追踪，但也可以手动停止：
 
 ```javascript
 import { ref, watchEffect } from "vue";
 
 const count = ref(0);
 
-// 自动追踪count的变化
-watchEffect(() => {
-  console.log("count值:", count.value);
+const stop = watchEffect(() => {
+  console.log(count.value);
 });
 
-// 触发重新执行
-count.value++;
+// 手动停止
+stop();
 ```
 
-## 二、关键特性解析
+调用 `stop()` 会停止 `watchEffect` 的执行，不再响应数据变化。
 
-| 特性             | 说明                                               |
-| ---------------- | -------------------------------------------------- |
-| **立即执行**     | 初始化时立即运行一次                               |
-| **自动依赖收集** | 自动检测函数内使用的响应式依赖                     |
-| **非惰性**       | 不同于 watch，不需要指定明确的依赖源               |
-| **清理机制**     | 可以返回一个清理函数，在重新运行前或停止监听时调用 |
+### 5. 使用场景
 
-## 三、典型应用场景
+`watchEffect` 适用于以下场景：
 
-### 1. DOM 操作副作用
-
-```javascript
-const elementRef = ref(null);
-
-watchEffect(() => {
-  if (elementRef.value) {
-    // 基于响应式状态操作DOM
-    elementRef.value.style.color = count.value % 2 === 0 ? "red" : "blue";
-  }
-});
-```
-
-### 2. 异步操作管理
-
-```javascript
-const userId = ref(1);
-
-watchEffect(async (onCleanup) => {
-  const cancelToken = new AbortController();
-  onCleanup(() => cancelToken.abort()); // 清理前一个请求
-
-  const data = await fetchUser(userId.value, cancelToken.signal);
-  userData.value = data;
-});
-```
-
-### 3. 控制台调试
-
-```javascript
-// 开发环境下自动打印状态变化
-watchEffect(() => {
-  if (import.meta.env.DEV) {
-    console.log("当前状态:", {
-      count: count.value,
-      user: user.value
-    });
-  }
-});
-```
-
-## 四、高级用法与技巧
-
-### 1. 清理副作用
-
-```javascript
-watchEffect((onCleanup) => {
-  const timer = setTimeout(() => {
-    // 执行操作
-  }, 1000);
-
-  onCleanup(() => clearTimeout(timer));
-});
-```
-
-### 2. 控制执行时机
-
-```javascript
-import { flushSync } from "vue";
-
-watchEffect(
-  () => {
-    // 副作用代码
-  },
-  {
-    flush: "post" // 'pre' | 'post' | 'sync'
-  }
-);
-```
-
-### 3. 调试选项
-
-```javascript
-watchEffect(
-  () => {
-    /* ... */
-  },
-  {
-    onTrack(e) {
-      debugger;
-    }, // 依赖被追踪时
-    onTrigger(e) {
-      debugger;
-    } // 依赖变化触发回调时
-  }
-);
-```
-
-## 五、与 watch 的对比
-
-| 特性         | watchEffect          | watch                    |
-| ------------ | -------------------- | ------------------------ |
-| **依赖收集** | 自动                 | 显式指定                 |
-| **初始执行** | 立即执行             | 可配置(immediate 选项)   |
-| **使用场景** | 不关心具体依赖的变化 | 需要知道具体哪个依赖变化 |
-| **性能**     | 更轻量               | 稍重(需要维护依赖列表)   |
-
-## 六、最佳实践
-
-1. **避免过度使用**：只在确实需要副作用时使用
-2. **合理清理**：及时清理定时器、事件监听等
-3. **性能敏感操作**：考虑使用 `flush: 'post'`
-4. **模块化**：将复杂副作用提取到自定义 hook 中
-
-```javascript
-// 提取为自定义hook
-function useWindowSize() {
-  const width = ref(window.innerWidth);
-  const height = ref(window.innerHeight);
-
-  watchEffect((onCleanup) => {
-    const handler = () => {
-      width.value = window.innerWidth;
-      height.value = window.innerHeight;
-    };
-    window.addEventListener("resize", handler);
-    onCleanup(() => window.removeEventListener("resize", handler));
-  });
-
-  return { width, height };
-}
-```
+1. **自动追踪依赖**：你不需要显式地声明依赖，只要回调函数中访问了响应式数据，它会自动追踪这些依赖。
+2. **简单的副作用**：例如打印调试信息，更新 DOM 等。
+3. **计算数据的副作用**：在计算数据时，自动更新其他依赖它的数据。
+4. **无需细粒度控制**：适用于不需要复杂依赖控制的场景。

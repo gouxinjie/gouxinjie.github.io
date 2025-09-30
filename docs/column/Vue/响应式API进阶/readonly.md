@@ -1,4 +1,4 @@
-# readonly 函数
+# readonly：只读的响应式对象
 
 [[toc]]
 

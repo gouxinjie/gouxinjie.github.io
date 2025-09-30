@@ -34,13 +34,10 @@ const vueList = [
         text: "Attributes属性透传"
       },
       {
-        text: "组件注册和组件通信"
-      },
-      {
-        text: "Ref获取DOM"
-      },
-      {
         text: "Mixin混入"
+      },
+      {
+        text: "组件注册和组件通信"
       }
     ]
   },
@@ -91,7 +88,10 @@ const vueList = [
     collapsed: false,
     items: [
       {
-        text:'readonly'
+        text: "toRefs"
+      },
+      {
+        text: "readonly"
       },
       {
         text: "toRaw"
@@ -116,6 +116,9 @@ const vueList = [
       },
       {
         text: "watchSyncEffect"
+      },
+      {
+        text: "useId"
       },
       {
         text: "reactive视图未更新"

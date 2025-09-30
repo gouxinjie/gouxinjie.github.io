@@ -13,7 +13,7 @@
 
 假设你有一个子组件 `ChildComponent.vue`，你想暴露其中的一个方法 `doSomething` 给父组件使用，如下：
 
-子组件（ChildComponent.vue）
+**子组件（ChildComponent.vue）**
 
 ```js
 <template>
@@ -36,7 +36,7 @@ defineExpose({
 
 ```
 
-父组件（ParentComponent.vue）
+**父组件（ParentComponent.vue）**
 
 ```js
 <template>

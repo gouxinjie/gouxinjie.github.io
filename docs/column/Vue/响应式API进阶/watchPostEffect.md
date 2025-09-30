@@ -1,163 +1,58 @@
-# Vue watchPostEffect ：DOM 更新后的副作用处理
+# watchPostEffect：DOM 更新后的副作用处理
 
-## 一、核心概念与基本用法
+[[toc]]
 
-`watchPostEffect` 是 Vue 3.2+ 引入的一个特殊版本的 `watchEffect`，它会在 **DOM 更新之后** 执行副作用函数。这是处理需要访问更新后 DOM 的场景的理想选择。
+`watchPostEffect` 用于在 **DOM 更新完成后** 执行回调。这是 Vue 响应式系统中一个相对较新的 API，允许你执行那些需要在 Vue 完成更新后进行的任务，例如 DOM 操作、第三方库更新等。它的行为与 `watchEffect` 类似，但执行时机更加延迟，确保所有 DOM 更新都已完成。
 
-### 基础示例
+## 1. `watchPostEffect` 的基本用法
 
-```javascript
-import { ref, watchPostEffect } from "vue";
+```vue
+<template>
+  <div>
+    <h1>{{ count }}</h1>
+    <button @click="updateCount">修改 count</button> <br />
+  </div>
+</template>
+<script setup lang="ts">
+import { ref, watchPostEffect, watchEffect } from "vue";
 
 const count = ref(0);
-const elementRef = ref(null);
 
-// 在DOM更新后执行
+// 执行比watchPostEffect要早，因为它是在 DOM 更新之前执行的
+watchEffect(() => {
+  console.log(`watchEffect - ${count.value}`);
+});
+
+// 执行比watchEffect要晚，因为它是在 DOM 更新之后执行的
 watchPostEffect(() => {
-  if (elementRef.value) {
-    console.log("元素宽度:", elementRef.value.offsetWidth);
-  }
+  console.log(`watchPostEffect - DOM 已更新，当前 count 值为: ${count.value}`);
 });
-
-// 修改会触发DOM更新
-count.value++;
-```
-
-## 二、与 watchEffect 的关键区别
-
-| 特性         | watchEffect           | watchPostEffect        |
-| ------------ | --------------------- | ---------------------- |
-| **执行时机** | 默认在组件更新前(pre) | 组件更新后(post)       |
-| **DOM 访问** | 可能访问到旧 DOM      | 总是访问最新 DOM       |
-| **适用场景** | 数据预处理            | DOM 测量、第三方库集成 |
-| **实现方式** | `flush: 'pre'`        | `flush: 'post'`        |
-
-## 三、典型应用场景
-
-### 1. DOM 测量与布局
-
-```javascript
-const containerRef = ref(null);
-const width = ref(0);
-
-watchPostEffect(() => {
-  if (containerRef.value) {
-    width.value = containerRef.value.offsetWidth;
-  }
-});
-```
-
-### 2. 第三方库初始化
-
-```javascript
-const chartRef = ref(null);
-const data = reactive({
-  /*...*/
-});
-
-watchPostEffect(() => {
-  if (chartRef.value) {
-    // 确保DOM已更新再初始化图表
-    initChart(chartRef.value, toRaw(data));
-  }
-});
-```
-
-### 3. 动画触发
-
-```javascript
-const show = ref(false);
-const animElement = ref(null);
-
-watchPostEffect(() => {
-  if (show.value && animElement.value) {
-    // DOM更新后执行动画
-    animElement.value.startAnimation();
-  }
-});
-```
-
-## 四、高级用法与技巧
-
-### 1. 配合 nextTick 使用
-
-```javascript
-import { nextTick } from "vue";
-
-watchPostEffect(async () => {
-  await nextTick(); // 额外的等待确保所有更新完成
-  // 执行操作
-});
-```
-
-### 2. 清理副作用
-
-```javascript
-watchPostEffect((onCleanup) => {
-  const observer = new ResizeObserver((entries) => {
-    // 处理尺寸变化
-  });
-
-  if (elementRef.value) {
-    observer.observe(elementRef.value);
-  }
-
-  onCleanup(() => observer.disconnect());
-});
-```
-
-### 3. 性能优化
-
-```javascript
-// 对高频操作进行防抖
-import { debounce } from "lodash-es";
-
-const updateLayout = debounce(() => {
-  // 测量布局
-}, 100);
-
-watchPostEffect(updateLayout);
-```
-
-## 五、实现原理
-
-`watchPostEffect` 本质上是 `watchEffect` 的特定配置版本：
-
-```javascript
-function watchPostEffect(effect, options) {
-  return watchEffect(effect, {
-    ...options,
-    flush: "post"
-  });
+function updateCount() {
+  count.value++; // 数据变化，视图更新后，watchPostEffect 执行
 }
+</script>
 ```
 
-其工作流程：
+在这个例子中：
 
-1. 组件触发响应式变化
-2. Vue 执行 DOM 更新
-3. 将副作用函数加入 Post 队列
-4. 当前任务完成后执行队列中的函数
+- `watchPostEffect` 会在 `count` 改变之后，视图更新完成后执行回调，打印出最新的 `count` 值。执行时机始终是比 `watchEffect` 要晚的。
 
-## 六、最佳实践
+**如图所示：**
 
-1. **明确使用场景**：只在需要访问更新后 DOM 时使用
-2. **避免过度使用**：优先考虑使用 watchEffect
-3. **清理资源**：及时清理事件监听器、观察者等
-4. **性能监控**：注意可能引起的布局抖动
+![watchPostEffect](../images/watchPostEffect-1.gif)
 
-```javascript
-// 好的实践：封装为自定义hook
-function useElementSize(ref) {
-  const size = reactive({ width: 0, height: 0 });
+## 2. `watchPostEffect` 与 `watchEffect` 的对比
 
-  watchPostEffect(() => {
-    if (ref.value) {
-      size.width = ref.value.offsetWidth;
-      size.height = ref.value.offsetHeight;
-    }
-  });
+| 特性         | `watchEffect`                            | `watchPostEffect`                                          |
+| ------------ | ---------------------------------------- | ---------------------------------------------------------- |
+| **执行时机** | 在响应式数据变化后，**立即执行**回调函数 | 在响应式数据变化后，**DOM 更新完成后执行**回调             |
+| **适用场景** | 当你希望在数据变化后立刻执行副作用       | 当你希望在 DOM 更新后执行副作用，如操作 DOM 或调用第三方库 |
+| **常见用途** | 计算值、触发数据相关的副作用             | DOM 操作、与非 Vue 的库交互、做布局等操作                  |
 
-  return size;
-}
-```
+## 3. 使用场景
+
+`watchPostEffect` 主要用于那些需要在 **DOM 更新之后** 执行的副作用操作。这包括但不限于：
+
+- **DOM 操作**：例如，调整元素的位置、大小、或者在更新后执行的动画。
+- **第三方库**：如果你在 Vue 中使用了第三方库（例如图表库、地图插件等），而这些库需要等到 Vue 完成 DOM 更新后再进行渲染或者更新。
+- **性能优化**：确保某些操作仅在 DOM 更新后才执行，避免不必要的更新操作。
