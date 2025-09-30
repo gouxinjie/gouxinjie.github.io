@@ -1,4 +1,4 @@
-# Python `typing` 模块详解（新手友好版）
+# Python `typing` 模块详解
 
 ---
 

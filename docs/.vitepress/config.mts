@@ -42,10 +42,10 @@ export default defineConfig({
     },
 
     // 先不设置footer
-    // footer: {
-    //   message: "如有转载或 CV 的请标注本站原文地址",
-    //   copyright: "Copyright © 2019-present maomao"
-    // },
+    footer: {
+      message: "我见青山多妩媚，料青山见我应如是。",
+      copyright: "@苟新节 wx:13113183859"
+    },
 
     docFooter: {
       prev: "前一篇",

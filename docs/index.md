@@ -38,18 +38,18 @@ features:
     link: /column/Network/Nginx/部署项目和代理.html
     linkText: 查看详情
 
-  - title: vite的依赖预构建过程是什么样的？
+  - title: Vite的依赖预构建过程是什么样的？
     icon:
       src: /config.svg
     details: Vite 之所以需要依赖预构建（pre-bundling），主要是为了提高开发环境下的启动速度和热更新性能，提升开发体验，解决模块之间的兼容性问题。
     link: /column/Vue/Vite相关/依赖预构建.html
     linkText: 查看详情
 
-  - title: 前端常用加密方式有哪些？
+  - title: 前端添加埋点方式和原理
     icon:
-      src: /lightning.svg
-    details: 前端常用加密方式有很多，比如 MD5、SHA1、AES、DES 等。选择合适的加密方式可以提高数据的安全性和完整性，保障用户隐私和数据的安全性。
-    link: /column/Project/性能与架构/前端常用加密方式.html
+      src: /terminal.svg
+    details: 前端埋点，就是把用户在产品里的关键行为（点击、曝光、停留、错误等）记录下来，回传到服务器或第三方平台，为产品决策、运营分析、问题排查提供数据依据。
+    link: /column/Network/网络基础/添加埋点方式和原理.html
     linkText: 查看详情
 
   - title: 工作中常用的git操作
@@ -59,18 +59,18 @@ features:
     link: /column/Project/git相关/工作中常用的git操作-2.html
     linkText: 查看详情
 
-  - title: OAuth2.0授权流程讲解
-    icon:
-      src: /terminal.svg
-    details: OAuth 2.0 是一种授权框架，使第三方应用能够以安全的方式访问用户在某个服务提供商处的资源，无需将用户的信息直接暴露给第三方应用。
-    link: /column/Network/Web传输/OAuth2.0授权流程.html
-    linkText: 查看详情
-
-  - title: 网站图片优化方案
+  - title: Nginx开启 Gzip 压缩
     icon:
       src: /mode.svg
-    details: 前端网站图片优化是为了加快页面加载速度、提升用户体验和搜索引擎排名，同时节省带宽和存储成本。
-    link: /column/Project/性能与架构/网站图片优化方案.html
+    details: 在前端项目中，JS/CSS 文件较大时，启用 Gzip 压缩可以显著减少传输体积，提高页面加载速度。
+    link: /column/Network/Nginx/开启gzip压缩.html
+    linkText: 查看详情
+
+  - title: 前端常用加密方式有哪些？
+    icon:
+      src: /lightning.svg
+    details: 前端常用加密方式有很多，比如 MD5、SHA1、AES、DES 等。选择合适的加密方式可以提高数据的安全性和完整性，保障用户隐私和数据的安全性。
+    link: /column/Project/性能与架构/前端常用加密方式.html
     linkText: 查看详情
 ---
 
