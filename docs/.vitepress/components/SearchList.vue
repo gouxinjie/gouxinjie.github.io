@@ -6,7 +6,7 @@
  * @date 2024/7/18
  */
 
-import { ref, shallowRef, onMounted, computed } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { withBase } from "vitepress";
 
 interface SidebarItem {
@@ -48,15 +48,13 @@ const filtered = computed<SidebarItem[]>(() => {
   const results: SidebarItem[] = [];
 
   props.data.forEach((parent) => {
+    const flattened = flattenSidebarItem(parent);
     // 检查子项是否匹配
-    const matchingItems = parent.items.filter((item) => {
-      return normalize(item.text).includes(normalizedQuery);
-    });
-
+    const matchingItems = flattened.items.filter((item) => normalize(item.text).includes(normalizedQuery));
     // 如果有匹配项，将匹配的子项和父级一起存储在 results 数组中
     if (matchingItems.length > 0) {
       results.push({
-        ...parent,
+        ...flattened,
         items: matchingItems
       });
     }
@@ -64,6 +62,33 @@ const filtered = computed<SidebarItem[]>(() => {
 
   return results;
 });
+
+/** 扁平化 SidebarItem 结构 */
+function flattenSidebarItem(item: SidebarItem): SidebarItem {
+  // 如果子项本身就已经是 link 层（即 items 的每一项都有 link 字段）
+  if (item.items.length && "link" in item.items[0]) {
+    return item;
+  }
+
+  // 否则说明 items 还嵌套着子 items，需要递归展开
+  const flatItems: { text: string; link: string }[] = [];
+
+  item.items.forEach((child: any) => {
+    if (child.link) {
+      flatItems.push({ text: child.text, link: child.link });
+    } else if (child.items) {
+      // 递归展开
+      child.items.forEach((sub: any) => {
+        flatItems.push({ text: sub.text, link: sub.link });
+      });
+    }
+  });
+
+  return {
+    text: item.text,
+    items: flatItems
+  };
+}
 
 /** 跳转 */
 const jumpTo = (value: SearchItem): void => {
