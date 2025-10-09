@@ -132,7 +132,7 @@ watch(
 }
 
 /* 修正因视图过渡导致的按钮图标偏移 */
-.VPSwitchAppearance .check .icon {
+/* .VPSwitchAppearance .check .icon {
   top: -2px;
-}
+} */
 </style>

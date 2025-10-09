@@ -78,7 +78,7 @@ const nodeList = [
         text:'关系型和非关系型数据库'
       },
       {
-        text: "语法基础"
+        text:'数据类型'
       },
       {
         text: "增删改查"

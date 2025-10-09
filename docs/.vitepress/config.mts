@@ -23,14 +23,14 @@ export default defineConfig({
   themeConfig: {
     logo: "/avatar.png",
     nav: nav,
-    sidebar: sidebar, // 侧边栏
+    sidebar: sidebar, // 顶部导航区和侧边栏
     // 描点导航
     outline: {
       level: [2, 6],
       label: "本页目录"
     },
 
-    // socialLinks: [{ icon: "github", link: "https://github.com/vuejs/vitepress" }], 顶部社交链接配置github 暂不显示
+    // socialLinks: [{ icon: "github", link: "https://github.com/vuejs/vitepress" }], //顶部社交链接配置github 暂不显示
 
     lastUpdatedText: "最近更新",
     lastUpdated: {

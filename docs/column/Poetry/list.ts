@@ -6,23 +6,31 @@ const problemList = [
     collapsed: false,
     items: [
       {
-        text: "词牌名-蝶恋花"
+        text: "词牌名",
+        items: [{ text: "蝶恋花" }, { text: "浣溪沙" }, { text: "菩萨蛮" }, { text: "临江仙" }]
       },
+
+      // {
+      //   text: "词牌名-蝶恋花"
+      // },
+      // {
+      //   text: "词牌名-浣溪沙"
+      // },
+      // {
+      //   text: "词牌名-菩萨蛮"
+      // },
+      // {
+      //   text: "词牌名-临江仙"
+      // },
       {
-        text: "词牌名-浣溪沙"
+        text: "相思别离"
       },
-      {
-        text: "词牌名-菩萨蛮"
-      },
-      {
-        text: "词牌名-临江仙"
-      },
-      {
-        text: "写尽相思-道尽别离"
-      },
-      { text: "借物喻人-移情于物" },
+      { text: "寓情于景" },
       {
         text: "名句总结"
+      },
+      {
+        text: "人性"
       }
     ]
   },
@@ -30,9 +38,6 @@ const problemList = [
     text: "其他",
     collapsed: false,
     items: [
-      {
-        text: "人性"
-      },
       {
         text: "廿四节气"
       },
