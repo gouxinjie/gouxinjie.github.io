@@ -1,4 +1,4 @@
-# useLayoutEffect
+# useLayoutEffect: 布局副作用 Hook
 
 `useLayoutEffect` 是 React 中的一个 `Hook`，用于在浏览器重新绘制屏幕之前触发。与 `useEffect` 类似。
 
@@ -13,7 +13,7 @@ useLayoutEffect(() => {
 }, [dependencies]);
 ```
 
-**参数:** 
+**参数:**
 
 1、处理函数,可以返回一个清理函数。组件挂载时执行 setup,依赖项更新时先执行 cleanup 再执行 setup,组件卸载时执行 cleanup。
 

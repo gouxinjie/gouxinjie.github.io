@@ -34,7 +34,7 @@ const vueList = [
         text: "Attributes属性透传"
       },
       {
-        text: "Mixin混入"
+        text: "Mixin混入(不推荐)"
       },
       {
         text: "组件注册和组件通信"

@@ -1,181 +1,223 @@
-# 深入理解 React 的 useTransition Hook
+# React 18 并发特性核心之一：useTransition
 
-`useTransition` 是`React 18`引入的一个并发特性`(Concurrent Feature) Hook`，它允许你将某些状态更新标记为"非紧急"，使这些更新不会阻塞用户界面，从而提升用户体验。
+[[toc]]
 
-```javascript
+> 在 React 18 之前，所有状态更新都是“同步阻塞”的。一旦触发更新，整个组件都会重新渲染，即使这次更新非常耗时，也无法被中断。
+>
+> React 18 引入了 **Concurrent Rendering（并发渲染）**，而 `useTransition` 正是让我们能够 **“标记低优先级更新”** 的关键 Hook。
+
+## 一、useTransition 是什么？
+
+`useTransition` 是 React 18 新增的一个 Hook，用于**区分“紧急更新”和“非紧急更新”**。
+
+简单来说：
+
+> 当你希望某个状态更新“不那么紧急”，不阻塞用户的交互，就可以用 `useTransition`。
+
+### 📘 基本语法：
+
+```tsx
 const [isPending, startTransition] = useTransition();
 ```
 
-::: tip 为什么需要 useTransition？
+| 返回值            | 类型                 | 说明                             |
+| ----------------- | -------------------- | -------------------------------- |
+| `isPending`       | `boolean`            | 表示是否有处于“过渡状态”的更新   |
+| `startTransition` | `(callback) => void` | 将一段更新标记为“非紧急”过渡更新 |
 
-在现代 Web 应用中，我们经常遇到以下问题：
+## 二、为什么需要 useTransition？
 
-1. **大型渲染任务阻塞交互**：复杂组件树渲染导致界面卡顿
-2. **快速输入时的性能问题**：如搜索框连续输入时的延迟
-3. **不必要的高优先级更新**：某些后台更新不需要立即反映到 UI 上
+举个常见的例子 👇
 
-:::
-
-`useTransition` 通过将更新分类为"紧急"和"非紧急"来解决这些问题。
-
-## 核心概念
-
-### 1. 过渡(Transition)
-
-React 将状态更新分为两种：
-
-- **紧急更新**：如输入、点击等需要立即响应的交互
-- **过渡更新**：可以延迟的 UI 更新，如搜索结果的渲染
-
-### 2. isPending 标志
-
-指示是否有过渡更新正在进行
-
-### 3. startTransition 函数
-
-用于将状态更新包装为非紧急更新
-
-## 基本用法
-
-```javascript
-import { useState, useTransition } from "react";
-
-function SearchBox() {
+```jsx
+function SearchApp() {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
-  const [isPending, startTransition] = useTransition();
+  const [list, setList] = useState([]);
 
-  function handleChange(e) {
-    const value = e.target.value;
-    setQuery(value); // 紧急更新：立即显示输入
-
-    startTransition(() => {
-      // 非紧急更新：搜索结果可以稍后显示
-      setResults(searchLargeList(value));
-    });
-  }
+  const handleChange = (e) => {
+    setQuery(e.target.value);
+    setList(filterHeavy(e.target.value)); // 模拟一个耗时操作
+  };
 
   return (
     <div>
       <input value={query} onChange={handleChange} />
-      {isPending ? <div>Loading...</div> : <ResultsList items={results} />}
+      <List data={list} />
     </div>
   );
 }
 ```
 
-::: tip 适用场景
+💥 问题：
 
-1. **搜索/筛选大型列表**：用户输入时保持输入响应，稍后显示结果
-2. **标签页切换**：快速切换标签时不等待内容完全加载
-3. **数据获取**：后台数据加载不影响主要交互
-4. **复杂渲染**：大型组件树的渲染不阻塞简单交互
+- 每次输入文字，`filterHeavy` 都会导致渲染卡顿；
+- 用户输入体验变得非常糟糕。
 
-:::
+## 三、useTransition 的解决方案
 
-## 与常规更新的区别
+我们可以让输入更新立即生效，而让过滤操作延迟执行。
 
-| 特性         | 常规更新(setState) | 过渡更新(startTransition) |
-| ------------ | ------------------ | ------------------------- |
-| **优先级**   | 高（紧急）         | 低（非紧急）              |
-| **用户体验** | 可能阻塞交互       | 保持 UI 响应              |
-| **适用场景** | 用户直接交互       | 后台计算/渲染             |
-| **React 18** | 同步渲染           | 并发渲染                  |
+```jsx
+import React, { useState, useTransition } from "react";
 
-## 高级用法
-
-### 1. 与 Suspense 结合
-
-```javascript
-function App() {
-  const [resource, setResource] = useState(initialResource);
-  const [isPending, startTransition] = useTransition();
-
-  function handleClick() {
-    startTransition(() => {
-      setResource(fetchNewData());
-    });
-  }
-
-  return (
-    <>
-      <button onClick={handleClick} disabled={isPending}>
-        {isPending ? "Loading..." : "Load Data"}
-      </button>
-      <Suspense fallback={<Spinner />}>
-        <DataDisplay resource={resource} />
-      </Suspense>
-    </>
-  );
-}
-```
-
-### 2. 多个过渡协调
-
-```javascript
-function ComplexComponent() {
-  const [state1, setState1] = useState();
-  const [state2, setState2] = useState();
-  const [isPending, startTransition] = useTransition();
-
-  function updateAll() {
-    startTransition(() => {
-      setState1(compute1());
-      setState2(compute2());
-    });
-  }
-
-  // ...
-}
-```
-
-## 性能优化技巧
-
-1. **合理区分紧急/非紧急更新**：只有真正可以延迟的更新才用 startTransition
-2. **避免过度使用**：不必要的过渡会增加复杂性
-3. **结合 useDeferredValue**：对只读值使用 useDeferredValue 可能更简单
-4. **监控 isPending**：提供加载状态提升用户体验
-
-## 注意事项
-
-1. **不是性能银弹**：不能使慢代码变快，只是优化调度
-2. **状态一致性**：过渡内的多个更新会一起处理
-3. **不可取消**：一旦开始就会完成
-4. **与类组件不兼容**：仅适用于函数组件
-5. **SSR 行为**：服务端渲染时不支持过渡
-
-## 实际案例：搜索组件优化
-
-```javascript
-function SearchPage() {
+function SearchApp() {
   const [query, setQuery] = useState("");
-  const [filter, setFilter] = useState("");
+  const [list, setList] = useState([]);
   const [isPending, startTransition] = useTransition();
 
-  // 假设这是一个昂贵的计算
-  const filteredResults = filterItems(query, filter);
-
-  function handleQueryChange(e) {
+  const handleChange = (e) => {
     const value = e.target.value;
-    setQuery(value); // 紧急：立即显示输入
+    setQuery(value); // ✅ 紧急更新：立即响应用户输入
 
+    // ⏳ 非紧急更新：标记为过渡
     startTransition(() => {
-      setFilter(value); // 非紧急：稍后更新筛选结果
+      setList(filterHeavy(value));
     });
-  }
+  };
 
   return (
     <div>
-      <input value={query} onChange={handleQueryChange} placeholder="Search..." />
-
-      <div style={{ opacity: isPending ? 0.5 : 1 }}>
-        {filteredResults.map((item) => (
-          <ResultItem key={item.id} item={item} />
-        ))}
-      </div>
-
-      {isPending && <div className="loading-indicator">Updating...</div>}
+      <input value={query} onChange={handleChange} />
+      {isPending && <span>加载中...</span>}
+      <List data={list} />
     </div>
   );
 }
 ```
+
+✅ 效果：
+
+- 输入框立刻响应，不再卡顿；
+- 数据更新被延后，但不会影响交互；
+- `isPending` 可用于显示“加载中”状态。
+
+## 四、useTransition 的工作原理
+
+可以理解为：
+
+> React 把 `startTransition` 里面的更新标记为“低优先级”。
+
+React 内部维护了不同的优先级调度：
+
+- **紧急更新（Urgent）**：输入、点击、动画等需要即时响应的操作；
+- **过渡更新（Transition）**：数据请求、筛选、渲染列表等可以稍后执行的操作。
+
+当两种更新同时发生时：
+
+- React 会**优先处理紧急更新**；
+- **过渡更新可被打断或延迟**，直到浏览器空闲再渲染；
+- 因此，不会阻塞主线程，也不会卡住输入。
+
+🧠 这就是 React 并发模式的核心思想之一：**可中断渲染（Interruptible Rendering）**。
+
+## 五、实际应用场景
+
+### 1️⃣ 搜索过滤（最常见）
+
+用户输入关键字时立即响应输入，列表异步更新。
+
+```jsx
+startTransition(() => setFilteredList(...));
+```
+
+### 2️⃣ 复杂路由切换
+
+在路由跳转时，用 `useTransition` 让界面更平滑。
+
+```jsx
+const [isPending, startTransition] = useTransition();
+
+const navigatePage = (path) => {
+  startTransition(() => {
+    navigate(path);
+  });
+};
+```
+
+> ✅ 页面跳转立即响应，但耗时组件渲染在后台完成。
+
+### 3️⃣ 大量渲染的组件
+
+例如虚拟列表、图表、Markdown 渲染器。
+
+```jsx
+startTransition(() => {
+  setRenderData(heavyRenderTransform(data));
+});
+```
+
+## 六、isPending 的妙用
+
+`isPending` 是 React 自动提供的一个布尔值，用来表示是否有一个正在进行的 transition。
+
+```jsx
+{
+  isPending && <Spinner />;
+}
+```
+
+它的常见用途：
+
+- 显示加载提示；
+- 禁用按钮；
+- 延迟动画过渡。
+
+## 七、useTransition vs useDeferredValue
+
+| Hook               | 用途                                 | 区别                 |
+| ------------------ | ------------------------------------ | -------------------- |
+| `useTransition`    | 将一段状态更新标记为过渡（主动触发） | 你手动包裹更新逻辑   |
+| `useDeferredValue` | 将一个值“延迟”更新（被动延迟）       | React 自动延迟更新值 |
+
+👉 简单理解：
+
+- `useTransition` 是 **主动延迟**（你决定何时、哪个更新是过渡）。
+- `useDeferredValue` 是 **被动延迟**（你传入一个值，让它慢一点更新）。
+
+## 八、最佳实践
+
+| 建议                                            | 说明                       |
+| ----------------------------------------------- | -------------------------- |
+| ✅ 将耗时更新包在 `startTransition` 中          | 防止阻塞交互               |
+| ✅ 使用 `isPending` 提示用户等待                | 提升体验                   |
+| ❌ 不要在紧急事件中延迟关键状态（如输入值本身） | 否则会出现延迟输入         |
+| ✅ 可与 Suspense 搭配使用                       | 过渡渲染异步组件时非常丝滑 |
+
+## 九、完整实战：防抖搜索优化
+
+```jsx
+import React, { useState, useTransition } from "react";
+
+function HeavySearch() {
+  const [query, setQuery] = useState("");
+  const [list, setList] = useState([]);
+  const [isPending, startTransition] = useTransition();
+
+  const handleInput = (e) => {
+    const val = e.target.value;
+    setQuery(val);
+
+    startTransition(() => {
+      const filtered = mockList.filter((item) => item.toLowerCase().includes(val.toLowerCase()));
+      setList(filtered);
+    });
+  };
+
+  return (
+    <div>
+      <input value={query} onChange={handleInput} placeholder="搜索..." />
+      {isPending && <p>加载中...</p>}
+      <ul>
+        {list.map((v) => (
+          <li key={v}>{v}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+const mockList = Array.from({ length: 5000 }, (_, i) => `Item ${i}`);
+export default HeavySearch;
+```
+
+🔹 即使渲染 5000 条数据，输入依旧流畅。 🔹 `useTransition` 让 React 自动调度更新，不再阻塞主线程。

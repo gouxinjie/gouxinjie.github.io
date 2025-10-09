@@ -78,10 +78,13 @@ const nodeList = [
         text:'关系型和非关系型数据库'
       },
       {
-        text: "基础"
+        text: "语法基础"
       },
       {
         text: "增删改查"
+      },
+      {
+        text: "实战使用"
       },
       {
         text: "表达式和函数"

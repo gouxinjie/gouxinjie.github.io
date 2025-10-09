@@ -1,6 +1,6 @@
 # Angular HTTP 客户端 
 
-`HTTP` 客户端是现代前端应用与后端服务通信的核心工具。`Angular` 提供了强大的`HttpClient`模块来处理所有 `HTTP` 请求。本文将全面介绍 Angular 中 `HTTP` 客户端的使用方法、最佳实践和高级技巧。
+`HTTP` 客户端是现代前端应用与后端服务通信的核心工具。`Angular` 提供了强大的`HttpClient`模块来处理所有 `HTTP` 请求。
 
 ## 一、HttpClient 基础
 

@@ -1,6 +1,6 @@
 # Angular Signals 解析：响应式编程的新范式
 
-`Angular 16` 引入了全新的 **Signals（信号）** 机制，这是 `Angular` 响应式系统的一次重大革新。本文将全面介绍 `Signals` 的概念、用法及其如何改变我们构建 `Angular` 应用的方式。
+`Angular 16` 引入了全新的 **Signals（信号）** 机制，这是 `Angular` 响应式系统的一次重大革新。
 
 ## 一、Signals 基础概念
 

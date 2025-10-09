@@ -1,134 +1,165 @@
-# 深入理解 React 的 useInsertionEffect Hook
 
-## 什么是 useInsertionEffect？
+# useInsertionEffect：样式注入 Hook
 
-`useInsertionEffect` 是 React 18 引入的一个相对较新的 Hook，主要用于解决 CSS-in-JS 库在服务器端渲染(SSR)时的样式注入问题。它是专门为库作者设计的一个底层 API，普通应用开发者通常不需要直接使用它。
+[[toc]]
+> React 18 除了带来 `useTransition`、`useDeferredValue` 等常用的并发特性外，  
+> 还新增了一个专为 **样式注入（Style Insertion）** 设计的 Hook —— `useInsertionEffect`。  
+>
+> 它的主要作用是：**在 DOM 变更前执行副作用，保证样式优先插入**。
 
-```jsx
-useInsertationEffect(() => {
-  // 效果代码
-});
+
+## 一、为什么需要 useInsertionEffect？
+
+在 React 18 之前，CSS-in-JS 库（如 `emotion`、`styled-components`）
+通常在 `useLayoutEffect` 或 `useEffect` 中插入样式。
+
+然而，这会出现两个问题：
+
+1. **样式闪烁（FOUC）**：组件渲染了，但样式还没插入。
+2. **插入顺序错误**：多个样式更新时，后渲染的组件样式可能覆盖前面的。
+
+React 18 为了解决这个问题，专门引入了 `useInsertionEffect` ——
+它的执行时机比 `useLayoutEffect` 还要早！
+
+
+## 二、useInsertionEffect 是什么？
+
+### 📘 基本语法：
+
+```tsx
+useInsertionEffect(setup, dependencies?)
 ```
 
-## 为什么需要 useInsertionEffect？
+| 参数             | 类型          | 说明            |           |
+| -------------- | ----------- | ------------- | --------- |
+| `setup`        | `() => void | (() => void)` | 用于插入样式的函数 |
+| `dependencies` | `any[]`     | 依赖数组，决定何时重新执行 |           |
 
-在 CSS-in-JS 解决方案中，一个核心问题是如何高效地将样式注入到 DOM 中，特别是在服务器端渲染场景下：
 
-1. **样式闪烁问题**：在 SSR 中，如果样式注入时机不当，可能导致页面初始渲染时出现无样式内容(FOUC)
-2. **性能优化**：需要在浏览器开始绘制前完成样式注入
-3. **执行时机**：需要比 `useLayoutEffect` 更早执行的效果
+## 三、执行时机对比图
 
-`useInsertionEffect` 就是为解决这些问题而设计的。
+| Hook                     | 执行时机                  | 用途              |
+| ------------------------ | --------------------- | --------------- |
+| `useEffect`              | 在浏览器完成绘制后             | 异步副作用，如请求数据     |
+| `useLayoutEffect`        | 在 DOM 更新后、绘制前         | 同步 DOM 操作       |
+| **`useInsertionEffect`** | **在 React 修改 DOM 之前** | **插入样式、确保样式优先** |
 
-## 执行时机比较
+📊 **执行顺序（React 渲染阶段）**：
 
-理解 React Hooks 的执行时机非常重要：
+```
+Render Phase
+  ↓
+useInsertionEffect ✅ (样式注入)
+  ↓
+DOM mutations (插入真实 DOM)
+  ↓
+useLayoutEffect
+  ↓
+Browser Paint (页面绘制)
+  ↓
+useEffect
+```
 
-| Hook                 | 执行时机                                            |
-| -------------------- | --------------------------------------------------- |
-| `useInsertionEffect` | DOM 变更后，浏览器绘制前，比 `useLayoutEffect` 更早 |
-| `useLayoutEffect`    | DOM 变更后，浏览器绘制前                            |
-| `useEffect`          | 浏览器绘制后                                        |
 
-## 基本用法
+## 四、实际例子：模拟 CSS-in-JS 注入
+
+来看一个简化的例子：
 
 ```jsx
-import { useInsertionEffect } from "react";
+import React, { useInsertionEffect } from "react";
 
-function useCSS(rule) {
+function useStyle(cssText) {
   useInsertionEffect(() => {
     const style = document.createElement("style");
-    style.textContent = rule;
+    style.textContent = cssText;
     document.head.appendChild(style);
-
-    return () => {
-      document.head.removeChild(style);
-    };
-  });
+    return () => document.head.removeChild(style);
+  }, [cssText]);
 }
 
-function MyComponent() {
-  useCSS(`
-    .my-class {
-      color: red;
+function Box() {
+  useStyle(`
+    .box {
+      background: #4f46e5;
+      color: white;
+      padding: 10px;
+      border-radius: 8px;
     }
   `);
 
-  return <div className="my-class">Red Text</div>;
+  return <div className="box">Hello useInsertionEffect</div>;
 }
+
+export default Box;
 ```
 
-## 设计目的
+✅ 效果：
 
-React 团队创建 `useInsertionEffect` 主要是为了：
+* 样式会在 DOM 创建之前注入；
+* 页面渲染时不会出现闪烁；
+* 样式插入顺序完全可控。
 
-1. **为 CSS-in-JS 库提供标准解决方案**：让 styled-components、Emotion 等库有统一的处理方式
-2. **避免 hydration 不匹配**：确保服务器和客户端渲染的样式一致
-3. **性能优化**：在正确的时间点注入样式，避免不必要的重绘
 
-## 实际应用场景
+## 五、与 useLayoutEffect 的区别
 
-虽然大多数应用开发者不需要直接使用这个 Hook，但了解它的使用场景很有帮助：
+| 特性        | useLayoutEffect | useInsertionEffect |
+| --------- | --------------- | ------------------ |
+| 执行时机      | DOM 更新后、绘制前     | **DOM 更新前**        |
+| 是否可操作 DOM | ✅ 可以            | ❌ 不推荐（DOM 尚未生成）    |
+| 用途        | 读取或修改布局         | 插入样式、生成 CSS        |
+| 使用场景      | 动画、测量           | CSS-in-JS 样式注入     |
 
-1. **动态样式注入**：当组件需要动态插入全局样式时
-2. **CSS-in-JS 库实现**：如实现自己的 styled 组件系统
-3. **关键样式加载**：确保关键 CSS 在渲染前加载
+🚫 注意：
+`useInsertionEffect` 不能操作 DOM（因为此时 DOM 还没生成），
+它**只适合做“样式插入”类副作用**。
 
-## 注意事项
 
-1. **不适用于大多数应用代码**：除非你在构建样式库，否则可能不需要它
-2. **不能访问 refs**：与 `useLayoutEffect` 类似，此时 refs 尚未附加
-3. **服务端渲染行为**：在 SSR 期间不会运行
-4. **性能影响**：过度使用可能影响性能，因为它会阻塞渲染
+## 六、为什么 React 要单独为样式设计一个 Hook？
 
-## 与 useLayoutEffect 的区别
+React 官方在 [RFC 提案](https://github.com/reactjs/rfcs/pull/221) 中解释：
 
-虽然两者都在浏览器绘制前执行，但关键区别在于：
+> 为了支持“并发渲染”，必须在渲染阶段确保样式能与组件同步。
+> 如果样式插入在 DOM 更新之后（例如在 `useLayoutEffect`），可能导致样式闪烁。
 
-1. **执行顺序**：`useInsertionEffect` → `useLayoutEffect`
-2. **设计目的**：`useInsertionEffect` 专为样式注入优化
-3. **使用场景**：`useLayoutEffect` 用于布局计算，`useInsertionEffect` 用于 DOM 插入操作
-
-## 示例：简单的 CSS-in-JS 实现
-
-下面是一个极简的 CSS-in-JS 实现，展示如何使用 `useInsertionEffect`：
+举个例子👇
 
 ```jsx
-import { useInsertionEffect, useState } from "react";
-
-function useStyled(css) {
-  const [className] = useState(() => `_${Math.random().toString(36).substr(2, 9)}`);
-
-  useInsertionEffect(() => {
-    const style = document.createElement("style");
-    style.textContent = `.${className} { ${css} }`;
-    document.head.appendChild(style);
-
-    return () => {
-      document.head.removeChild(style);
-    };
-  }, [className, css]);
-
-  return className;
+function App() {
+  const [dark, setDark] = useState(false);
+  return (
+    <>
+      <button onClick={() => setDark((d) => !d)}>切换主题</button>
+      <ThemeBox dark={dark} />
+    </>
+  );
 }
 
-function Button() {
-  const buttonClass = useStyled(`
-    background: blue;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 4px;
-  `);
+function ThemeBox({ dark }) {
+  useInsertionEffect(() => {
+    const style = document.createElement("style");
+    style.textContent = `.box { background: ${dark ? "#000" : "#fff"} }`;
+    document.head.appendChild(style);
+    return () => document.head.removeChild(style);
+  }, [dark]);
 
-  return <button className={buttonClass}>Styled Button</button>;
+  return <div className="box">Hello</div>;
 }
 ```
 
-## 总结
+当主题切换时，样式会在 DOM 更新前就注入，
+**React 能保证新样式与新组件一同呈现，避免了闪烁。**
 
-`useInsertionEffect` 是 React 为库作者提供的一个专门工具，主要服务于 CSS-in-JS 库的实现需求。它的特点是：
 
-- 执行时机非常早（在 `useLayoutEffect` 之前）
-- 专为 DOM 插入操作优化
-- 解决了 SSR 中的样式闪烁问题
-- 大多数应用开发不需要直接使用
+## 七、在框架中的实际应用
+
+许多 CSS-in-JS 库都在内部使用了它：
+
+| 库                     | 是否使用 useInsertionEffect | 用途                |
+| --------------------- | ----------------------- | ----------------- |
+| Emotion               | ✅ 是                     | 动态插入 `<style>` 标签 |
+| Styled-components v6+ | ✅ 是                     | 确保 SSR 与样式顺序一致    |
+| Jotai / Zustand       | ❌ 否                     | 状态管理库，不涉及样式       |
+| Tailwind CSS          | ❌ 否                     | 使用编译时静态类名         |
+
+💡 对于我们普通开发者，几乎不需要手动写它，
+但理解它能帮你理解 CSS-in-JS 框架如何“无闪烁渲染样式”。
