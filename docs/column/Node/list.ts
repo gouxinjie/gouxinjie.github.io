@@ -75,19 +75,22 @@ const nodeList = [
     collapsed: false,
     items: [
       {
-        text:'关系型和非关系型数据库'
+        text: "关系型和非关系型数据库"
       },
       {
-        text:'数据类型'
+        text: "数据类型"
       },
       {
-        text: "增删改查"
+        text: "语法基础"
       },
       {
-        text: "实战使用"
+        text: "JOIN连接操作"
       },
       {
         text: "表达式和函数"
+      },
+      {
+        text: "实战演练"
       },
       {
         text: "请求数据"
