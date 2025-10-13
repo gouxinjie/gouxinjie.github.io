@@ -5,9 +5,8 @@ const TSList = [
     text: "基础类型系统",
     collapsed: false,
     items: [
-      { text: "ts简单介绍" },
+      { text: "ts介绍" },
       { text: "内置类型" },
-      { text: "Class类" },
       { text: "索引签名" },
       { text: "交叉类型" },
       { text: "泛型使用" },

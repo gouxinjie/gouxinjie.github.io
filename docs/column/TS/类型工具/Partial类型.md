@@ -1,8 +1,10 @@
 # TypeScript 中的 `Partial` 类型详解
 
+[[toc]]
+
 `Partial` 是 `TypeScript` 内置的一个实用工具类型`（Utility Type）`，它可以将某个类型的所有属性变为**可选**的。这在处理对象的部分更新、默认值设置等场景中非常有用。
 
-## 基本语法
+## 一、基本语法
 
 ```typescript
 Partial<Type>;
@@ -10,7 +12,7 @@ Partial<Type>;
 
 `Partial` 会接收一个类型 `Type`，并返回一个新类型，这个新类型包含了 `Type` 的所有属性，但每个属性都变成了可选的（即添加了 `?` 修饰符）。
 
-## 基本示例
+## 二、基本示例
 
 ### 1. 基本使用
 
@@ -57,7 +59,7 @@ type ConfigOptions = {
 */
 ```
 
-## 实际应用场景
+## 三、实际应用场景
 
 ### 1. 对象部分更新
 
@@ -116,7 +118,7 @@ function initializeForm(values: Partial<RegistrationForm> = {}) {
 }
 ```
 
-## 高级用法
+## 四、高级用法
 
 ### 1. 与 `Pick` 和 `Omit` 结合使用
 
@@ -201,7 +203,7 @@ type RequiredOptions = Required<Options>;
 */
 ```
 
-## 注意事项
+## 五、注意事项
 
 1. **与 `strictNullChecks`**：启用 `strictNullChecks` 时，可选属性可以显式设置为 `undefined`
 
@@ -216,24 +218,3 @@ type RequiredOptions = Required<Options>;
 3. **性能考虑**：对非常大的类型使用 `Partial` 可能会影响编译器性能
 
 4. **与类的关系**：`Partial` 不能用于去除类方法的必填性
-
-## 实现原理
-
-`Partial` 的实现原理（可以在 TypeScript 源码中找到）：
-
-```typescript
-type Partial<T> = {
-  [P in keyof T]?: T[P];
-};
-```
-
-这个映射类型遍历 `T` 的所有属性，并为每个属性添加 `?` 修饰符，使其变为可选。
-
-## 总结
-
-`Partial` 类型主要解决了以下问题：
-
-1. **对象部分更新**：允许只更新对象的某些属性
-2. **可选配置**：处理有默认值的配置对象
-3. **灵活的参数传递**：函数可以接受对象的部分属性
-4. **减少接口重复**：避免为部分更新场景创建几乎相同的接口

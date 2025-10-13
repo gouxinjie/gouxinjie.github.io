@@ -1,186 +1,200 @@
 # TypeScript 中的装饰器 (Decorator) 使用
 
-装饰器是 `TypeScript` 中一种特殊类型的声明，它可以被附加到类声明、方法、访问器、属性或参数上，用来修改类的行为。装饰器使用 `@expression` 形式，其中 `expression` 必须求值为一个函数。
+[[toc]]
 
-## 基本概念
+**装饰器**（Decorator）是 `TypeScript` 中的一种特殊类型的声明，允许你在类、方法、属性或方法参数上添加元数据。它们通常用于框架中，用来给类或类的成员添加额外的行为或特性。
 
-装饰器是一种设计模式，它允许在不修改原始代码的情况下，通过添加标注来扩展功能。在 `TypeScript` 中，装饰器目前仍处于实验性阶段，需要在 `tsconfig.json` 中启用：
+装饰器的应用非常广泛，尤其是在像 `Angular` 和 `NestJS` 这样的框架中，它们用来注入依赖、绑定事件、或者处理类和方法的元数据。
+
+### 1. **装饰器的基本概念**
+
+装饰器本质上是一个**函数**，该函数用于修改类或类成员的行为。装饰器在类、方法、属性或方法参数前加上 `@` 符号。例如：
+
+```typescript
+@decorator
+class MyClass {}
+```
+
+- **类装饰器**：作用于类声明。
+- **方法装饰器**：作用于类的方法。
+- **属性装饰器**：作用于类的属性。
+- **参数装饰器**：作用于类方法的参数。
+
+### 2. **启用装饰器支持**
+
+在 TypeScript 中，装饰器是一个实验性的特性，因此需要在 `tsconfig.json` 文件中开启 `experimentalDecorators` 选项：
 
 ```json
 {
   "compilerOptions": {
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "experimentalDecorators": true
   }
 }
 ```
 
-## 装饰器类型
+### 3. **装饰器的分类**
 
-### 1. 类装饰器
+#### 3.1 **类装饰器**
 
-类装饰器应用于类构造函数，可以用来观察、修改或替换类定义。
+类装饰器作用于类的构造函数，它接受一个参数，表示被装饰的类。类装饰器可以用来修改类的行为，或替换类的构造函数。
 
 ```typescript
-function sealed(constructor: Function) {
-  Object.seal(constructor);
-  Object.seal(constructor.prototype);
+function logClass(target: Function) {
+  console.log(`Class created: ${target.name}`);
 }
 
-@sealed
-class Greeter {
-  greeting: string;
-  constructor(message: string) {
-    this.greeting = message;
-  }
-  greet() {
-    return "Hello, " + this.greeting;
+@logClass
+class MyClass {
+  constructor() {
+    console.log("MyClass instance created.");
   }
 }
+
+const myClassInstance = new MyClass();
+// 输出:
+// Class created: MyClass
+// MyClass instance created.
 ```
 
-### 2. 方法装饰器
+在这个例子中，`@logClass` 装饰器会在创建类实例时打印出类的名字。
 
-方法装饰器应用于方法的属性描述符，可以用来观察、修改或替换方法定义。
+#### 3.2 **方法装饰器**
+
+方法装饰器作用于类的方法，它可以修改方法的行为，或替换方法。方法装饰器的参数包括：
+
+- `target`: 类的原型对象。
+- `propertyKey`: 被装饰的方法名称。
+- `descriptor`: 方法的属性描述符。
 
 ```typescript
-function enumerable(value: boolean) {
+function logMethod(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+  const originalMethod = descriptor.value;
+  descriptor.value = function (...args: any[]) {
+    console.log(`Calling ${propertyKey} with arguments:`, args);
+    return originalMethod.apply(this, args);
+  };
+}
+
+class MyClass {
+  @logMethod
+  sayHello(name: string) {
+    console.log(`Hello, ${name}`);
+  }
+}
+
+const myClassInstance = new MyClass();
+myClassInstance.sayHello("Alice");
+// 输出:
+// Calling sayHello with arguments: [ 'Alice' ]
+// Hello, Alice
+```
+
+在这个例子中，`logMethod` 装饰器会在调用 `sayHello` 方法时打印参数。
+
+#### 3.3 **属性装饰器**
+
+属性装饰器用于装饰类的属性，它接受两个参数：
+
+- `target`: 类的原型对象。
+- `propertyKey`: 被装饰的属性名称。
+
+```typescript
+function readonly(target: any, propertyKey: string) {
+  console.log(`${propertyKey} is readonly`);
+}
+
+class MyClass {
+  @readonly
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+}
+
+const myClassInstance = new MyClass("Alice");
+// 输出: name is readonly
+```
+
+在这个例子中，`readonly` 装饰器会在类的属性 `name` 被定义时打印消息，虽然在此例中它没有直接限制属性值的修改，但通常它会用来实现其他逻辑，比如只读属性的限制。
+
+#### 3.4 **参数装饰器**
+
+参数装饰器作用于方法的参数。它接受三个参数：
+
+- `target`: 类的原型对象。
+- `propertyKey`: 方法的名称。
+- `parameterIndex`: 参数的索引。
+
+```typescript
+function logParameter(target: any, propertyKey: string, parameterIndex: number) {
+  console.log(`${propertyKey} has a parameter at index ${parameterIndex}`);
+}
+
+class MyClass {
+  greet(@logParameter name: string) {
+    console.log(`Hello, ${name}`);
+  }
+}
+
+const myClassInstance = new MyClass();
+myClassInstance.greet("Alice");
+// 输出:
+// greet has a parameter at index 0
+// Hello, Alice
+```
+
+在这个例子中，`logParameter` 装饰器会打印出 `greet` 方法中参数的位置（即 `name` 是第一个参数）。
+
+### 4. **装饰器工厂**
+
+装饰器工厂是一个返回装饰器的函数。这样你就可以向装饰器传递参数。
+
+```typescript
+function logWithPrefix(prefix: string) {
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-    descriptor.enumerable = value;
-  };
-}
-
-class Greeter {
-  greeting: string;
-  constructor(message: string) {
-    this.greeting = message;
-  }
-
-  @enumerable(false)
-  greet() {
-    return "Hello, " + this.greeting;
-  }
-}
-```
-
-### 3. 访问器装饰器
-
-访问器装饰器应用于访问器的属性描述符，可以用来观察、修改或替换访问器的定义。
-
-```typescript
-function configurable(value: boolean) {
-  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-    descriptor.configurable = value;
-  };
-}
-
-class Point {
-  private _x: number;
-  private _y: number;
-
-  constructor(x: number, y: number) {
-    this._x = x;
-    this._y = y;
-  }
-
-  @configurable(false)
-  get x() {
-    return this._x;
-  }
-
-  @configurable(false)
-  get y() {
-    return this._y;
-  }
-}
-```
-
-### 4. 属性装饰器
-
-属性装饰器应用于类的属性。
-
-```typescript
-function format(formatString: string) {
-  return function (target: any, propertyKey: string) {
-    let value = target[propertyKey];
-
-    const getter = () => {
-      return `${formatString} ${value}`;
+    const originalMethod = descriptor.value;
+    descriptor.value = function (...args: any[]) {
+      console.log(`${prefix}: Calling ${propertyKey} with arguments:`, args);
+      return originalMethod.apply(this, args);
     };
-
-    const setter = (newVal: string) => {
-      value = newVal;
-    };
-
-    Object.defineProperty(target, propertyKey, {
-      get: getter,
-      set: setter,
-      enumerable: true,
-      configurable: true
-    });
   };
 }
 
-class Greeter {
-  @format("Hello")
-  greeting: string;
-
-  constructor(message: string) {
-    this.greeting = message;
+class MyClass {
+  @logWithPrefix("INFO")
+  sayHello(name: string) {
+    console.log(`Hello, ${name}`);
   }
 }
 
-const greeter = new Greeter("World");
-console.log(greeter.greeting); // 输出: Hello World
+const myClassInstance = new MyClass();
+myClassInstance.sayHello("Alice");
+// 输出:
+// INFO: Calling sayHello with arguments: [ 'Alice' ]
+// Hello, Alice
 ```
 
-### 5. 参数装饰器
+在这个例子中，`logWithPrefix` 装饰器工厂接受一个 `prefix` 参数，并且返回一个装饰器，这样我们就能在调用 `sayHello` 时打印带有前缀的信息。
 
-参数装饰器应用于构造函数或方法参数。
+### 5. **装饰器的应用**
 
-```typescript
-function required(target: Object, propertyKey: string | symbol, parameterIndex: number) {
-  console.log(`Parameter ${parameterIndex} in ${String(propertyKey)} is required`);
-}
+装饰器的常见应用包括但不限于：
 
-class Greeter {
-  greeting: string;
+- **日志记录**：如上例所示，使用方法装饰器记录方法调用日志。
+- **权限验证**：在某些框架中，可以使用装饰器来验证访问权限或认证状态。
+- **依赖注入**：在 Angular 和 NestJS 等框架中，装饰器用于实现依赖注入（DI）。
+- **性能优化**：使用装饰器来计算函数执行时间，做性能分析。
 
-  constructor(@required message: string) {
-    this.greeting = message;
-  }
-}
-```
+### 6. **装饰器的规则**
 
-## 装饰器工厂
+- **只能在类、方法、属性和参数上使用装饰器**，并且装饰器是一个函数。
+- **装饰器不会影响装饰的目标的实际类型**，它只是给它添加一些元数据或改变其行为。
+- **装饰器是执行顺序**：多个装饰器按从上到下的顺序执行，且每个装饰器的执行顺序是固定的。
 
-装饰器工厂是一个返回装饰器函数的函数，允许你通过参数配置装饰器行为。
+### 7. **总结**
 
-```typescript
-function color(value: string) {
-  return function (target: any) {
-    target.prototype.color = value;
-  };
-}
-
-@color("red")
-class Circle {
-  radius: number;
-
-  constructor(radius: number) {
-    this.radius = radius;
-  }
-}
-
-const circle = new Circle(10);
-console.log((circle as any).color); // 输出: red
-```
-
-## 装饰器执行顺序
-
-不同类型的装饰器按以下顺序执行：
-
-1. 参数装饰器，然后依次是方法装饰器、访问器装饰器或属性装饰器应用到每个实例成员
-2. 参数装饰器，然后依次是方法装饰器、访问器装饰器或属性装饰器应用到每个静态成员
-3. 参数装饰器应用到构造函数
-4. 类装饰器应用到类
+- **装饰器** 是 TypeScript 的一种元编程技术，允许你在类、方法、属性或方法参数上添加元数据或修改其行为。
+- 装饰器使用 `@` 符号进行标注，可以用于多种场景，如日志记录、权限验证、依赖注入等。
+- TypeScript 装饰器目前是实验性特性，需要在 `tsconfig.json` 文件中启用 `experimentalDecorators` 选项。
+- 装饰器可以是简单的，也可以是工厂函数（接受参数的装饰器）。

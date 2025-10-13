@@ -1,8 +1,10 @@
 # TypeScript 中的 `Exclude` 类型详解
 
+[[toc]]
+
 `Exclude` 是 `TypeScript` 内置的一个实用工具类型`（Utility Type）`，它用于**从一个联合类型中排除某些类型**，创建一个新的联合类型。这个类型在过滤类型和创建更精确的类型约束时非常有用。
 
-## 基本语法
+## 一、基本语法
 
 ```typescript
 Exclude<UnionType, ExcludedMembers>;
@@ -11,7 +13,7 @@ Exclude<UnionType, ExcludedMembers>;
 - `UnionType`：源联合类型，你想从中排除某些类型的联合类型
 - `ExcludedMembers`：你想排除的类型或类型联合
 
-## 基本示例
+## 二、基本示例
 
 ### 1. 简单使用
 
@@ -36,7 +38,7 @@ type NonNullablePrimitives = Exclude<AllTypes, object | null | undefined>;
 // 等同于：string | number | boolean
 ```
 
-## 实际应用场景
+## 三、实际应用场景
 
 ### 1. 创建非空类型
 
@@ -74,7 +76,7 @@ type StyleProps = Exclude<keyof ButtonProps, "onClick" | "disabled">;
 // 等同于：'variant' | 'size'
 ```
 
-## 高级用法
+## 四、高级用法
 
 ### 1. 实现 `Omit` 类型
 
@@ -117,20 +119,7 @@ type PublicUser = {
 */
 ```
 
-## 实现原理
-
-`Exclude` 的实现原理（TypeScript 内置）：
-
-```typescript
-type Exclude<T, U> = T extends U ? never : T;
-```
-
-这是一个**条件类型**，它遍历 `T` 中的每个类型：
-
-- 如果该类型可以赋值给 `U`，则返回 `never`（从联合类型中移除）
-- 否则保留该类型
-
-## 与 `Extract` 的关系
+## 五、与 `Extract` 的关系
 
 `Exclude` 和 `Extract` 是相反的操作：
 
@@ -140,22 +129,3 @@ type EventTypes = "click" | "scroll" | "keydown";
 type MouseEvents = Exclude<EventTypes, "scroll" | "keydown">; // 'click'
 type KeyboardEvents = Extract<EventTypes, "scroll" | "keydown">; // 'scroll' | 'keydown'
 ```
-
-## 注意事项
-
-1. **分布式条件类型**：`Exclude` 是分布式条件类型，会应用于联合类型中的每个成员
-
-2. **与 `never` 的关系**：排除操作实际上是将匹配的类型转换为 `never`
-
-3. **性能考虑**：对非常大的联合类型使用可能会影响编译器性能
-
-4. **类型兼容性**：排除基于类型兼容性，而不仅仅是名称匹配
-
-## 总结
-
-`Exclude` 类型主要解决了以下问题：
-
-1. **联合类型过滤**：从联合类型中移除不需要的类型
-2. **属性键过滤**：与 `keyof` 结合过滤对象属性
-3. **类型安全转换**：创建更精确的类型约束
-4. **工具类型构建**：作为其他高级类型的基础

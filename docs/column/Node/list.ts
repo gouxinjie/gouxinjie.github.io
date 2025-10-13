@@ -23,19 +23,19 @@ const nodeList = [
       },
       { text: "模块化规范" },
       {
-        text: "CSR SSR SSG"
-      },
-      {
         text: "模块查找规则"
-      },
-      {
-        text: "pnpm解决幽灵依赖"
       },
       {
         text: "nvm相关"
       },
       {
         text: "npm serve"
+      },
+      {
+        text: "pnpm解决幽灵依赖"
+      },
+      {
+        text: "CSR SSR SSG"
       }
     ]
   },

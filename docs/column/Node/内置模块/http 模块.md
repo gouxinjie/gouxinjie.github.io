@@ -1,181 +1,241 @@
-# **理解 Node.js 中的 http 模块：构建 Web 服务的核心**
+# Node.js 中的 http 模块：构建 Web 服务的核心
 
-## **1. 引言：为什么需要 http 模块？**
+[[toc]]
 
-`Node.js 的 http `模块是构建 `Web` 服务器和客户端的核心模块。无论是开发` RESTful API`、实时应用还是代理服务器，都离不开它。与 `Express、Koa` 等框架相比，`http` 模块更底层，能让你真正理解 `Web` 服务的工作原理。
+`http` 模块是 Node.js 中的核心模块之一，用于创建 HTTP 服务器和客户端。它提供了一种方法来处理 HTTP 请求和响应，使得我们可以通过 Node.js 构建 Web 应用程序、API 服务等。
 
-## **2. 快速创建一个 HTTP 服务器**
+### 1. 引入 `http` 模块
 
-只需几行代码，就能用 `http` 模块启动一个服务器：
+要使用 `http` 模块，首先需要在代码中引入它：
+
+```javascript
+const http = require("http");
+```
+
+### 2. 创建 HTTP 服务器
+
+#### 2.1 `http.createServer()`
+
+`createServer()` 方法用于创建一个新的 HTTP 服务器，该服务器可以监听客户端发来的请求并响应。`createServer()` 方法接受一个回调函数，该回调函数会在每个请求到达时执行。回调函数有两个参数：`req`（请求对象）和 `res`（响应对象）。
 
 ```javascript
 const http = require("http");
 
 const server = http.createServer((req, res) => {
-  res.writeHead(200, { "Content-Type": "text/plain" });
-  res.end("Hello, World!\n");
+  res.statusCode = 200; // 设置 HTTP 状态码
+  res.setHeader("Content-Type", "text/plain"); // 设置响应头
+  res.end("Hello, World!"); // 发送响应内容
+});
+
+server.listen(3000, "localhost", () => {
+  console.log("服务器正在运行在 http://localhost:3000");
+});
+```
+
+- `req`：请求对象，包含请求的详细信息，例如请求方法、请求头、请求路径等。
+- `res`：响应对象，允许我们设置响应头、状态码和响应体。
+
+#### 2.2 请求对象 `req`
+
+`req` 对象提供了关于 HTTP 请求的信息，包括：
+
+- `req.url`：请求的 URL。
+- `req.method`：请求的方法，如 `GET`, `POST`, `PUT`, `DELETE` 等。
+- `req.headers`：请求头。
+- `req.query`：查询字符串参数（需要通过 `url` 模块手动解析）。
+- `req.body`：请求体（对于 `POST` 和 `PUT` 请求，通常需要通过中间件解析，如 `body-parser`）。
+
+#### 2.3 响应对象 `res`
+
+`res` 对象用于设置 HTTP 响应的状态码、头信息和主体内容。常用的方法有：
+
+- `res.statusCode`：设置响应的 HTTP 状态码（例如 `200`, `404`）。
+- `res.setHeader(name, value)`：设置响应头部字段。
+- `res.write()`：向响应中写入数据。
+- `res.end()`：结束响应并将数据发送到客户端。
+
+### 3. 请求和响应的基本操作
+
+#### 3.1 发送响应数据
+
+我们可以通过 `res.write()` 方法分块地发送数据，然后通过 `res.end()` 来结束响应。
+
+```javascript
+const http = require("http");
+
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader("Content-Type", "text/plain");
+  res.write("Hello");
+  res.write(" World!");
+  res.end();
+});
+
+server.listen(3000, "localhost", () => {
+  console.log("服务器正在运行在 http://localhost:3000");
+});
+```
+
+#### 3.2 设置状态码和响应头
+
+可以通过 `res.statusCode` 设置响应的状态码，通过 `res.setHeader()` 设置响应头。
+
+```javascript
+const server = http.createServer((req, res) => {
+  res.statusCode = 404; // 设置状态码
+  res.setHeader("Content-Type", "text/plain"); // 设置响应头
+  res.end("Not Found"); // 结束响应并发送内容
+});
+```
+
+#### 3.3 处理 URL 路径
+
+可以通过 `req.url` 来获取请求的 URL，并根据不同的路径进行不同的响应。
+
+```javascript
+const server = http.createServer((req, res) => {
+  if (req.url === "/about") {
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "text/html");
+    res.end("<h1>About Page</h1>");
+  } else if (req.url === "/contact") {
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "text/html");
+    res.end("<h1>Contact Page</h1>");
+  } else {
+    res.statusCode = 404;
+    res.setHeader("Content-Type", "text/plain");
+    res.end("Page not found");
+  }
 });
 
 server.listen(3000, () => {
-  console.log("Server running at http://localhost:3000/");
+  console.log("Server is running on http://localhost:3000");
 });
 ```
 
-访问 `http://localhost:3000`，你会看到 `Hello, World!`。
+### 4. 创建 HTTP 客户端
 
-### **关键点解析**
+#### 4.1 `http.get()`
 
-- `http.createServer()`：创建 HTTP 服务器，接收一个回调函数处理请求。
-- `req`（请求对象）：包含客户端发来的信息（URL、Headers、Body 等）。
-- `res`（响应对象）：用于向客户端返回数据。
-- `server.listen()`：启动服务器监听指定端口。
-
-## **3. 深入 HTTP 请求与响应**
-
-### **3.1 解析请求（Request）**
-
-`req` 对象包含客户端请求的所有信息：
+`http.get()` 方法是一个简便的方式来发起 GET 请求。它返回一个 `http.ClientRequest` 对象，允许我们发送请求和接收响应。
 
 ```javascript
-const server = http.createServer((req, res) => {
-  console.log(`Method: ${req.method}`); // GET, POST, PUT, DELETE
-  console.log(`URL: ${req.url}`); // /path?query=123
-  console.log("Headers:", req.headers); // { 'user-agent': 'curl/7.68.0' }
+const http = require("http");
 
-  // 获取请求体（POST/PUT）
-  let body = "";
-  req.on("data", (chunk) => {
-    body += chunk;
+http
+  .get("http://localhost:3000", (res) => {
+    let data = "";
+
+    // 监听数据流
+    res.on("data", (chunk) => {
+      data += chunk;
+    });
+
+    // 响应结束
+    res.on("end", () => {
+      console.log("响应内容:", data);
+    });
+  })
+  .on("error", (err) => {
+    console.log("请求错误:", err);
   });
-  req.on("end", () => {
-    console.log("Body:", body);
-    res.end("Received!");
-  });
-});
 ```
 
-### **3.2 构造响应（Response）**
+#### 4.2 `http.request()`
 
-`res` 对象控制服务器返回的数据：
-
-```javascript
-res.writeHead(200, {
-  "Content-Type": "application/json",
-  "Cache-Control": "max-age=3600"
-});
-
-res.end(JSON.stringify({ message: "Success" }));
-```
-
-- `res.writeHead(statusCode, headers)`：设置 HTTP 状态码和响应头。
-- `res.write(data)`：发送数据（可多次调用）。
-- `res.end()`：结束响应（可附带最后的数据）。
-
-## **4. 进阶：处理路由和静态文件**
-
-虽然 `http` 模块不提供内置路由，但我们可以手动实现：
+`http.request()` 方法更灵活，适用于除了 GET 之外的其他 HTTP 请求方法（如 `POST`, `PUT`, `DELETE` 等）。它允许你配置更多的请求选项。
 
 ```javascript
-const server = http.createServer((req, res) => {
-  if (req.url === "/") {
-    res.end("Home Page");
-  } else if (req.url === "/about") {
-    res.end("About Page");
-  } else {
-    res.writeHead(404);
-    res.end("404 Not Found");
-  }
-});
-```
+const http = require("http");
 
-### **静态文件服务器示例**
-
-```javascript
-const fs = require("fs");
-const path = require("path");
-
-const server = http.createServer((req, res) => {
-  const filePath = path.join(__dirname, "public", req.url);
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
-      res.writeHead(404);
-      res.end("File not found");
-    } else {
-      res.writeHead(200);
-      res.end(data);
-    }
-  });
-});
-```
-
-## **5. 创建一个 HTTP 客户端**
-
-`http` 模块不仅能创建服务器，还能发送 HTTP 请求：
-
-```javascript
 const options = {
-  hostname: "example.com",
-  port: 80,
-  path: "/api/data",
+  hostname: "localhost",
+  port: 3000,
+  path: "/about",
   method: "GET"
 };
 
 const req = http.request(options, (res) => {
   let data = "";
+
   res.on("data", (chunk) => {
     data += chunk;
   });
+
   res.on("end", () => {
-    console.log("Response:", data);
+    console.log("响应内容:", data);
   });
 });
 
 req.on("error", (err) => {
-  console.error("Request error:", err);
+  console.log("请求错误:", err);
 });
 
-req.end(); // 发送请求
+// 发起请求
+req.end();
 ```
 
-## **6. 性能优化与最佳实践**
+### 5. 处理 POST 请求
 
-### **6.1 使用 `keep-alive` 提高性能**
+对于需要接收请求体的 POST 请求，可以通过监听 `data` 事件来处理请求体数据。
 
 ```javascript
+const http = require("http");
+
 const server = http.createServer((req, res) => {
-  res.writeHead(200, { Connection: "keep-alive" });
-  res.end("Hello, Keep-Alive!");
+  if (req.method === "POST") {
+    let data = "";
+
+    req.on("data", (chunk) => {
+      data += chunk;
+    });
+
+    req.on("end", () => {
+      res.statusCode = 200;
+      res.setHeader("Content-Type", "text/plain");
+      res.end("收到的数据: " + data);
+    });
+  } else {
+    res.statusCode = 405; // 方法不允许
+    res.setHeader("Content-Type", "text/plain");
+    res.end("Method Not Allowed");
+  }
+});
+
+server.listen(3000, () => {
+  console.log("服务器正在运行在 http://localhost:3000");
 });
 ```
 
-`keep-alive` 允许复用 TCP 连接，减少重复握手开销。
-
-### **6.2 避免阻塞事件循环**
+客户端发送 POST 请求：
 
 ```javascript
-// ❌ 错误：同步操作阻塞事件循环
-const data = fs.readFileSync("large-file.json");
+const http = require("http");
 
-// ✅ 正确：使用异步操作
-fs.readFile("large-file.json", (err, data) => {
-  res.end(data);
+const options = {
+  hostname: "localhost",
+  port: 3000,
+  path: "/",
+  method: "POST",
+  headers: {
+    "Content-Type": "text/plain"
+  }
+};
+
+const req = http.request(options, (res) => {
+  let data = "";
+
+  res.on("data", (chunk) => {
+    data += chunk;
+  });
+
+  res.on("end", () => {
+    console.log("响应内容:", data);
+  });
 });
+
+// 向请求体中发送数据
+req.write("Hello, server!");
+req.end();
 ```
-
-### **6.3 使用 `http.globalAgent` 管理连接**
-
-Node.js 默认使用全局 `Agent` 管理 HTTP 连接，可优化高并发场景：
-
-```javascript
-http.globalAgent.maxSockets = 100; // 提高并发连接数
-```
-
-## **7. 总结**
-
-| **功能**       | **http 模块方法**               | **适用场景**           |
-| -------------- | ------------------------------- | ---------------------- |
-| 创建服务器     | `http.createServer()`           | Web 服务、API 开发     |
-| 发送 HTTP 请求 | `http.request()` / `http.get()` | 爬虫、代理服务器       |
-| 路由管理       | 手动解析 `req.url`              | 简单 REST API          |
-| 静态文件服务   | 结合 `fs` 模块                  | 文件下载、前端资源托管 |
-| 性能优化       | `keep-alive`、连接池管理        | 高并发场景             |

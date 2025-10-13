@@ -1,8 +1,10 @@
-# TypeScript 类型问题：为什么 `goRoute(routers.admin)` 会报错？
+# TypeScript 类型收窄
 
 ## 问题描述
 
-在 `TypeScript` 中，我们经常会遇到类似以下的代码和错误：
+在 `TypeScript` 中，我们经常会遇到类似以下的代码和错误。
+
+为什么下面的代码 `goRoute(routers.admin)` 会报错？
 
 ```typescript
 const routers = {

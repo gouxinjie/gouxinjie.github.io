@@ -1,6 +1,13 @@
 # TypeScript 编译配置
 
-`TypeScript` 编译配置指的是 `TypeScript` 编译器的选项和参数，这些选项和参数描述了 `TypeScript` 编译器应如何将 `TypeScript` 代码编译为可执行的 `JavaScript` 代码
+[[toc]]
+
+
+::: tip
+
+`TypeScript` 编译配置指的是 `TypeScript` 编译器的选项和参数，这些选项和参数描述了 `TypeScript` 编译器应如何将 `TypeScript` 代码编译为可执行的 `JavaScript` 代码。
+
+:::
 
 在 `TypeScript` 项目中，[`tsc` 命令](#tsc) 和 [`tsconfig.json`](#tsconfigjson)是密不可分的。`tsc` 命令是用于启动 TypeScript 编译器进行编译的命令行工具，而 `tsconfig.json` 是用于配置 TypeScript 编译器的选项
 

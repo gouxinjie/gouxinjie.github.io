@@ -1,4 +1,4 @@
-# serve
+# npm serve
 
 ## 一、介绍
 

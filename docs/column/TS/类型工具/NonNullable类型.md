@@ -1,10 +1,12 @@
 # TypeScript 中的 `NonNullable` 类型详解
 
+[[toc]]
+
 `NonNullable` 是 `TypeScript` 内置的一个实用工具类型`（Utility Type`），它用于**从类型中排除 `null` 和 `undefined`**，创建一个不能为 `null 或 undefined `的新类型。
 
 这个类型在确保值必须存在的场景中非常有用。
 
-## 基本语法
+## 一、基本语法
 
 ```typescript
 NonNullable<Type>;
@@ -12,7 +14,7 @@ NonNullable<Type>;
 
 - `Type`：源类型，你想从中排除 `null` 和 `undefined` 的类型
 
-## 基本示例
+## 二、基本示例
 
 ### 1. 简单使用
 
@@ -37,7 +39,7 @@ type DefiniteStatus = NonNullable<Status>;
 // 等同于：'success' | 'error'
 ```
 
-## 实际应用场景
+## 三、实际应用场景
 
 ### 1. 确保函数参数非空
 

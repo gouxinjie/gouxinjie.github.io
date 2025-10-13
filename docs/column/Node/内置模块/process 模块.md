@@ -1,178 +1,195 @@
-# **Node.js 中的 process ：进程控制与环境管理**
+# Node.js 中的 process ：进程控制与环境管理
 
-`process 是 Node.js` 的全局对象，提供了与**当前 Node.js 进程**交互的接口。它可以访问命令行参数、环境变量、标准输入输出流，还能监听进程事件（如退出、异常）。
+[[toc]]
 
-## **1. process 基础**
+`process` 是 Node.js 中一个非常核心的全局对象，它提供了与当前进程相关的信息和控制。`process` 对象可以用来管理命令行输入输出、操作系统环境变量、执行时的资源限制等。
 
-### **无需引入，直接使用**
+### 1. 进程对象 `process`
 
-```javascript
-console.log(process.version); // 直接访问，无需 require
-```
+`process` 是一个全局对象，在 Node.js 中不需要通过 `require` 引入。它包含了许多有用的方法和属性，来帮助我们管理 Node.js 应用的运行时环境。
 
-## **2. 核心功能分类**
+### 2. 常用属性
 
-### **（1）进程信息**
+#### 2.1 `process.argv`
 
-| 属性/方法               | 说明                          | 示例                             |
-| ----------------------- | ----------------------------- | -------------------------------- |
-| `process.pid`           | 当前进程的 PID                | `12345`                          |
-| `process.ppid`          | 父进程的 PID（Node.js 10+）   | `67890`                          |
-| `process.arch`          | CPU 架构（如 `x64`、`arm64`） | `'x64'`                          |
-| `process.platform`      | 操作系统平台                  | `'linux'` / `'win32'`            |
-| `process.uptime()`      | 进程运行时间（秒）            | `102.35`                         |
-| `process.memoryUsage()` | 内存使用情况（字节）          | `{ rss: 25MB, heapTotal: 10MB }` |
-
-**示例**：
+`process.argv` 是一个数组，包含了命令行中调用 Node.js 脚本时传入的参数。第一个元素是 Node.js 可执行文件的路径，第二个元素是脚本文件的路径，后面的元素是传给脚本的其他参数。
 
 ```javascript
-console.log(`Node.js 版本: ${process.version}`);
-console.log(`内存占用: ${JSON.stringify(process.memoryUsage())}`);
-```
-
-### **（2）命令行参数与环境变量**
-
-| 属性/方法            | 说明                           |
-| -------------------- | ------------------------------ |
-| `process.argv`       | 命令行参数数组                 |
-| `process.argv0`      | 原始 `argv[0]`（Node.js 路径） |
-| `process.execPath`   | Node.js 可执行文件路径         |
-| `process.env`        | 环境变量对象                   |
-| `process.cwd()`      | 当前工作目录                   |
-| `process.chdir(dir)` | 切换工作目录                   |
-
-**示例**：读取命令行参数
-
-```javascript
-// 运行命令: node app.js --name=foo
 console.log(process.argv);
-// 输出: ['/path/to/node', '/path/to/app.js', '--name=foo']
 ```
 
-**示例**：使用环境变量
+输出示例：
+
+```
+[
+  '/usr/local/bin/node',
+  '/path/to/your/script.js',
+  'arg1',
+  'arg2'
+]
+```
+
+可以通过 `process.argv` 来解析命令行参数。例如：
 
 ```javascript
-const apiKey = process.env.API_KEY; // 从环境变量读取
-if (!apiKey) {
-  console.error("请设置 API_KEY 环境变量");
-  process.exit(1); // 非零退出码表示错误
+const args = process.argv.slice(2); // 跳过前两个元素（Node.js 和脚本路径）
+console.log(args); // ['arg1', 'arg2']
+```
+
+#### 2.2 `process.env`
+
+`process.env` 是一个包含用户环境变量的对象。例如，它可以访问操作系统中的环境变量如 `PATH`, `HOME`, `USER` 等。
+
+```javascript
+console.log(process.env); // 打印所有环境变量
+console.log(process.env.PATH); // 获取 PATH 环境变量
+```
+
+可以使用它来设置应用的环境配置：
+
+```javascript
+process.env.NODE_ENV = "production";
+console.log(process.env.NODE_ENV); // 输出 'production'
+```
+
+#### 2.3 `process.exit()`
+
+`process.exit()` 用于退出当前的 Node.js 进程，并且可以传入一个退出码。默认的退出码是 `0`，表示程序成功退出。如果传入非零值，表示程序异常退出。
+
+```javascript
+console.log("程序执行结束");
+process.exit(0); // 正常退出
+```
+
+- 如果退出码是 `0`，表示程序成功执行。
+- 如果退出码是非 `0`，表示程序出现了错误。
+
+#### 2.4 `process.stdin`, `process.stdout`, `process.stderr`
+
+这三个属性分别代表标准输入流、标准输出流和标准错误流。
+
+- **`process.stdin`**：读取用户输入（通常是命令行输入）。
+- **`process.stdout`**：输出到终端（通常是程序的输出）。
+- **`process.stderr`**：输出错误信息到终端。
+
+例如，使用 `process.stdin` 来读取用户输入：
+
+```javascript
+process.stdin.on("data", (data) => {
+  console.log("用户输入:", data.toString());
+});
+```
+
+你还可以使用 `process.stdout` 输出信息：
+
+```javascript
+process.stdout.write("Hello, world!\n");
+```
+
+#### 2.5 `process.pid`
+
+`process.pid` 返回当前 Node.js 进程的进程 ID（PID）。它是一个数字，用来标识当前正在运行的进程。
+
+```javascript
+console.log(process.pid); // 输出当前进程的 PID
+```
+
+#### 2.6 `process.title`
+
+`process.title` 返回或设置 Node.js 进程的标题。进程标题通常用于命令行工具的标识。
+
+```javascript
+console.log(process.title); // 默认值是 'node'
+process.title = "MyApp";
+console.log(process.title); // 'MyApp'
+```
+
+#### 2.7 `process.platform`
+
+`process.platform` 返回 Node.js 进程运行的平台。它可以返回如下的值：
+
+- `'darwin'`：macOS
+- `'linux'`：Linux
+- `'win32'`：Windows
+
+```javascript
+console.log(process.platform); // 'win32', 'darwin', 'linux' 等
+```
+
+#### 2.8 `process.version`
+
+`process.version` 返回当前 Node.js 的版本信息。它是一个字符串，如 `v14.16.1`。
+
+```javascript
+console.log(process.version); // 例如 'v14.16.1'
+```
+
+#### 2.9 `process.memoryUsage()`
+
+`process.memoryUsage()` 返回一个对象，表示当前进程的内存使用情况。返回的对象包含以下字段：
+
+- `rss`：常驻内存集（Resident Set Size），是进程占用的物理内存量（包括代码、数据和堆栈）。
+- `heapTotal`：V8 引擎的堆总大小。
+- `heapUsed`：V8 引擎已经使用的堆内存量。
+- `external`：V8 引擎外部的内存（如 C++ 对象）。
+
+```javascript
+console.log(process.memoryUsage());
+```
+
+输出示例：
+
+```javascript
+{
+  rss: 163000576,
+  heapTotal: 92876800,
+  heapUsed: 52823296,
+  external: 1160584
 }
 ```
 
-### **（3）标准输入输出流**
+#### 2.10 `process.argv0`
 
-| 属性             | 说明                 |
-| ---------------- | -------------------- |
-| `process.stdin`  | 标准输入流（可读流） |
-| `process.stdout` | 标准输出流（可写流） |
-| `process.stderr` | 标准错误流（可写流） |
-
-**示例**：交互式输入
+`process.argv0` 返回 Node.js 执行时传入的脚本名称，通常是与 `process.argv[1]` 相同，但可以用来区分启动脚本时是否使用了 Node.js 的 `--eval` 或 `--require` 等选项。
 
 ```javascript
-process.stdin.setEncoding("utf-8");
-process.stdout.write("请输入你的名字: ");
-process.stdin.on("data", (input) => {
-  console.log(`你好, ${input.trim()}!`);
-  process.exit();
+console.log(process.argv0);
+```
+
+### 3. 常用事件
+
+#### 3.1 `process.on('exit', callback)`
+
+`'exit'` 事件会在 Node.js 进程退出时触发，通常用来执行清理任务。`callback` 在进程退出时执行，但不能异步执行（不能使用 `setTimeout` 等异步方法）。
+
+```javascript
+process.on("exit", (code) => {
+  console.log(`进程退出，退出码: ${code}`);
 });
 ```
 
-### **（4）进程控制**
+#### 3.2 `process.on('uncaughtException', callback)`
 
-| 方法                   | 说明                       |
-| ---------------------- | -------------------------- |
-| `process.exit([code])` | 退出进程（默认 code=0）    |
-| `process.kill(pid)`    | 向指定 PID 发送信号        |
-| `process.nextTick(cb)` | 将回调放入当前事件循环末尾 |
-
-**示例**：优雅退出
-
-```javascript
-process.on("SIGTERM", () => {
-  console.log("收到终止信号，清理资源...");
-  setTimeout(() => process.exit(0), 1000);
-});
-```
-
-### **（5）事件监听**
-
-| 事件名                | 触发条件                       |
-| --------------------- | ------------------------------ |
-| `'exit'`              | 进程退出前（无法异步操作）     |
-| `'uncaughtException'` | 未捕获的异常                   |
-| `'SIGINT'`            | 用户按下 Ctrl+C                |
-| `'SIGTERM'`           | 收到终止信号（如 `kill` 命令） |
-
-**示例**：捕获未处理的异常
+当发生未捕获的异常时，会触发 `'uncaughtException'` 事件。这可以用来处理未捕获的异常，但建议用它来做日志记录，而不是直接处理所有异常。
 
 ```javascript
 process.on("uncaughtException", (err) => {
-  console.error("未捕获的异常:", err);
-  process.exit(1); // 必须退出，否则进程可能处于不稳定状态
-});
-
-throw new Error("测试异常");
-```
-
-## **3. 实际应用场景**
-
-### **场景 1：配置动态加载**
-
-```javascript
-// 根据环境变量加载不同配置
-const config = process.env.NODE_ENV === "production" ? require("./config.prod") : require("./config.dev");
-```
-
-### **场景 2：命令行工具开发**
-
-```javascript
-// 解析命令行参数
-const [, , arg1, arg2] = process.argv;
-console.log(`参数1: ${arg1}, 参数2: ${arg2}`);
-```
-
-### **场景 3：守护进程**
-
-```javascript
-// 子进程崩溃后自动重启
-const spawn = require("child_process").spawn;
-let child = spawn("node", ["app.js"]);
-
-child.on("exit", (code) => {
-  if (code !== 0) {
-    console.log("子进程退出，重新启动...");
-    child = spawn("node", ["app.js"]);
-  }
+  console.error("捕获到异常:", err);
+  process.exit(1); // 退出进程
 });
 ```
 
-## **4. 注意事项**
+### 4. 示例：命令行参数和环境变量
 
-1. **`process.env` 是敏感信息**
+```javascript
+// 获取命令行参数
+const args = process.argv.slice(2);
+console.log("命令行参数:", args);
 
-   - 不要将 `process.env` 直接记录到日志。
-   - 使用 `dotenv` 库管理 `.env` 文件：
-     ```bash
-     npm install dotenv
-     ```
-     ```javascript
-     require("dotenv").config();
-     console.log(process.env.DB_PASSWORD);
-     ```
+// 获取环境变量
+const nodeEnv = process.env.NODE_ENV || "development";
+console.log("当前环境:", nodeEnv);
 
-2. **避免阻塞事件循环**  
-   `process.nextTick()` 的优先级高于 `setImmediate()`，滥用可能导致 I/O 饥饿。
-
-3. **`uncaughtException` 是最后手段**  
-   即使捕获了异常，也应尽快退出进程，避免内存泄漏。
-
-## **5. 总结**
-
-| **功能**   | **常用 API**                   | **典型场景**       |
-| ---------- | ------------------------------ | ------------------ |
-| 进程信息   | `pid`, `memoryUsage()`         | 监控、日志记录     |
-| 环境变量   | `process.env`                  | 配置管理           |
-| 命令行参数 | `process.argv`                 | CLI 工具开发       |
-| 进程控制   | `exit()`, `kill()`             | 优雅退出、守护进程 |
-| 事件监听   | `uncaughtException`, `SIGTERM` | 错误处理、信号响应 |
+// 输出进程ID
+console.log("当前进程ID:", process.pid);
+```
