@@ -1,5 +1,5 @@
 import { defineConfig } from "vitepress";
-import { nav, sidebar } from "./relaConf";
+import { nav, sidebar } from "./navAndSidebarConfig";
 import markdownItTaskCheckbox from "markdown-it-task-checkbox"; // todoList 任务列表
 import { MermaidMarkdown, MermaidPlugin } from "vitepress-plugin-mermaid";
 

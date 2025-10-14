@@ -24,7 +24,7 @@ const problemList = [
         text: "前端流式输出被浏览器截断问题"
       },
       {
-        text:'发版后浏览器缓存问题'
+        text: "发版后浏览器缓存问题"
       }
     ]
   },
@@ -33,10 +33,13 @@ const problemList = [
     collapsed: false,
     items: [
       {
-        text:'WebAssembly简介'
+        text: "WebAssembly简介"
       },
       {
         text: "软件设计五大核心原则"
+      },
+      {
+        text: "区分编译时和运行时"
       },
       {
         text: "JS常见算法总结"
@@ -48,10 +51,10 @@ const problemList = [
         text: "使用有限状态机"
       },
       {
-        text:'让用户回到上次页面阅读的位置'
+        text: "让用户回到上次页面阅读的位置"
       },
       {
-        text:'前端本地开发构建和更新的过程'
+        text: "前端本地开发构建和更新的过程"
       }
     ]
   }
