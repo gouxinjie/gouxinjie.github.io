@@ -17,6 +17,9 @@ const projectList = [
       },
       {
         text: "工作中常用的git操作-2"
+      },
+      {
+        text: "git版本回退的两种方式"
       }
     ]
   },

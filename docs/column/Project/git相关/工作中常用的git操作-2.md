@@ -1,4 +1,4 @@
-# 工作中常用的git操作(第二部分)
+# 工作中常用的 git 操作(第二部分)
 
 [[toc]]
 
@@ -36,7 +36,6 @@
 
 ## 4. git fetch 命令
 
-
 ```bash
 git fetch [远程仓库名称] [分支名称]  如果不指定远程仓库名称，默认为 origin
 ```
@@ -49,9 +48,9 @@ git fetch [远程仓库名称] [分支名称]  如果不指定远程仓库名称
 
 ```bash
 ## 1、查看当前分支提交历史
-git log --online
+git log
 3c2eabe (HEAD ->master)
-7e7006a add funcation
+7e7006a add function
 
 ## 2、撤销指定提交内容  7e7006a
 git revert 7e7006a
@@ -66,9 +65,9 @@ git push origin gouxinjie
 
 ```bash
 ## 1，找到要回退到的提交的哈希值：
-git log --online
+git log
 ## 回退
-git reset 7e7006a
+git reset --hard 7e7006a
 ```
 
 ## 6. 暂存当前工作目录中的更改
