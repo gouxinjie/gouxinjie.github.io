@@ -81,7 +81,16 @@ const nodeList = [
         text: "数据类型"
       },
       {
-        text: "语法基础"
+        text: "基础语法"
+      },
+      {
+        text: "SQL查询的本质"
+      },
+      {
+        text: "事务理解"
+      },
+      {
+        text: "关联关系"
       },
       {
         text: "JOIN连接操作"

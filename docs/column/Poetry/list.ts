@@ -1,6 +1,7 @@
 import { transformMenuList } from "../../utils/functions";
-// 问题笔记模块相关
-const problemList = [
+
+
+const poetryList = [
   {
     text: "诗词相关",
     collapsed: false,
@@ -21,35 +22,37 @@ const problemList = [
       }
     ]
   },
-  {
-    text: "其他",
-    collapsed: false,
-    items: [
-      {
-        text: "廿四节气"
-      },
-      {
-        text: "车险相关"
-      },
-      {
-        text: "我国的行政区域划分"
-      },
-      {
-        text: "我国的政权划分"
-      },
-      {
-        text: "我国的官衔划分"
-      },
-      {
-        text: "我国教育学历划分"
-      },
-      {
-        text: "我国的社保体系"
-      }
-    ]
-  }
+
+  // TODO: 暂时不展示生活常识模块
+  // {
+  //   text: "生活常识",
+  //   collapsed: false,
+  //   items: [
+  //     {
+  //       text: "廿四节气"
+  //     },
+  //     {
+  //       text: "车险相关"
+  //     },
+  //     {
+  //       text: "我国的行政区域划分"
+  //     },
+  //     {
+  //       text: "我国的政权划分"
+  //     },
+  //     {
+  //       text: "我国的官衔划分"
+  //     },
+  //     {
+  //       text: "我国教育学历划分"
+  //     },
+  //     {
+  //       text: "我国的社保体系"
+  //     }
+  //   ]
+  // }
 ];
 
 export const transformPoetryList = (path: string, isFilterList: boolean = false) => {
-  return transformMenuList(problemList, path, isFilterList);
+  return transformMenuList(poetryList, path, isFilterList);
 };

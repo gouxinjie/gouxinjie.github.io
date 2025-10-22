@@ -1,4 +1,4 @@
-### WebAssembly (Wasm) 简介
+# WebAssembly (Wasm) 简介
 
 `WebAssembly` (简称 **Wasm**) 是一种新的低级编程语言，它被设计用于在现代浏览器中高效执行。它的主要目标是使网页和 web 应用程序能够运行更高效的代码，尤其是在性能要求较高的场景中。Wasm 不是用来替代 JavaScript，而是作为补充，它能够让开发者在 Web 环境中运行用 C、C++、Rust、Go 等编写的代码，享受接近原生性能。
 

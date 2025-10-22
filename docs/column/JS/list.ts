@@ -45,7 +45,6 @@ export const JSList = [
       {
         text: "数组处理",
         items: [
-          { text: "引用类型的拷贝" },
           { text: "常用的浅拷贝和深拷贝" },
           { text: "forEach进阶" },
           { text: "sort使用场景" },
@@ -61,7 +60,13 @@ export const JSList = [
       },
       {
         text: "对象处理",
-        items: [{ text: "对象、数组和字符串方法总结" }, { text: "对象新增的一些常用方法" }]
+        items: [
+          { text: "对象、数组和字符串方法总结" },
+          { text: "对象新增的一些常用方法" },
+          {
+            text: "URLSearchParams获取参数"
+          }
+        ]
       }
     ]
   },

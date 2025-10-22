@@ -106,11 +106,11 @@ export const nav: DefaultTheme.NavItem[] = [
     ]
   },
   {
-    text: "问题/笔记",
+    text: "踩坑记录",
     link: "/column/ProblemNotes/index.md"
   },
   {
-    text: "日常总结",
+    text: "诗词相关",
     link: "/column/Poetry/index.md"
   }
 
