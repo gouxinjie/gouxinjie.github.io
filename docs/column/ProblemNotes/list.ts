@@ -1,3 +1,4 @@
+import { text } from "stream/consumers";
 import { transformMenuList } from "../../utils/functions";
 // 问题笔记模块相关
 const problemList = [
@@ -55,6 +56,15 @@ const problemList = [
       },
       {
         text: "前端本地开发构建和更新的过程"
+      },
+      {
+        text: "IntersectionObserver实现懒加载"
+      },
+      {
+        text:'构建时hash和contenthash区别'
+      },
+      {
+        text:'使用FNM进行Node的版本管理'
       }
     ]
   }
