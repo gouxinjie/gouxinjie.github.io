@@ -24,33 +24,33 @@ const poetryList = [
   },
 
   // TODO: 暂时不展示生活常识模块
-  // {
-  //   text: "生活常识",
-  //   collapsed: false,
-  //   items: [
-  //     {
-  //       text: "廿四节气"
-  //     },
-  //     {
-  //       text: "车险相关"
-  //     },
-  //     {
-  //       text: "我国的行政区域划分"
-  //     },
-  //     {
-  //       text: "我国的政权划分"
-  //     },
-  //     {
-  //       text: "我国的官衔划分"
-  //     },
-  //     {
-  //       text: "我国教育学历划分"
-  //     },
-  //     {
-  //       text: "我国的社保体系"
-  //     }
-  //   ]
-  // }
+  {
+    text: "生活常识",
+    collapsed: false,
+    items: [
+      {
+        text: "廿四节气"
+      },
+      {
+        text: "车险相关"
+      },
+      {
+        text: "我国的行政区域划分"
+      },
+      {
+        text: "我国的政权划分"
+      },
+      {
+        text: "我国的官衔划分"
+      },
+      {
+        text: "我国教育学历划分"
+      },
+      {
+        text: "我国的社保体系"
+      }
+    ]
+  }
 ];
 
 export const transformPoetryList = (path: string, isFilterList: boolean = false) => {

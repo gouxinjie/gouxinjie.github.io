@@ -1,4 +1,4 @@
-# 一文搞懂构建工具中的 `[hash]` 与 `[contenthash]` —— 以 Webpack 和 Vite 为例
+# 构建工具中的 `[hash]` 与 `[contenthash]` : 以 Webpack 和 Vite 为例
 
 [[toc]]
 
@@ -19,7 +19,7 @@ style.73a0de.css
 
 但当我们在配置中看到 `[hash]`、`[contenthash]`、`[chunkhash]` 时，很多人会迷惑：这些到底有什么区别？ Vite 里也有类似的 hash 吗？
 
-别急，这篇文章带你彻底搞懂！
+如下所示：
 
 ## 一、为什么需要 hash？
 

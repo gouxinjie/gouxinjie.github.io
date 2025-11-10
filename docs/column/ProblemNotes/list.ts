@@ -65,6 +65,12 @@ const problemList = [
       },
       {
         text:'使用FNM进行Node的版本管理'
+      },
+      {
+        text:'移动端下拉刷新功能实现'
+      },
+      {
+        text:'移动端B站弹幕功能实现'
       }
     ]
   }
