@@ -4,4 +4,4 @@ import { transformPoetryList  } from "./list";
 const poetryList = shallowRef(transformPoetryList("/column/Poetry/", true)); 
 </script>
 
-<SearchList title="问题笔记" :data="poetryList" ></SearchList>
+<SearchList title="诗词相关" :data="poetryList" ></SearchList>

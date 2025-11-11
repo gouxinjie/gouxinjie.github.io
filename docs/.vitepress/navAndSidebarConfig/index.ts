@@ -13,6 +13,9 @@ import { transformProblemList } from "../../column/ProblemNotes/list";
 import { transformPoetryList } from "../../column/Poetry/list";
 import { transformPythonList } from "../../column/Python/list";
 import { transformNextList } from "../../column/Next/list";
+import { transformCommonSenseList } from "../../column/CommonSense/list";
+
+
 
 /**
  * 顶部导航区
@@ -110,8 +113,17 @@ export const nav: DefaultTheme.NavItem[] = [
     link: "/column/ProblemNotes/index.md"
   },
   {
-    text: "诗词相关",
-    link: "/column/Poetry/index.md"
+    text: "其它",
+    items: [
+      {
+        text: "诗词相关",
+        link: "/column/Poetry/index.md"
+      },
+      {
+        text: "生活常识",
+        link: "/column/CommonSense/index.md"
+      }
+    ]
   }
 
   // {
@@ -185,5 +197,7 @@ export const sidebar: DefaultTheme.Sidebar = {
   "/column/ProblemNotes/": transformProblemList("/column/ProblemNotes/"),
 
   /** 诗词相关 */
-  "/column/Poetry/": transformPoetryList("/column/Poetry/")
+  "/column/Poetry/": transformPoetryList("/column/Poetry/"),
+  /** 生活常识相关 */
+  "/column/CommonSense/": transformCommonSenseList("/column/CommonSense/")
 };
