@@ -15,8 +15,6 @@ import { transformPythonList } from "../../column/Python/list";
 import { transformNextList } from "../../column/Next/list";
 import { transformCommonSenseList } from "../../column/CommonSense/list";
 
-
-
 /**
  * 顶部导航区
  * 设置了侧边栏 会自动跳转到侧边栏第一项
@@ -95,15 +93,15 @@ export const nav: DefaultTheme.NavItem[] = [
         link: "/column/Ecology/project.md"
       },
       {
-        text: "工具推荐",
-        link: "/column/Recommend/index.md"
-      },
-      {
         text: "HTML/CSS",
         link: "/column/Ecology/html-css.md"
       },
       {
-        text: "面试题总结",
+        text: "工具推荐",
+        link: "/column/Recommend/index.md"
+      },
+      {
+        text: "常见面试题",
         link: "/column/Interview/index.md"
       }
     ]

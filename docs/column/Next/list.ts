@@ -7,7 +7,7 @@ const nextList = [
     collapsed: false,
     items: [
       {
-        text:'nextjs的哲学思想'
+        text: "nextjs的哲学思想"
       },
       {
         text: "服务端和客户端组件"
@@ -40,13 +40,13 @@ const nextList = [
         text: "middleware中间件"
       },
       {
-        text:'图像优化'
+        text: "图像优化"
       },
       {
         text: "turbopack构建打包"
       },
       {
-        text:'NextRequest和NextResponse'
+        text: "NextRequest和NextResponse"
       },
       {
         text: "常见鉴权方案"
@@ -56,6 +56,9 @@ const nextList = [
       },
       {
         text: "NextAuth认证常见问题"
+      },
+      {
+        text: "nextjs打包为什么比较大"
       }
     ]
   }

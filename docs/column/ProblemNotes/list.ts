@@ -71,6 +71,21 @@ const problemList = [
       },
       {
         text:'移动端B站弹幕功能实现'
+      },
+      {
+        text:'SVG与Canvas添加水印'
+      },
+      {
+        text:'APP扫码登录的原理'
+      },
+      {
+        text:'共享单车的扫码逻辑'
+      },
+      {
+        text:'园区停车系统技术原理讲解'
+      },
+      {
+        text:'CDN资源不会产生跨域问题'
       }
     ]
   }

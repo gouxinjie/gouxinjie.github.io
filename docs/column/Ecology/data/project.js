@@ -19,13 +19,22 @@ const siteData = [
         icon: "",
         name: "pnpm",
         desc: "高效包管理器，通过硬链接节省磁盘空间，保持node_modules结构",
-        link: "https://www.pnpm.cn/"
+        link: "https://www.pnpm.cn/",
+        isHot: true
       },
       {
         icon: "",
         name: "nvm",
         desc: "Node.js版本管理工具，支持多版本切换",
-        link: "https://nvm.uihtm.com/"
+        link: "https://nvm.uihtm.com/",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "fnm",
+        desc: "基于Rust实现的Node.js版本管理工具，支持多版本切换，快速安装和切换",
+        link: "https://github.com/Schniz/fnm",
+        isHot: true
       },
       {
         icon: "",
@@ -54,25 +63,22 @@ const siteData = [
         icon: "",
         name: "Rollup",
         desc: "ES模块打包器，适合库开发，支持Tree-shaking",
-        link: "https://rollupjs.org/"
-      },
-      {
-        icon: "",
-        name: "Parcel",
-        desc: "零配置打包工具，支持多类型资源处理",
-        link: "https://parceljs.org/"
+        link: "https://rollupjs.org/",
+        isHot: true
       },
       {
         icon: "",
         name: "esbuild",
         desc: "极速JavaScript打包器，基于Go语言开发",
-        link: "https://esbuild.bootcss.com/"
+        link: "https://esbuild.bootcss.com/",
+        isHot: true
       },
       {
         icon: "",
         name: "vite",
         desc: "下一代前端构建工具，开发环境基于原生ESM，生产使用Rollup",
-        link: "https://vitejs.cn/"
+        link: "https://vitejs.cn/",
+        isHot: true
       },
       {
         icon: "",
@@ -82,9 +88,22 @@ const siteData = [
       },
       {
         icon: "",
+        name: "rsbuild",
+        desc: "基于Rust的前端构建工具，速度极快",
+        link: "https://rsbuild.dev/",
+        isHot: true
+      },
+      {
+        icon: "",
         name: "Rome",
         desc: "一体化前端工具链，包含编译、打包、lint等功能",
         link: "https://rome.tools/"
+      },
+      {
+        icon: "",
+        name: "Parcel",
+        desc: "零配置打包工具，支持多类型资源处理",
+        link: "https://parceljs.org/"
       }
     ]
   },
@@ -147,95 +166,67 @@ const siteData = [
     ]
   },
   {
-    title: "测试工具",
+    title: "模块联邦与微前端框架",
     items: [
-      {
-        icon: "",
-        name: "Jest",
-        desc: "JavaScript测试框架，支持快照测试",
-        link: "https://jestjs.io/"
-      },
-      {
-        icon: "",
-        name: "Vitest",
-        desc: "基于Vite的极速单元测试框架",
-        link: "https://vitest.dev/"
-      },
-      {
-        icon: "",
-        name: "Mocha",
-        desc: "灵活的JavaScript测试框架",
-        link: "https://mochajs.org/"
-      },
-      {
-        icon: "",
-        name: "Cypress",
-        desc: "端到端测试工具，支持实时重载",
-        link: "https://www.cypress.io/"
-      },
-      {
-        icon: "",
-        name: "Playwright",
-        desc: "微软开发的现代Web测试和自动化库",
-        link: "https://playwright.dev/"
-      }
-    ]
-  },
-  {
-    title: "模块联邦与微前端",
-    items: [
-      {
-        icon: "",
-        name: "Module Federation",
-        desc: "Webpack5的模块共享功能",
-        link: "https://webpack.js.org/concepts/module-federation/"
-      },
-      {
-        icon: "",
-        name: "Vite Plugin Federation",
-        desc: "Vite的模块联邦实现",
-        link: "https://github.com/originjs/vite-plugin-federation"
-      },
       {
         icon: "",
         name: "qiankun",
-        desc: "基于Single-SPA的微前端框架",
-        link: "https://qiankun.umijs.org/"
+        desc: "阿里开源主从沙箱方案，生产验证多技术栈",
+        link: "https://qiankun.umijs.org"
       },
       {
         icon: "",
-        name: "Single-SPA",
-        desc: "微前端核心框架，支持多框架共存",
-        link: "https://single-spa.js.org/"
-      }
-    ]
-  },
-  {
-    title: "代码生成与脚手架",
-    items: [
-      {
-        icon: "",
-        name: "create-react-app",
-        desc: "官方React项目脚手架",
-        link: "https://create-react-app.dev/"
+        name: "single-spa",
+        desc: "最早路由驱动框架，生态丰富社区活跃",
+        link: "https://single-spa.js.org"
       },
       {
         icon: "",
-        name: "Vue CLI",
-        desc: "Vue.js官方脚手架工具",
-        link: "https://cli.vuejs.org/"
+        name: "micro-app",
+        desc: "京东微前端库，WebComponent+沙箱隔离",
+        link: "https://zeroing.jd.com/micro-app"
       },
       {
         icon: "",
-        name: "degit",
-        desc: "轻量级项目模板生成工具",
-        link: "https://github.com/Rich-Harris/degit"
+        name: "icestark",
+        desc: "飞冰团队方案，Vite+Webpack双构建支持",
+        link: "https://micro-front.ice.work"
       },
       {
         icon: "",
-        name: "plop",
-        desc: "微型生成器系统，用于自动化文件创建",
-        link: "https://plopjs.com/"
+        name: "Module Federation",
+        desc: "Webpack5构建时组合，共享依赖零运行时",
+        link: "https://webpack.js.org/concepts/module-federation"
+      },
+      {
+        icon: "",
+        name: "Bit",
+        desc: "组件级微前端，独立发布复用可扩展",
+        link: "https://bit.dev"
+      },
+      {
+        icon: "",
+        name: "FrintJS",
+        desc: "模块化响应式框架，插件机制灵活组合",
+        link: "https://frint.js.org"
+      },
+      {
+        icon: "",
+        name: "Garfish",
+        desc: "字节跳动沙箱方案，自动预加载性能优",
+        link: "https://garfish.bytedance.net"
+      },
+      {
+        icon: "",
+        name: "Mosaic",
+        desc: "Zalando渐进式框架，服务端片段拼装",
+        link: "https://github.com/zalando/mosaic"
+      },
+      {
+        icon: "",
+        name: "Luigi",
+        desc: "SAP微前端壳框架，统一导航权限管理",
+        link: "https://luigi-project.io"
       }
     ]
   },

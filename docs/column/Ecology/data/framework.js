@@ -25,7 +25,8 @@ const siteData = [
         icon: "",
         name: "Pinia",
         desc: "符合直觉的Vue.js 状态管理库",
-        link: "https://pinia.vuejs.org/zh/"
+        link: "https://pinia.vuejs.org/zh/",
+        isHot: true
       },
       {
         icon: "",
@@ -37,7 +38,8 @@ const siteData = [
         icon: "",
         name: "VitePress",
         desc: "由Vite、Vue驱动的静态网站生成器",
-        link: "https://vitepress.dev/"
+        link: "https://vitepress.dev/",
+        isHot: true
       },
       {
         icon: "",
@@ -61,13 +63,15 @@ const siteData = [
         icon: "",
         name: "Element Plus",
         desc: "基于 Vue 3，面向设计师和开发者的组件库",
-        link: "https://element-plus.org/zh-CN/"
+        link: "https://element-plus.org/zh-CN/",
+        isHot: true
       },
       {
         icon: "",
         name: "Vant",
         desc: "轻量、可靠的移动端 Vue 组件库",
-        link: "https://vant-ui.github.io/vant/#/zh-CN"
+        link: "https://vant-ui.github.io/vant/#/zh-CN",
+        isHot: true
       },
       {
         icon: "",
@@ -126,19 +130,20 @@ const siteData = [
         icon: "",
         name: "Zustand",
         desc: "一个轻量、现代的状态管理库",
-        link: "https://github.com/pmndrs/zustand"
+        link: "https://github.com/pmndrs/zustand",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "MobX",
+        desc: "简单、可扩展的状态管理",
+        link: "https://mobx.js.org/README.html"
       },
       {
         icon: "",
         name: "dvajs",
         desc: "基于 redux 和 redux-saga 的数据流方案",
         link: "https://dvajs.com/"
-      },
-      {
-        icon: "",
-        name: "Umi",
-        desc: "可扩展的企业级前端应用框架",
-        link: "https://umijs.org/"
       },
       {
         icon: "",
@@ -149,38 +154,16 @@ const siteData = [
       {
         icon: "",
         name: "Next.js",
-        desc: "React服务端渲染应用框架",
-        link: "https://nextjs.frontendx.cn/"
-      },
-      {
-        icon: "",
-        name: "Remix",
-        desc: "全栈React框架",
-        link: "https://remix.run/"
-      },
-      {
-        icon: "",
-        name: "Gatsby",
-        desc: "React静态站点生成器",
-        link: "https://www.gatsbyjs.com/"
-      },
-      {
-        icon: "",
-        name: "React Query",
-        desc: "React数据获取库",
-        link: "https://tanstack.com/query/latest"
-      },
-      {
-        icon: "",
-        name: "MobX",
-        desc: "简单、可扩展的状态管理",
-        link: "https://mobx.js.org/README.html"
+        desc: "Vercel 出品的React服务端渲染应用框架，注重全栈开发",
+        link: "https://nextjs.frontendx.cn/",
+        isHot: true
       },
       {
         icon: "",
         name: "Ant Design",
-        desc: "企业级React UI组件库",
-        link: "https://ant.design/index-cn"
+        desc: "蚂蚁金服开源 的一套 企业级 React UI 设计语言与组件库",
+        link: "https://ant.design/index-cn",
+        isHot: true
       },
       {
         icon: "",
@@ -190,9 +173,37 @@ const siteData = [
       },
       {
         icon: "",
-        name: "Jest",
-        desc: "React测试框架",
-        link: "https://jestjs.io/"
+        name: "Lucide React",
+        desc: "是 Lucide 图标库的 React 官方绑定包，为你提供 1 450+ 枚「线性 + 填充」风格的 SVG 图标组件",
+        link: "https://lucide.dev/",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "aHooks",
+        desc: "阿里巴巴开源的一套高质量、可靠的 React Hooks 工具库，把中后台项目里高频出现的副作用、状态、DOM、网络等逻辑封装成现成的 Hook",
+        link: "https://ahooks.js.org/zh-CN/hooks/use-request/index",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "Remix",
+        desc: "是一个全栈Web框架，由 React Router 原班团队打造",
+        link: "https://remix.run/"
+      },
+
+      {
+        icon: "",
+        name: "React Query",
+        desc: "React数据获取库",
+        link: "https://tanstack.com/query/latest"
+      },
+
+      {
+        icon: "",
+        name: "Umi",
+        desc: "可扩展的企业级前端应用框架",
+        link: "https://umijs.org/"
       }
     ]
   },
@@ -202,80 +213,68 @@ const siteData = [
       {
         icon: "",
         name: "Angular",
-        desc: "现代Web开发平台",
-        link: "https://angular.cn/"
+        desc: "现代Web开发平台，构建高效单页应用",
+        link: "https://angular.cn/ "
       },
       {
         icon: "",
         name: "Angular CLI",
-        desc: "Angular命令行工具",
-        link: "https://cli.angular.io/"
+        desc: "官方命令行工具，快速初始化与构建项目",
+        link: "https://cli.angular.io/ "
       },
       {
         icon: "",
         name: "RxJS",
-        desc: "响应式编程库",
-        link: "https://rxjs.dev/"
+        desc: "响应式编程库，优雅处理异步与事件流",
+        link: "https://rxjs.dev/ "
       },
       {
         icon: "",
         name: "NgRx",
-        desc: "Angular状态管理",
-        link: "https://ngrx.io/"
+        desc: "Redux风格状态管理，集中维护应用数据",
+        link: "https://ngrx.io/ "
       },
       {
         icon: "",
         name: "Ionic",
-        desc: "跨平台移动应用开发框架",
-        link: "https://ionicframework.com/"
+        desc: "跨平台移动开发框架，一套代码多端运行",
+        link: "https://ionicframework.com/ "
       },
       {
         icon: "",
         name: "Angular Material",
-        desc: "Material风格UI组件",
-        link: "https://material.angular.io/"
+        desc: "Material Design组件库，统一视觉交互风格",
+        link: "https://material.angular.io/ "
       },
       {
         icon: "",
         name: "PrimeNG",
-        desc: "丰富的UI组件库",
-        link: "https://www.primefaces.org/primeng/"
+        desc: "丰富企业级UI组件，开箱即用快速搭建界面",
+        link: "https://www.primefaces.org/primeng/ "
       },
       {
         icon: "",
         name: "NG-ZORRO",
-        desc: "企业级UI组件库",
-        link: "https://ng.ant.design/docs/introduce/zh"
-      },
-      {
-        icon: "",
-        name: "Karma",
-        desc: "Angular测试运行器",
-        link: "https://karma-runner.github.io/latest/index.html"
-      },
-      {
-        icon: "",
-        name: "Protractor",
-        desc: "端到端测试框架",
-        link: "https://www.protractortest.org/"
+        desc: "阿里企业级组件库，贴合中后台业务场景",
+        link: "https://ng.ant.design/docs/introduce/zh "
       },
       {
         icon: "",
         name: "Angular Universal",
-        desc: "服务端渲染方案",
-        link: "https://angular.io/guide/universal"
+        desc: "官方服务端渲染方案，提升SEO与首屏性能",
+        link: "https://angular.io/guide/universal "
       },
       {
         icon: "",
         name: "Nx",
-        desc: "Angular项目开发工具集",
-        link: "https://nx.dev/"
+        desc: "Monorepo开发工具集，高效管理多应用共享库",
+        link: "https://nx.dev/ "
       },
       {
         icon: "",
         name: "Scully",
-        desc: "Angular静态站点生成器",
-        link: "https://scully.io/"
+        desc: "静态站点生成器，把Angular应用编译成静态页",
+        link: "https://scully.io/ "
       }
     ]
   },
@@ -284,45 +283,48 @@ const siteData = [
     items: [
       {
         icon: "",
+        name: "Uni-app",
+        desc: "基于Vue的多端框架，编译到小程序、App、H5、桌面等全平台",
+        link: "https://uniapp.dcloud.io/ ",
+        isHot: true
+      },
+      {
+        icon: "",
         name: "Taro",
-        desc: "多端统一开发框架",
-        link: "https://taro.jd.com/"
+        desc: "一套代码编译到微信/支付宝/百度/QQ小程序及H5、RN",
+        link: "https://taro.jd.com/ "
       },
       {
         icon: "",
         name: "Flutter",
-        desc: "Google的跨平台UI工具包",
-        link: "https://flutter.dev/"
+        desc: "Google UI工具包，编译原生ARM代码流畅运行iOS/Android",
+        link: "https://flutter.dev/ ",
+        isHot: true
       },
       {
         icon: "",
         name: "React Native",
-        desc: "使用React构建原生应用",
-        link: "https://reactnative.dev/"
+        desc: "React语法写原生应用，共享JS代码实现iOS与Android",
+        link: "https://reactnative.dev/ ",
+        isHot: true
       },
       {
         icon: "",
         name: "Electron",
-        desc: "使用JavaScript构建桌面应用",
-        link: "https://www.electronjs.org/"
+        desc: "Web技术栈打包桌面程序，一次开发同时支持Win/macOS/Linux",
+        link: "https://www.electronjs.org/ "
       },
       {
         icon: "",
         name: "Capacitor",
-        desc: "跨平台原生运行时",
-        link: "https://capacitorjs.com/"
+        desc: "Ionic团队维护的跨平台运行时，把Web应用封装成原生壳",
+        link: "https://capacitorjs.com/ "
       },
       {
         icon: "",
         name: "Weex",
-        desc: "移动端跨平台开发框架",
-        link: "https://weexapp.com/zh/"
-      },
-      {
-        icon: "",
-        name: "Uni-app",
-        desc: "基于Vue的跨平台框架",
-        link: "https://uniapp.dcloud.io/"
+        desc: "阿里开源移动端跨平台方案，Vue语法写页面原生渲染",
+        link: "https://weexapp.com/zh/ "
       }
     ]
   },
@@ -332,26 +334,26 @@ const siteData = [
       {
         icon: "",
         name: "Node.js",
-        desc: "JavaScript运行环境",
-        link: "https://nodejs.org/"
+        desc: "Chrome V8驱动的JavaScript服务端运行环境",
+        link: "https://nodejs.org/ "
       },
       {
         icon: "",
         name: "Express",
-        desc: "基于Node.js的Web框架",
-        link: "https://expressjs.com/"
+        desc: "极简灵活的Web框架，一键搭建REST API与中间件链",
+        link: "https://expressjs.com/ "
       },
       {
         icon: "",
         name: "Koa",
-        desc: "基于 Node.js 平台的下一代 web 开发框架",
-        link: "https://koajs.com/"
+        desc: "下一代Web框架，基于Async/Await实现更轻量的中间件机制",
+        link: "https://koajs.com/ "
       },
       {
         icon: "",
         name: "Nest.js",
-        desc: "用于构建高效且可伸缩的服务端应用程序的渐进式 Node.js 框架",
-        link: "https://docs.nestjs.cn/"
+        desc: "企业级渐进式框架，内置IoC与模块化，支持微服务与GraphQL",
+        link: "https://docs.nestjs.cn/ "
       }
     ]
   },
@@ -362,7 +364,8 @@ const siteData = [
         icon: "",
         name: "ECharts",
         desc: "一个基于 JavaScript 的开源可视化图表库",
-        link: "https://echarts.apache.org/zh/index.html"
+        link: "https://echarts.apache.org/zh/index.html ",
+        isHot: true
       },
       {
         icon: "",
@@ -397,7 +400,8 @@ const siteData = [
         icon: "",
         name: "VitePress",
         desc: "基于 Vue 的静态站点生成器，简单易用，功能强大",
-        link: "https://vitepress.dev/"
+        link: "https://vitepress.dev/ ",
+        isHot: true
       },
       {
         icon: "",

@@ -9,6 +9,8 @@
     <!-- 生态列表 -->
     <ul class="list" v-if="props.data.length > 0">
       <li class="item" v-for="v in props.data" :key="v.name">
+        <!-- 热门标签 右上角 -->
+        <span v-if="v.isHot" class="hot-tag">热门</span>
         <a class="link" :href="v.link" target="_blank">
           <h4 class="name">{{ v.name }}</h4>
           <p class="desc">{{ v.desc }}</p>
@@ -70,6 +72,19 @@ const createTitle = computed(() => {
     flex-wrap: wrap;
     list-style: none;
     padding-left: 0;
+
+    // 推荐标签 右上角
+    .hot-tag {
+      position: absolute;
+      top: 1px;
+      right: 1px;
+      padding: 2px 7px;
+      font-size: 11px;
+      font-weight: 500;
+      color: #fff;
+      background-color: var(--vp-c-brand);
+      border-radius: 4px;
+    }
     .item {
       width: 212px;
       margin: 15px 15px 0 0px;
