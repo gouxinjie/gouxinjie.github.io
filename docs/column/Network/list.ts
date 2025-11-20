@@ -7,43 +7,40 @@ const networkList = [
     collapsed: false,
     items: [
       {
-        text: "OSI七层网络模型"
+        text: "OSI七层网络模型详解"
       },
       {
-        text: "TCP-IP协议"
+        text: "TCP-IP协议和三次握手"
       },
       {
-        text: "FetchApi请求"
+        text: "Wireshark抓包分析实战"
       },
       {
-        text: "AJAX与Axios"
-      },
-      {
-        text: "网络常用命令"
-      },
-      {
-        text: "Wireshark抓包工具"
-      },
-      {
-        text: "Ngrok内网穿透"
+        text: "Ngrok内网穿透配置"
       },
       {
         text: "添加埋点方式和原理"
       },
       {
-        text: "sendBeacon数据上报"
+        text: "sendBeacon可靠上报"
       },
       {
-        text: "XSS脚本攻击"
+        text: "XSS跨站脚本攻击与防御"
       },
       {
-        text: "跨域解决方式"
+        text: "跨域原理解决方案"
       },
       {
         text: "浏览器输入URL发生了什么"
       },
       {
-        text:'本地开发为什么需要端口'
+        text: "本地开发端口原理"
+      },
+      {
+        text: "网络常用命令集锦"
+      },
+      {
+        text: "数字证书相关"
       }
     ]
   },
@@ -52,7 +49,7 @@ const networkList = [
     collapsed: false,
     items: [
       {
-        text: "HTTP基础"
+        text: "HTTP基础讲解"
       },
       {
         text: "HTTP1.1和HTTP2"
@@ -61,10 +58,16 @@ const networkList = [
         text: "HTTPS(TSL和SSL)"
       },
       {
+        text: "GET和POST请求区别"
+      },
+      {
+        text: "Fetch请求和Ajax"
+      },
+      {
         text: "JWT与Cookie"
       },
       {
-        text: "CDN内容分发"
+        text: "CDN内容分发网络"
       },
       {
         text: "强缓存和协商缓存"
@@ -76,10 +79,10 @@ const networkList = [
         text: "获取网络状态"
       },
       {
-        text: "对象存储"
+        text: "对象存储服务"
       },
       {
-        text: "RESTful API"
+        text: "RESTful API设计规范"
       },
       {
         text: "SSE流式传输"
@@ -87,12 +90,7 @@ const networkList = [
       {
         text: "OAuth2.0授权流程"
       },
-      {
-        text: "PWA简单介绍"
-      },
-      {
-        text: "GET和POST请求区别"
-      }
+      
     ]
   },
   {

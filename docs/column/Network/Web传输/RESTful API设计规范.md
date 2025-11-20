@@ -1,4 +1,4 @@
-# **RESTful API：从原则到最佳实践**
+# RESTful API设计规范
 
 [[toc]]
 

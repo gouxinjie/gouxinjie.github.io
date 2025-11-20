@@ -86,6 +86,9 @@ const problemList = [
       },
       {
         text:'CDN资源不会产生跨域问题'
+      },
+      {
+        text:'网站主题切换原理与实践'
       }
     ]
   }

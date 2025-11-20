@@ -1,4 +1,4 @@
-# React 中的 useImperativeHandle 讲解：让子组件“暴露方法”
+# useImperativeHandle让子组件“暴露方法”给父组件调用
 
 [[toc]]
 
