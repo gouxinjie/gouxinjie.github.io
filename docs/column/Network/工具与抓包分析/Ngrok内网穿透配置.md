@@ -159,7 +159,7 @@ export default defineConfig({
 
 **然后重新启动前端服务，访问`https://eagerly-flowing-woodcock.ngrok-free.app` 即可。**
 
-## 三、隐私相关
+## 三、我本地的配置
 
 `ngrok.exe `文件位置:
 
