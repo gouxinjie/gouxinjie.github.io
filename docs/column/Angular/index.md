@@ -4,4 +4,4 @@ import { transformAngularList } from "./list";
 const AngularList = shallowRef(transformAngularList("/column/Angular/", true)); 
 </script>
 
-<SearchList title="Angular相关" :data="AngularList" ></SearchList>
+<SearchList title="Angular" :data="AngularList" ></SearchList>

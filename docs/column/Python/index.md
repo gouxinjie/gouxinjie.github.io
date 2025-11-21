@@ -4,4 +4,4 @@ import { transformPythonList } from "./list";
 const PythonList = shallowRef(transformPythonList("/column/Python/", true)); 
 </script>
 
-<SearchList title="Python相关" :data="PythonList" ></SearchList>
+<SearchList title="Python" :data="PythonList" ></SearchList>

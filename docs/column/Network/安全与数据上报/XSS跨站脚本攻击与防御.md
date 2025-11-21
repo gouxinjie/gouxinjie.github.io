@@ -41,7 +41,7 @@ http://example.com/search?query=<script>alert('XSS')</script>
 
 ![](../images/xss-1.png)
 
-**2，浏览器输入** ：`http://test.ctf8.com/level1.php?name<script>alert('XSS')</script>`,会发现直接触发了`alert`弹窗,如下图：
+**2，浏览器输入** ：`http://test.ctf8.com/level1.php?name=<script>alert('XSS')</script>`,会发现直接触发了`alert`弹窗,如下图：
 
 ![](../images/xss-2.png)
 

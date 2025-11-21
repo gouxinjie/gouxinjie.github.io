@@ -5,4 +5,4 @@ import { HtmlCssListExport } from "./list";
 const HtmlCssList = shallowRef(HtmlCssListExport("/column/HtmlCss/", true));
 </script>
 
-<SearchList title="HTML/CSS相关" :data="HtmlCssList" ></SearchList>
+<SearchList title="HTML/CSS" :data="HtmlCssList" ></SearchList>

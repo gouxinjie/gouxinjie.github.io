@@ -4,4 +4,4 @@ import { transformTSList } from "./list";
 const TSList = shallowRef(transformTSList("/column/TS/", true)); 
 </script>
 
-<SearchList title="TS相关" :data="TSList" ></SearchList>
+<SearchList title="TS进阶" :data="TSList" ></SearchList>

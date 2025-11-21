@@ -222,30 +222,32 @@ onMounted(() => {
 }
 </style>
 
-<!-- ★ 暗黑模式专用（无 scoped），直接写 .dark -->
-<style scoped>
-.dark .header {
+/* ★ 暗黑模式专用 */
+<style>
+/* 注意这里移除了scoped属性 */
+.dark #js-index .header {
   background-color: var(--vt-c-bg);
   border-bottom-color: var(--vt-c-divider-dark);
 }
 
-.dark .header .header-title {
+.dark #js-index .header .header-title {
   color: var(--vt-c-text-1);
 }
 
-.dark .header .label {
+.dark #js-index .header .label {
   color: var(--vt-c-text-2);
 }
 
-.dark #api-filter {
+.dark #js-index #api-filter {
   border-color: var(--vt-c-divider-dark);
-  background-color: var(--vt-c-bg-soft);
+  background-color: rgba(255, 255, 255, 0.05);
   color: var(--vt-c-text-1);
 }
 
-.dark #api-filter:focus {
+.dark #js-index #api-filter:focus {
   border-color: var(--vt-c-green);
-  background-color: var(--vt-c-bg-soft);
+  background-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 3px rgba(0, 212, 116, 0.1);
 }
 
 .dark .list .list-title {
