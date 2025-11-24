@@ -34,22 +34,16 @@ const problemList = [
     collapsed: false,
     items: [
       {
-        text: "WebAssembly简介"
-      },
-      {
         text: "软件设计五大核心原则"
       },
       {
-        text: "区分编译时和运行时"
+        text: "理解运行时与编译时"
       },
       {
-        text: "JS常见算法总结"
+        text: "JS常见函数与算法总结"
       },
       {
-        text: "JS常见算法进阶"
-      },
-      {
-        text: "使用有限状态机"
+        text: "有限状态机在前端中的应用"
       },
       {
         text: "让用户回到上次页面阅读的位置"
@@ -58,7 +52,7 @@ const problemList = [
         text: "前端本地开发构建和更新的过程"
       },
       {
-        text: "IntersectionObserver实现懒加载"
+        text: "IntersectionObserver与懒加载"
       },
       {
         text:'构建时hash和contenthash区别'
@@ -80,9 +74,6 @@ const problemList = [
       },
       {
         text:'共享单车的扫码逻辑'
-      },
-      {
-        text:'园区停车系统技术原理讲解'
       },
       {
         text:'CDN资源不会产生跨域问题'

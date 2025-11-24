@@ -1,4 +1,4 @@
-# 前端懒加载的优雅实现：基于 IntersectionObserver 的实战案例
+# 基于 IntersectionObserver 更流畅的懒加载实现
 
 [[toc]]
 
