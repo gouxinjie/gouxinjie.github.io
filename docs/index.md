@@ -56,7 +56,7 @@ features:
     icon:
       src: /earth.svg
     details: 通过分支管理、变更追踪和历史记录等功能，确保代码的完整性和项目的协同效率，同时还支持错误回滚和代码审查。
-    link: /column/Project/git相关/工作中常用的git操作-2.html
+    link: /column/Git/git相关/工作中常用的git操作-2.html
     linkText: 查看详情
 
   - title: Nginx开启 Gzip 压缩

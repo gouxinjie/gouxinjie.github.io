@@ -3,27 +3,6 @@ import { transformMenuList } from "../../utils/functions";
 // 日常项目模块相关
 const projectList = [
   {
-    text: "git相关",
-    collapsed: false,
-    items: [
-      {
-        text: "git常用命令"
-      },
-      {
-        text: "github设置ssh密钥"
-      },
-      {
-        text: "工作中常用的git操作-1"
-      },
-      {
-        text: "工作中常用的git操作-2"
-      },
-      {
-        text: "git版本回退的两种方式"
-      }
-    ]
-  },
-  {
     text: "组件封装",
     collapsed: false,
     items: [
@@ -109,7 +88,6 @@ const projectList = [
     ]
   }
 ];
-
 
 export const transformProjectList = (path: string, isFilterList: boolean = false) => {
   return transformMenuList(projectList, path, isFilterList);

@@ -14,6 +14,7 @@ import { transformPoetryList } from "../../column/Poetry/list";
 import { transformPythonList } from "../../column/Python/list";
 import { transformNextList } from "../../column/Next/list";
 import { transformCommonSenseList } from "../../column/CommonSense/list";
+import { transformGitList } from "../../column/Git/list";
 
 /**
  * 顶部导航区
@@ -66,6 +67,10 @@ export const nav: DefaultTheme.NavItem[] = [
       {
         text: "JS进阶",
         link: "/column/JS/index.md"
+      },
+      {
+        text: "Git相关",
+        link: "/column/Git/index.md"
       },
       {
         text: "项目相关",
@@ -184,6 +189,9 @@ export const sidebar: DefaultTheme.Sidebar = {
 
   /** html/css模块 */
   "/column/HtmlCss/": HtmlCssListExport("/column/HtmlCss/"),
+
+  /** git相关 */
+  "/column/Git/": transformGitList("/column/Git/"),
 
   /** 小程序相关 */
   "/column/miniProgram/": transformMiniProgramList("/column/miniProgram/"),
