@@ -1,3 +1,4 @@
+import { text } from "stream/consumers";
 import { transformMenuList } from "../../utils/functions";
 
 // python模块相关
@@ -19,6 +20,12 @@ const nextList = [
         text: "客户端页面路由"
       },
       {
+        text: "平行路由"
+      },
+      {
+        text: "路由组"
+      },
+      {
         text: "服务端API路由"
       },
       {
@@ -30,6 +37,9 @@ const nextList = [
     text: "进阶",
     collapsed: false,
     items: [
+      {
+        text:'集成aiSDK'
+      },
       {
         text: "自定义Document"
       },
