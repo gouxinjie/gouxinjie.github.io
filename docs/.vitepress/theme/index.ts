@@ -90,6 +90,7 @@ export default {
         { immediate: true }
       );
     }
+    
     // 访问量统计
     if (inBrowser) {
       router.onAfterRouteChanged = () => {

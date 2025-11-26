@@ -35,7 +35,7 @@ features:
     icon:
       src: /light_pwa.svg
     details: 介绍本篇介绍打包后的 vue 项目使用 nginx 部署到本地以及接口的反向代理和负载均衡。
-    link: /column/Network/Nginx/部署项目和代理.html
+    link: /column/Nginx/Nginx服务器与部署/部署项目和代理.html
     linkText: 查看详情
 
   - title: Vite的依赖预构建过程是什么样的？
@@ -49,7 +49,7 @@ features:
     icon:
       src: /terminal.svg
     details: 前端埋点，就是把用户在产品里的关键行为（点击、曝光、停留、错误等）记录下来，回传到服务器或第三方平台，为产品决策、运营分析、问题排查提供数据依据。
-    link: /column/Network/网络基础/添加埋点方式和原理.html
+    link: /column/Network/安全与数据上报/添加埋点方式和原理.html
     linkText: 查看详情
 
   - title: 工作中常用的git操作
@@ -63,7 +63,7 @@ features:
     icon:
       src: /mode.svg
     details: 在前端项目中，JS/CSS 文件较大时，启用 Gzip 压缩可以显著减少传输体积，提高页面加载速度。
-    link: /column/Network/Nginx/开启gzip压缩.html
+    link: /column/Nginx/Nginx服务器与部署/开启gzip压缩.html
     linkText: 查看详情
 
   - title: 前端常用加密方式有哪些？
@@ -75,6 +75,7 @@ features:
 ---
 
 <style>
+  
 /* 先隐藏小图标 */
 .box .VPImage{
   display: none;

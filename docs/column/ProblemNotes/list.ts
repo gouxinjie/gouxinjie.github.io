@@ -37,7 +37,7 @@ const problemList = [
         text: "软件设计五大核心原则"
       },
       {
-        text: "理解运行时与编译时"
+        text: "理解前端的运行时与编译时"
       },
       {
         text: "JS常见函数与算法总结"
@@ -80,6 +80,9 @@ const problemList = [
       },
       {
         text:'网站主题切换原理与实践'
+      },
+      {
+        text:'顶部阅读进度条实现'
       }
     ]
   }

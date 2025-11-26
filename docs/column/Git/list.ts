@@ -23,6 +23,9 @@ const gitList = [
       },
       {
         text:'git首次推送冲突完整解决流程'
+      },
+      {
+        text:'git同时推送到多个远程仓库'
       }
     ]
   }

@@ -41,7 +41,7 @@ export default defineConfig({
       }
     },
 
-    // 先不设置footer
+    // 设置页脚
     footer: {
       message: "我见青山多妩媚，料青山见我应如是。",
       copyright: "@苟新节 wx:13113183859"
@@ -93,7 +93,7 @@ export default defineConfig({
       };
       // 配置任务列表 todoList
       md.use(markdownItTaskCheckbox);
-      // 配置mermaid
+      // 配置mermaid 图表渲染
       md.use(MermaidMarkdown);
     }
   },
