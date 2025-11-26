@@ -15,6 +15,8 @@ import { transformPythonList } from "../../column/Python/list";
 import { transformNextList } from "../../column/Next/list";
 import { transformCommonSenseList } from "../../column/CommonSense/list";
 import { transformGitList } from "../../column/Git/list";
+import { transformNginxList } from "../../column/Nginx/list";
+
 
 /**
  * 顶部导航区
@@ -69,8 +71,12 @@ export const nav: DefaultTheme.NavItem[] = [
         link: "/column/JS/index.md"
       },
       {
-        text: "Git相关",
+        text: "Git常用",
         link: "/column/Git/index.md"
+      },
+      {
+        text:'Nginx常用',
+        link: "/column/Nginx/index.md"
       },
       {
         text: "项目相关",
@@ -192,6 +198,9 @@ export const sidebar: DefaultTheme.Sidebar = {
 
   /** git相关 */
   "/column/Git/": transformGitList("/column/Git/"),
+
+  /** nginx相关 */
+  "/column/Nginx/": transformNginxList("/column/Nginx/"),
 
   /** 小程序相关 */
   "/column/miniProgram/": transformMiniProgramList("/column/miniProgram/"),
