@@ -83,6 +83,9 @@ const problemList = [
       },
       {
         text:'顶部阅读进度条实现'
+      },
+      {
+        text:'NProgress“跟随”页面加载的原理'
       }
     ]
   }

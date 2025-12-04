@@ -113,9 +113,22 @@
 /**
  * 修改全局滚动条样式
  * -------------------------------------------------------------------------- */
+
 ::-webkit-scrollbar {
   width: 6px;
 }
+
+/* 1. 横向滚动条设置 注意是 height，不是 width */
+::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+/* 2. 横向滚动条内部的“滑块” */
+::-webkit-scrollbar-thumb:horizontal {
+  height: 10px;
+  background: #ddd;
+  border-radius: 4px;
+}
+
 ::-webkit-scrollbar-track {
   background: #f5f5f5;
   border-radius: 4px;
