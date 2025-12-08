@@ -19,15 +19,15 @@ const networkList = [
     collapsed: false,
     items: [
       { text: "HTTP基础讲解" },
-      { text: "GET和POST请求区别" },
       { text: "HTTP1.1和HTTP2" },
       { text: "HTTPS(TSL和SSL)" },
+      { text: "GET和POST请求区别" },
       { text: "CDN内容分发网络" },
       { text: "强缓存和协商缓存" },
       { text: "Fetch请求和Ajax" },
       { text: "RESTful API设计规范" },
-      { text: "对象存储服务" },
-      { text: "IndexDB缓存" },
+      { text: "对象存储服务讲解" },
+      { text: "客户端数据库IndexedDB" },
       { text: "获取网络状态" },
       { text: "SSE流式传输" }
     ]

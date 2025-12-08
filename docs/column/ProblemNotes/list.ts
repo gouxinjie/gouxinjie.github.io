@@ -26,6 +26,9 @@ const problemList = [
       },
       {
         text: "发版后浏览器缓存问题"
+      },
+      {
+        text: "React19被曝出RCE的高危漏洞"
       }
     ]
   },
@@ -86,6 +89,9 @@ const problemList = [
       },
       {
         text:'NProgress“跟随”页面加载的原理'
+      },
+      {
+        text:'不点击鼠标也能通过MouseEvent实现点击事件'
       }
     ]
   }
