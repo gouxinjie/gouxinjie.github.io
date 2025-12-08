@@ -1,3 +1,25 @@
+### 项目介绍
+
+苟新节的个人博客，使用 vitepress 搭建的静态网站。
+
+### 安装依赖
+
+```
+npm i
+```
+
+#### 运行项目
+
+```
+npm run dev
+```
+
+#### 项目打包
+
+```
+npm run build
+```
+
 ### 需要注意
 
 1，当前发布并没有使用 pnpm，后续如果使用 pnpm，需要在 yaml 脚本文件进行配置；参考：https://github.com/maomao1996/mm-notes/tree/master/.github/workflows
@@ -19,7 +41,7 @@ origin  https://gitee.com/gou-xinjie/vite-press-blog.git (push)
 
 ```
 
-4，vercel 也同步进行了静态网站的自动部署,连接的github仓库同样是 https://github.com/gouxinjie/gouxinjie.github.io.git
+4，vercel 也同步进行了静态网站的自动部署,连接的 github 仓库同样是 https://github.com/gouxinjie/gouxinjie.github.io.git
 
 ```bash
 
@@ -29,25 +51,3 @@ vercel个人中心：  https://vercel.com/xinjies-projects/gxj.github.io
 部署后的访问地址： gouxinjie.vercel.app
 
 ```
-
-### 安装依赖
-
-```
-npm i
-```
-
-#### 运行项目
-
-```
-npm run dev
-```
-
-#### 项目打包
-
-```
-npm run build
-```
-
-### 项目介绍
-
-苟新节的个人博客，使用 vitepress 搭建的静态网站。

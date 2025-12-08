@@ -10,6 +10,9 @@ const poetryList = [
         items: [{ text: "蝶恋花" }, { text: "浣溪沙" }, { text: "菩萨蛮" }, { text: "临江仙" }]
       },
       {
+        text: "田园风光"
+      },
+      {
         text: "相思别离"
       },
       { text: "寓情于景" },
