@@ -2,6 +2,13 @@
 
 [[toc]]
 
+
+::: warning 注意事项！
+
+从 Next.js 16 开始，中间件Middleware更名为代理（Proxy），以更好地体现其用途。其功能保持不变。
+
+:::
+
 ## 1. 什么是 Middleware？
 
 - **Middleware** 是运行在 **请求到达路由之前** 的一个函数。

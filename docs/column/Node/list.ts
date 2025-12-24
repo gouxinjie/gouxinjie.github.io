@@ -33,9 +33,6 @@ const nodeList = [
       },
       {
         text: "pnpm解决幽灵依赖"
-      },
-      {
-        text: "CSR SSR SSG"
       }
     ]
   },

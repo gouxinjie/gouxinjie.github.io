@@ -232,7 +232,7 @@ CREATE TABLE users (
 
 返回如下：
 
-![api-1](../images/api-1.png)
+![api-1](../../images/api-1.png)
 
 可以看到数据库中的三条数据全部查出来了。
 
@@ -251,11 +251,11 @@ Content-Type: application/json
 
 也可以在`apiFox`中调用：
 
-![api-2](../images/api-2.png)
+![api-2](../../images/api-2.png)
 
 调用成功，数据库截图如下：
 
-![api-3](../images/api-3.png)
+![api-3](../../images/api-3.png)
 
 ## 四、前端页面调用 api 接口 案例
 
@@ -349,11 +349,11 @@ export default function UsersPage() {
 - 页面会自动请求 `/api/users`，显示用户列表
 - 可以在输入框填写 **姓名 / 邮箱** 并点击“添加用户” → 会直接写入 MySQL，再刷新用户列表
 
-![api-4](../images/api-4.png)
+![api-4](../../images/api-4.png)
 
 点击添加用户后，数据库会新增一条数据,如下所示。
 
-![api-5](../images/api-5.png)
+![api-5](../../images/api-5.png)
 
 ### 3️⃣ 结构回顾
 
