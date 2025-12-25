@@ -16,7 +16,7 @@ import { transformNextList } from "../../column/Next/list";
 import { transformCommonSenseList } from "../../column/CommonSense/list";
 import { transformGitList } from "../../column/Git/list";
 import { transformNginxList } from "../../column/Nginx/list";
-
+import { transformDockerList } from "../../column/Docker/list";
 
 /**
  * 顶部导航区
@@ -63,20 +63,24 @@ export const nav: DefaultTheme.NavItem[] = [
         link: "/column/Angular/index.md"
       },
       {
-        text: "TS进阶",
-        link: "/column/TS/index.md"
-      },
-      {
         text: "JS进阶",
         link: "/column/JS/index.md"
+      },
+      {
+        text: "TS进阶",
+        link: "/column/TS/index.md"
       },
       {
         text: "Git常用",
         link: "/column/Git/index.md"
       },
       {
-        text:'Nginx常用',
+        text: "Nginx常用",
         link: "/column/Nginx/index.md"
+      },
+      {
+        text: "Docker常用",
+        link: "/column/Docker/index.md"
       },
       {
         text: "项目相关",
@@ -168,7 +172,9 @@ export const nav: DefaultTheme.NavItem[] = [
   // }
 ];
 
-/** 显示侧边栏 */
+/**
+ * @description 侧边栏配置
+ */
 export const sidebar: DefaultTheme.Sidebar = {
   /** js模块 */
   "/column/JS/": transformJSList("/column/JS/"),
@@ -205,6 +211,9 @@ export const sidebar: DefaultTheme.Sidebar = {
 
   /** nginx相关 */
   "/column/Nginx/": transformNginxList("/column/Nginx/"),
+
+  /** docker相关 */
+  "/column/Docker/": transformDockerList("/column/Docker/"),
 
   /** 小程序相关 */
   "/column/miniProgram/": transformMiniProgramList("/column/miniProgram/"),

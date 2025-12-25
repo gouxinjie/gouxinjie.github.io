@@ -1,0 +1,24 @@
+import { transformMenuList } from "../../utils/functions";
+
+const dockerList = [
+  {
+    text: "Docker容器与部署",
+    collapsed: false,
+    items: [
+      { text: "核心概念和安装" },
+      { text: "Docker的镜像与容器" },
+      { text: "Dockerfile" },
+      { text: "Docker Compose" },
+      { text: "容器网络" },
+      { text: "容器存储" },
+      { text: "容器日志" },
+      { text: "容器监控" },
+      { text: "Docker本地部署CSR前端项目" },
+      { text: "Docker本地部署SSR前端项目" },
+    ]
+  }
+];
+
+export const transformDockerList = (path: string, isFilterList: boolean = false) => {
+  return transformMenuList(dockerList, path, isFilterList);
+};
