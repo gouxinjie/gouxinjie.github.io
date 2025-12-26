@@ -2,6 +2,8 @@
 
 [[toc]]
 
+![docker-ssr](../images/docker-ssr.png)
+
 这篇文档详细介绍如何将基于 Next.js 的银企直连前置机管理系统(我本地的项目)容器化，并在本地使用 `Docker` 进行部署。
 
 ## 1. 项目技术栈

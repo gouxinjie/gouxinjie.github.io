@@ -4,6 +4,10 @@
 
 [[toc]]
 
+
+![docker-csr](../images/docker-csr.png)
+
+
 ## 一、前言
 
 在现代前端开发中，`Docker` 已经成为项目部署的标准工具之一。通过` Docker`，我们可以将前端应用及其运行环境打包成一个独立的容器，实现"一次构建，到处运行"的目标。本文将以一个 Vue3 项目为例，详细介绍如何使用 `Docker` 进行本地部署。
@@ -343,7 +347,7 @@ Invoke-WebRequest -Uri http://localhost:8080/health -UseBasicParsing
 
 #### 4. 访问应用
 
-打开浏览器访问：**http://localhost:8080/vue3/**
+打开浏览器访问：`http://localhost:8080/vue3/`
 
 **如图所示**：
 
