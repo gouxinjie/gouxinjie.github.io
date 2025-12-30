@@ -1,4 +1,4 @@
-# npm 和 package.json 文件完全解析
+# npm 和 package.json 文件解析
 
 ## 一、npm
 
@@ -98,7 +98,7 @@
 }
 ```
 
-### **2.3 engines - 环境要求**
+### 2.3 engines - 环境要求
 
 指定 Node.js 和 npm 的版本要求：
 
@@ -109,7 +109,7 @@
 }
 ```
 
-### **2.4 repository - 代码仓库**
+### 2.4 repository - 代码仓库
 
 ```json
 "repository": {
@@ -118,7 +118,7 @@
 }
 ```
 
-### **2.5 config - 自定义配置**
+### 2.5 config - 自定义配置
 
 ```json
 "config": {

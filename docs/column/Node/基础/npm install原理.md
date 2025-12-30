@@ -1,4 +1,4 @@
-# Npm install 原理
+# npm install 原理
 
 ## 1、在执行 npm install 的时候发生了什么？
 
