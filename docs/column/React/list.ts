@@ -112,6 +112,9 @@ const ReactList = [
       },
       {
         text: "useCallback"
+      },
+      {
+        text: "使用函数引用作为依赖项"
       }
     ]
   },

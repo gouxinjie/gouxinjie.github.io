@@ -56,6 +56,9 @@ const HtmlCssList = [
       },
       {
         text: "transform影响fixed定位"
+      },
+      {
+        text: "@media print 打印样式"
       }
     ]
   }
