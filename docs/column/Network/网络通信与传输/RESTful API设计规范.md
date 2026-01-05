@@ -4,7 +4,7 @@
 
 `RESTful API` 是现代 `Web` 开发的基石，良好的 `API` 设计能显著提升系统的可用性、可维护性和扩展性。
 
-## **1. 什么是 RESTful API？**
+## 1. 什么是 RESTful API？
 
 `REST（Representational State Transfer）`是一种架构风格，`RESTful API` 是其具体实现，具有以下核心特征：
 
@@ -13,9 +13,9 @@
 - **统一接口（Uniform Interface）**：使用标准 HTTP 方法操作资源
 - **超媒体驱动（HATEOAS）**：响应中包含相关操作链接
 
-## **2. RESTful API 设计原则**
+## 2. RESTful API 设计原则
 
-### **2.1 资源命名规范**
+### 2.1 资源命名规范
 
 | 原则         | 好例子                | 坏例子                 |
 | ------------ | --------------------- | ---------------------- |
@@ -23,7 +23,7 @@
 | 层次化关系   | `/authors/5/articles` | `/authorArticles?id=5` |
 | 小写+连字符  | `/user-profiles`      | `/userProfiles`        |
 
-### **2.2 HTTP 方法语义**
+### 2.2 HTTP 方法语义
 
 简单的说 RESTful 架构就是：“每一个 URI 代表一种资源，客户端通过四个 HTTP 动词，对服务器端资源进行操作，实现资源的表现层状态转移”。
 
@@ -38,7 +38,7 @@
 | **GET**               | `/students/ID/friends/`    | 列出指定 ID 的学生的所有朋友                   |
 | **DELETE**            | `/students/ID/friends/ID/` | 删除指定 ID 的学生的指定 ID 的朋友             |
 
-### **2.3 状态码使用规范**
+### 2.3 状态码使用规范
 
 | 状态码                | 含义       | 适用场景         |
 | --------------------- | ---------- | ---------------- |
@@ -51,9 +51,9 @@
 | 404 Not Found         | 资源不存在 | 访问不存在的 URL |
 | 429 Too Many Requests | 限流       | 请求频率过高     |
 
-## **3. 最佳实践示例**
+## 3. 最佳实践示例
 
-### **3.1 典型 CRUD 端点设计**
+### 3.1 典型 CRUD 端点设计
 
 ```text
 GET    /articles          # 获取文章列表
@@ -64,7 +64,7 @@ PATCH  /articles/{id}     # 部分更新文章
 DELETE /articles/{id}     # 删除文章
 ```
 
-### **3.2 过滤、排序和分页**
+### 3.2 过滤、排序和分页
 
 ```text
 GET /articles?state=published&sort=-created_at&page=2&limit=10
@@ -84,7 +84,7 @@ GET /articles?state=published&sort=-created_at&page=2&limit=10
 }
 ```
 
-### **3.3 版本控制方案**
+### 3.3 版本控制方案
 
 **URL 路径版本控制**（推荐）：
 
@@ -99,9 +99,9 @@ GET /articles HTTP/1.1
 Accept: application/vnd.example.v1+json
 ```
 
-## **4. 高级设计模式**
+## 4. 高级设计模式
 
-### **4.1 HATEOAS 实现**
+### 4.1 HATEOAS 实现
 
 响应中包含可操作链接：
 
@@ -124,7 +124,7 @@ Accept: application/vnd.example.v1+json
 }
 ```
 
-### **4.2 批量操作设计**
+### 4.2 批量操作设计
 
 ```http
 PATCH /articles
@@ -136,7 +136,7 @@ Content-Type: application/json
 ]
 ```
 
-### **4.3 异步操作处理**
+### 4.3 异步操作处理
 
 创建异步任务：
 
@@ -160,9 +160,9 @@ Location: /jobs/123
 GET /jobs/123
 ```
 
-## **5. 安全防护措施**
+## 5. 安全防护措施
 
-### **5.1 认证与授权**
+### 5.1 认证与授权
 
 ```http
 # JWT认证示例
@@ -170,7 +170,7 @@ GET /profile HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1Ni...
 ```
 
-### **5.2 输入验证**
+### 5.2 输入验证
 
 ```json
 {
@@ -182,7 +182,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1Ni...
 }
 ```
 
-### **5.3 速率限制**
+### 5.3 速率限制
 
 响应头：
 
@@ -193,13 +193,13 @@ X-RateLimit-Remaining: 99
 X-RateLimit-Reset: 1625097600
 ```
 
-## **6. 文档化工具推荐**
+## 6. 文档化工具推荐
 
 - **OpenAPI/Swagger**：标准化 API 描述
 - **Postman**：交互式 API 测试与文档
 - **Redoc**：美观的 API 文档生成
 
-## **7. 常见反模式**
+## 7. 常见反模式
 
 1. **动词滥用**：`/getArticles`、`/deleteUser`
 2. **过度嵌套**：`/users/5/articles/3/comments/1/replies`
@@ -207,7 +207,7 @@ X-RateLimit-Reset: 1625097600
 4. **混合大小写**：`/UserProfile`
 5. **忽略版本控制**：导致后期兼容性问题
 
-## **总结**
+## 总结
 
 设计良好的 RESTful API 应该：  
 ✅ 遵循资源导向原则  

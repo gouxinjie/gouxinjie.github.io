@@ -1,4 +1,3 @@
-import { text } from "stream/consumers";
 import { transformMenuList } from "../../utils/functions";
 
 // python模块相关
@@ -63,6 +62,9 @@ const nextList = [
       },
       {
         text: "图像优化"
+      },
+      {
+        text:'Script组件'
       },
       {
         text: "turbopack构建打包"

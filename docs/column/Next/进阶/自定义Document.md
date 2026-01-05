@@ -110,34 +110,64 @@ export default async function RootLayout({ children }) {
 
 ![document-1.png](../images/document-1.png)
 
-### 2️⃣ 字体管理（next/font/google）
+### 2️⃣ 自定义字体使用（next/font/google）
+
+`next/font`模块，内置了字体优化功能，其目的是防止 CLS 布局偏移。font 模块主要分为两部分，一部分是内置的 Google Fonts 字体，另一部分是本地字体。
+
+在使用 google 字体的时候，Google 字体和 css 文件会在构建的时候下载到本地，可以与静态资源一起托管到服务器，所以不会向 Google 发送请求.
+
+字体网站：[Google Fonts](https://fonts.google.com/)
+
+**1. 基本使用**
+
+layout.jsx:
 
 ```js
-// app/fonts.js
-import { Geist_Sans, Geist_Mono } from "next/font/google";
-
-export const geistSans = Geist_Sans({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--geist-sans"
+import { BBH_Sans_Hegarty } from "next/font/google"; //引入字体库
+const bbhSansHegarty = BBH_Sans_Hegarty({
+  weight: "400", //字体粗细
+  display: "swap" //字体显示方式
 });
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="en">
+      <body className={bbhSansHegarty.className}>
+        {" "}
+        {/** bbhSansHegarty会返回一个类名，用于加载字体 */}
+        {children}
+        sdsadasdjsalkdjasl 你好
+      </body>
+    </html>
+  );
+}
+```
 
-export const geistMono = Geist_Mono({
+**2. 可变字体**
+
+可变字体是一种可以适应不同字重和样式的字体，它可以在不同的设备上自动调整字体大小和样式，以适应不同的屏幕大小和分辨率。
+
+```jsx
+import { Roboto } from "next/font/google";
+const roboto = Roboto({
+  weight: ["400", "700"], //字体粗细 (不是所有字体都支持可变字体)
+  style: ["normal", "italic"], //字体样式
   subsets: ["latin"],
-  weight: ["400"],
-  variable: "--geist-mono"
+  display: "swap"
 });
 ```
 
-> 通过 metadata，Next.js 会自动生成 `<head>` 标签，无需手动写 `_document.js`。
+**3. 字体属性**
 
-## 四、App Router 与 Pages Router 的对比
-
-| 功能                     | Pages Router `_document.js` | App Router layout.js + metadata |
-| ------------------------ | --------------------------- | ------------------------------- |
-| HTML `<html>` / `<body>` | 必须自定义                  | layout.js 定义即可              |
-| 全局 meta / title        | `_document.js` + `<Head>`   | metadata 自动生成               |
-| 字体管理                 | `<link>` 手动引入           | next/font/google                |
-| 第三方脚本               | `<script>` 手动引入         | next/script 动态加载            |
-| React Hook / Client 逻辑 | ❌ 不可使用                 | ❌ layout.js 仍不可使用 Hook    |
-| 页面级覆盖               | ❌ 不方便                   | ✅ 页面级 metadata 可覆盖       |
+| 属性               | Google | 本地 | 类型             | 必填 | 说明                    |
+| ------------------ | ------ | ---- | ---------------- | ---- | ----------------------- |
+| src                | X       | ✔    | String / Array   | 是   | 字体文件路径            |
+| weight             | ✔      | ✔    | String / Array   | 可选 | 字体粗细，如 `'400'`    |
+| style              | ✔     | ✔    | String / Array   | 可选 | 字体样式，如 `'normal'` |
+| subsets            | ✔      | X    | Array            | 可选 | 字符子集                |
+| axes               | ✔      | X     | Array            | 可选 | 可变字体轴              |
+| display            | ✔      | ✔    | String           | 可选 | 显示策略                |
+| preload            | ✔      | ✔    | Boolean          | 可选 | 是否预加载              |
+| fallback           | ✔      | ✔    | Array            | 可选 | 备用字体                |
+| adjustFontFallback | ✔      | ✔    | Boolean / String | 可选 | 调整备用字体            |
+| variable           | ✔      | ✔    | String           | 可选 | CSS 变量                |
+| declarations       | X      | ✔    | Array            | 可选 | 自定义声明              |
