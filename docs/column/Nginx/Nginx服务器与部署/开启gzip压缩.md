@@ -1,5 +1,7 @@
 # 开启 gzip 压缩
 
+![](../images/gzip-banner.png)
+
 [[toc]]
 
 在前端项目中，`JS/CSS `文件较大时，启用 `Gzip` 压缩可以显著减少传输体积，提高页面加载速度。  
@@ -39,7 +41,7 @@ server {
     # vue3项目
     location /vue3/ {
         alias  D:/Deploy/vue3/;
-        try_files $uri $uri/ /index.html last;
+        try_files $uri $uri/ /index.html;
         index index.html index.htm;
     }
 }
@@ -109,7 +111,7 @@ server {
     # vue3项目
     location /vue3/ {
         alias  D:/Deploy/vue3/;
-        try_files $uri $uri/ /index.html last;
+        try_files $uri $uri/ /index.html;
         index index.html index.htm;
     }
 }

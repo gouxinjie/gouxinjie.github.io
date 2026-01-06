@@ -1,5 +1,7 @@
 # 前端 hash、history 模式的区别及 history 路由刷新报 404 问题
 
+![](../images/nginx-banner.png)
+
 [[toc]]
 
 ## 1，前端路由原理
@@ -83,8 +85,8 @@ const router = new VueRouter({
 
 但是我访问的是 `/video/videoProduce` 它匹配不到 当然就报 404 了；
 
-```javascript
-# 视频演示项目 http协议
+```nginx
+# 视频演示项目
 location /video/ {
     alias  D:/myProject/deployProject/video/;
     index index.html index.htm;
@@ -93,7 +95,7 @@ location /video/ {
 
 **解决方案：**
 
-在 nginx 配置添加一行配置： `try_files $uri $uri/ /index.html last;`
+在 nginx 配置添加一行配置： `try_files $uri $uri/ /index.html;`
 
 ::: tip try_files 做了什么
 
@@ -116,13 +118,16 @@ try_files file1 file2 … fallback;
 
 **解决方案：**
 
-```javascript
-# 视频演示项目 http协议
+```nginx
+# 视频演示项目
 location /video/ {
 ​    alias  D:/myProject/deployProject/video/;
-​    try_files $uri $uri/ /index.html last;
+​    try_files $uri $uri/ /index.html;
 ​    index index.html index.htm;
 ​}
+
+# 其他文件夹处理 404 问题
+try_files $uri $uri/ /yourcatalog/index.html;;
 ```
 
 vue 官网给出的解决方案就有这条：[https://router.vuejs.org/zh/guide/essentials/history-mode.html](https://router.vuejs.org/zh/guide/essentials/history-mode.html)
