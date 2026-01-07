@@ -155,4 +155,4 @@ console.log(_instancof(new Number(123), Number)); //true
 console.log(_instancof(new Date(), Object)); //true
 ```
 
-End;
+**End;**

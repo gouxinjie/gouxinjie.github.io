@@ -5,9 +5,8 @@
 import { onMounted, watch, nextTick } from "vue";
 import { useRoute } from "vitepress";
 import DefaultTheme from "vitepress/theme";
-import ElementPlus from "element-plus";
-import "element-plus/dist/index.css";
 import { inBrowser } from "vitepress";
+import type { Theme } from "vitepress";
 
 import "./styles/index.scss"; // 启用新样式
 
@@ -58,13 +57,12 @@ if (typeof window !== "undefined") {
 // 彩虹背景动画样式
 let homePageStyle: HTMLStyleElement | undefined;
 
-export default {
+const theme: Theme = {
   ...DefaultTheme,
   NotFound: () => "404",
   Layout: MyLayout, // 自定义 Layout
 
-  enhanceApp({ app, router, siteData }) {
-    app.use(ElementPlus);
+  enhanceApp({ app, router }) {
     // 注册全局组件
     app.component("BackTop", BackTop);
     app.component("SearchList", SearchList);
@@ -77,7 +75,7 @@ export default {
     app.component("Update", Update); // 更新时间
     app.component("ArticleMetadata", ArticleMetadata); // 字数及阅读时间
     app.component("BackToTop", BackToTop);
-    app.component("MNavLinks", MNavLinks);// 导航组件
+    app.component("MNavLinks", MNavLinks); // 导航组件
     app.component("PoetryDisplay", PoetryDisplay); // 诗词组件
     app.component("HeroDisplay", HeroDisplay); // 励志文本组件
     app.component("FamousDisplay", FamousDisplay); // 名句组件
@@ -90,10 +88,10 @@ export default {
         { immediate: true }
       );
     }
-    
+
     // 访问量统计
     if (inBrowser) {
-      router.onAfterRouteChanged = () => {
+      router.onAfterRouteChange = () => {
         busuanzi.fetch();
       };
       // 进度条配置
@@ -101,7 +99,7 @@ export default {
       router.onBeforeRouteChange = () => {
         NProgress.start(); // 开始进度条
       };
-      router.onAfterRouteChanged = () => {
+      router.onAfterRouteChange = () => {
         busuanzi.fetch();
         NProgress.done(); // 停止进度条
       };
@@ -125,7 +123,13 @@ export default {
   }
 };
 
-// 彩虹背景动画样式
+export default theme;
+
+/**
+ * 彩虹背景动画样式
+ * @param value 是否添加彩虹背景动画
+ * @returns
+ */
 function updateHomePageStyle(value: boolean) {
   if (value) {
     if (homePageStyle) return;

@@ -17,7 +17,7 @@ onMounted(() => {
   var duration = 15 * 1000;
   var animationEnd = Date.now() + duration;
   var skew = 1;
-  function randomInRange(min, max) {
+  function randomInRange(min: number, max: number) {
     return Math.random() * (max - min) + min;
   }
   (function frame() {
