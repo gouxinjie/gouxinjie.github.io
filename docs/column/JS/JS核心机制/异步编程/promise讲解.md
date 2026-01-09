@@ -24,9 +24,9 @@ rejected 表示执行完毕但失败；这里的成功和失败都是逻辑意�
 
 :::
 
-## **一、Promise 基础概念**
+## 一、Promise 基础概念
 
-### **1.1 什么是 Promise？**
+### 1.1 什么是 Promise？
 
 `Promise` 是一个表示异步操作最终完成或失败的对象，它有三种状态：
 
@@ -34,7 +34,7 @@ rejected 表示执行完毕但失败；这里的成功和失败都是逻辑意�
 - **fulfilled**（已成功）
 - **rejected**（已失败）
 
-### **1.2 创建 Promise**
+### 1.2 创建 Promise
 
 ```javascript
 const promise = new Promise((resolve, reject) => {
@@ -50,7 +50,7 @@ const promise = new Promise((resolve, reject) => {
 });
 ```
 
-### **1.3 使用 Promise**
+### 1.3 使用 Promise
 
 ```javascript
 promise
@@ -62,11 +62,11 @@ promise
   });
 ```
 
-## **二、Promise 自带方法**
+## 二、Promise 自带方法
 
-### **2.1 静态方法**
+### 2.1 静态方法
 
-#### **Promise.resolve()**
+#### Promise.resolve()
 
 创建一个立即解析的 Promise：
 
@@ -74,7 +74,7 @@ promise
 Promise.resolve("立即返回").then(console.log); // "立即返回"
 ```
 
-#### **Promise.reject()**
+#### Promise.reject()
 
 创建一个立即拒绝的 Promise：
 
@@ -82,7 +82,7 @@ Promise.resolve("立即返回").then(console.log); // "立即返回"
 Promise.reject("错误").catch(console.error); // "错误"
 ```
 
-#### **Promise.all()**
+#### Promise.all()
 
 `Promise.all()`方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。等待所有 Promise 完成，或任意一个失败。
 
@@ -106,7 +106,7 @@ Promise.all([fetchUserInfo, fetchProducts, fetchNotifications])
   });
 ```
 
-#### **Promise.race()**
+#### Promise.race()
 
 返回最先完成的 Promise（无论成功或失败）：
 
@@ -119,7 +119,7 @@ Promise.race([p1, p2]).then((winner) => {
 });
 ```
 
-#### **Promise.allSettled()**
+#### Promise.allSettled()
 
 为了解决  `Promise.all `一个失败，全盘皆输的这个痛点，ES2020 引入了` Promise.allSettled`  方法。它的行为更加宽容和稳健：
 
@@ -162,7 +162,7 @@ Promise.allSettled([fetchUserInfo, fetchProducts, fetchNotifications]).then((res
 - 韧性增强：单个接口的失败不会导致整个页面或功能的崩溃。
 - 信息完整：我们可以确切地知道每个任务的执行结果，并据此做出更细致的 UI 响应。
 
-#### **Promise.any()**
+#### Promise.any()
 
 返回第一个成功的 Promise（忽略失败）：
 
@@ -175,9 +175,9 @@ Promise.any([p1, p2]).then((firstSuccess) => {
 });
 ```
 
-### **2.2 实例方法**
+### 2.2 实例方法
 
-#### **.then()**
+#### .then()
 
 处理 Promise 的成功状态：
 
@@ -187,7 +187,7 @@ fetch("/api")
   .then((data) => console.log(data));
 ```
 
-#### **.catch()**
+#### .catch()
 
 捕获 Promise 链中的错误：
 
@@ -197,7 +197,7 @@ fetch("/api")
   .catch((error) => console.error("请求失败:", error));
 ```
 
-#### **.finally()**
+#### .finally()
 
 无论成功或失败都会执行：
 
@@ -207,9 +207,9 @@ fetch("/api")
   .finally(() => console.log("请求结束"));
 ```
 
-## **三、Promise 高级技巧**
+## 三、Promise 高级技巧
 
-### **3.1 链式调用**
+### 3.1 链式调用
 
 ```javascript
 function getUser(id) {
@@ -220,7 +220,7 @@ function getUser(id) {
 }
 ```
 
-### **3.2 错误处理策略**
+### 3.2 错误处理策略
 
 ```javascript
 // 方式1：每个 then 后单独 catch
@@ -237,7 +237,7 @@ fetch("/api")
   .catch(handleAnyError);
 ```
 
-### **3.3 取消 Promise**
+### 3.3 取消 Promise
 
 原生 Promise 无法取消，但可以通过封装实现：
 
@@ -258,7 +258,7 @@ function cancellablePromise(promise) {
 }
 ```
 
-### **3.4 Promise 化回调函数**
+### 3.4 Promise 化回调函数
 
 将回调风格的函数转换为 Promise：
 
@@ -275,9 +275,9 @@ function readFilePromise(path) {
 }
 ```
 
-## **四、Promise 与 async/await**
+## 四、Promise 与 async/await
 
-### **4.1 基本转换**
+### 4.1 基本转换
 
 ```javascript
 // Promise 风格
@@ -292,7 +292,7 @@ async function getData() {
 }
 ```
 
-### **4.2 错误处理对比**
+### 4.2 错误处理对比
 
 ```javascript
 // Promise
@@ -309,9 +309,9 @@ try {
 }
 ```
 
-## **五、常见问题与解决方案**
+## 五、常见问题与解决方案
 
-### **5.1 Promise 内存泄漏**
+### 5.1 Promise 内存泄漏
 
 未处理的 Promise 拒绝会导致内存泄漏：
 
@@ -327,7 +327,7 @@ function riskyOperation() {
 riskyOperation().catch(() => {});
 ```
 
-### **5.2 并行与顺序执行**
+### 5.2 并行与顺序执行
 
 ```javascript
 // 顺序执行
@@ -342,9 +342,9 @@ async function parallel() {
 }
 ```
 
-## **六、总结**
+## 六、总结
 
-Promise 的核心优势：
+`Promise` 的核心优势：
 
 1. **链式调用**：解决回调地狱
 2. **统一错误处理**：通过 `.catch()` 集中管理
@@ -368,3 +368,21 @@ async function getFullData() {
   }
 }
 ```
+
+**常用方法的区别**
+
+| 方法 | 核心逻辑 | 成功条件 | 失败条件 | 典型使用场景 |
+| :-- | :-- | :-- | :-- | :-- |
+| **`Promise.all(iterable)`** | **“全部成功”**<br>等待所有 Promise 完成 | **所有** Promise 都成功 (fulfilled) | 有**任意一个** Promise 失败 (rejected) | 并行处理多个相互依赖的任务，如：同时上传多张图片、同时获取多个 API 数据以渲染页面。 |
+| **`Promise.race(iterable)`** | **“竞赛”**<br>取最先完成（无论成败）的 Promise 结果 | 最先完成的 Promise 是成功 (fulfilled) | 最先完成的 Promise 是失败 (rejected) | 1. **设置超时/竞速**：为异步操作添加超时限制。<br>2. 从多个最快响应的来源（如 CDN）获取资源。 |
+| **`Promise.allSettled(iterable)`** | **“无论成败”**<br>等待所有 Promise 最终敲定 (settled) | **总是成功**<br>（返回每个 Promise 的最终状态和结果数组） | 不会失败 | 当需要知道**每个**异步操作的最终结果时，如：批量提交表单，无论单个成功或失败都需要记录日志或进行下一步处理。 |
+| **`Promise.any(iterable)`** | **“任一成功”**<br>取最先成功的 Promise 结果 | 有**任意一个** Promise 成功 (fulfilled) | **所有** Promise 都失败 (rejected) | 1. **寻找最快可用资源**：从多个镜像服务器下载同一个文件，使用最先响应的。<br>2. 提供备用方案，只要一个成功即可。 |
+
+**快速选择指南**
+
+当你面对多个异步操作时，可以这样选择：
+
+- 需要**所有操作都成功**才能继续 → **`Promise.all()`**
+- 只需**第一个完成的操作结果**（无论成败） → **`Promise.race()`**
+- 需要知道**每个操作的最终结果**（无论成败） → **`Promise.allSettled()`**
+- 只需**第一个成功的操作结果** → **`Promise.any()`**

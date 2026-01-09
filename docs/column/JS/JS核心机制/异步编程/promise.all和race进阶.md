@@ -21,7 +21,7 @@ const p = Promise.all([p1, p2, p3]);
 即传入一个数组，期望数组里面的每一项都是一个 promise 实例；如下使用：
 
 ```js
-	 ## 1,先定义几个异步函数,此处用定时器
+	 // 1,先定义几个异步函数,此处用定时器
       let p1 = new Promise((resolve, reject) => {
         setTimeout(function () {
           resolve("success_1");
@@ -38,7 +38,7 @@ const p = Promise.all([p1, p2, p3]);
         }, 3000);
       });
 
-	## 2，使用
+	// 2，使用
 	Promise.all([p1, p3, p2])
         .then((result) => {
           console.log(result); // 结果为：['success_2', 'success_3', 'success_1']
@@ -105,7 +105,7 @@ error: 失败;
 
 如果我们传入的数组项不是 promsie 对象，还会正常执行吗：
 
-（1）传入的数组每一项都不是 promise 实例
+（1）传入的数组每一项都不是 `promise` 实例
 
 ```js
 		## 直接传 几个number类型
@@ -124,9 +124,9 @@ error: 失败;
 [1,2,3]
 ```
 
-可以看出：如果传入数组中的每一项都不是 promise 对象 则会原封不动的让 resolve()函数返回 ；既拿到什么就返回什么；
+可以看出：如果传入数组中的每一项都不是 `promise` 对象 则会原封不动的让 resolve()函数返回 ；既拿到什么就返回什么；
 
-（2）第二种：传入的数组中既有 promise 实例 也有不是的
+（2）第二种：传入的数组中既有 `promise` 实例 也有不是的
 
 如下：我传了`number` 1,2 和两个`promise`实例 p2，p1;
 
