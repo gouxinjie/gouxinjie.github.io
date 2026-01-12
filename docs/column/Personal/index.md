@@ -81,16 +81,16 @@ title: 关于 me
     <div class="badge-group">
       <h4>前端技术栈</h4>
       <div class="badges">
-        <img src="https://img.shields.io/badge/-JavaScript-A9A9A9?logo=JavaScript&logoColor=F7DF1E" alt="JavaScript" />
-        <img src="https://img.shields.io/badge/-HTML5-A9A9A9?logo=HTML5&logoColor=E34F26" alt="HTML5" />
+        <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript" />
+        <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" alt="HTML5" />
+        <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS3" />
+        <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
         <img src="https://img.shields.io/badge/Vue.js-4FC08D?logo=Vue.js&logoColor=fff" alt="Vue.js" />
-        <img src="https://img.shields.io/badge/-Vue3-C0C0C0?logo=Vue.js&logoColor=4FC08D" alt="Vue3" />
+        <img src="https://img.shields.io/badge/Vue.js%203-4FC08D?style=flat-square&logo=vuedotjs&logoColor=white" alt="Vue 3" />
         <img src="https://img.shields.io/badge/React-61DAFB?logo=React&logoColor=333" alt="React" />
         <img src="https://img.shields.io/badge/Next.js-000000?logo=Next.js&logoColor=fff" alt="Next.js" />
         <img src="https://img.shields.io/badge/Angular-DD0031?style=flat-square&logo=angular&logoColor=white" alt="Angular" />
-        <img src="https://img.shields.io/badge/-TypeScript-C0C0C0?logo=TypeScript&logoColor=3178C6" alt="TypeScript" />
-        <img src="https://img.shields.io/badge/-Axios-C0C0C0?logo=Axios&logoColor=5A29E4" alt="Axios" />
-        <img src="https://img.shields.io/badge/-ESLint-C0C0C0?logo=ESLint&logoColor=4B32C3" alt="ESLint" />
+        <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=axios&logoColor=white" alt="Axios" />
         <img src="https://img.shields.io/badge/Lodash-3498db?logo=Lodash&logoColor=fff" alt="Lodash" />
         <img src="https://img.shields.io/badge/Swiper-6332F6?logo=Swiper&logoColor=fff" alt="Swiper" />
         <!-- 框架与跨端平台 -->
@@ -105,11 +105,9 @@ title: 关于 me
         <!-- UI 组件库 -->
         <img src="https://img.shields.io/badge/Vant-1989FA?style=flat-square&logo=vant&logoColor=white" alt="Vant" />
         <img src="https://img.shields.io/badge/Element--Plus-409EFF?style=flat-square&logo=elementplus&logoColor=white" alt="Element Plus" />
-        <img src="https://img.shields.io/badge/-jQuery-0769AD?logo=jQuery&logoColor=FFF" alt="jQuery" />
-        <img src="https://img.shields.io/badge/-CSS3-A9A9A9?logo=CSS3&logoColor=1572B6" alt="CSS3" />
         <img src="https://img.shields.io/badge/Ant_Design-1677FF?logo=AntDesign&logoColor=fff" alt="Ant Design" />
         <img src="https://img.shields.io/badge/-Bootstrap-7952B3?logo=Bootstrap&logoColor=FFF" alt="BootStrap" />
-        <img src="https://img.shields.io/badge/-ECharts-C0C0C0?logo=Apache-ECharts&logoColor=AA344D" alt="ECharts" />
+        <img src="https://img.shields.io/badge/ECharts-AA344D?style=flat-square&logo=apacheecharts&logoColor=white" alt="ECharts" />
         <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?logo=TailwindCSS&logoColor=fff" alt="Tailwind CSS" />
         <img src="https://img.shields.io/badge/Sass-CC6699?logo=Sass&logoColor=fff" alt="Sass" />
         <img src="https://img.shields.io/badge/Less-1D365D?logo=Less&logoColor=fff" alt="Less" />
@@ -134,7 +132,7 @@ title: 关于 me
         <img src="https://img.shields.io/badge/Turbopack-EF2D5E?style=flat-square&logo=turbopack&logoColor=white" alt="Turbopack" />
         <img src="https://img.shields.io/badge/Rsbuild-F0B62E?style=flat-square&logo=rsbuild&logoColor=black" alt="Rsbuild" />
         <img src="https://img.shields.io/badge/CI/CD-6C63FF?style=flat-square&logo=githubactions&logoColor=white" alt="CI/CD" />
-        <img src="https://img.shields.io/badge/-NPM-C0C0C0?logo=npm&logoColor=CB3837" alt="NPM" />
+        <img src="https://img.shields.io/badge/npm-CB3837?style=flat-square&logo=npm&logoColor=white" alt="npm" />
         <img src="https://img.shields.io/badge/pnpm-F69220?logo=pnpm&logoColor=white" alt="pnpm" />
         <img src="https://img.shields.io/badge/Yarn-2C8EBB?logo=yarn&logoColor=white" alt="Yarn" />
         <img src="https://img.shields.io/badge/nvm-35495E?logo=nodedotjs&logoColor=white" alt="Node Version Manager" />
@@ -159,26 +157,30 @@ title: 关于 me
     <div class="badge-group">
       <h4>运维与部署</h4>
       <div class="badges">
-        <img src="https://img.shields.io/badge/-CentOS-262577?logo=CentOS&logoColor=FFF" alt="CentOS" />
-        <img src="https://img.shields.io/badge/-Ubuntu-E95420?logo=Ubuntu&logoColor=FFF" alt="Ubuntu" />
+      <img src="https://img.shields.io/badge/CI/CD-6C63FF?style=flat-square&logo=githubactions&logoColor=white" alt="CI/CD" />
         <img src="https://img.shields.io/badge/-Jenkins-D24939?logo=Jenkins&logoColor=000" alt="Jenkins" />
         <img src="https://img.shields.io/badge/-Docker-2496ED?logo=Docker&logoColor=FFF" alt="Docker" />
         <img src="https://img.shields.io/badge/-Kubernetes-326CE5?logo=Kubernetes&logoColor=FFF" alt="Kubernetes" />
         <img src="https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white" alt="Vercel" />
         <img src="https://img.shields.io/badge/-Nginx-009639?logo=Nginx&logoColor=FFF" alt="Nginx" />
         <img src="https://img.shields.io/badge/-VMware-607078?logo=VMware&logoColor=FFF" alt="VMware" />
+        <img src="https://img.shields.io/badge/-CentOS-262577?logo=CentOS&logoColor=FFF" alt="CentOS" />
+        <img src="https://img.shields.io/badge/-Ubuntu-E95420?logo=Ubuntu&logoColor=FFF" alt="Ubuntu" />
       </div>
     </div>
     <div class="badge-group">
-      <h4>编辑器与工具</h4>
+      <h4>编辑器与协作平台</h4>
       <div class="badges">
-        <img src="https://img.shields.io/badge/蓝湖-00A1E9?style=flat-square" alt="蓝湖" />
         <img src="https://img.shields.io/badge/-Markdown-000?logo=Markdown&logoColor=FFF" alt="Markdown" />
-        <img src="https://img.shields.io/badge/-Adobe%20Photoshop-A9A9A9?logo=Adobe-Photoshop&logoColor=31A8FF" alt="Adobe Photoshop" />
         <img src="https://img.shields.io/badge/VS Code-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white" alt="VS Code" />
         <img src="https://img.shields.io/badge/Trae-000000?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2ZmZmZmZiI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz48L3N2Zz4=&logoColor=white" alt="Trae" />
         <img src="https://img.shields.io/badge/Cursor-000000?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2ZmZmZmZiI+PHBhdGggZD0iTTMgM2gydjE4SDN6bTQgMGgxNHYxOEg3eiIvPjwvc3ZnPg==&logoColor=white" alt="Cursor" />
-        <img src="https://img.shields.io/badge/Wireshark-1679A7?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2ZmZmZmZiI+PHBhdGggZD0iTTEyIDJBMTAgMTAgMCAxIDAgMjIgMTIgMTAgMTAgMCAwIDAgMTIgMnptMCAxOGE4IDggMCAxIDEgOC04IDggOCAwIDAgMS04IDh6Ii8+PC9zdmc+&logoColor=white" alt="Wireshark" />
+        <!-- 阿里云云效平台 (YunXiao) -->
+        <img src="https://img.shields.io/badge/阿里云云效-1A6CFF?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPjxnIGZpbGw9IiNmZmZmZmYiPjxwYXRoIGQ9Ik01MTIgNjRDMjY0LjYgNjQgNjQgMjY0LjYgNjQgNTEyczIwMC42IDQ0OCA0NDggNDQ4IDQ0OC0yMDAuNiA0NDgtNDQ4Uzc1OS40IDY0IDUxMiA2NHptMjU2IDU3Nkg1MTJWMzA0aDI1NnYzMzZ6TTUxMiA1NzZWMzA0SDI1NnYyNzJoMjU2eiIvPjwvZz48L3N2Zz4=&logoColor=white" alt="阿里云云效平台" />
+        <!-- 语雀 (YuQue) -->
+        <img src="https://img.shields.io/badge/语雀-25B864?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2ZmZmZmZiI+PHBhdGggZD0iTTIwLjUgMTJhOC41IDguNSAwIDAgMC04LjUtOC41QTguNSA4LjUgMCAwIDAgMy41IDEyYTguNSA4LjUgMCAwIDAgOC41IDguNWE4LjUgOC41IDAgMCAwIDguNS04LjV6bS0xMiAwYTMuNSAzLjUgMCAxIDEgMy41IDMuNUExMy45NSAxMy45NSAwIDAgMSAxMiAxM2EzLjUgMy41IDAgMCAxLTMuNS0zLjV6Ii8+PC9zdmc+&logoColor=white" alt="语雀" />
+        <img src="https://img.shields.io/badge/蓝湖-00A1E9?style=flat-square" alt="蓝湖" />
+        <img src="https://img.shields.io/badge/Iconfont-FF6A00?style=flat-square" alt="Iconfont" />
       </div>
     </div>
   </section>
@@ -231,7 +233,7 @@ title: 关于 me
       <div class="link-icon">✍️</div>
       <div class="link-text">
         <div>个人专栏</div>
-        <div>掘金 / 思否</div>
+        <div>测试</div>
       </div>
     </a>
   </section>
