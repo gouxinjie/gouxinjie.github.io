@@ -1,4 +1,4 @@
-import { transformMenuList } from '../../utils/functions';
+import { transformMenuList } from "../../utils/functions";
 
 const angularList = [
   {
@@ -45,9 +45,6 @@ const angularList = [
     items: [
       {
         text: "基本使用"
-      },
-      {
-        text:'样式测试'
       }
     ]
   }

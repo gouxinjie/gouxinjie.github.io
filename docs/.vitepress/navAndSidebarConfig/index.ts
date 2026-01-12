@@ -24,8 +24,8 @@ import { transformDockerList } from "../../column/Docker/list";
  */
 export const nav: DefaultTheme.NavItem[] = [
   {
-    text: "首页",
-    link: "/" // 表示docs/index.md
+    text: "我的主页",
+    link: "/column/Personal/index.md" // 表示docs/index.md
   },
   // {
   //   text: "入微",
@@ -129,6 +129,10 @@ export const nav: DefaultTheme.NavItem[] = [
     text: "其它",
     items: [
       {
+        text:'样式测试',
+        link: "/column/StyleText/index.md"
+      },
+      {
         text: "更新记录",
         link: "/column/UpdateLog/changelog.md"
       },
@@ -226,6 +230,7 @@ export const sidebar: DefaultTheme.Sidebar = {
 
   /** 诗词相关 */
   "/column/Poetry/": transformPoetryList("/column/Poetry/"),
+
   /** 生活常识相关 */
   "/column/CommonSense/": transformCommonSenseList("/column/CommonSense/")
 };

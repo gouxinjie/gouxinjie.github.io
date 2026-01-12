@@ -4,7 +4,7 @@
 
 `Record` 是 TypeScript 提供的一个非常实用的工具类型，用于构建一个对象类型，其中的 **键** 是一种特定的类型，而 **值** 则是另一种特定的类型。它可以让你快速创建一个映射类型，并确保每个键值对符合预期的类型。
 
-### 1. **基本语法**
+### 1. 基本语法
 
 ```typescript
 Record<Keys, Type>;
@@ -61,7 +61,7 @@ console.log(mimeToShort("application/octet-stream", "bin")); // BIN
 
 :::
 
-### 2. **示例**
+### 2. 示例
 
 #### 2.1 创建一个对象类型的映射
 
@@ -120,7 +120,7 @@ console.log(permissions);
 
 在这个例子中，`Record<Role, boolean>` 确保了 `permissions` 对象的键只能是 `Role.Admin` 或 `Role.User`，且它们的值是 `boolean` 类型。
 
-### 3. **常见用法**
+### 3. 常见用法
 
 #### 3.1 将多个属性值映射到单一类型
 
@@ -157,7 +157,7 @@ const user: User = {
 
 在这个例子中，我们通过 `keys` 数组的类型推导得到了一个联合类型 `"name" | "age" | "email"`，然后用 `Record<UserKeys, string>` 创建了一个对象类型，其中键是 `"name"`、`"age"` 和 `"email"`，值是 `string` 类型。
 
-### 4. **与其他工具类型结合使用**
+### 4. 与其他工具类型结合使用
 
 `Record` 类型可以与其他 TypeScript 工具类型（如 `Partial`、`Pick`、`Omit` 等）结合使用，增强其灵活性。
 
