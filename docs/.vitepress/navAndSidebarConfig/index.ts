@@ -24,7 +24,7 @@ import { transformDockerList } from "../../column/Docker/list";
  */
 export const nav: DefaultTheme.NavItem[] = [
   {
-    text: "我的主页",
+    text: "个人页面",
     link: "/column/Personal/index.md" // 表示docs/index.md
   },
   // {

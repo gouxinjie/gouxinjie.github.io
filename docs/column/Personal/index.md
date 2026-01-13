@@ -14,7 +14,7 @@ title: 关于 me
       <h1>苟新节 (XinJie)</h1>
       <p class="tagline">全栈开发工程师 • 技术探索者 • 终身学习者</p>
       <div class="hero-desc">
-        专注于构建高性能、易用的 Web 应用程序。深耕 React/Vue 生态，对 Node.js 后端开发及 DevOps 工程也有浓厚兴趣。
+        专注于构建高性能、易用的 Web 应用程序。深耕 React/Vue 生态，对 Node.js/Python 后端开发及 DevOps 工程也有浓厚兴趣。
         <br>持之以恒，静水流深。
       </div>
     </div>
@@ -30,12 +30,12 @@ title: 关于 me
       <span class="stat-val">50+</span>
       <span class="stat-lab">技术沉淀</span>
     </div>
-    <div class="stat-item">
-      <span class="stat-val">20+</span>
-      <span class="stat-lab">开源贡献</span>
+    <div class="stat-item" @click="openCsdn">
+      <span class="stat-val">CSDN</span>
+      <span class="stat-lab">技术博客</span>
     </div>
     <div class="stat-item">
-      <span class="stat-val">+∞</span>
+      <span class="stat-val" style="font-size: 2em;">+∞</span>
       <span class="stat-lab">学习热情</span>
     </div>
   </section>
@@ -44,33 +44,33 @@ title: 关于 me
   <div class="module-header"><h2>技能概览</h2></div>
   <section class="skills-container">
     <div class="skill-group">
-      <div class="skill-head">⚡ 核心框架</div>
+      <div class="skill-head">🧩 前端与语言</div>
       <div class="bar-wrap">
-        <div class="bar-label"><span>React / Next.js</span><span>90%</span></div>
+        <div class="bar-label"><span>TypeScript</span><span>90%</span></div>
         <div class="bar-bg"><div class="bar-fill" data-width="90%"></div></div>
       </div>
       <div class="bar-wrap">
-        <div class="bar-label"><span>Vue / Nuxt</span><span>85%</span></div>
-        <div class="bar-bg"><div class="bar-fill" data-width="85%"></div></div>
+        <div class="bar-label"><span>React / Next.js</span><span>92%</span></div>
+        <div class="bar-bg"><div class="bar-fill" data-width="92%"></div></div>
       </div>
       <div class="bar-wrap">
-        <div class="bar-label"><span>TypeScript</span><span>88%</span></div>
+        <div class="bar-label"><span>Vue / Nuxt</span><span>88%</span></div>
         <div class="bar-bg"><div class="bar-fill" data-width="88%"></div></div>
       </div>
     </div>
     <div class="skill-group">
-      <div class="skill-head">🛠️ 工程与后端</div>
+      <div class="skill-head">🛠️ 后端与工程</div>
       <div class="bar-wrap">
-        <div class="bar-label"><span>Node.js / NestJS</span><span>82%</span></div>
-        <div class="bar-bg"><div class="bar-fill" data-width="82%"></div></div>
+        <div class="bar-label"><span>Node.js / Express</span><span>83%</span></div>
+        <div class="bar-bg"><div class="bar-fill" data-width="83%"></div></div>
       </div>
       <div class="bar-wrap">
-        <div class="bar-label"><span>Docker / Nginx</span><span>78%</span></div>
-        <div class="bar-bg"><div class="bar-fill" data-width="78%"></div></div>
+        <div class="bar-label"><span>Docker / Nginx</span><span>80%</span></div>
+        <div class="bar-bg"><div class="bar-fill" data-width="80%"></div></div>
       </div>
       <div class="bar-wrap">
-        <div class="bar-label"><span>PostgreSQL / Redis</span><span>75%</span></div>
-        <div class="bar-bg"><div class="bar-fill" data-width="75%"></div></div>
+        <div class="bar-label"><span>MySQL</span><span>76%</span></div>
+        <div class="bar-bg"><div class="bar-fill" data-width="76%"></div></div>
       </div>
     </div>
   </section>
@@ -195,45 +195,45 @@ title: 关于 me
     </div>
     <div class="exp-item">
       <div class="exp-date">2022.06 - 2023.12</div>
-      <div class="exp-title">全栈开发工程师 @ 软件服务公司</div>
+      <div class="exp-title">中级前端工程师 @ 软件服务公司</div>
       <div class="exp-content">负责多个小程序及后台管理平台的从零到一开发，深度参与产品设计与技术方案评审。</div>
     </div>
     <div class="exp-item">
-      <div class="exp-date">2021.07 - 2022.05</div>
-      <div class="exp-title">初级前端工程师 @ 创业团队</div>
+      <div class="exp-date">2020.11 - 2022.05</div>
+      <div class="exp-title">初级前端工程师 @ 软件服务公司</div>
       <div class="exp-content">在快速迭代的环境中负责 UI 落地及业务交互开发，积累了深厚的原生 JS/CSS 功底。</div>
     </div>
   </section>
 
   <!-- Contact -->
-  <div class="module-header"><h2>与我联系</h2></div>
+  <div class="module-header"><h2>与我相关</h2></div>
   <section class="contact-links">
-    <a href="https://github.com/gouxinjie" class="link-card" target="_blank">
+    <a href="https://gitee.com/gou-xinjie" class="link-card" target="_blank">
       <div class="link-icon">🐙</div>
       <div class="link-text">
-        <div>GitHub</div>
+        <div>Gitee</div>
         <div>发现我的开源项目</div>
       </div>
     </a>
-    <a href="mailto:your.mail@example.com" class="link-card">
+    <a class="link-card" @click.prevent="copy('gxj13113183859@163.com')">
       <div class="link-icon">📧</div>
       <div class="link-text">
         <div>电子邮件</div>
-        <div>your.mail@example.com</div>
+        <div>gxj13113183859@163.com</div>
       </div>
     </a>
-    <a href="#" class="link-card">
+    <a class="link-card" @click.prevent="copy('13113183859')">
       <div class="link-icon">💬</div>
       <div class="link-text">
         <div>微信联系</div>
         <div>13113183859</div>
       </div>
     </a>
-    <a href="#" class="link-card">
+    <a href="https://blog.csdn.net/qq_43886365?type=blog" class="link-card" target="_blank">
       <div class="link-icon">✍️</div>
       <div class="link-text">
         <div>个人专栏</div>
-        <div>测试</div>
+        <div>CSDN博客</div>
       </div>
     </a>
   </section>
@@ -243,6 +243,19 @@ title: 关于 me
 <script setup>
 import { onMounted } from 'vue'
 import './index.scss'
+
+const openCsdn = () => {
+  window.open('https://blog.csdn.net/qq_43886365?type=blog', '_blank')
+}
+
+const copy = async (text) => {
+  try {
+    await navigator.clipboard.writeText(text)
+    alert('复制成功：' + text)
+  } catch (e) {
+    alert('复制失败，请手动复制：' + text)
+  }
+}
 
 onMounted(() => {
   const observer = new IntersectionObserver((entries) => {

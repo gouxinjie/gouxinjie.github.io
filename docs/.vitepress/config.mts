@@ -44,7 +44,7 @@ export default defineConfig({
     // 设置页脚
     footer: {
       message: "我见青山多妩媚，料青山见我应如是。",
-      copyright: "@苟新节 wx:13113183859"
+      copyright: "@新节 wx:13113183859"
     },
 
     docFooter: {

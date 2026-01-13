@@ -29,6 +29,10 @@ hero:
       text: Next.js
       link: /column/Next/
 
+    - theme: alt
+      text: 我的主页
+      link: /column/Personal/index.md
+
 # 按钮下方的描述
 features:
   - title: Nginx部署项目以及代理和负载均衡
