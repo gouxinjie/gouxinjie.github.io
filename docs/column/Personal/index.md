@@ -31,8 +31,8 @@ title: 关于 me
       <span class="stat-lab">技术沉淀</span>
     </div>
     <div class="stat-item" @click="openCsdn">
-      <span class="stat-val">CSDN</span>
-      <span class="stat-lab">技术博客</span>
+      <span class="stat-val">300+</span>
+      <span class="stat-lab">发布文章</span>
     </div>
     <div class="stat-item">
       <span class="stat-val" style="font-size: 2em;">+∞</span>
@@ -183,6 +183,20 @@ title: 关于 me
         <img src="https://img.shields.io/badge/Iconfont-FF6A00?style=flat-square" alt="Iconfont" />
       </div>
     </div>
+    <!-- 常用ai平台 -->
+    <div class="badge-group">
+      <h4>常用AI平台</h4>
+      <div class="badges">
+        <img src="https://img.shields.io/badge/OpenAI%20(ChatGPT)-412991?style=flat-square&logo=openai&logoColor=white" alt="OpenAI ChatGPT" />
+        <img src="https://img.shields.io/badge/Microsoft%20Copilot-0078D4?style=flat-square" alt="Microsoft Copilot" />
+        <img src="https://img.shields.io/badge/Google%20Gemini-8E75B2?style=flat-square&logo=googlegemini&logoColor=white" alt="Google Gemini" />
+        <img src="https://img.shields.io/badge/Grok%20(xAI)-000000?style=flat-square" alt="Grok (xAI)" />
+        <img src="https://img.shields.io/badge/DeepSeek-24292E?style=flat-square" alt="DeepSeek" />
+        <img src="https://img.shields.io/badge/Kimi%20Chat-161823?style=flat-square" alt="Kimi Chat" />
+        <img src="https://img.shields.io/badge/文心一言%20(ERNIE)-2932E1?style=flat-square" alt="文心一言" />
+        <img src="https://img.shields.io/badge/通义千问-00A1E9?style=flat-square" alt="通义千问" />
+      </div>
+    </div>
   </section>
 
   <!-- Experience -->
@@ -225,7 +239,7 @@ title: 关于 me
     <a class="link-card" @click.prevent="copy('13113183859')">
       <div class="link-icon">💬</div>
       <div class="link-text">
-        <div>微信联系</div>
+        <div>微信/手机</div>
         <div>13113183859</div>
       </div>
     </a>

@@ -35,11 +35,11 @@ hero:
 
 # 按钮下方的描述
 features:
-  - title: Nginx部署项目以及代理和负载均衡
+  - title: 为什么前端项目部署需要 nginx 或 Apache？
     icon:
       src: /light_pwa.svg
-    details: 介绍本篇介绍打包后的 vue 项目使用 nginx 部署到本地以及接口的反向代理和负载均衡。
-    link: /column/Nginx/Nginx服务器与部署/部署项目和代理.html
+    details: 部署时需使用Web服务器（如Nginx），因为浏览器无法直接运行本地文件，必须通过HTTP协议访问才能解决路径、路由和跨域等关键问题。
+    link: /column/Docker/Docker容器与部署/为什么前端项目部署需要nginx或Apache
     linkText: 查看详情
 
   - title: Vite的依赖预构建过程是什么样的？
@@ -49,11 +49,11 @@ features:
     link: /column/Vue/Vite相关/依赖预构建.html
     linkText: 查看详情
 
-  - title: 前端添加埋点方式和原理
+  - title: 使用Docker本地部署 CSR 前端项目完整指南
     icon:
       src: /terminal.svg
-    details: 前端埋点，就是把用户在产品里的关键行为（点击、曝光、停留、错误等）记录下来，回传到服务器或第三方平台，为产品决策、运营分析、问题排查提供数据依据。
-    link: /column/Network/安全与数据上报/添加埋点方式和原理.html
+    details: 本文详解了使用Docker部署Vue3+Vite项目的完整方案，涵盖多阶段构建、Nginx优化及docker-compose编排，简化部署流程。
+    link: /column/Docker/Docker容器与部署/Docker本地部署CSR前端项目
     linkText: 查看详情
 
   - title: 工作中常用的git操作

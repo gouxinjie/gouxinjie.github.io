@@ -7,10 +7,10 @@
     .profile-hero {
         position: relative;
         padding: 35px 35px;
-        border-radius: 24px;
+        border-radius: 16px;
         background: var(--vp-c-bg-soft);
         border: 1px solid var(--vp-c-gutter);
-        margin-bottom: 40px;
+        margin-bottom: 30px;
         text-align: center;
         overflow: hidden;
         transition: all 0.3s ease;
@@ -67,7 +67,7 @@
 
         .hero-info {
             h1 {
-                font-size: 2.2rem;
+                font-size: 2rem;
                 font-weight: 800;
                 margin-bottom: 12px;
                 line-height: 1.4; // 修复字体被切掉的问题
@@ -105,7 +105,7 @@
         .stat-item {
             background: var(--vp-c-bg-soft);
             padding: 20px 10px;
-            border-radius: 16px;
+            border-radius: 10px;
             text-align: center;
             border: 1px solid var(--vp-c-gutter);
             transition: transform 0.3s ease;
@@ -161,7 +161,7 @@
         .skill-group {
             background: var(--vp-c-bg-soft);
             padding: 20px;
-            border-radius: 16px;
+            border-radius: 10px;
             border: 1px solid var(--vp-c-gutter);
 
             .skill-head {
@@ -175,7 +175,6 @@
 
             .bar-wrap {
                 margin-bottom: 12px;
-
                 .bar-label {
                     display: flex;
                     justify-content: space-between;
@@ -208,7 +207,7 @@
         gap: 24px;
         background: var(--vp-c-bg-soft);
         padding: 24px;
-        border-radius: 20px;
+        border-radius: 10px;
         border: 1px solid var(--vp-c-gutter);
 
         .badge-group {
@@ -310,11 +309,12 @@
             align-items: center;
             padding: 16px;
             background: var(--vp-c-bg-soft);
-            border-radius: 12px;
+            border-radius: 10px;
             border: 1px solid var(--vp-c-gutter);
             text-decoration: none !important;
             color: inherit !important;
             transition: all 0.3s ease;
+            cursor: pointer;
 
             &:hover {
                 border-color: var(--vp-c-brand-1);
