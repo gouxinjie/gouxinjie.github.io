@@ -7,13 +7,15 @@ const siteData = [
         icon: "",
         name: "W3C-HTML5",
         desc: "w3c组织开源的HTML5开发文档",
-        link: "https://www.w3.org/html/ig/zh/wiki/HTML5L"
+        link: "https://www.w3.org/html/ig/zh/wiki/HTML5L",
+        isHot: true
       },
       {
         icon: "",
         name: "HTML指南",
         desc: "MDN的HTML指南",
-        link: "https://developer.mozilla.org/zh-CN/docs/Web/HTML"
+        link: "https://developer.mozilla.org/zh-CN/docs/Web/HTML",
+        isHot: true
       },
       {
         icon: "",
@@ -25,7 +27,8 @@ const siteData = [
         icon: "",
         name: "Can I Use",
         desc: "检测桌面和移动浏览器支持HTML5，CSS3，SVG等的兼容性表",
-        link: "https://caniuse.com/"
+        link: "https://caniuse.com/",
+        isHot: true
       },
       {
         icon: "",
@@ -72,19 +75,22 @@ const siteData = [
         icon: "",
         name: "CSS开发指南",
         desc: "MDN-Web开发者指南-css开发指南",
-        link: "https://developer.mozilla.org/zh-CN/docs/Learn/CSS"
+        link: "https://developer.mozilla.org/zh-CN/docs/Learn/CSS",
+        isHot: true
       },
       {
         icon: "",
         name: "CSS Tricks",
         desc: "CSS技巧和教程大全",
-        link: "https://css-tricks.com/"
+        link: "https://css-tricks.com/",
+        isHot: true
       },
       {
         icon: "",
         name: "CSS Reference",
         desc: "全面的CSS属性参考",
-        link: "https://cssreference.io/"
+        link: "https://cssreference.io/",
+        isHot: true
       },
       {
         icon: "",
@@ -112,36 +118,6 @@ const siteData = [
       },
       {
         icon: "",
-        name: "CSS Grid Generator",
-        desc: "可视化CSS网格生成器",
-        link: "https://cssgrid-generator.netlify.app/"
-      },
-      {
-        icon: "",
-        name: "Flexbox Froggy",
-        desc: "Flex布局学习游戏",
-        link: "https://flexboxfroggy.com/"
-      },
-      {
-        icon: "",
-        name: "Clippy",
-        desc: "CSS clip-path生成器",
-        link: "https://bennettfeely.com/clippy/"
-      },
-      {
-        icon: "",
-        name: "CSS Gradient",
-        desc: "CSS渐变生成器",
-        link: "https://cssgradient.io/"
-      },
-      {
-        icon: "",
-        name: "Neumorphism",
-        desc: "新拟态风格生成器",
-        link: "https://neumorphism.io/"
-      },
-      {
-        icon: "",
         name: "CSS Stats",
         desc: "分析网站CSS统计数据",
         link: "https://cssstats.com/"
@@ -155,25 +131,29 @@ const siteData = [
         icon: "",
         name: "Sass",
         desc: "世界上最成熟、稳定、强大的专业级 CSS 扩展语言",
-        link: "https://sass.bootcss.com/"
+        link: "https://sass.bootcss.com/",
+        isHot: true
       },
       {
         icon: "",
         name: "Less",
         desc: "一门向后兼容的 CSS 扩展语言",
-        link: "https://less.bootcss.com/"
+        link: "https://less.bootcss.com/",
+        isHot: true
       },
       {
         icon: "",
         name: "Stylus",
         desc: "富于表现力、动态的、健壮的 CSS",
-        link: "https://stylus-lang.com/"
+        link: "https://stylus-lang.com/",
+        isHot: true
       },
       {
         icon: "",
         name: "PostCSS",
         desc: "用JavaScript转换CSS的工具",
-        link: "https://postcss.org/"
+        link: "https://postcss.org/",
+        isHot: true
       },
       {
         icon: "",
@@ -196,19 +176,22 @@ const siteData = [
         icon: "",
         name: "Tailwind CSS",
         desc: "只需书写 HTML 代码，无需书写 CSS，即可快速构建美观的网站",
-        link: "https://www.tailwindcss.cn/"
+        link: "https://www.tailwindcss.cn/",
+        isHot: true
       },
       {
         icon: "",
         name: "UnoCSS",
         desc: "即时按需原子CSS引擎",
-        link: "https://unocss.dev/"
+        link: "https://unocss.dev/",
+        isHot: true
       },
       {
         icon: "",
         name: "Windi CSS",
         desc: "下一代实用为先的CSS框架，它支持按需生成",
-        link: "https://windicss.org/"
+        link: "https://windicss.org/",
+        isHot: true
       },
       {
         icon: "",
@@ -221,41 +204,6 @@ const siteData = [
         name: "Bulma",
         desc: "基于Flexbox的现代CSS框架",
         link: "https://bulma.io/"
-      }
-    ]
-  },
-  {
-    title: "CSS框架",
-    items: [
-      {
-        icon: "",
-        name: "Bootstrap",
-        desc: "最流行的前端CSS框架",
-        link: "https://getbootstrap.com/"
-      },
-      {
-        icon: "",
-        name: "Foundation",
-        desc: "响应式前端框架",
-        link: "https://get.foundation/"
-      },
-      {
-        icon: "",
-        name: "Materialize",
-        desc: "基于Material Design的CSS框架",
-        link: "https://materializecss.com/"
-      },
-      {
-        icon: "",
-        name: "Semantic UI",
-        desc: "语义化的前端框架",
-        link: "https://semantic-ui.com/"
-      },
-      {
-        icon: "",
-        name: "Pure.css",
-        desc: "轻量级响应式CSS框架",
-        link: "https://purecss.io/"
       }
     ]
   },
@@ -291,6 +239,36 @@ const siteData = [
         name: "Keyframes App",
         desc: "可视化CSS动画编辑器",
         link: "https://keyframes.app/"
+      },
+      {
+        icon: "",
+        name: "CSS Grid Generator",
+        desc: "可视化CSS网格生成器",
+        link: "https://cssgrid-generator.netlify.app/"
+      },
+      {
+        icon: "",
+        name: "Flexbox Froggy",
+        desc: "Flex布局学习游戏",
+        link: "https://flexboxfroggy.com/"
+      },
+      {
+        icon: "",
+        name: "Clippy",
+        desc: "CSS clip-path生成器",
+        link: "https://bennettfeely.com/clippy/"
+      },
+      {
+        icon: "",
+        name: "CSS Gradient",
+        desc: "CSS渐变生成器",
+        link: "https://cssgradient.io/"
+      },
+      {
+        icon: "",
+        name: "Neumorphism",
+        desc: "新拟态风格生成器",
+        link: "https://neumorphism.io/"
       }
     ]
   },
@@ -301,19 +279,22 @@ const siteData = [
         icon: "",
         name: "Iconfont",
         desc: "国内功能很强大且图标内容很丰富的矢量图标库，提供矢量图标下载、在线存储、格式转换等功能",
-        link: "https://www.iconfont.cn/"
-      },
-      {
-        icon: "",
-        name: "IconPark 图标库",
-        desc: "字节跳动开源的高质量图标库，超过2000个图标，支持多主题和定制",
-        link: "https://iconpark.oceanengine.com/official"
+        link: "https://www.iconfont.cn/",
+        isHot: true
       },
       {
         icon: "",
         name: "Iconify 图标库",
         desc: "一个图标库，提供超过 1000 个图标，支持自定义图标和图标集",
-        link: "https://iconify.design/"
+        link: "https://iconify.design/",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "IconPark 图标库",
+        desc: "字节跳动开源的高质量图标库，超过2000个图标，支持多主题和定制",
+        link: "https://iconpark.oceanengine.com/official",
+        isHot: true
       }
     ]
   }

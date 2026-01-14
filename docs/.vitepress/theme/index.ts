@@ -10,12 +10,10 @@ import type { Theme } from "vitepress";
 
 import "./styles/index.scss"; // 启用新样式
 
-// import SiteList from "../components/siteList.vue"; 暂未使用
 import busuanzi from "busuanzi.pure.js"; // 访问量统计
 import DataPanel from "../components/DataPanel.vue"; // 浏览量统计
 import mediumZoom from "medium-zoom"; // 图片预览插件
 import MyCard from "../components/MyCard.vue"; // 卡片组件
-import BackTop from "../components/BackTop.vue"; // 返回顶部
 import SearchList from "../components/SearchList.vue"; // 搜索列表
 import Confetti from "../components/Confetti.vue"; // 首页五彩纸屑动画
 import MyLayout from "../components/MyLayout.vue"; // 布局组件 添加页面上下渐变出现的效果
@@ -64,7 +62,6 @@ const theme: Theme = {
 
   enhanceApp({ app, router }) {
     // 注册全局组件
-    app.component("BackTop", BackTop);
     app.component("SearchList", SearchList);
     app.component("MyCard", MyCard);
     app.component("DataPanel", DataPanel);

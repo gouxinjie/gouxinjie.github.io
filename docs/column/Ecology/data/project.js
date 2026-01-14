@@ -84,7 +84,8 @@ const siteData = [
         icon: "",
         name: "Turbopack",
         desc: "Webpack作者开发的Rust版打包工具，速度极快",
-        link: "https://turbo.build/pack"
+        link: "https://turbo.build/pack",
+        isHot: true
       },
       {
         icon: "",
@@ -137,13 +138,15 @@ const siteData = [
         icon: "",
         name: "ESLint",
         desc: "可插拔的JavaScript代码检查工具",
-        link: "https://eslint.org/"
+        link: "https://eslint.org/",
+        isHot: true
       },
       {
         icon: "",
         name: "Prettier",
         desc: "代码格式化工具，支持多种语言",
-        link: "https://prettier.io/"
+        link: "https://prettier.io/",
+        isHot: true
       },
       {
         icon: "",
@@ -237,25 +240,28 @@ const siteData = [
         icon: "",
         name: "GitHub Actions",
         desc: "GitHub提供的CI/CD服务",
-        link: "https://docs.github.com/en/actions"
+        link: "https://docs.github.com/en/actions",
+        isHot: true
       },
       {
         icon: "",
         name: "Vercel",
         desc: "前端应用部署平台，支持自动部署",
-        link: "https://vercel.com/"
+        link: "https://vercel.com/",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "Docker",
+        desc: "容器化部署工具",
+        link: "https://www.docker.com/",
+        isHot: true
       },
       {
         icon: "",
         name: "Netlify",
         desc: "现代化Web应用部署平台",
         link: "https://www.netlify.com/"
-      },
-      {
-        icon: "",
-        name: "Docker",
-        desc: "容器化部署工具",
-        link: "https://www.docker.com/"
       }
     ]
   }

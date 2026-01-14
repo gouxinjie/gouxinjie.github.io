@@ -18,7 +18,7 @@
       </li>
     </ul>
   </section>
-  <BackTop></BackTop>
+  <BackToTop></BackToTop>
 </template>
 
 <script setup>
@@ -73,12 +73,12 @@ const createTitle = computed(() => {
     list-style: none;
     padding-left: 0;
 
-    // 推荐标签 右上角
+    /** 推荐标签 右上角 */
     .hot-tag {
       position: absolute;
       top: 1px;
       right: 1px;
-      padding: 2px 7px;
+      padding: 1px 7px;
       font-size: 11px;
       font-weight: 500;
       color: #fff;

@@ -5,21 +5,23 @@ const siteData = [
     items: [
       {
         icon: "",
-        name: "Vue3",
-        desc: "易学易用，性能出色，适用场景丰富的 Web 前端框架",
-        link: "https://cn.vuejs.org/"
-      },
-      {
-        icon: "",
         name: "Vue2",
         desc: "渐进式JavaScript 框架(已停止维护，推荐使用Vue3)",
         link: "https://v2.cn.vuejs.org/"
       },
       {
         icon: "",
-        name: "Vue Router",
+        name: "Vue3",
+        desc: "易学易用，性能出色，适用场景丰富的 Web 前端框架",
+        link: "https://cn.vuejs.org/",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "Vue Router v4",
         desc: "Vue.js 的官方路由,为 Vue.js 提供富有表现力、可配置的、方便的路由",
-        link: "https://router.vuejs.org/zh/"
+        link: "https://router.vuejs.org/zh/",
+        isHot: true
       },
       {
         icon: "",
@@ -33,13 +35,6 @@ const siteData = [
         name: "Vuex",
         desc: "是一个专为 Vue.js 应用程序开发的状态管理模式",
         link: "https://vuex.vuejs.org/zh/"
-      },
-      {
-        icon: "",
-        name: "VitePress",
-        desc: "由Vite、Vue驱动的静态网站生成器",
-        link: "https://vitepress.dev/",
-        isHot: true
       },
       {
         icon: "",
@@ -104,15 +99,24 @@ const siteData = [
     items: [
       {
         icon: "",
-        name: "React",
+        name: "React v19",
         desc: "用于构建 Web 和原生交互界面的库",
-        link: "https://zh-hans.react.dev/"
+        link: "https://zh-hans.react.dev/",
+        isHot: true
       },
       {
         icon: "",
-        name: "React Router",
+        name: "React Router v6",
         desc: "React路由",
-        link: "https://reactrouter.com/en/main"
+        link: "https://reactrouter.com/en/main",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "Next.js v16",
+        desc: "Vercel 出品的React服务端渲染应用框架，注重全栈开发",
+        link: "https://nextjs.frontendx.cn/",
+        isHot: true
       },
       {
         icon: "",
@@ -137,26 +141,14 @@ const siteData = [
         icon: "",
         name: "MobX",
         desc: "简单、可扩展的状态管理",
-        link: "https://mobx.js.org/README.html"
+        link: "https://mobx.js.org/README.html",
+        isHot: true
       },
       {
         icon: "",
         name: "dvajs",
         desc: "基于 redux 和 redux-saga 的数据流方案",
         link: "https://dvajs.com/"
-      },
-      {
-        icon: "",
-        name: "Create React App",
-        desc: "React官方脚手架工具",
-        link: "https://create-react-app.dev/"
-      },
-      {
-        icon: "",
-        name: "Next.js",
-        desc: "Vercel 出品的React服务端渲染应用框架，注重全栈开发",
-        link: "https://nextjs.frontendx.cn/",
-        isHot: true
       },
       {
         icon: "",
@@ -191,14 +183,12 @@ const siteData = [
         desc: "是一个全栈Web框架，由 React Router 原班团队打造",
         link: "https://remix.run/"
       },
-
       {
         icon: "",
         name: "React Query",
         desc: "React数据获取库",
         link: "https://tanstack.com/query/latest"
       },
-
       {
         icon: "",
         name: "Umi",
@@ -248,12 +238,6 @@ const siteData = [
       },
       {
         icon: "",
-        name: "PrimeNG",
-        desc: "丰富企业级UI组件，开箱即用快速搭建界面",
-        link: "https://www.primefaces.org/primeng/ "
-      },
-      {
-        icon: "",
         name: "NG-ZORRO",
         desc: "阿里企业级组件库，贴合中后台业务场景",
         link: "https://ng.ant.design/docs/introduce/zh "
@@ -269,12 +253,6 @@ const siteData = [
         name: "Nx",
         desc: "Monorepo开发工具集，高效管理多应用共享库",
         link: "https://nx.dev/ "
-      },
-      {
-        icon: "",
-        name: "Scully",
-        desc: "静态站点生成器，把Angular应用编译成静态页",
-        link: "https://scully.io/ "
       }
     ]
   },
@@ -292,7 +270,8 @@ const siteData = [
         icon: "",
         name: "Taro",
         desc: "一套代码编译到微信/支付宝/百度/QQ小程序及H5、RN",
-        link: "https://taro.jd.com/ "
+        link: "https://taro.jd.com/ ",
+        isHot: true
       },
       {
         icon: "",
@@ -312,7 +291,8 @@ const siteData = [
         icon: "",
         name: "Electron",
         desc: "Web技术栈打包桌面程序，一次开发同时支持Win/macOS/Linux",
-        link: "https://www.electronjs.org/ "
+        link: "https://www.electronjs.org/ ",
+        isHot: true
       },
       {
         icon: "",
@@ -335,25 +315,29 @@ const siteData = [
         icon: "",
         name: "Node.js",
         desc: "Chrome V8驱动的JavaScript服务端运行环境",
-        link: "https://nodejs.org/ "
+        link: "https://nodejs.org/ ",
+        isHot: true
       },
       {
         icon: "",
         name: "Express",
         desc: "极简灵活的Web框架，一键搭建REST API与中间件链",
-        link: "https://expressjs.com/ "
+        link: "https://expressjs.com/ ",
+        isHot: true
       },
       {
         icon: "",
         name: "Koa",
         desc: "下一代Web框架，基于Async/Await实现更轻量的中间件机制",
-        link: "https://koajs.com/ "
+        link: "https://koajs.com/ ",
+        isHot: true
       },
       {
         icon: "",
         name: "Nest.js",
         desc: "企业级渐进式框架，内置IoC与模块化，支持微服务与GraphQL",
-        link: "https://docs.nestjs.cn/ "
+        link: "https://docs.nestjs.cn/ ",
+        isHot: true
       }
     ]
   },
@@ -371,25 +355,28 @@ const siteData = [
         icon: "",
         name: "AntV",
         desc: "蚂蚁金服数据可视化团队开源的图表库，提供了丰富的图表类型和交互功能",
-        link: "https://antv.vision/zh/"
+        link: "https://antv.vision/zh/",
+        isHot: true
       },
       {
         icon: "",
         name: "D3.js",
         desc: "一个基于数据驱动文档的 JavaScript 可视化库",
-        link: "https://d3js.org/"
+        link: "https://d3js.org/",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "Three.js",
+        desc: "一个基于 WebGL 的 3D 库，用于创建和展示 3D 场景和动画",
+        link: "https://threejs.org/",
+        isHot: true
       },
       {
         icon: "",
         name: "Chart.js",
         desc: "一个基于 HTML5 的图表库，简单易用，功能强大",
         link: "https://www.chartjs.org/"
-      },
-      {
-        icon: "",
-        name: "Three.js",
-        desc: "一个基于 WebGL 的 3D 库，用于创建和展示 3D 场景和动画",
-        link: "https://threejs.org/"
       }
     ]
   },
@@ -407,7 +394,8 @@ const siteData = [
         icon: "",
         name: "Astro",
         desc: "基于Node.js的静态站点生成器，简单易用，功能强大",
-        link: "https://astro.build/"
+        link: "https://astro.build/",
+        isHot: true
       },
       {
         icon: "",

@@ -3,9 +3,9 @@
 @use "./overrides.scss";
 @use "./medium-zoom.scss";
 @use "./tailwind.scss";
-@use "./site.scss";
+@use "./site.scss"; // 前端生态页面导航样式 - 把右侧侧边栏放到左边
 @use "./blockquote.scss";
-// @use "./blur.scss";
+// @use "./blur.scss"; // 毛玻璃效果 暂不使用
 @use "./marker.scss";
 @use "./vp-code.scss";
 @use "./vp-code-group.scss";
