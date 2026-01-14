@@ -42,11 +42,11 @@ features:
     link: /column/Docker/Docker容器与部署/为什么前端项目部署需要nginx或Apache
     linkText: 查看详情
 
-  - title: Vite的依赖预构建过程是什么样的？
+  - title: 使用FNM进行多个Node版本的管理
     icon:
       src: /config.svg
-    details: Vite 之所以需要依赖预构建（pre-bundling），主要是为了提高开发环境下的启动速度和热更新性能，提升开发体验，解决模块之间的兼容性问题。
-    link: /column/Vue/Vite相关/依赖预构建.html
+    details: fnm 是一个轻量级的 Node.js 版本管理工具，它不仅非常快速，而且安装、使用都简洁，尤其是在不同项目之间切换时非常方便。
+    link: /column/ProblemNotes/日常笔记/使用FNM进行Node的版本管理
     linkText: 查看详情
 
   - title: 使用Docker本地部署 CSR 前端项目完整指南
