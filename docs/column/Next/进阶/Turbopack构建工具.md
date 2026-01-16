@@ -6,7 +6,7 @@
 
 ## 1. 什么是 Turbopack？
 
-> Turbopack 是由 **Vercel 团队**基于 Rust 编写的新一代打包器，它是 **Webpack 的继任者**。Webpack 的作者 Tobias Koppers 也是 Turbopack 的核心开发者。
+> Turbopack 是由 **Vercel 团队**基于 Rust 编写的新一代打包器，它是 **Webpack 的继任者**。Webpack 的作者 `Tobias Koppers 也是 Turbopack `的核心开发者。
 
 **目标：**
 
@@ -107,7 +107,7 @@ module.exports = {
 .next/cache/turbo
 ```
 
-**如图所示：**  
+**如图所示：**
 
 ![turbopack-2](../images/turbopack-2.png){width=400px}
 
@@ -151,8 +151,6 @@ Next.js 的环境机制比较“严格”：
   "build:prd": "next build"
 }
 ```
-
-
 
 ### 工作原理
 

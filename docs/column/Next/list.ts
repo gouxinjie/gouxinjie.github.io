@@ -67,7 +67,7 @@ const nextList = [
         text:'Script组件'
       },
       {
-        text: "turbopack构建打包"
+        text: "Turbopack构建工具"
       },
       {
         text: "NextRequest和NextResponse"
