@@ -9,6 +9,9 @@ const commonSenseList = [
         text: "廿四节气"
       },
       {
+        text: "开车技巧"
+      },
+      {
         text: "汽车车险"
       },
       {

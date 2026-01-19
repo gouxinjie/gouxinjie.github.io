@@ -1,6 +1,6 @@
 import { transformMenuList } from "../../utils/functions";
 
-// python模块相关
+// nextjs 模块相关
 const nextList = [
   {
     text: "基础",
@@ -64,7 +64,7 @@ const nextList = [
         text: "图像优化"
       },
       {
-        text:'Script组件'
+        text: "Script组件"
       },
       {
         text: "Turbopack构建工具"
