@@ -22,7 +22,6 @@
 ### 2️⃣ 执行时机不可控
 
 - SSR / Hydration 阶段容易出现
-
   - `window is not defined`
   - 客户端、服务端不一致
 

@@ -4,7 +4,7 @@
 
 `Next.js `打包体积“看起来”比 Vue/React 更大，这是非常常见的现象，但这并不是因为 Next.js 本身臃肿，而是由于 **SSR / 路由机制 / 打包模式 / 产物结构** 等带来的客观差异。
 
-## **原因 1：Next.js 默认包含 SSR / RSC / Edge Runtime 等功能**
+## 原因 1：Next.js 默认包含 SSR / RSC / Edge Runtime 等功能
 
 Vue（Vite）、Create React App、React + Vite 本质上都是 **纯前端 SPA**。
 
@@ -23,7 +23,7 @@ Vue（Vite）、Create React App、React + Vite 本质上都是 **纯前端 SPA*
 
 Vue/React 只生成客户端 bundle，所以自然更小。
 
-## **原因 2：Next.js 每个路由都有 Server & Client bundling**
+## 原因 2：Next.js 每个路由都有 Server & Client bundling
 
 例如 `/dashboard` 这个页面：
 
@@ -40,7 +40,7 @@ Next.js 会生成：
 
 ➡️ **多了一倍甚至数倍的文件数量**。
 
-## **原因 3：Next.js 默认使用 React，体积比 Vue 大**
+## 原因 3：Next.js 默认使用 React，体积比 Vue 大
 
 React 本身体积（大约 42kb gzip）比 Vue（大约 20kb gzip）更大。
 
@@ -50,7 +50,7 @@ React 本身体积（大约 42kb gzip）比 Vue（大约 20kb gzip）更大。
 - React：会大一些
 - Next.js：因为 React + SSR + Routing + Runtime → 自然再大一些
 
-## **原因 4：Next.js 的构建产物包含大量元数据和中间产物**
+## 原因 4：Next.js 的构建产物包含大量元数据和中间产物
 
 `.next` 目录里包含：
 
@@ -77,7 +77,7 @@ Vue 和 Vite + React 的 `dist/` 目录基本只包含：
 
 ➡️ Next.js 多产物、多层级，体积看起来巨大。
 
-## **原因 5：你看到的体积并不是浏览器实际加载的大小**
+## 原因 5：你看到的体积并不是浏览器实际加载的大小
 
 你看的是 `.next` 文件夹大小，例如：
 
@@ -140,7 +140,7 @@ next-bundle-analyzer
 
 下面是实际有效且常见的方法：
 
-## 1. **减少 client component，改为 server component**
+## 1. 减少 client component，改为 server component
 
 App Router 最大优点就是：
 

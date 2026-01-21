@@ -30,7 +30,7 @@
 
 ## 3. Turbopack 的基本使用
 
-在` Next.js 15` 中，开发环境默认使用 `Turbopack`。常见命令如下：
+在 `Next.js 15` 中，开发环境默认使用 `Turbopack`。常见命令如下：
 
 **启动开发环境（默认 Turbopack）**
 

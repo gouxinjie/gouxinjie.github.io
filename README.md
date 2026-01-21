@@ -148,14 +148,3 @@ vercel个人中心：  https://vercel.com/xinjies-projects/gxj.github.io
 部署后的访问地址： gouxinjie.vercel.app
 
 ```
-
-## 浏览器支持
-
-- Chrome (最新版本)
-- Firefox (最新版本)
-- Safari (最新版本)
-- Edge (最新版本)
-
-## 许可证
-
-ISC

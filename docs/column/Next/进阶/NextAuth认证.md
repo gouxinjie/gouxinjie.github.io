@@ -2,13 +2,13 @@
 
 [[toc]]
 
-## **1. 环境准备**
+## 1. 环境准备
 
 - Node.js ≥ 18
 - Next.js 15
 - MySQL 数据库
 
-### **安装依赖**
+### 安装依赖
 
 ```bash
 # 初始化 Next.js 15 项目
@@ -24,7 +24,7 @@ npm install next-auth
 
 > **注意**：NextAuth.js 从 v5 开始演进为 **Auth.js**，API 与 v4 基本类似，但更现代化。下面示例使用 **NextAuth v5 方式**。
 
-## **2. 数据库设计 (MySQL)**
+## 2. 数据库设计 (MySQL)
 
 创建一个用户表 `users`，用于存储账号和密码（这里示例用 bcrypt 加密）。
 
@@ -44,7 +44,7 @@ CREATE TABLE users (
 
 **如图：** ![next-auth-1.png](../images/next-auth-1.png)
 
-## **3. 数据库连接**
+## 3. 数据库连接
 
 创建一个数据库工具文件 `app/lib/mysql.ts`：
 
@@ -72,7 +72,7 @@ NEXTAUTH_SECRET=5c2e7a9d3f8b1k6m4n0p2q7r9t8v3w5x7y1z9a4s6d8f0g2h4j6k8l0m2n4p6q8r
 NEXTAUTH_URL=http://localhost:3000
 ```
 
-## **4. 配置 NextAuth.js**
+## 4. 配置 NextAuth.js
 
 在 **Next.js 15 App Router** 下，API 路由在 `app/api/auth/[...nextauth]/route.ts`：
 
@@ -132,7 +132,7 @@ const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
 ```
 
-## **5. 注册用户接口**
+## 5. 注册用户接口
 
 在 `app/api/auth/register/route.ts` 创建注册接口：
 
@@ -163,7 +163,7 @@ export async function POST(req: Request) {
 }
 ```
 
-## **6. 登录页面 (App Router)**
+## 6. 登录页面 (App Router)
 
 在 `app/auth/signin/page.tsx`：
 
@@ -204,7 +204,7 @@ export default function SignInPage() {
 
 ![next-auth-4.png](../images/next-auth-4.png)
 
-## **7. 注册页面**
+## 7. 注册页面
 
 `app/auth/register/page.tsx`：
 
@@ -247,7 +247,7 @@ export default function RegisterPage() {
 
 ![next-auth-2.png](../images/next-auth-2.png)
 
-## **8. 保护 API 路由**
+## 8. 保护 API 路由
 
 创建 `app/api/protected/route.ts`：
 
@@ -277,7 +277,7 @@ export async function GET(req: Request) {
 
 ![next-auth-5.png](../images/next-auth-5.png)
 
-## **9. 登录成功页面**
+## 9. 登录成功页面
 
 `app/dashboard/page.tsx`：
 
@@ -303,7 +303,7 @@ export default async function DashboardPage() {
 
 ![next-auth-3.png](../images/next-auth-3.png)
 
-## **10. 前端展示登录状态**
+## 10. 前端展示登录状态
 
 你可以在 `app/layout.tsx` 中全局显示登录状态：
 

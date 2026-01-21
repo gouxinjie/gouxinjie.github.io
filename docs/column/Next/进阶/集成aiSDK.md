@@ -156,12 +156,7 @@ export default function HomePage() {
             <div className="flex flex-col items-center justify-center h-full text-center py-20">
               <div className="bg-linear-to-br from-blue-100 to-purple-100 rounded-full p-6 mb-4">
                 <svg className="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                 </svg>
               </div>
               <h2 className="text-xl font-semibold text-gray-700 mb-2">开始对话</h2>
@@ -169,10 +164,7 @@ export default function HomePage() {
             </div>
           ) : (
             messages.map((message) => (
-              <div
-                key={message.id}
-                className={`flex ${message.role === "user" ? "justify-end" : "justify-start"} animate-in fade-in slide-in-from-bottom-4 duration-500`}
-              >
+              <div key={message.id} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"} animate-in fade-in slide-in-from-bottom-4 duration-500`}>
                 <div className={`flex gap-3 max-w-[80%] ${message.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
                   {/* 头像 */}
                   <div
@@ -187,9 +179,7 @@ export default function HomePage() {
                   <div className={`flex flex-col ${message.role === "user" ? "items-end" : "items-start"}`}>
                     <div
                       className={`rounded-2xl px-4 py-3 shadow-sm ${
-                        message.role === "user"
-                          ? "bg-linear-to-br from-blue-500 to-blue-600 text-white"
-                          : "bg-white border border-gray-200 text-gray-800"
+                        message.role === "user" ? "bg-linear-to-br from-blue-500 to-blue-600 text-white" : "bg-white border border-gray-200 text-gray-800"
                       }`}
                     >
                       {message.parts.map((part, index) => {

@@ -82,7 +82,7 @@ const nextList = [
         text: "NextAuth认证常见问题"
       },
       {
-        text: "nextjs打包为什么比较大"
+        text: "Nextjs打包为什么比较大"
       }
     ]
   }

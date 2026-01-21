@@ -2,7 +2,7 @@
 
 [[toc]]
 
-在` Next.js 15 的 App Router` 中，传统的 **自定义 Document（`_document.js`）** 已经不再是开发者必须掌握的内容。
+在`Next.js 15 的 App Router` 中，传统的 **自定义 Document（`_document.js`）** 已经不再是开发者必须掌握的内容。
 
 官方提供了更现代的方式：通过 **layout.js + metadata + next/font/google + next/script** 来实现绝大多数全局 HTML、head、字体和脚本管理功能。
 

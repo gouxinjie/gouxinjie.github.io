@@ -213,7 +213,7 @@ title: 关于 me
       <div class="exp-content">负责多个小程序及后台管理平台的从零到一开发，深度参与产品设计与技术方案评审。</div>
     </div>
     <div class="exp-item">
-      <div class="exp-date">2020.11 - 2022.05</div>
+      <div class="exp-date">2019.07 - 2022.05</div>
       <div class="exp-title">初级前端工程师 @ 软件服务公司</div>
       <div class="exp-content">在快速迭代的环境中负责 UI 落地及业务交互开发，积累了深厚的原生 JS/CSS 功底。</div>
     </div>

@@ -10,3 +10,17 @@
 @use "./vp-code.scss";
 @use "./vp-code-group.scss";
 @use "./task-list.scss";
+
+// NProgress 进度条样式
+.nprogress .bar {
+  background: var(--vp-c-brand-1) !important;
+}
+
+.nprogress .spinner-icon {
+  border-top-color: var(--vp-c-brand-1) !important;
+  border-left-color: var(--vp-c-brand-1) !important;
+}
+
+.nprogress .peg {
+  box-shadow: 0 0 10px var(--vp-c-brand-1), 0 0 5px var(--vp-c-brand-1) !important;
+}

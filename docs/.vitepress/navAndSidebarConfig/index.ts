@@ -1,3 +1,7 @@
+/**
+ * @description 导航配置
+ * 顶部导航区和左侧导航栏
+ */
 import { DefaultTheme } from "vitepress";
 import { transformJSList } from "../../column/JS/list";
 import { transformVueList } from "../../column/Vue/list";
@@ -27,10 +31,6 @@ export const nav: DefaultTheme.NavItem[] = [
     text: "主页",
     link: "/column/Personal/index.md" // 表示docs/index.md
   },
-  // {
-  //   text: "入微",
-  //   link: "/column/Inspiration/index.md"
-  // },
   {
     text: "React",
     link: "/column/React/index.md"
@@ -129,7 +129,7 @@ export const nav: DefaultTheme.NavItem[] = [
     text: "其它",
     items: [
       {
-        text:'样式测试',
+        text: "样式测试",
         link: "/column/StyleText/index.md"
       },
       {
@@ -159,18 +159,18 @@ export const nav: DefaultTheme.NavItem[] = [
   //       link: "/column/Self/Growing.md"
   //     }
   //   ]
-  // }
+  // },
   // {
   //   text: "关于我",
   //   items: [
-  //     { text: "Github", link: "https://github.com/Jacqueline712" },
+  //     { text: "Github", link: "https://github.com/gouxinjie" },
   //     {
-  //       text: "掘金",
-  //       link: "https://juejin.cn/user/3131845139247960/posts"
+  //       text: "Gitee",
+  //       link: "https://gitee.com/gou-xinjie"
   //     },
   //     {
-  //       text: "飞书社区",
-  //       link: "https://pzfqk98jn1.feishu.cn/wiki/space/7193915595975491587?ccm_open_type=lark_wiki_spaceLink"
+  //       text: "CSND社区",
+  //       link: "https://blog.csdn.net/qq_43886365"
   //     }
   //   ]
   // }

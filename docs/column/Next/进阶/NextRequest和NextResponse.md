@@ -6,15 +6,15 @@
 
 它们是 Next.js 中实现自定义 API 逻辑和中间件处理的核心部分。
 
-### 1. **NextRequest**
+### 1. NextRequest
 
 `NextRequest` 是对标准 JavaScript `Request` 对象的扩展，它为 Next.js 提供了增强的请求功能。在 Next.js 中，你通常会在 **middleware** 或 **API 路由** 中使用 `NextRequest` 对象来访问和操作请求数据。
 
-#### 1.1 **`NextRequest` 继承自 `Request`**
+#### 1.1 `NextRequest` 继承自 `Request`
 
 与浏览器原生的 `Request` 对象一样，`NextRequest` 允许你访问请求的各种属性和方法，如请求的 URL、方法、标头、查询参数等，但 Next.js 为其添加了一些额外的功能，方便处理 Next.js 中的特定情况。
 
-#### 1.2 **`NextRequest` 的常用属性和方法**
+#### 1.2 `NextRequest` 的常用属性和方法
 
 - **`nextUrl`**：获取请求的 URL 对象，这是 Next.js 提供的增强版 URL 对象。它包含了请求的各个部分（协议、域名、路径、查询参数等）。你可以使用它来解析和操作 URL。
 
@@ -54,7 +54,7 @@
   const id = req.nextUrl.searchParams.get("id");
   ```
 
-#### 1.3 **示例：使用 `NextRequest` 在 Middleware 中获取请求信息**
+#### 1.3 示例：使用 `NextRequest` 在 Middleware 中获取请求信息
 
 ```js
 // app/middleware.js
@@ -75,11 +75,11 @@ export function middleware(req) {
 
 在上面的例子中，`NextRequest` 对象通过 `req.nextUrl` 提供了对请求 URL 和查询参数的访问，并通过 `req.headers` 获取了请求头。
 
-### 2. **NextResponse**
+### 2. NextResponse
 
 `NextResponse` 是对标准 Web API `Response` 对象的扩展，提供了一些 Next.js 特有的功能，允许你定制和控制响应内容，发送重定向、设置 HTTP 状态码等。
 
-#### 2.1 **`NextResponse` 的常用功能**
+#### 2.1 `NextResponse` 的常用功能
 
 - **`NextResponse.next()`**：表示继续执行请求流程，通常用于中间件或请求钩子中，允许请求继续传递到下一个中间件或最终的页面处理。
 
@@ -133,7 +133,7 @@ export function middleware(req) {
   return res;
   ```
 
-#### 2.2 **示例：使用 `NextResponse` 在 Middleware 中发送响应**
+#### 2.2 示例：使用 `NextResponse` 在 Middleware 中发送响应
 
 ```js
 // app/middleware.js
@@ -154,7 +154,7 @@ export function middleware(req) {
 
 在上面的示例中，当请求的路径是 `/old-page` 时，Next.js 会返回一个重定向响应，将用户引导到 `/new-page`。
 
-### 3. **`NextRequest` 和 `NextResponse` 在 API 路由中的应用**
+### 3. `NextRequest` 和 `NextResponse` 在 API 路由中的应用
 
 `NextRequest` 和 `NextResponse` 也可以用于 Next.js 的 API 路由中，使得你能够控制请求和响应的细节。例如：
 
@@ -170,7 +170,7 @@ export async function GET(req) {
 
 在这个 API 路由中，我们使用 `NextRequest` 获取查询参数 `name`，并使用 `NextResponse.json()` 返回一个 JSON 格式的响应。
 
-### 4. **总结**
+### 4. 总结
 
 - **`NextRequest`** 是对标准 `Request` 对象的扩展，提供了更多 Next.js 特有的功能，如访问 `nextUrl`、`cookies`、`query` 等。
 - **`NextResponse`** 是对标准 `Response` 对象的扩展，允许你定制响应，如返回 JSON、重定向、设置 cookies 等。
