@@ -1,7 +1,7 @@
 name: Deploy VitePress to GitHub Pages
 
 on:
-  # 当推送到 main 分支时触发（根据你的分支名）
+  # 当推送到 main 分支时触发
   push:
     branches: ["main"]
 
@@ -26,22 +26,27 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # 获取完整的git历史记录，而不仅仅是最新提交
+          fetch-depth: 0  # 获取完整的 git 历史记录
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.7.0  # 使用 package.json 中指定的版本
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'  # 推荐使用 LTS 版本
-          cache: 'npm'        # 缓存 npm 依赖，加速构建
+          node-version: '20'  # 使用 LTS 版本
+          cache: 'pnpm'       # 缓存 pnpm 依赖，加速构建
 
       - name: Install dependencies
-        run: npm ci           # 使用 ci 命令确保依赖一致性
+        run: pnpm install --frozen-lockfile  # 使用 frozen-lockfile 确保依赖一致性
 
       - name: Build VitePress site
-        run: npm run build  # 执行 VitePress 构建命令
+        run: pnpm run build  # 执行 VitePress 构建命令
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3  # 专门用于部署到 GH Pages 的 Action
+        uses: peaceiris/actions-gh-pages@v4  # 部署到 GitHub Pages
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: docs/.vitepress/dist  # VitePress 默认输出目录

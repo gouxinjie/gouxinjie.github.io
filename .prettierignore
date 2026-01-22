@@ -1,0 +1,23 @@
+# 依赖
+node_modules
+pnpm-lock.yaml
+package-lock.json
+
+# 构建产物
+dist
+docs/.vitepress/dist
+docs/.vitepress/cache
+
+# 日志
+*.log
+pnpm-debug.log*
+
+# 系统文件
+.DS_Store
+
+# IDE
+.idea
+.vscode
+
+# 其他
+*.md

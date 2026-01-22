@@ -5,9 +5,24 @@ dist-ssr
 *.local
 /dist*
 /docs/.vitepress/dist*
-cache 
+cache
 # *-lock.*
 pnpm-debug
+pnpm-debug.log*
 auto-*.d.ts
 .idea
 .history
+
+# ESLint
+.eslintcache
+
+# Editor
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+*.swp
+*.swo
+*~
+
+# OS
+Thumbs.db

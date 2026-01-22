@@ -24,7 +24,47 @@ export default defineConfig({
   base: "/", // 站点基础路径
   title: "苟新节", // 站点标题
   description: "XinJie's Blog Web Site", // 站点描述
-  head: [["link", { rel: "icon", href: "/xinjie.png" }]], // 站点图标
+  lang: "zh-CN", // 站点语言
+  head: [
+    // 网站图标
+    ["link", { rel: "icon", href: "/xinjie.png" }],
+    ["link", { rel: "apple-touch-icon", href: "/xinjie.png" }],
+
+    // SEO Meta 标签
+    ["meta", { name: "author", content: "苟新节" }],
+    ["meta", { name: "keywords", content: "前端开发,JavaScript,TypeScript,Vue,React,Angular,Docker,Git,Node.js,个人博客" }],
+    ["meta", { name: "viewport", content: "width=device-width, initial-scale=1.0, viewport-fit=cover" }],
+
+    // Open Graph / Facebook
+    ["meta", { property: "og:type", content: "website" }],
+    ["meta", { property: "og:site_name", content: "苟新节的博客" }],
+    ["meta", { property: "og:title", content: "苟新节 - 前端技术博客" }],
+    ["meta", { property: "og:description", content: "专注于前端技术分享，涵盖 JavaScript、TypeScript、Vue、React、Angular、Docker 等技术栈" }],
+    ["meta", { property: "og:url", content: "https://gouxinjie.github.io" }],
+    ["meta", { property: "og:image", content: "https://gouxinjie.github.io/avatar.png" }],
+    ["meta", { property: "og:locale", content: "zh_CN" }],
+
+    // Twitter Card
+    ["meta", { name: "twitter:card", content: "summary_large_image" }],
+    ["meta", { name: "twitter:title", content: "苟新节 - 前端技术博客" }],
+    ["meta", { name: "twitter:description", content: "专注于前端技术分享，涵盖 JavaScript、TypeScript、Vue、React、Angular、Docker 等技术栈" }],
+    ["meta", { name: "twitter:image", content: "https://gouxinjie.github.io/avatar.png" }],
+
+    // 主题颜色
+    ["meta", { name: "theme-color", content: "#3eaf7c" }],
+    ["meta", { name: "msapplication-TileColor", content: "#3eaf7c" }],
+
+    // 百度统计（如需要可取消注释）
+    // ["script", {}, `
+    //   var _hmt = _hmt || [];
+    //   (function() {
+    //     var hm = document.createElement("script");
+    //     hm.src = "https://hm.baidu.com/hm.js?YOUR_BAIDU_ANALYTICS_ID";
+    //     var s = document.getElementsByTagName("script")[0];
+    //     s.parentNode.insertBefore(hm, s);
+    //   })();
+    // `]
+  ],
   // appearance: "dark", // 外观模式: force-dark(强制暗色), light(浅色), undefined(跟随系统)
 
   /**
@@ -47,7 +87,7 @@ export default defineConfig({
     logo: "/avatar.png", // 站点 Logo
     nav: nav, // 顶部导航配置
     sidebar: sidebar, // 侧边栏配置
-    
+
     /**
      * 锚点导航配置
      */
@@ -115,19 +155,19 @@ export default defineConfig({
     /**
      * 代码主题配置
      */
-    theme: { 
+    theme: {
       light: "github-light", // 浅色模式代码主题
       dark: "github-dark" // 深色模式代码主题
     },
     lineNumbers: true, // 启用代码行号
-    
+
     /**
      * 图片配置
      */
     image: {
       lazyLoading: true // 启用图片懒加载
     },
-    
+
     /**
      * 容器配置 (中文形式)
      */
@@ -151,12 +191,12 @@ export default defineConfig({
         if (tokens[idx].tag === "h1") htmlResult += `<ArticleMetadata />`;
         return htmlResult;
       };
-      
+
       /**
        * 配置任务列表 (todoList)
        */
       md.use(markdownItTaskCheckbox);
-      
+
       /**
        * 配置 Mermaid 图表渲染
        */
@@ -174,7 +214,7 @@ export default defineConfig({
     server: {
       host: "0.0.0.0", // 服务器主机
       port: 5174, // 服务器端口
-      
+
       /**
        * 内网穿透配置
        * 允许 ngrok 访问的主机
@@ -184,19 +224,19 @@ export default defineConfig({
         ".ngrok-free.app" // 允许所有 ngrok 免费域名
       ]
     },
-    
+
     /**
      * 插件配置
      */
     plugins: [MermaidPlugin()], // Mermaid 图表插件
-    
+
     /**
      * 依赖优化配置
      */
     optimizeDeps: {
       include: ["mermaid"] // 包含需要优化的依赖
     },
-    
+
     /**
      * SSR 配置
      */

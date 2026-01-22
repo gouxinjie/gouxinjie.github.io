@@ -1,0 +1,56 @@
+{
+  "compilerOptions": {
+    // 基础配置
+    "target": "ES2020",
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "jsx": "preserve",
+    
+    // 模块解析
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    
+    // 类型检查
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    
+    // 输出配置
+    "noEmit": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    
+    // 路径配置
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["docs/.vitepress/*"],
+      "@components/*": ["docs/.vitepress/components/*"],
+      "@theme/*": ["docs/.vitepress/theme/*"],
+      "@utils/*": ["docs/utils/*"]
+    },
+    
+    // Vue 相关
+    "types": ["vitepress/client", "node"]
+  },
+  "include": [
+    "docs/**/*.ts",
+    "docs/**/*.tsx",
+    "docs/**/*.vue",
+    "docs/**/*.mts",
+    "docs/.vitepress/**/*.ts",
+    "docs/.vitepress/**/*.vue"
+  ],
+  "exclude": [
+    "node_modules",
+    "docs/.vitepress/dist",
+    "docs/.vitepress/cache"
+  ]
+}

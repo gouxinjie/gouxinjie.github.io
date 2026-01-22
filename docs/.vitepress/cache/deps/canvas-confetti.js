@@ -1,6 +1,6 @@
 import "./chunk-FDBJFBLO.js";
 
-// node_modules/canvas-confetti/dist/confetti.module.mjs
+// node_modules/.pnpm/canvas-confetti@1.9.4/node_modules/canvas-confetti/dist/confetti.module.mjs
 var module = {};
 (function main(global, module2, isWorker, workerSize) {
   var canUseWorker = !!(global.Worker && global.Blob && global.Promise && global.OffscreenCanvas && global.OffscreenCanvasRenderingContext2D && global.HTMLCanvasElement && global.HTMLCanvasElement.prototype.transferControlToOffscreen && global.URL && global.URL.createObjectURL);
@@ -9,11 +9,11 @@ var module = {};
     if (!global.OffscreenCanvas) {
       return false;
     }
-    var canvas = new OffscreenCanvas(1, 1);
-    var ctx = canvas.getContext("2d");
-    ctx.fillRect(0, 0, 1, 1);
-    var bitmap = canvas.transferToImageBitmap();
     try {
+      var canvas = new OffscreenCanvas(1, 1);
+      var ctx = canvas.getContext("2d");
+      ctx.fillRect(0, 0, 1, 1);
+      var bitmap = canvas.transferToImageBitmap();
       ctx.createPattern(bitmap, "no-repeat");
     } catch (e) {
       return false;
@@ -159,7 +159,7 @@ var module = {};
         try {
           worker = new Worker(URL.createObjectURL(new Blob([code])));
         } catch (e) {
-          typeof console !== void 0 && typeof console.warn === "function" ? console.warn("🎊 Could not load worker", e) : null;
+          typeof console !== "undefined" && typeof console.warn === "function" ? console.warn("🎊 Could not load worker", e) : null;
           return null;
         }
         decorate(worker);
