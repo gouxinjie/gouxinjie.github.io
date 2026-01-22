@@ -53,18 +53,8 @@ export default defineConfig({
     // 主题颜色
     ["meta", { name: "theme-color", content: "#3eaf7c" }],
     ["meta", { name: "msapplication-TileColor", content: "#3eaf7c" }],
-
-    // 百度统计（如需要可取消注释）
-    // ["script", {}, `
-    //   var _hmt = _hmt || [];
-    //   (function() {
-    //     var hm = document.createElement("script");
-    //     hm.src = "https://hm.baidu.com/hm.js?YOUR_BAIDU_ANALYTICS_ID";
-    //     var s = document.getElementsByTagName("script")[0];
-    //     s.parentNode.insertBefore(hm, s);
-    //   })();
-    // `]
   ],
+
   // appearance: "dark", // 外观模式: force-dark(强制暗色), light(浅色), undefined(跟随系统)
 
   /**
@@ -96,7 +86,10 @@ export default defineConfig({
       label: "本页目录" // 锚点导航标题
     },
 
-    // socialLinks: [{ icon: "github", link: "https://github.com/vuejs/vitepress" }], // 顶部社交链接配置 (暂不显示)
+    // 顶部社交链接配置
+    socialLinks: [{ icon: "github", link: "https://github.com/gouxinjie/gouxinjie.github.io" },
+    { icon: "gitee", link: "https://gitee.com/gou-xinjie" },
+    ],
 
     /**
      * 最后更新时间配置
@@ -115,7 +108,7 @@ export default defineConfig({
      */
     footer: {
       message: "我见青山多妩媚，料青山见我应如是", // 页脚消息
-      copyright: "@新节 wx:13113183859" // 版权信息
+      copyright: "Copyright © 2026-present gouxinjie" // 版权信息
     },
 
     /**

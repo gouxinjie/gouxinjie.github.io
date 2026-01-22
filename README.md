@@ -14,6 +14,8 @@
 
 </div>
 
+![](./docs/public/home.png)
+
 ---
 
 ## 📖 关于项目
@@ -300,15 +302,6 @@ git push origin main
 
 ---
 
-## 📚 相关文档
-
-- [OPTIMIZATION.md](./OPTIMIZATION.md) - 详细的优化说明
-- [MIGRATION.md](./MIGRATION.md) - pnpm 迁移指南
-- [CONTRIBUTING.md](./CONTRIBUTING.md) - 贡献指南
-- [CHANGELOG-OPTIMIZATION.md](./CHANGELOG-OPTIMIZATION.md) - 优化更新日志
-
----
-
 ## 🤝 贡献
 
 欢迎提交 Issue 和 Pull Request！
@@ -328,6 +321,7 @@ git push origin main
 - **GitHub**: [@gouxinjie](https://github.com/gouxinjie)
 - **微信**: 13113183859
 - **博客**: https://gouxinjie.github.io
+- **CSDN**: https://blog.csdn.net/qq_43886365
 
 ---
 

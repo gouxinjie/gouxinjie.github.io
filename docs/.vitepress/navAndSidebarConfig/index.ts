@@ -145,21 +145,7 @@ export const nav: DefaultTheme.NavItem[] = [
         link: "/column/CommonSense/index.md"
       }
     ]
-  }
-
-  // {
-  //   text: "个人成长",
-  //   items: [
-  //     {
-  //       text: "个人",
-  //       link: "/column/Self/Travel.md"
-  //     },
-  //     {
-  //       text: "成长",
-  //       link: "/column/Self/Growing.md"
-  //     }
-  //   ]
-  // },
+  },
   // {
   //   text: "关于我",
   //   items: [

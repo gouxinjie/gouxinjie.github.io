@@ -8,18 +8,18 @@
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
   "editor.detectIndentation": false,
-  
+
   // 文件配置
   "files.eol": "\n",
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
-  
+
   // 特定文件类型配置
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -31,7 +31,7 @@
     "editor.formatOnSave": false,
     "editor.wordWrap": "on"
   },
-  
+
   // ESLint 配置
   "eslint.validate": [
     "javascript",
@@ -40,7 +40,7 @@
     "typescriptreact",
     "vue"
   ],
-  
+
   // 搜索排除
   "search.exclude": {
     "**/node_modules": true,
@@ -49,7 +49,7 @@
     "**/.vitepress/cache": true,
     "**/pnpm-lock.yaml": true
   },
-  
+
   // 文件排除
   "files.exclude": {
     "**/.git": true,
