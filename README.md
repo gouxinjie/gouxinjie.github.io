@@ -10,7 +10,7 @@
 [![pnpm](https://img.shields.io/badge/pnpm-10.7.0-F69220?style=flat&logo=pnpm)](https://pnpm.io/)
 [![License](https://img.shields.io/badge/license-ISC-blue.svg)](LICENSE)
 
-[在线访问](https://gouxinjie.github.io) · [Vercel 镜像](https://gouxinjie.vercel.app) · [报告问题](https://github.com/gouxinjie/gouxinjie.github.io/issues)
+[在线访问](https://gouxinjie.github.io) · [Vercel 访问](https://gouxinjie.vercel.app) · [报告问题](https://github.com/gouxinjie/gouxinjie.github.io/issues)
 
 </div>
 

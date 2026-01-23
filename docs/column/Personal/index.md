@@ -8,7 +8,7 @@ title: 关于 me
   <!-- Hero Section -->
   <section class="profile-hero">
     <div class="avatar-wrapper">
-      <img src="/xinjie.png" alt="Avatar" class="avatar-img">
+      <img src="/avatar.png" alt="Avatar" class="avatar-img">
     </div>
     <div class="hero-info">
       <h1>苟新节 (XinJie)</h1>

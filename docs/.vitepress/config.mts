@@ -87,7 +87,7 @@ export default defineConfig({
     },
 
     // 顶部社交链接配置
-    socialLinks: [{ icon: "github", link: "https://github.com/gouxinjie/gouxinjie.github.io" },
+    socialLinks: [{ icon: "github", link: "https://github.com/gouxinjie" },
     { icon: "gitee", link: "https://gitee.com/gou-xinjie" },
     ],
 
