@@ -140,36 +140,24 @@ if __name__ == "__main__":
     print("数据处理完成!")
 ```
 
-### 3. 包中的 `__main__.py`
+### 3. 包中的 `__main__.py`（例如数据库的初始化可以独立执行）
 
-在包目录中创建 `__main__.py` 文件，可以让包像脚本一样直接运行：
 
-```
-my_package/
-    __init__.py
-    __main__.py
-    module1.py
-    module2.py
-```
+**数据库初始化**
 
-```python
-# my_package/__main__.py
-from . import module1, module2
+![](../images/name-4.png)
 
-def main():
-    print("运行我的包!")
-    module1.some_function()
-    module2.another_function()
+**如图所示**：
 
-if __name__ == "__main__":
-    main()
-```
+项目中虽然有 `backend/app/db/init_db.py`，但它是作为一个独立脚本存在的（通过 `if __name__ == "__main__":` 触发）。它通常需要在启动服务前手动运行一次（例如 `python app/db/init_db.py`）来创建表和初始数据，并不会在每次启动 `uvicorn` 时自动重新执行所有逻辑。
 
-然后可以这样运行：
+::: tip 独立工具脚本
 
-```bash
-python -m my_package
-```
+这个文件在当前的项目结构中确实属于**独立工具脚本**，使用了` if __name__ == "__main__"`: 保护。这意味着里面的核心逻辑（如
+`init_db()`只有在你手动运行该文件时（例如` python app/db/init_db.py`）才会执行。
+
+:::
+
 
 ## 四、高级用法
 

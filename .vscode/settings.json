@@ -29,7 +29,8 @@
   },
   "[markdown]": {
     "editor.formatOnSave": false,
-    "editor.wordWrap": "on"
+    "editor.wordWrap": "on",
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
   },
 
   // ESLint 配置
