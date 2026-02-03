@@ -12,7 +12,7 @@
     "type-check": "vue-tsc --noEmit"
   },
   "author": "xinjie",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
     "@mdit-vue/shared": "^1.0.0",
     "@vue/repl": "^4.2.1",

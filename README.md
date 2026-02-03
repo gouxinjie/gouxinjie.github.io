@@ -8,7 +8,7 @@
 [![Vue](https://img.shields.io/badge/Vue-3.4.27-4FC08D?style=flat&logo=vue.js)](https://vuejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.4.5-3178C6?style=flat&logo=typescript)](https://www.typescriptlang.org/)
 [![pnpm](https://img.shields.io/badge/pnpm-10.7.0-F69220?style=flat&logo=pnpm)](https://pnpm.io/)
-[![License](https://img.shields.io/badge/license-ISC-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 
 [在线访问](https://gouxinjie.github.io) · [Vercel 访问](https://gouxinjie.vercel.app) · [报告问题](https://github.com/gouxinjie/gouxinjie.github.io/issues)
 
@@ -312,7 +312,7 @@ git push origin main
 
 ## 📄 许可证
 
-本项目采用 [ISC](LICENSE) 许可证。
+本项目采用 [Apache 2.0](LICENSE) 许可证。
 
 ---
 
