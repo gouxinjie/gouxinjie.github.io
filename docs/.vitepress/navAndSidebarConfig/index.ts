@@ -13,7 +13,7 @@ import { transformNetworkList } from "../../column/Network/list";
 import { transformNodeList } from "../../column/Node/list";
 import { transformAngularList } from "../../column/Angular/list";
 import { transformTSList } from "../../column/TS/list";
-import { transformProblemList } from "../../column/ProblemNotes/list";
+import { transformProblemData, transformNoteData } from "../../column/ProblemNotes/list";
 import { transformPoetryList } from "../../column/Poetry/list";
 import { transformPythonList } from "../../column/Python/list";
 import { transformNextList } from "../../column/Next/list";
@@ -122,8 +122,17 @@ export const nav: DefaultTheme.NavItem[] = [
     ]
   },
   {
-    text: "踩坑记录",
-    link: "/column/ProblemNotes/index.md"
+    text: "问题笔记",
+    items: [
+      {
+        text: "踩坑记录",
+        link: "/column/ProblemNotes/踩坑记录/"
+      },
+      {
+        text: "日常笔记",
+        link: "/column/ProblemNotes/日常笔记/"
+      }
+    ]
   },
   {
     text: "其它",
@@ -211,8 +220,11 @@ export const sidebar: DefaultTheme.Sidebar = {
   /** 项目相关 */
   "/column/Project/": transformProjectList("/column/Project/"),
 
-  /** 问题笔记相关 */
-  "/column/ProblemNotes/": transformProblemList("/column/ProblemNotes/"),
+  /** 踩坑记录相关 */
+  "/column/ProblemNotes/踩坑记录/": transformProblemData("/column/ProblemNotes/"),
+
+  /** 日常笔记相关 */
+  "/column/ProblemNotes/日常笔记/": transformNoteData("/column/ProblemNotes/"),
 
   /** 诗词相关 */
   "/column/Poetry/": transformPoetryList("/column/Poetry/"),
