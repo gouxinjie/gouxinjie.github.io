@@ -4,28 +4,28 @@ export const problemData = [
     collapsed: false,
     items: [
       {
-        text: "项目部署完成静态文件404"
+        text: "项目部署后静态资源404问题"
       },
       {
-        text: "Vue2使用sort排序报死循环"
+        text: "Vue2使用sort排序导致死循环"
       },
       {
-        text: "IOS手机橡皮筋回弹问题"
+        text: "IOS橡皮筋滚动回弹效果异常修复"
       },
       {
-        text: "IOS手机video标签poster属性兼容问题"
+        text: "IOS系统video标签poster属性兼容性处理"
       },
       {
-        text: "Mac版钉钉微应用流式输出时前端报TypeError Load failed"
+        text: "Mac钉钉微应用流式输出TypeError Load failed错误排查"
       },
       {
-        text: "前端流式输出被浏览器截断问题"
+        text: "前端流式输出数据被浏览器截断"
       },
       {
-        text: "发版后浏览器缓存问题"
+        text: "项目发版后浏览器缓存问题"
       },
       {
-        text: "React19被曝出RCE的高危漏洞"
+        text: "React19高危RCE漏洞安全预警与修复"
       }
     ]
   }

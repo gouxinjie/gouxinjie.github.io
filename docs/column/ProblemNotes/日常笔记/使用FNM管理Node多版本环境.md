@@ -216,7 +216,7 @@ function global:prompt {
 
 ::: info 细节
 
-在 `Windows PowerShell` 中，创建 Microsoft.PowerShell_profile.ps1 文件的目的是定制 PowerShell 环境，使得每次启动 PowerShell 时自动加载指定的配置。  
+在 `Windows PowerShell` 中，创建 Microsoft.PowerShell_profile.ps1 文件的目的是定制 PowerShell 环境，使得每次启动 PowerShell 时自动加载指定的配置。
 例如，你可以在这个文件中设置常用的别名、环境变量、自动加载模块等。这样，可以提高开发效率，避免每次启动 PowerShell 时手动配置。这个文件存放在 C:\Users\<你的用户名>\Documents\WindowsPowerShell\ 目录下。
 
 :::
