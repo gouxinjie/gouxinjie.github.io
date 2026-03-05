@@ -10,7 +10,8 @@ lastUpdated: true
 hero:
   name: Xinjie's Personal Blog
   text: Web Developer
-  tagline: 光而不耀，静水流深。
+  # 光而不耀，静水流深
+  tagline: 博观而约取，厚积而薄发
   image:
     src: /xinjie.png # 首页右边的图片
     alt: avatar # 图片的描述
@@ -79,7 +80,7 @@ features:
 ---
 
 <style>
-  
+
 /* 先隐藏小图标 */
 .box .VPImage{
   display: none;
