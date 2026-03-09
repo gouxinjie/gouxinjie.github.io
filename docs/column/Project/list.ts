@@ -52,19 +52,19 @@ const projectList = [
     collapsed: false,
     items: [
       {
-        text: "base64、file、blob转换"
+        text: "前端文件处理完全指南：File、Blob、Base64转换"
       },
       {
-        text: "PDF渲染和下载"
+        text: "前端实现文件下载的完整流程"
       },
       {
-        text: "页面导出为PDF"
+        text: "前端PDF渲染与下载实现"
       },
       {
-        text: "浏览器导出各种文件"
+        text: "把页面导出为PDF"
       },
       {
-        text: "导出excel文件"
+        text: "使用 XLSX.js 导出 Excel 文件"
       }
     ]
   },
@@ -73,7 +73,7 @@ const projectList = [
     collapsed: false,
     items: [
       {
-        text: "import动态导入使用"
+        text: "import动态导入使用与高级应用"
       },
       {
         text: "网站图片优化方案"
