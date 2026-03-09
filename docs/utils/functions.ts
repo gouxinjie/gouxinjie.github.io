@@ -12,8 +12,12 @@ export function countWord(data: string) {
     return 0;
   }
   for (let i = 0; i < m.length; i += 1) {
-    if (m[i].charCodeAt(0) >= 0x4e00) {
-      count += m[i].length;
+    const current = m[i];
+    if (!current) {
+      continue;
+    }
+    if (current.charCodeAt(0) >= 0x4e00) {
+      count += current.length;
     } else {
       count += 1;
     }

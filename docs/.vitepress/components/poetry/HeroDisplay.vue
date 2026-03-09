@@ -15,7 +15,7 @@ interface PoetryProps {
   main?: string;
 }
 
-const props = withDefaults(defineProps<PoetryProps>(), {
+withDefaults(defineProps<PoetryProps>(), {
   notes: () => []
 });
 </script>

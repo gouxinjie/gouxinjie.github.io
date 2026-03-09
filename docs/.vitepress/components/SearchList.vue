@@ -11,16 +11,32 @@ import { withBase } from "vitepress";
 
 interface SidebarItem {
   text: string;
-  items: {
-    text: string;
-    link: string;
-  }[];
+  items: Array<SidebarLeafItem | SidebarGroupItem>;
+}
+
+interface SidebarLeafItem {
+  text: string;
+  link: string;
+}
+
+interface SidebarGroupItem {
+  text: string;
+  items: SidebarLeafItem[];
 }
 
 interface SearchItem {
   text: string;
   link: string;
 }
+
+interface SearchSection {
+  text: string;
+  items: SearchItem[];
+}
+const isSidebarLeafItem = (item: SidebarLeafItem | SidebarGroupItem): item is SidebarLeafItem => {
+  return "link" in item;
+};
+
 
 interface SearchListProps {
   /** 顶部标题 */
@@ -37,15 +53,15 @@ const props = withDefaults(defineProps<SearchListProps>(), {
 });
 
 const search = ref<HTMLInputElement | null>(null);
-const query = ref<string>("");
+const query = ref("");
 
 // 将字符串转换为小写，并将连字符 - 替换为空格。
-const normalize = (s: string): string => s.toLowerCase().replace(/-/g, " ");
+const normalize = (value: string): string => value.toLowerCase().replace(/-/g, " ");
 
 /** 搜索功能 */
-const filtered = computed<SidebarItem[]>(() => {
+const filtered = computed<SearchSection[]>(() => {
   const normalizedQuery = normalize(query.value);
-  const results: SidebarItem[] = [];
+  const results: SearchSection[] = [];
 
   props.data.forEach((parent) => {
     const flattened = flattenSidebarItem(parent);
@@ -63,22 +79,27 @@ const filtered = computed<SidebarItem[]>(() => {
   return results;
 });
 
+
 /** 扁平化 SidebarItem 结构 */
-function flattenSidebarItem(item: SidebarItem): SidebarItem {
+function flattenSidebarItem(item: SidebarItem): SearchSection {
   // 如果子项本身就已经是 link 层（即 items 的每一项都有 link 字段）
-  if (item.items.length && "link" in item.items[0]) {
-    return item;
+  const firstItem = item.items[0];
+  if (firstItem && isSidebarLeafItem(firstItem)) {
+    return {
+      text: item.text,
+      items: item.items.filter(isSidebarLeafItem)
+    };
   }
 
   // 否则说明 items 还嵌套着子 items，需要递归展开
-  const flatItems: { text: string; link: string }[] = [];
+  const flatItems: SearchItem[] = [];
 
-  item.items.forEach((child: any) => {
-    if (child.link) {
+  item.items.forEach((child) => {
+    if (isSidebarLeafItem(child)) {
       flatItems.push({ text: child.text, link: child.link });
     } else if (child.items) {
       // 递归展开
-      child.items.forEach((sub: any) => {
+      child.items.forEach((sub) => {
         flatItems.push({ text: sub.text, link: sub.link });
       });
     }
@@ -89,6 +110,7 @@ function flattenSidebarItem(item: SidebarItem): SidebarItem {
     items: flatItems
   };
 }
+
 
 /** 跳转 */
 const jumpTo = (value: SearchItem): void => {

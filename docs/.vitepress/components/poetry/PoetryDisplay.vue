@@ -23,7 +23,7 @@ interface PoetryProps {
   moral?: string;
 }
 
-const props = withDefaults(defineProps<PoetryProps>(), {
+withDefaults(defineProps<PoetryProps>(), {
   notes: () => [],
   moral: ""
 });
