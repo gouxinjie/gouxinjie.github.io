@@ -10,13 +10,16 @@ const pythonList = [
         text: "基础语法入门"
       },
       {
-        text: "常用内置模块"
+        text: '基础项目环境搭建流程'
       },
       {
-        text: "Env环境变量管理"
+        text: "导入导出模块化"
       },
       {
         text: "Pip包管理工具"
+      },
+      {
+        text: "Env环境变量管理"
       },
       {
         text: "类型注解详解"
@@ -24,15 +27,16 @@ const pythonList = [
       {
         text: "__name__与__main__"
       },
-      {
-        text: "导入导出模块化"
-      },
+
       {
         text: "Async异步编程"
       },
       {
         text: 'With语句详解'
-      }
+      },
+      {
+        text: "常用内置模块"
+      },
     ]
   },
   {
