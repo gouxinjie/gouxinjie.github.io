@@ -27,7 +27,6 @@ const pythonList = [
       {
         text: "__name__与__main__"
       },
-
       {
         text: "Async异步编程"
       },
