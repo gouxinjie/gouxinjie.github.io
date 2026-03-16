@@ -36,10 +36,10 @@ const ReactList = [
         text: "css modules"
       },
       {
-        text: "css in js(不推荐)"
+        text: "css 原子化"
       },
       {
-        text: "css 原子化"
+        text: "css in js(不推荐)"
       }
     ]
   },
