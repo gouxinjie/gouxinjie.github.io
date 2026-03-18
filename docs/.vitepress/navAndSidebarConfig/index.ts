@@ -21,6 +21,7 @@ import { transformCommonSenseList } from "../../column/CommonSense/list";
 import { transformGitList } from "../../column/Git/list";
 import { transformNginxList } from "../../column/Nginx/list";
 import { transformDockerList } from "../../column/Docker/list";
+import { transformAIFutureList } from "../../column/AIFuture/list";
 
 /**
  * 顶部导航区
@@ -30,6 +31,10 @@ export const nav: DefaultTheme.NavItem[] = [
   {
     text: "主页",
     link: "/column/Personal/index.md" // 表示docs/index.md
+  },
+  {
+    text: "AI",
+    link: "/column/AIFuture/index.md"
   },
   {
     text: "React",
@@ -51,6 +56,7 @@ export const nav: DefaultTheme.NavItem[] = [
     text: "Python",
     link: "/column/Python/index.md"
   },
+
   {
     text: "网络相关",
     link: "/column/Network/index.md"
@@ -192,6 +198,9 @@ export const sidebar: DefaultTheme.Sidebar = {
 
   /** python模块 */
   "/column/Python/": transformPythonList("/column/Python/"),
+
+  /** AI相关 */
+  "/column/AIFuture/": transformAIFutureList("/column/AIFuture/"),
 
   /** 网络相关 */
   "/column/Network/": transformNetworkList("/column/Network/"),
