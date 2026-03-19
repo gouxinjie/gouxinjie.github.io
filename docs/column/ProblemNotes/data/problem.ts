@@ -25,10 +25,16 @@ export const problemData = [
         text: "项目发版后浏览器缓存问题"
       },
       {
-        text: "React19高危RCE漏洞安全预警与修复"
+        text: "React19高危RCE漏洞预警与修复"
       },
       {
         text: "移动端软键盘弹出时会把fixed底部按钮顶上去"
+      },
+      {
+        text: "录入to find mores使后端报错"
+      },
+      {
+        text: "跨源资源共享不安全配置漏洞"
       }
     ]
   }
