@@ -1,3 +1,4 @@
+import { text } from "stream/consumers";
 import { transformMenuList } from "../../utils/functions";
 
 // 日常项目模块相关
@@ -22,10 +23,16 @@ const gitList = [
         text: "git版本回退的两种方式"
       },
       {
-        text:'git首次推送冲突完整解决流程'
+        text: 'git首次推送冲突完整解决流程'
       },
       {
-        text:'git同时推送到多个远程仓库'
+        text: 'git同时推送到多个远程仓库'
+      },
+      {
+        text: 'git远程分支同步到本地'
+      },
+      {
+        text: 'git多人协作分支合并实战'
       }
     ]
   }
