@@ -34,7 +34,7 @@ export const problemData = [
         text: "录入to find mores使后端报错"
       },
       {
-        text: "跨源资源共享不安全配置漏洞"
+        text: "跨源资源共享存在不安全配置漏洞"
       }
     ]
   }

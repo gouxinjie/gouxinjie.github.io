@@ -59,7 +59,7 @@ git fetch origin
 git checkout -b gouxinjie origin/gouxinjie
 ```
 
-## 仅创建不切换
+**仅创建不切换**
 
 如果暂时不需要切换过去：
 
@@ -67,23 +67,42 @@ git checkout -b gouxinjie origin/gouxinjie
 git branch --track gouxinjie origin/gouxinjie
 ```
 
-## 常用后续命令
+## 方法三：直接切换（git branch **）
+
+如图所示。我可以直接切换到 `develop` 分支：
+
+![git-branch-1](../images/git-branch-1.png)
+
+**这是为什么呢？**
+
+Git 版本 **2.23+** 引入了**隐式远程分支追踪**功能：
+
+```
+当满足以下所有条件时：
+1. 本地不存在名为 "develop" 的分支
+2. 远程存在名为 "origin/develop" 的分支
+3. 远程分支名和你要切换的名字完全匹配
+
+git checkout develop  等价于  git checkout -b develop origin/develop
+```
+
+Git 会自动帮你：
+
+1. 创建本地分支 `develop`
+2. 设置上游追踪 `origin/develop`
+3. 切换到该分支
+
+**什么时候需要用 `-b` 完整写法？**
 
 ```bash
-# 查看本地分支
-git branch
+# 场景1：本地分支名和远程分支名不同
+git checkout -b my-dev origin/develop
 
-# 查看分支跟踪关系
-git branch -vv
+# 场景2：远程分支名有特殊前缀/后缀
+git checkout -b gouxinjie origin/feat-gouxinjie
 
-# 拉取远程更新
-git pull
-
-# 推送本地修改到远程
-git push
-
-# 删除本地分支
-git branch -d gouxinjie
+# 场景3：存在多个远程仓库，需要指定具体远程
+git checkout -b develop upstream/develop
 ```
 
 ## 总结
