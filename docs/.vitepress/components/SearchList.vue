@@ -112,13 +112,6 @@ function flattenSidebarItem(item: SidebarItem): SearchSection {
 }
 
 
-/** 跳转 */
-const jumpTo = (value: SearchItem): void => {
-  const linkElement = document.createElement("a");
-  linkElement.href = withBase(value.link) + ".html#";
-  linkElement.click();
-};
-
 onMounted(() => {
   search.value?.focus();
 });
@@ -136,9 +129,8 @@ onMounted(() => {
     <div class="list" v-for="(item, index) of filtered" :key="index">
       <p class="list-title">{{ item.text }}</p>
       <ul>
-        <li class="item" v-for="(value, sphinx) of item.items" :key="sphinx" @click="jumpTo(value)">
-          <span>{{ sphinx + 1 }}. {{ value.text }}</span>
-          <!-- <a :href="withBase(value.link) + '.html#'"> {{ sphinx + 1 }}. {{ value.text }}</a> -->
+        <li class="item" v-for="(value, sphinx) of item.items" :key="sphinx">
+          <a class="item-link" :href="withBase(value.link)">{{ sphinx + 1 }}. {{ value.text }}</a>
         </li>
       </ul>
     </div>
@@ -235,11 +227,15 @@ onMounted(() => {
     overflow: hidden;
 
     &:hover {
-      cursor: pointer;
       border-color: var(--vp-c-brand-1);
       transform: translateY(-2px);
-      color: var(--vp-c-brand-1);
     }
+  }
+
+  .item-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
   }
 }
 </style>
@@ -282,7 +278,7 @@ onMounted(() => {
   background-color: var(--vt-c-bg-soft);
 }
 
-.dark .list .item span {
+.dark .list .item-link {
   color: var(--vt-c-text-2);
 }
 

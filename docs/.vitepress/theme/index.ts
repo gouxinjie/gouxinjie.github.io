@@ -6,7 +6,7 @@
  */
 
 // Vue 核心导入
-import { onMounted, watch, nextTick } from "vue";
+import { onMounted, onBeforeUnmount, watch, nextTick } from "vue";
 
 // VitePress 导入
 import { useRoute } from "vitepress";
@@ -39,36 +39,6 @@ import MNavLinks from "../components/MNavLinks.vue"; // 导航组件
 import PoetryDisplay from "../components/poetry/PoetryDisplay.vue"; // 诗词展示组件
 import HeroDisplay from "../components/poetry/HeroDisplay.vue"; // 励志文本展示组件
 import FamousDisplay from "../components/poetry/FamousDisplay.vue"; // 名句展示组件
-
-/**
- * 清理 PWA 缓存和 Service Worker
- * 把站点曾经可能存在的 PWA 缓存和 Service Worker 全部清掉
- */
-if (typeof window !== "undefined") {
-  /**
-   * 注销 PWA 服务
-   */
-  if (window.navigator && navigator.serviceWorker) {
-    navigator.serviceWorker.getRegistrations().then(function (registrations) {
-      for (let registration of registrations) {
-        registration.unregister();
-      }
-    });
-  }
-  
-  /**
-   * 删除浏览器中的缓存
-   */
-  if ("caches" in window) {
-    caches.keys().then(function (keyList) {
-      return Promise.all(
-        keyList.map(function (key) {
-          return caches.delete(key);
-        })
-      );
-    });
-  }
-}
 
 /**
  * 彩虹背景动画样式元素
@@ -143,13 +113,15 @@ const theme: Theme = {
    */
   setup() {
     const route = useRoute();
+    let zoom: ReturnType<typeof mediumZoom> | undefined;
     
     /**
      * 初始化图片预览
      */
     const initZoom = () => {
-      // mediumZoom('[data-zoomable]', { background: 'var(--vp-c-bg)' }); // 默认
-      mediumZoom(".main img", { background: "var(--vp-c-bg)" }); // 不显式添加{data-zoomable}的情况下为所有图像启用此功能
+      zoom?.close();
+      zoom?.detach();
+      zoom = mediumZoom(".main img", { background: "var(--vp-c-bg)" }); // 不显式添加{data-zoomable}的情况下为所有图像启用此功能
     };
     
     // 组件挂载时初始化
@@ -162,6 +134,12 @@ const theme: Theme = {
       () => route.path,
       () => nextTick(() => initZoom())
     );
+
+    onBeforeUnmount(() => {
+      zoom?.detach();
+      zoom?.close();
+      zoom = undefined;
+    });
   }
 };
 

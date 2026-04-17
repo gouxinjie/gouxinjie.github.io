@@ -1,11 +1,24 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, onBeforeUnmount } from "vue";
 import confetti from "canvas-confetti";
 import { useData } from "vitepress"; // 导入 useData API
 
 const { isDark } = useData(); // 获取当前主题模式
+let frameId: number | undefined;
+
+function shouldAnimate() {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  return window.matchMedia("(prefers-reduced-motion: no-preference)").matches && window.innerWidth >= 960;
+}
 
 onMounted(() => {
+  if (!shouldAnimate()) {
+    return;
+  }
+
   /* 第一个特效：五彩纸屑 */
   confetti({
     particleCount: 100,
@@ -42,9 +55,15 @@ onMounted(() => {
     });
 
     if (timeLeft > 0) {
-      requestAnimationFrame(frame);
+      frameId = requestAnimationFrame(frame);
     }
   })();
+});
+
+onBeforeUnmount(() => {
+  if (frameId) {
+    cancelAnimationFrame(frameId);
+  }
 });
 </script>
 

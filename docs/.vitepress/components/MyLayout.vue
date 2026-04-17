@@ -1,39 +1,52 @@
 <script setup lang="ts">
-/**
- * @description  自定义布局组件
- * @author gxj
- * @date 2025-09-8
- */
-
 import { useRouter, useData } from "vitepress";
 import DefaultTheme from "vitepress/theme";
-import { watch, ref, computed, nextTick, provide } from "vue";
+import { watch, ref, computed, nextTick, provide, onMounted, onBeforeUnmount } from "vue";
 
 const { Layout } = DefaultTheme;
 const { route } = useRouter();
-const { isDark } = useData(); // 获取当前主题模式
+const { isDark } = useData();
 const isTransitioning = ref(false);
+const allowMotion = ref(false);
+let transitionTimer: ReturnType<typeof setTimeout> | undefined;
+let reducedMotionMedia: MediaQueryList | undefined;
+let pointerMedia: MediaQueryList | undefined;
 
-// 根据主题模式计算遮罩层样式
 const shadeStyle = computed(() => ({
   backgroundColor: isDark.value ? "rgb(27, 27, 31)" : "rgb(255, 255, 255)"
 }));
 
-// 下面是换肤动效代码
+const showMouseClick = computed(() => allowMotion.value && route.path === "/");
+
+function syncMotionPreference() {
+  if (typeof window === "undefined") {
+    allowMotion.value = false;
+    return;
+  }
+
+  allowMotion.value =
+    window.matchMedia("(prefers-reduced-motion: no-preference)").matches &&
+    window.matchMedia("(pointer: fine)").matches &&
+    window.innerWidth >= 960;
+}
+
 const enableTransitions = () => "startViewTransition" in document && window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
 provide("toggle-appearance", async ({ clientX: x, clientY: y }: MouseEvent) => {
   if (!enableTransitions()) {
     isDark.value = !isDark.value;
     return;
   }
+
   const clipPath = [
     `circle(0px at ${x}px ${y}px)`,
     `circle(${Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y))}px at ${x}px ${y}px)`
   ];
+
   await document.startViewTransition(async () => {
     isDark.value = !isDark.value;
     await nextTick();
   }).ready;
+
   document.documentElement.animate(
     { clipPath: isDark.value ? clipPath.reverse() : clipPath },
     {
@@ -45,17 +58,42 @@ provide("toggle-appearance", async ({ clientX: x, clientY: y }: MouseEvent) => {
   );
 });
 
-// 监听路由变化，添加页面切换动画
 watch(
   () => route.path,
   () => {
-    isTransitioning.value = true;
-    // 动画结束后重置状态
-    setTimeout(() => {
+    if (!allowMotion.value) {
       isTransitioning.value = false;
-    }, 500); // 500ms 要和 CSS 动画时间匹配
+      return;
+    }
+
+    isTransitioning.value = true;
+    clearTimeout(transitionTimer);
+    transitionTimer = setTimeout(() => {
+      isTransitioning.value = false;
+    }, 500);
   }
 );
+
+onMounted(() => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  reducedMotionMedia = window.matchMedia("(prefers-reduced-motion: no-preference)");
+  pointerMedia = window.matchMedia("(pointer: fine)");
+
+  syncMotionPreference();
+  reducedMotionMedia.addEventListener("change", syncMotionPreference);
+  pointerMedia.addEventListener("change", syncMotionPreference);
+  window.addEventListener("resize", syncMotionPreference);
+});
+
+onBeforeUnmount(() => {
+  reducedMotionMedia?.removeEventListener("change", syncMotionPreference);
+  pointerMedia?.removeEventListener("change", syncMotionPreference);
+  window.removeEventListener("resize", syncMotionPreference);
+  clearTimeout(transitionTimer);
+});
 </script>
 
 <template>
@@ -64,20 +102,17 @@ watch(
       <div class="shade" :class="{ 'shade-active': isTransitioning }" :style="shadeStyle">&nbsp;</div>
     </template>
 
-    <!-- 由于我们一个插槽使用了多个组件，我们将其放在 MyLayout.vue 组件中 -->
     <template #layout-top>
       <MouseFollower v-if="false" />
-      <MouseClick />
+      <MouseClick v-if="showMouseClick" />
     </template>
 
-    <!-- doc-footer-before插槽 添加返回顶部组件 -->
     <template #doc-footer-before>
       <BackToTop />
     </template>
   </Layout>
 </template>
 
-<!-- 路由切换样式 -->
 <style>
 .shade {
   position: fixed;
@@ -88,6 +123,7 @@ watch(
   opacity: 0;
   transition: transform 0.5s ease-in-out;
 }
+
 .shade-active {
   opacity: 0;
   animation: shadeAnimation 0.5s ease-in-out;
@@ -98,9 +134,11 @@ watch(
     opacity: 1;
     transform: translateY(0);
   }
+
   50% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
     transform: translateY(100vh);
@@ -108,7 +146,6 @@ watch(
 }
 </style>
 
-<!-- 换肤切换样式 -->
 <style>
 ::view-transition-old(root),
 ::view-transition-new(root) {
@@ -125,18 +162,4 @@ watch(
 .dark::view-transition-old(root) {
   z-index: 9999;
 }
-
-/* 恢复原始开关按钮 */
-/* .VPSwitchAppearance {
-  width: 22px !important;
-} */
-
-/* .VPSwitchAppearance .check {
-  transform: none !important;
-} */
-
-/* 修正因视图过渡导致的按钮图标偏移 */
-/* .VPSwitchAppearance .check .icon {
-  top: -2px;
-} */
 </style>
