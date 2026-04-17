@@ -28,7 +28,7 @@ export const noteData = [
         text: '构建时Hash与ContentHash的差异详解'
       },
       {
-        text: '使用FNM管理Node多版本环境'
+        text: '使用FNM进行多个Node版本的管理'
       },
       {
         text: '移动端下拉刷新功能的实现'
