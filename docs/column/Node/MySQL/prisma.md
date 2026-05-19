@@ -59,7 +59,7 @@ generator client {
 
 确保在你的环境变量中设置了 `DATABASE_URL`，你可以使用 `.env` 文件管理这些变量：
 
-```env
+```text
 DATABASE_URL="postgresql://user:password@localhost:5432/mydb"
 ```
 
@@ -223,7 +223,7 @@ npx prisma studio
 
 1. **连接池配置**：通过 `.env` 设置连接池参数
 
-   ```env
+   ```text
    DATABASE_URL="postgresql://user:password@localhost:5432/mydb?connection_limit=10"
    ```
 

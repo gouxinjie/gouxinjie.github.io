@@ -12,7 +12,7 @@ import { nav, sidebar } from "./navAndSidebarConfig";
 
 // Markdown 插件
 import markdownItTaskCheckbox from "markdown-it-task-checkbox"; // todoList 任务列表
-import { MermaidMarkdown, MermaidPlugin } from "vitepress-plugin-mermaid"; // 图表渲染插件
+import { MermaidMarkdown } from "vitepress-plugin-mermaid"; // 图表渲染插件
 
 /**
  * 站点配置
@@ -62,6 +62,9 @@ export default defineConfig({
    */
   lastUpdated: true, // 开启最后更新时间
   cleanUrls: true, // 启用干净的 URL (去除 .html 后缀)
+  transformHtml(code) {
+    return code.replace(/\n\s*<link rel="(?:modulepreload|prefetch)" href="[^"]*(?:mermaid|MermaidRenderer)[^"]*">/gi, "");
+  },
 
   /**
    * 站点地图配置
@@ -206,7 +209,7 @@ export default defineConfig({
      */
     server: {
       host: "0.0.0.0", // 服务器主机
-      port: 5174, // 服务器端口
+      port: 5180, // 服务器端口
 
       /**
        * 内网穿透配置
@@ -221,7 +224,38 @@ export default defineConfig({
     /**
      * 插件配置
      */
-    plugins: [MermaidPlugin()], // Mermaid 图表插件
+    build: {
+      chunkSizeWarningLimit: 2500,
+      modulePreload: {
+        resolveDependencies(_, deps) {
+          return deps.filter((dep) => {
+            const name = dep.toLowerCase();
+            return !name.includes("mermaid") && !name.includes("mermaidrenderer");
+          });
+        }
+      },
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes("mermaid") || id.includes("cytoscape") || id.includes("dagre")) {
+              return "mermaid";
+            }
+
+            if (id.includes("katex")) {
+              return "katex";
+            }
+          }
+        }
+      }
+    },
+
+    css: {
+      preprocessorOptions: {
+        scss: {
+          silenceDeprecations: ["legacy-js-api"]
+        }
+      }
+    },
 
     /**
      * 依赖优化配置
@@ -235,6 +269,7 @@ export default defineConfig({
      */
     ssr: {
       noExternal: ["mermaid"] // 不将 mermaid 作为外部依赖
-    }
+    },
+
   }
 });

@@ -20,11 +20,14 @@ const colors = ["#FF1461", "#18FF92", "#5A87FF", "#FBF38C"];
 // 设置画布大小
 function setCanvasSize() {
   const canvasEl = canvas.value;
-  canvasEl.width = window.innerWidth * 2;
-  canvasEl.height = window.innerHeight * 2;
+  if (!canvasEl) return;
+
+  const dpr = window.devicePixelRatio || 1;
+  canvasEl.width = window.innerWidth * dpr;
+  canvasEl.height = window.innerHeight * dpr;
   canvasEl.style.width = window.innerWidth + "px";
   canvasEl.style.height = window.innerHeight + "px";
-  canvasEl.getContext("2d").scale(2, 2);
+  canvasEl.getContext("2d")?.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
 
 // 创建粒子
@@ -130,8 +133,14 @@ function createRandomCircle(x, y) {
 
 // 动画循环
 function animate() {
-  const ctx = canvas.value.getContext("2d");
-  ctx.clearRect(0, 0, canvas.value.width, canvas.value.height);
+  const canvasEl = canvas.value;
+  const ctx = canvasEl?.getContext("2d");
+  if (!canvasEl || !ctx) {
+    animationFrameId = null;
+    return;
+  }
+
+  ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
 
   // 更新并绘制粒子
   particles = particles.filter((particle) => {
@@ -147,13 +156,20 @@ function animate() {
     return shouldKeep;
   });
 
-  animationFrameId = requestAnimationFrame(animate);
+  animationFrameId = particles.length || circles.length ? requestAnimationFrame(animate) : null;
+}
+
+function startAnimation() {
+  if (!animationFrameId) {
+    animationFrameId = requestAnimationFrame(animate);
+  }
 }
 
 // 处理点击事件
 function handleClick(e) {
-  const x = e.clientX || e.touches[0].clientX;
-  const y = e.clientY || e.touches[0].clientY;
+  const point = e.touches?.[0] ?? e;
+  const x = point.clientX;
+  const y = point.clientY;
 
   // 创建粒子
   for (let i = 0; i < 20; i++) {
@@ -165,14 +181,15 @@ function handleClick(e) {
 
   // 创建随机圆形
   circles.push(createRandomCircle(x, y));
+
+  startAnimation();
 }
 
 onMounted(() => {
   setCanvasSize();
   const tapEvent = "ontouchstart" in window ? "touchstart" : "mousedown";
-  window.addEventListener(tapEvent, handleClick);
+  window.addEventListener(tapEvent, handleClick, { passive: true });
   window.addEventListener("resize", setCanvasSize);
-  animate();
 });
 
 onUnmounted(() => {

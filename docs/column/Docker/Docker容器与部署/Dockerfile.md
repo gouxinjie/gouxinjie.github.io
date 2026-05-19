@@ -181,7 +181,7 @@ CMD ["nginx", "-g", "daemon off;"]
 
 上面用到的 `nginx.conf` 配置文件内容如下：
 
-```nginx.conf
+```nginx
 server {
     listen 80;
     server_name localhost;

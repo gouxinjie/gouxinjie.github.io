@@ -16,7 +16,7 @@
 
 启动 vue3 项目如果出现下面这两行报错时，说明你的 node 版本过低：
 
-```clike
+```text
 error when starting dev server:
 Error: Cannot find module 'node:url'
 ```

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 /**
  * @description  返回顶部组件
  * @author gxj
@@ -9,6 +9,7 @@ import { onBeforeUnmount, onMounted, ref, computed } from "vue";
 
 const showBackTop = ref(false); // 初始状态设为false
 const scrollProgress = ref(0);
+let scrollTimer: ReturnType<typeof setTimeout> | undefined;
 
 // 圆形进度条计算
 const radius = 42;
@@ -22,13 +23,12 @@ function scrollToTop() {
 }
 
 // 使用更高效的节流函数
-function throttle(fn, delay = 50) {
-  let timer = null;
-  return function (...args) {
-    if (!timer) {
-      timer = setTimeout(() => {
-        fn.apply(this, args);
-        timer = null;
+function throttle(fn: () => void, delay = 50) {
+  return function () {
+    if (!scrollTimer) {
+      scrollTimer = setTimeout(() => {
+        fn();
+        scrollTimer = undefined;
       }, delay);
     }
   };
@@ -49,12 +49,13 @@ const handleScroll = throttle(() => {
 });
 
 onMounted(() => {
-  window.addEventListener("scroll", handleScroll);
+  window.addEventListener("scroll", handleScroll, { passive: true });
   updateScrollProgress();
 });
 
 onBeforeUnmount(() => {
   window.removeEventListener("scroll", handleScroll);
+  clearTimeout(scrollTimer);
 });
 </script>
 

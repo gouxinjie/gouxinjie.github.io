@@ -37,6 +37,7 @@
     "eslint-plugin-vue": "^9.32.0",
     "markdown-it-task-checkbox": "^1.0.6",
     "medium-zoom": "^1.1.0",
+    "mermaid": "^11.12.2",
     "nprogress-v2": "^1.1.10",
     "prettier": "^3.4.2",
     "sass": "^1.77.6",
