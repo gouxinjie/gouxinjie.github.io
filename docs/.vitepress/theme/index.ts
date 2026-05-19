@@ -18,7 +18,6 @@ import type { Theme } from "vitepress";
 import "./styles/index.scss"; // 启用新样式
 
 // 第三方库导入
-import busuanzi from "busuanzi.pure.js"; // 访问量统计
 import mediumZoom from "medium-zoom"; // 图片预览插件
 import { NProgress } from "nprogress-v2/dist/index.js"; // 进度条组件
 import "nprogress-v2/dist/index.css"; // 进度条样式
@@ -44,6 +43,14 @@ import FamousDisplay from "../components/poetry/FamousDisplay.vue"; // 名句展
  * 彩虹背景动画样式元素
  */
 let homePageStyle: HTMLStyleElement | undefined;
+const VERCEL_HOSTNAME = "gouxinjie.vercel.app";
+
+const fetchBusuanzi = async () => {
+  if (window.location.hostname === VERCEL_HOSTNAME) return;
+
+  const { default: busuanzi } = await import("busuanzi.pure.js");
+  busuanzi.fetch();
+};
 
 /**
  * 主题配置
@@ -102,7 +109,7 @@ const theme: Theme = {
       };
       
       router.onAfterRouteChange = () => {
-        busuanzi.fetch(); // 触发访问量统计
+        void fetchBusuanzi(); // 触发访问量统计
         NProgress.done(); // 停止进度条
       };
     }

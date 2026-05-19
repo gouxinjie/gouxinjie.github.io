@@ -1,4 +1,32 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { onMounted, ref } from "vue";
+
+const VERCEL_HOSTNAME = "gouxinjie.vercel.app";
+
+const useStaticStats = ref(false);
+const staticSitePv = ref("23680");
+const staticSiteUv = ref("22460");
+
+const getRandomInt = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+const updateStaticStats = () => {
+  const uv = getRandomInt(21800, 23200);
+  const pv = uv + getRandomInt(900, 1800);
+
+  staticSiteUv.value = String(uv);
+  staticSitePv.value = String(pv);
+};
+
+onMounted(() => {
+  useStaticStats.value = window.location.hostname === VERCEL_HOSTNAME;
+
+  if (useStaticStats.value) {
+    updateStaticStats();
+  }
+});
+</script>
 
 <!-- 访问量展示 -->
 <template>
@@ -7,13 +35,15 @@
       <section class="grid">
         <span class="text">
           本站总访问量
-          <span id="busuanzi_value_site_pv" class="font-bold">99999</span> 次
+          <span v-if="useStaticStats" class="font-bold">{{ staticSitePv }}</span>
+          <span v-else id="busuanzi_value_site_pv" class="font-bold">{{ staticSitePv }}</span> 次
         </span>
         <img src="/xinjie.png" alt="heart" width="100" height="100" />
         <!-- <img src="/tap.gif" alt="我让你敲" width="150" height="150" /> -->
         <span class="text">
           本站访客数
-          <span id="busuanzi_value_site_uv" class="font-bold">9999</span> 人次
+          <span v-if="useStaticStats" class="font-bold">{{ staticSiteUv }}</span>
+          <span v-else id="busuanzi_value_site_uv" class="font-bold">{{ staticSiteUv }}</span> 人次
         </span>
       </section>
     </div>
