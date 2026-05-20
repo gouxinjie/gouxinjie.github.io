@@ -42,10 +42,10 @@ import FamousDisplay from "../components/poetry/FamousDisplay.vue"; // 名句展
  * 彩虹背景动画样式元素
  */
 let homePageStyle: HTMLStyleElement | undefined;
-const VERCEL_HOSTNAME = "gouxinjie.vercel.app";
+const BUSUANZI_HOSTNAME = "gouxinjie.github.io";
 
 const fetchBusuanzi = async () => {
-  if (window.location.hostname === VERCEL_HOSTNAME) return;
+  if (window.location.hostname !== BUSUANZI_HOSTNAME) return;
 
   const { default: busuanzi } = await import("busuanzi.pure.js");
   busuanzi.fetch();
@@ -101,6 +101,7 @@ const theme: Theme = {
     if (inBrowser) {
       // 进度条配置
       NProgress.configure({ showSpinner: false });
+      void fetchBusuanzi();
       
       // 路由守卫
       router.onBeforeRouteChange = () => {

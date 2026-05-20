@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 
-const VERCEL_HOSTNAME = "gouxinjie.vercel.app";
+const BUSUANZI_HOSTNAME = "gouxinjie.github.io";
 
 const useStaticStats = ref(false);
 const staticSitePv = ref("23680");
@@ -20,7 +20,7 @@ const updateStaticStats = () => {
 };
 
 onMounted(() => {
-  useStaticStats.value = window.location.hostname === VERCEL_HOSTNAME;
+  useStaticStats.value = window.location.hostname !== BUSUANZI_HOSTNAME;
 
   if (useStaticStats.value) {
     updateStaticStats();
