@@ -104,7 +104,7 @@ function callback(entries, observer) {
 
 **实现效果：**
 
-![图片懒加载优化](../../images/IntersectionObserver-1.gif)
+![图片懒加载优化](https://raw.githubusercontent.com/gouxinjie/gouxinjie.github.io/main/docs/column/JS/images/IntersectionObserver-1.gif)
 
 **代码如下：**
 
