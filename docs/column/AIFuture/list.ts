@@ -44,9 +44,6 @@ const aiFutureList = [
       },
       {
         text: "AI辅助代码评审清单"
-      },
-      {
-        text: "用AI搭建个人知识库"
       }
     ]
   },
