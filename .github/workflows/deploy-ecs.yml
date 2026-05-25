@@ -1,0 +1,68 @@
+name: Deploy VitePress to ECS
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ecs
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      ECS_HOST: ${{ secrets.ECS_HOST }}
+      ECS_USER: ${{ secrets.ECS_USER }}
+      ECS_PORT: ${{ secrets.ECS_PORT }}
+      ECS_PATH: ${{ secrets.ECS_PATH }}
+      ECS_SSH_KEY: ${{ secrets.ECS_SSH_KEY }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build VitePress site
+        run: pnpm run build
+
+      - name: Validate ECS secrets
+        run: |
+          test -n "$ECS_HOST" || (echo "Missing ECS_HOST" && exit 1)
+          test -n "$ECS_USER" || (echo "Missing ECS_USER" && exit 1)
+          test -n "$ECS_PORT" || (echo "Missing ECS_PORT" && exit 1)
+          test -n "$ECS_PATH" || (echo "Missing ECS_PATH" && exit 1)
+          test -n "$ECS_SSH_KEY" || (echo "Missing ECS_SSH_KEY" && exit 1)
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$ECS_SSH_KEY" > ~/.ssh/ecs_key
+          chmod 600 ~/.ssh/ecs_key
+          ssh-keyscan -p "$ECS_PORT" "$ECS_HOST" >> ~/.ssh/known_hosts
+
+      - name: Ensure remote directory
+        run: |
+          ssh -i ~/.ssh/ecs_key -p "$ECS_PORT" "$ECS_USER@$ECS_HOST" "mkdir -p '$ECS_PATH'"
+
+      - name: Deploy to ECS
+        run: |
+          rsync -az --delete \
+            -e "ssh -i ~/.ssh/ecs_key -p $ECS_PORT" \
+            docs/.vitepress/dist/ \
+            "$ECS_USER@$ECS_HOST:$ECS_PATH/"
