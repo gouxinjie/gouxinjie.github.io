@@ -22,6 +22,7 @@ import { transformGitList } from "../../column/Git/list";
 import { transformNginxList } from "../../column/Nginx/list";
 import { transformDockerList } from "../../column/Docker/list";
 import { transformAIFutureList } from "../../column/AIFuture/list";
+import { transformAliyunList } from "../../column/Aliyun/list";
 
 /**
  * 顶部导航区
@@ -62,6 +63,23 @@ export const nav: DefaultTheme.NavItem[] = [
     link: "/column/Network/index.md"
   },
   {
+    text: "服务与部署",
+    items: [
+      {
+        text: "Nginx常用",
+        link: "/column/Nginx/index.md"
+      },
+      {
+        text: "Docker常用",
+        link: "/column/Docker/index.md"
+      },
+      {
+        text: "阿里云",
+        link: "/column/Aliyun/index.md"
+      }
+    ]
+  },
+  {
     text: "更多",
     items: [
       {
@@ -82,14 +100,6 @@ export const nav: DefaultTheme.NavItem[] = [
           {
             text: "Git常用",
             link: "/column/Git/index.md"
-          },
-          {
-            text: "Nginx常用",
-            link: "/column/Nginx/index.md"
-          },
-          {
-            text: "Docker常用",
-            link: "/column/Docker/index.md"
           },
           {
             text: "项目相关",
@@ -227,6 +237,9 @@ export const sidebar: DefaultTheme.Sidebar = {
 
   /** docker相关 */
   "/column/Docker/": transformDockerList("/column/Docker/"),
+
+  /** 阿里云相关 */
+  "/column/Aliyun/": transformAliyunList("/column/Aliyun/"),
 
   /** 小程序相关 */
   "/column/miniProgram/": transformMiniProgramList("/column/miniProgram/"),
