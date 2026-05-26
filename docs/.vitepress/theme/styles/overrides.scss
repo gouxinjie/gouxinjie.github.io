@@ -123,6 +123,109 @@ table {
   transition: color 0.25s;
 }
 
+/* 更多下拉菜单：三组内容横向排布，参考 Vue 官网生态菜单 */
+@media (min-width: 960px) {
+  .VPNav.VPNav {
+    z-index: 190 !important;
+  }
+
+  .VPNavBarMenuGroup .menu:has(.VPMenuGroup + .VPMenuGroup + .VPMenuGroup) {
+    left: auto;
+    right: -16px;
+    z-index: 195;
+
+    .VPMenu {
+      width: min(500px, calc(100vw - 32px));
+      max-height: min(460px, calc(100vh - 80px));
+      padding: 12px;
+      border: 1px solid var(--vp-c-divider);
+      border-radius: 8px;
+      background: var(--vp-c-bg);
+      box-shadow: 0 16px 44px rgba(0, 0, 0, 0.12);
+      overflow-y: auto;
+    }
+
+    .items {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .VPMenuGroup {
+      min-width: 0;
+      padding: 4px 10px;
+      border-top: 0;
+
+      + .VPMenuGroup {
+        border-top: 0;
+        border-left: 1px solid var(--vp-c-divider);
+      }
+
+      .title {
+        margin: 0 0 8px;
+        padding: 0 6px;
+        line-height: 24px;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--vp-c-text-2);
+      }
+    }
+
+    .VPMenuLink {
+      margin: 0;
+      padding: 0;
+
+      &,
+      &:hover,
+      .link,
+      .link:hover {
+        background-color: transparent !important;
+      }
+
+      .link {
+        display: flex;
+        align-items: center;
+        min-height: 32px;
+        width: 100%;
+        padding: 0;
+        border-radius: 0;
+        font-size: 13px;
+        line-height: 20px;
+        color: var(--vp-c-text-1);
+        transition: color 0.2s ease;
+
+        span {
+          display: inline-flex;
+          align-items: center;
+          min-width: 0;
+          max-width: 100%;
+          min-height: 32px;
+          padding: 0 8px;
+          border-radius: 6px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          transition:
+            color 0.2s ease,
+            background-color 0.2s ease;
+        }
+      }
+
+      &:hover .link {
+        color: var(--vp-c-brand-1);
+
+        span {
+          color: var(--vp-c-brand-1);
+          background-color: var(--vp-c-default-soft) !important;
+        }
+      }
+    }
+  }
+}
+
+.dark .VPNavBarMenuGroup .menu:has(.VPMenuGroup + .VPMenuGroup + .VPMenuGroup) .VPMenu {
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.34);
+}
+
 /* dark/light radial transition */
 ::view-transition-old(root),
 ::view-transition-new(root) {

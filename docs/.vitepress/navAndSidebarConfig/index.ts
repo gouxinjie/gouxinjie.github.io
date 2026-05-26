@@ -65,78 +65,83 @@ export const nav: DefaultTheme.NavItem[] = [
     text: "更多",
     items: [
       {
-        text: "Angular",
-        link: "/column/Angular/index.md"
+        text: "进阶",
+        items: [
+          {
+            text: "Angular",
+            link: "/column/Angular/index.md"
+          },
+          {
+            text: "JS进阶",
+            link: "/column/JS/index.md"
+          },
+          {
+            text: "TS进阶",
+            link: "/column/TS/index.md"
+          },
+          {
+            text: "Git常用",
+            link: "/column/Git/index.md"
+          },
+          {
+            text: "Nginx常用",
+            link: "/column/Nginx/index.md"
+          },
+          {
+            text: "Docker常用",
+            link: "/column/Docker/index.md"
+          },
+          {
+            text: "项目相关",
+            link: "/column/Project/"
+          },
+          {
+            text: "小程序相关",
+            link: "/column/miniProgram/"
+          },
+          {
+            text: "HTML/CSS",
+            link: "/column/HtmlCss/index.md"
+          }
+        ]
       },
       {
-        text: "JS进阶",
-        link: "/column/JS/index.md"
+        text: "前端生态",
+        items: [
+          {
+            text: "框架组件",
+            link: "/column/Ecology/com.md"
+          },
+          {
+            text: "工程化相关",
+            link: "/column/Ecology/project.md"
+          },
+          {
+            text: "HTML/CSS",
+            link: "/column/Ecology/html-css.md"
+          },
+          {
+            text: "工具推荐",
+            link: "/column/Recommend/index.md"
+          },
+          {
+            text: "常见面试题",
+            link: "/column/Interview/index.md"
+          }
+        ]
       },
       {
-        text: "TS进阶",
-        link: "/column/TS/index.md"
-      },
-      {
-        text: "Git常用",
-        link: "/column/Git/index.md"
-      },
-      {
-        text: "Nginx常用",
-        link: "/column/Nginx/index.md"
-      },
-      {
-        text: "Docker常用",
-        link: "/column/Docker/index.md"
-      },
-      {
-        text: "项目相关",
-        link: "/column/Project/"
-      },
-      {
-        text: "小程序相关",
-        link: "/column/miniProgram/"
-      },
-      {
-        text: "HTML/CSS",
-        link: "/column/HtmlCss/index.md"
-      }
-    ]
-  },
-  {
-    text: "前端生态",
-    items: [
-      {
-        text: "框架组件",
-        link: "/column/Ecology/com.md"
-      },
-      {
-        text: "工程化相关",
-        link: "/column/Ecology/project.md"
-      },
-      {
-        text: "HTML/CSS",
-        link: "/column/Ecology/html-css.md"
-      },
-      {
-        text: "工具推荐",
-        link: "/column/Recommend/index.md"
-      },
-      {
-        text: "常见面试题",
-        link: "/column/Interview/index.md"
-      }
-    ]
-  },
-  {
-    text: "问题笔记",
-    items: [
-      {
-        text: "踩坑记录",
-        link: "/column/ProblemNotes/踩坑记录/"
-      },
-      {
-        text: "日常笔记",
-        link: "/column/ProblemNotes/日常笔记/"
+        text: "问题笔记",
+        items: [
+          {
+            text: "踩坑记录",
+            link: "/column/ProblemNotes/踩坑记录/"
+          },
+          {
+            text: "日常笔记",
+            link: "/column/ProblemNotes/日常笔记/"
+          }
+        ]
       }
     ]
   },
