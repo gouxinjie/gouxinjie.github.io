@@ -1,13 +1,19 @@
 name: Deploy VitePress to ECS
 
+# 触发方式：
+# 1. push 到 main 分支后自动部署
+# 2. 也可以在 GitHub Actions 页面手动点击 Run workflow
 on:
   push:
     branches: ["main"]
   workflow_dispatch:
 
+# 只需要读取仓库代码，不需要写仓库权限
 permissions:
   contents: read
 
+# 同一时间只保留一个 ECS 部署任务。
+# 如果连续 push，多余的旧部署会被取消，避免旧产物覆盖新产物。
 concurrency:
   group: ecs
   cancel-in-progress: true
@@ -16,6 +22,12 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
+      # 以下变量都来自 GitHub 仓库 Settings -> Secrets and variables -> Actions
+      # ECS_HOST: ECS 公网 IP 或域名
+      # ECS_USER: SSH 登录用户，例如 root 或 deploy
+      # ECS_PORT: SSH 端口，默认通常是 22
+      # ECS_PATH: ECS 上 Nginx root 指向的网站目录，例如 /var/www/blog
+      # ECS_SSH_KEY: 可登录 ECS 的私钥完整内容
       ECS_HOST: ${{ secrets.ECS_HOST }}
       ECS_USER: ${{ secrets.ECS_USER }}
       ECS_PORT: ${{ secrets.ECS_PORT }}
@@ -23,24 +35,32 @@ jobs:
       ECS_SSH_KEY: ${{ secrets.ECS_SSH_KEY }}
 
     steps:
+      # 拉取当前仓库代码到 GitHub Actions runner
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 安装 pnpm，版本会优先读取 package.json 中的 packageManager
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
 
+      # 安装 Node.js，并开启 pnpm 依赖缓存，加快后续构建速度
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "pnpm"
 
+      # 按 lockfile 安装依赖，保证 CI 环境和本地依赖版本一致
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # 构建 VitePress 静态站点。
+      # 本项目的构建产物目录是 docs/.vitepress/dist
       - name: Build VitePress site
         run: pnpm run build
 
+      # 提前检查部署所需 Secrets 是否存在。
+      # 缺少任意一个就直接失败，避免后续 SSH/rsync 报不清晰的错误。
       - name: Validate ECS secrets
         run: |
           test -n "$ECS_HOST" || (echo "Missing ECS_HOST" && exit 1)
@@ -49,6 +69,8 @@ jobs:
           test -n "$ECS_PATH" || (echo "Missing ECS_PATH" && exit 1)
           test -n "$ECS_SSH_KEY" || (echo "Missing ECS_SSH_KEY" && exit 1)
 
+      # 写入部署私钥，并把 ECS 主机指纹加入 known_hosts。
+      # ssh-keyscan 用于避免首次连接时出现交互式确认。
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
@@ -56,10 +78,15 @@ jobs:
           chmod 600 ~/.ssh/ecs_key
           ssh-keyscan -p "$ECS_PORT" "$ECS_HOST" >> ~/.ssh/known_hosts
 
+      # 确保 ECS 上的网站目录存在。
+      # Nginx 的 root 应该指向这个目录，后续 rsync 会把静态产物同步进去。
       - name: Ensure remote directory
         run: |
           ssh -i ~/.ssh/ecs_key -p "$ECS_PORT" "$ECS_USER@$ECS_HOST" "mkdir -p '$ECS_PATH'"
 
+      # 同步构建后的静态产物到 ECS。
+      # 注意这里同步的是 docs/.vitepress/dist/ 里面的内容，而不是整个源码仓库。
+      # --delete 会删除 ECS_PATH 中本次构建不存在的旧文件，防止历史静态资源残留。
       - name: Deploy to ECS
         run: |
           rsync -az --delete \
