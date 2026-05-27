@@ -292,7 +292,7 @@ script: 'server.js'
 
 例如：
 
-```env
+```txt
 SUPABASE_URL=
 SUPABASE_SERVICE_ROLE_KEY=
 ALIYUN_OSS_ACCESS_KEY_SECRET=

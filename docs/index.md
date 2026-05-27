@@ -40,7 +40,7 @@ features:
     icon:
       src: /light_pwa.svg
     details: 部署时需使用Web服务器（如Nginx），因为浏览器无法直接运行本地文件，必须通过HTTP协议访问才能解决路径、路由和跨域等关键问题。
-    link: /column/Docker/Docker容器与部署/为什么前端项目部署需要nginx或Apache
+    link: /column/Aliyun/核心概念/为什么前端项目部署需要nginx或Apache
     linkText: 查看详情
 
   - title: 使用FNM进行多个Node版本的管理

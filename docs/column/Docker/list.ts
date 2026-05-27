@@ -12,7 +12,6 @@ const dockerList = [
       { text: "Docker网络" },
       { text: "容器存储" },
       { text: "容器日志和监控" },
-      { text: "为什么前端项目部署需要nginx或Apache" },
       { text: "Docker本地部署CSR前端项目" },
       { text: "Docker本地部署SSR前端项目" }
     ]
