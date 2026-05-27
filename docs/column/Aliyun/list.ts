@@ -6,8 +6,9 @@ const aliyunList = [
     collapsed: false,
     items: [
       { text: "VitePress博客自动部署到ECS" },
-      { text: "Next项目自动部署到ECS" },
-
+      { text: "Next项目自动部署到ECS-初始版" },
+      { text: "Next项目自动部署到ECS-优化版" },
+      { text: "PM2在Next项目部署中的作用" }
     ]
   }
 ];

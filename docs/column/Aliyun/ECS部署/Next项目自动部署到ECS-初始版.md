@@ -1,4 +1,6 @@
-# 从 0 到 1：把一个 Next.js 项目部署到 ECS，并用 GitHub Actions 自动发布
+# Next项目自动部署到ECS-初始版
+
+**从 0 到 1：把一个 Next.js 项目部署到 ECS，并用 GitHub Actions 自动发布**
 
 最近我把自己的一个项目 **Prompt Gallery** 部署到了阿里云 ECS 上。这个项目是一个基于 Next.js 的 Prompt 案例库，支持案例浏览、分类筛选、收藏、投稿、后台审核、主题切换等功能。
 
