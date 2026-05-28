@@ -46,6 +46,8 @@ export function transformMenuList(rawList: MenuItem[], path: string, isFilterLis
   const transformItems = (items: MenuItem[], parentPath: string = "", level: number = 0): MenuItem[] => {
     return items.map((item, index) => {
       const currentPath = `${parentPath}${parentPath ? "/" : ""}${item.text}`;
+      const children = item.items ?? [];
+      const hasChildren = children.length > 0;
 
       // 处理当前项
       const transformedItem: MenuItem = {
@@ -53,16 +55,14 @@ export function transformMenuList(rawList: MenuItem[], path: string, isFilterLis
         text: isFilterList ? item.text : showIndex && level >= 1 ? `${index + 1}. ${item.text}` : `${item.text}`
       };
 
-      // 如果是筛选页面，添加链接（只对叶子节点添加）
-      if (isFilterList && !item.items?.length) {
-        transformedItem.link = `${path}${currentPath}`;
-      } else if (!isFilterList) {
-        transformedItem.link = `${path}${currentPath}.md`;
+      // 只给实际文章叶子节点生成链接，带 children 的项只作为侧边栏分组。
+      if (!hasChildren && !item.link) {
+        transformedItem.link = isFilterList ? `${path}${currentPath}` : `${path}${currentPath}.md`;
       }
 
       // 递归处理子项
-      if (item.items) {
-        transformedItem.items = transformItems(item.items, currentPath, level + 1);
+      if (hasChildren) {
+        transformedItem.items = transformItems(children, currentPath, level + 1);
       }
 
       return transformedItem;
