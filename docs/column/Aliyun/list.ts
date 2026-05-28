@@ -6,7 +6,7 @@ const aliyunList = [
     collapsed: false,
     items: [
       { text: "阿里云 ECS 入门介绍" },
-      { text: "为什么前端项目部署需要nginx或Apache" },
+      { text: "为什么前端项目部署需要nginx" },
       { text: "GitHub Actions 核心概念详解" }
     ]
   },

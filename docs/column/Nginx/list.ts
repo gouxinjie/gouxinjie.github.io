@@ -12,7 +12,8 @@ const nginxList = [
       { text: "负载均衡策略" },
       { text: "开启gzip压缩" },
       { text: "开启域名跳转" },
-      { text: "History路由404问题" }
+      { text: "History路由404问题" },
+      { text: "ECS上用Nginx部署多个前端项目" }
     ]
   }
 ];

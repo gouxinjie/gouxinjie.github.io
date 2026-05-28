@@ -39,8 +39,8 @@ features:
   - title: 为什么前端项目部署需要 nginx 或 Apache？
     icon:
       src: /light_pwa.svg
-    details: 部署时需使用Web服务器（如Nginx），因为浏览器无法直接运行本地文件，必须通过HTTP协议访问才能解决路径、路由和跨域等关键问题。
-    link: /column/Aliyun/核心概念/为什么前端项目部署需要nginx或Apache
+    details: 部署时需使用Web服务器（如Nginx），因为浏览器无法直接访问服务器文件系统, 但是可以通过 HTTP 请求访问服务器上暴露的端口和路径。
+    link: /column/Aliyun/核心概念/为什么前端项目部署需要nginx
     linkText: 查看详情
 
   - title: 使用FNM进行多个Node版本的管理
