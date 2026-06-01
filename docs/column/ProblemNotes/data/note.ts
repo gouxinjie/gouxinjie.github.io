@@ -62,6 +62,12 @@ export const noteData = [
       },
       {
         text: 'AntDesign项目集成阿里Iconfont图标库'
+      },
+      {
+        text: "HttpOnly签名Cookie登录方案"
+      },
+      {
+        text: 'better-sqlite3管理SQLite数据库'
       }
     ]
   }

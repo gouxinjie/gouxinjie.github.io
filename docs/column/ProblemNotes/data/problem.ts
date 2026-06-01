@@ -35,7 +35,8 @@ export const problemData = [
       },
       {
         text: "跨源资源共享存在不安全配置漏洞"
-      }
+      },
+
     ]
   }
 ];
