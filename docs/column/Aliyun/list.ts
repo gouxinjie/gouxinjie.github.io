@@ -19,7 +19,8 @@ const aliyunList = [
       { text: "VitePress博客自动部署到ECS" },
       { text: "Next项目自动部署到ECS-初始版" },
       { text: "Next项目自动部署到ECS-优化版" },
-      { text: 'Nuxt项目自动部署到ECS' }
+      { text: 'Nuxt项目自动部署到ECS' },
+      { text: 'ECS+Nginx配置二级域名与多项目部署实战' }
 
     ]
   },
