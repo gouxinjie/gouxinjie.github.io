@@ -20,7 +20,8 @@ const aliyunList = [
       { text: "Next项目自动部署到ECS-初始版" },
       { text: "Next项目自动部署到ECS-优化版" },
       { text: 'Nuxt项目自动部署到ECS' },
-      { text: 'ECS+Nginx配置二级域名与多项目部署实战' }
+      { text: 'ECS+Nginx配置二级域名与多项目部署实战' },
+      { text: 'PythonWeb项目发布到ECS实战' }
 
     ]
   },
