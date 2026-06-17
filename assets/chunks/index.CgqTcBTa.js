@@ -1,0 +1,9 @@
+const t=`
+<script setup>
+import { ref,shallowRef } from 'vue'
+import { transformJSList } from "./list";
+const JSList = shallowRef(transformJSList("/column/JS/", true)); // 获取JS相关列表
+<\/script>
+
+<SearchList title="JS进阶" :data="JSList" ></SearchList>
+`;export{t as default};

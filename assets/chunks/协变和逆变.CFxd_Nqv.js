@@ -1,0 +1,177 @@
+const n=`# TypeScript 中的协变与逆变：理解类型系统的核心概念
+
+[[toc]]
+
+在 \`TypeScript\` 和其他编程语言中，**协变**和**逆变**是类型系统中的两个重要概念，特别是在处理**泛型**和**类型子类型关系**时。它们描述了在继承或类型推导时，类型之间如何相互变动。
+
+### 1. 协变（Covariant）
+
+协变是指**类型的子类型关系在赋值或类型转换时，能够保持一致性**。简单来说，协变意味着，如果类型 \`A\` 是类型 \`B\` 的子类型，那么使用类型 \`A\` 的地方可以接受类型 \`B\`。
+
+协变通常发生在 **返回类型** 或 **输出** 上。在 TypeScript 中，返回类型通常会保持协变。
+
+#### 协变示例：函数的返回类型
+
+\`\`\`typescript
+class Animal {
+  speak() {
+    console.log("Animal speaks");
+  }
+}
+
+class Dog extends Animal {
+  speak() {
+    console.log("Dog barks");
+  }
+}
+
+function getAnimal(): Animal {
+  return new Animal();
+}
+
+function getDog(): Dog {
+  return new Dog();
+}
+
+// 协变：返回类型 Animal 可以被 Dog 替代
+let animal: Animal = getDog();
+\`\`\`
+
+在这个示例中，\`Dog\` 是 \`Animal\` 的子类型，因此返回 \`Dog\` 类型的 \`getDog()\` 方法可以赋值给一个期望 \`Animal\` 类型的变量。这是协变的一个例子：返回类型可以替换成其子类型。
+
+### 2. 逆变（Contravariant）
+
+逆变是指**类型的子类型关系在赋值或类型转换时，反过来发生变化**。逆变意味着，如果类型 \`A\` 是类型 \`B\` 的子类型，那么使用类型 \`B\` 的地方必须接受类型 \`A\`。
+
+逆变通常发生在 **输入类型** 或 **参数类型** 上。在 TypeScript 中，参数类型通常是逆变的。
+
+#### 逆变示例：函数的参数类型
+
+\`\`\`typescript
+class Animal {
+  name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
+}
+
+class Dog extends Animal {
+  breed: string;
+  constructor(name: string, breed: string) {
+    super(name);
+    this.breed = breed;
+  }
+}
+
+function handleAnimal(animal: Animal): void {
+  console.log(\`Handling animal: \${animal.name}\`);
+}
+
+function handleDog(dog: Dog): void {
+  console.log(\`Handling dog: \${dog.name}, Breed: \${dog.breed}\`);
+}
+
+// 逆变：handleAnimal 可以接受 handleDog 类型的函数
+let animalHandler: (animal: Animal) => void = handleDog;
+animalHandler(new Animal("Buddy")); // 输出: Handling dog: Buddy, Breed: undefined
+\`\`\`
+
+在这个例子中，\`handleAnimal\` 接受一个 \`Animal\` 类型的参数，而 \`handleDog\` 接受一个 \`Dog\` 类型的参数。因为 \`Dog\` 是 \`Animal\` 的子类，所以 \`handleAnimal\` 可以接受 \`handleDog\` 类型的函数。这是逆变的一个例子：函数的参数可以接受其子类型的函数。
+
+### 3. 协变与逆变的关系
+
+- **协变**：与输出（返回值）相关，子类型的对象可以替代父类型的对象。
+- **逆变**：与输入（参数）相关，父类型的函数可以接受子类型的函数。
+
+### 4. 泛型中的协变与逆变
+
+在 TypeScript 中，泛型类型参数的协变与逆变体现在**函数类型的参数和返回值上**。
+
+- **协变**：通常在返回值类型上出现。在泛型函数或泛型类中，返回类型是协变的。
+- **逆变**：通常在参数类型上出现。在泛型函数或泛型类中，参数类型是逆变的。
+
+#### 协变与逆变在泛型中的例子
+
+假设有一个泛型类型 \`Box<T>\`，表示一个包含 \`T\` 类型的盒子。我们来看 \`T\` 在不同场景中的协变和逆变行为。
+
+#### 协变：返回类型
+
+\`\`\`typescript
+class Box<T> {
+  constructor(public value: T) {}
+
+  getValue(): T {
+    return this.value;
+  }
+}
+
+let boxAnimal: Box<Animal> = new Box<Animal>(new Animal("Animal"));
+let boxDog: Box<Dog> = new Box<Dog>(new Dog("Dog", "Bulldog"));
+
+// 协变：可以将 boxDog 赋给 boxAnimal，因为 Dog 是 Animal 的子类型
+boxAnimal = boxDog;
+\`\`\`
+
+这里，\`Box<T>\` 的 \`getValue\` 返回的是 \`T\` 类型，这意味着 \`Box<Dog>\` 可以被赋给 \`Box<Animal>\`，因为 \`Dog\` 是 \`Animal\` 的子类型。
+
+#### 逆变：参数类型
+
+\`\`\`typescript
+class Handler<T> {
+  constructor(public handler: (value: T) => void) {}
+
+  handle(value: T) {
+    this.handler(value);
+  }
+}
+
+let animalHandler: Handler<Animal> = new Handler<Animal>((animal) => {
+  console.log(\`Handling animal: \${animal.name}\`);
+});
+
+let dogHandler: Handler<Dog> = new Handler<Dog>((dog) => {
+  console.log(\`Handling dog: \${dog.name}, Breed: \${dog.breed}\`);
+});
+
+// 逆变：Handler<Animal> 可以接受 Handler<Dog>，因为 Dog 是 Animal 的子类型
+animalHandler = dogHandler;
+\`\`\`
+
+在这个例子中，\`Handler<T>\` 的 \`handle\` 方法接受一个 \`T\` 类型的参数，这使得 \`Handler<Animal>\` 可以接受 \`Handler<Dog>\` 类型的对象，因为 \`Dog\` 是 \`Animal\` 的子类型。
+
+### 5. 类型推导中的协变与逆变
+
+在 \`TypeScript\` 中，类型推导也会遵循协变和逆变的规则，特别是在函数参数和返回类型上。根据输入类型的变化，TypeScript 会推导出对应的类型。
+
+#### 协变示例：返回类型
+
+\`\`\`typescript
+function createBox<T>(value: T): Box<T> {
+  return new Box<T>(value);
+}
+
+let animalBox = createBox(new Animal("Lion"));
+let dogBox: Box<Dog> = animalBox; // 协变：Box<Dog> 可以接受 Box<Animal>
+\`\`\`
+
+#### 逆变示例：参数类型
+
+\`\`\`typescript
+function createHandler<T>(handler: (value: T) => void): Handler<T> {
+  return new Handler(handler);
+}
+
+let animalHandler = createHandler((animal: Animal) => {
+  console.log(animal.name);
+});
+let dogHandler: Handler<Dog> = animalHandler; // 逆变：Handler<Animal> 可以接受 Handler<Dog>
+\`\`\`
+
+### 6. 总结
+
+- **协变（Covariant）**：当类型 \`A\` 是类型 \`B\` 的子类型时，\`A\` 可以替代 \`B\`，特别是在返回值类型上。协变通常发生在**返回类型**上。
+- **逆变（Contravariant）**：当类型 \`A\` 是类型 \`B\` 的子类型时，\`B\` 可以替代 \`A\`，特别是在函数的**参数类型**上。逆变通常发生在**参数类型**上。
+- **泛型中的协变与逆变**：在 TypeScript 中，泛型类型参数通常会根据其位置（参数类型或返回类型）决定是协变还是逆变。
+
+  - 协变通常与返回类型相关，逆变通常与输入类型（参数）相关。
+`;export{n as default};

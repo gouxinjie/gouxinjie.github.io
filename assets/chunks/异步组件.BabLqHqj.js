@@ -1,0 +1,162 @@
+const n=`# Vue 异步组件(defineAsyncComponent)：优化应用加载性能
+
+::: tip 异步组件
+
+\`defineAsyncComponent\` 是 Vue 3 中提供的一个 API，用于 **异步加载组件**，即在需要的时候才加载组件，而不是在应用初始化时加载。这对于提升应用的加载性能非常有帮助，尤其是在大型应用中，可以实现按需加载，减少初始包体积，从而加快页面加载速度。
+
+:::
+
+## 1. 使用场景
+
+\`defineAsyncComponent\` 允许你 **异步加载组件**，并可以在组件加载过程中显示 **加载中状态**。它返回一个异步组件对象，这样 Vue 在渲染时会动态加载该组件。
+
+- **懒加载组件**：组件较大或功能不常用时，可以在实际需要时才加载该组件。
+- **分割代码**：将不同的功能或页面模块拆分成独立的异步组件，按需加载。
+- **提高性能**：避免一次性加载所有组件，减小初始页面的大小。
+
+## 2. 基本用法
+
+常见的做法是通过 **动态 import** 加载组件。
+
+\`\`\`javascript
+import { defineAsyncComponent } from "vue";
+
+export default {
+  components: {
+    // 定义一个异步加载的组件
+    AsyncComponent: defineAsyncComponent(() => import("./components/AsyncComponent.vue"))
+  }
+};
+\`\`\`
+
+解释：
+
+- \`defineAsyncComponent\` 接收一个函数，返回一个动态的 **Promise**，该 Promise 会返回一个组件。
+- 在这个例子中，\`AsyncComponent\` 只有在需要时才会被加载。
+
+在模板中使用:
+
+\`\`\`vue
+<template>
+  <div>
+    <AsyncComponent />
+  </div>
+</template>
+\`\`\`
+
+这个异步组件会在组件渲染时加载，而不是在应用加载时加载。
+
+## 3. 异步组件的加载状态
+
+\`defineAsyncComponent\` 允许我们设置异步组件的 **加载状态**。我们可以指定一个 **loading component**（加载中的组件）、**error component**（加载失败时的组件）以及一个 **timeout**（加载超时的时间）。
+
+**示例：添加加载状态**
+
+\`\`\`javascript
+import { defineAsyncComponent } from "vue";
+
+export default {
+  components: {
+    AsyncComponent: defineAsyncComponent({
+      loader: () => import("./components/AsyncComponent.vue"),
+      loadingComponent: {
+        template: "<div>加载中...</div>"
+      },
+      errorComponent: {
+        template: "<div>加载失败，请重试！</div>"
+      },
+      delay: 200, // 组件加载延迟 200ms 显示 loadingComponent
+      timeout: 5000 // 5 秒钟加载超时
+    })
+  }
+};
+\`\`\`
+
+**解释：**
+
+- **\`loader\`**：加载组件的函数，通常是通过 \`import()\` 语法来异步加载。
+- **\`loadingComponent\`**：加载中的组件，当异步组件正在加载时显示。
+- **\`errorComponent\`**：加载失败时显示的组件。
+- **\`delay\`**：延迟时间，在组件加载过程中等待一定的时间后才显示 \`loadingComponent\`，以避免组件加载太快导致用户看不到加载状态。
+- **\`timeout\`**：设置加载超时的时间，超过时间后显示 \`errorComponent\`。
+
+## 4. \`defineAsyncComponent\` 的返回值类型
+
+\`defineAsyncComponent\` 返回的是一个 **异步组件对象**，它会根据需要来加载对应的组件。你可以将它用于 **任何类型的组件加载**，包括常规组件、动态组件等。
+
+**示例：动态组件**
+
+你可以结合 \`defineAsyncComponent\` 和动态组件一起使用。
+
+\`\`\`vue
+<template>
+  <div>
+    <component :is="currentComponent" />
+    <button @click="loadComponent">加载其他组件</button>
+  </div>
+</template>
+
+<script>
+import { defineAsyncComponent, ref } from "vue";
+
+export default {
+  setup() {
+    const currentComponent = ref(defineAsyncComponent(() => import("./components/AsyncComponentA.vue")));
+
+    const loadComponent = () => {
+      currentComponent.value = defineAsyncComponent(() => import("./components/AsyncComponentB.vue"));
+    };
+
+    return { currentComponent, loadComponent };
+  }
+};
+<\/script>
+\`\`\`
+
+**解释：**
+
+- 使用 \`component :is\` 来动态选择要加载的组件。
+- 默认加载 \`AsyncComponentA\`，点击按钮后通过 \`loadComponent\` 方法异步加载 \`AsyncComponentB\`。
+
+## 5. 异步组件的懒加载和路由
+
+在 Vue Router 中，\`defineAsyncComponent\` 是进行路由懒加载的常见方式之一。它可以在路由匹配时延迟加载对应的组件，从而实现按需加载的效果。
+
+**示例：路由懒加载**
+
+\`\`\`javascript
+import { createRouter, createWebHistory } from "vue-router";
+
+const routes = [
+  {
+    path: "/home",
+    component: defineAsyncComponent(() => import("./views/Home.vue"))
+  },
+  {
+    path: "/about",
+    component: defineAsyncComponent(() => import("./views/About.vue"))
+  }
+];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes
+});
+
+export default router;
+\`\`\`
+
+**解释：**
+
+- 在 Vue Router 配置中使用 \`defineAsyncComponent\`，当路由匹配时才会加载对应的组件。
+- 这样可以减少初始加载时的资源大小，提高页面的加载速度。
+
+## 6. 总结
+
+\`defineAsyncComponent\` 是 Vue 3 中强大的工具，可以让你实现 **异步加载组件**，提高应用的性能，尤其是在大型应用中，它有助于按需加载和代码分割。你可以结合 **加载状态**、**错误处理** 和 **超时设置** 来优化用户体验。同时，结合 Vue Router，你可以轻松实现 **路由懒加载**，进一步提升应用的性能。
+
+- **按需加载**：在需要时加载组件，避免不必要的初始加载。
+- **优化性能**：减小应用包体积，加速页面加载速度。
+- **灵活配置**：可以自定义加载状态、错误状态和超时等。
+- **与 Vue Router 配合**：实现路由级别的懒加载，进一步优化性能。
+`;export{n as default};

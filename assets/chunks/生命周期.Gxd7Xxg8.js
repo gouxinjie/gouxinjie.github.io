@@ -1,0 +1,184 @@
+const n=`# vue 的生命周期和执行顺序
+
+[[toc]]
+
+在 **Vue 3** 中，生命周期钩子函数有一些重要的变化，尤其是随着 **Composition API** 的引入，生命周期钩子的使用方式也发生了改变。下面是 **Vue 3** 中生命周期的总结，包括 **Options API** 和 **Composition API** 下的生命周期钩子。
+
+### 一、**Options API** 中的生命周期钩子
+
+在 **Vue 2.x** 和 **Vue 3** 的 **Options API** 中，生命周期钩子的使用方式基本保持一致。Vue 的生命周期可以分为三个阶段：**创建阶段**、**更新阶段**、**销毁阶段**。
+
+#### 1. **创建阶段**
+
+- \`beforeCreate\`：在组件实例被创建之前，数据、事件和侦听器都没有初始化。这个钩子非常早期，通常不常用。
+- \`created\`：在组件实例创建后，数据和事件已经初始化，然而，DOM 还没有渲染。你可以在此进行数据处理、发起 API 请求等操作。
+
+#### 2. **挂载阶段**
+
+- \`beforeMount\`：在模板编译、DOM 渲染之前调用，这时虚拟 DOM 已经创建，但还没有渲染到实际 DOM 上。
+- \`mounted\`：当组件挂载到真实 DOM 后调用。在这里可以访问到组件的实际 DOM 元素，适合进行初始化工作，比如第三方库的集成。
+
+#### 3. **更新阶段**
+
+- \`beforeUpdate\`：当数据更新后、视图渲染之前调用。此时数据已经变化，但视图尚未更新。
+- \`updated\`：当视图更新完毕后调用。在这个钩子中，你可以进行 DOM 操作，但不推荐在此修改组件的数据，以避免引起不必要的性能损耗或无限更新。
+
+#### 4. **销毁阶段**
+
+- \`beforeUnmount\`：组件实例销毁之前调用，适合进行一些清理操作，例如移除事件监听器、取消定时器等。
+- \`unmounted\`：组件销毁后调用，适合进行一些销毁后的清理工作。
+
+#### 5. **错误捕获阶段**
+
+- \`errorCaptured\`：在组件的任何地方发生错误时，这个钩子会被调用，可以捕获错误并处理错误，通常用于全局错误处理。
+
+**表格如下：**
+
+| 序号 | 生命周期 | 描述 |
+| --- | --- | --- |
+| 1 | \`beforecreate\`创建前 | vue 实例初始化阶段，不可以访问 data,methods； 此时打印出的 this 是 undefined； |
+| 2 | \`created\`创建后 | vue 实例初始化完成，可以访问 data，methods，但是节点尚未挂载，不能获取 dom 节点； |
+| 3 | \`beforeMount\`挂载前 | 实际上与 created 阶段类似，同样的节点尚未挂载，此时模板已经编译完成，但还没有被渲染至页面中（即为虚拟 dom 加载为真实 dom）注意的是这是在视图渲染前最后一次可以更改数据的机会，不会触发其他的钩子函数； |
+| 4 | \`mounted\`挂载完成 | 这个阶段说说明模板已经被渲染成真实 DOM，实例已经被完全创建好了； |
+| 5 | \`beforeUpdate\`更新前 | data 里面的数据改动会触发 vue 的响应式数据更新，也就是对比真实 dom 进行渲染的过程； |
+| 6 | \`updated\`更新完成 | data 中的数据更新完成，dom 节点替换完成 ； |
+| 7 | \`activited\` | 在组件被激活时调⽤（使用了 \`<keep-alive>\` 的情况下）； |
+| 8 | \`deactivated\` | 在组件被销毁时调⽤（使用了 \`<keep-alive>\` 的情况下）； |
+| 9 | \`beforeDestroy\`销毁前 | 销毁前执行（$destroy 方法被调用的时候就会执行）,一般在这里善后：清除计时器、监听等； |
+| 10 | \`destroyed\`销毁后 | 销毁后 （Dom 元素存在，只是不再受 vue 控制）,卸载 watcher，事件监听，子组件； |
+
+**父子组件生命周期执行顺序**
+
+\`\`\`js
+  ->父beforeCreate
+  ->父created
+  ->父beforeMount
+  ->子beforeCreate
+  ->子created
+  ->子beforeMount
+  ->子mounted
+  ->父mounted
+\`\`\`
+
+\`验证如下图\`：
+
+![在这里插入图片描述](../images/created.png){width=80%}
+
+**更新过程**
+
+\`\`\`js
+父beforeUpdate->子beforeUpdate->子updated->父updated
+\`\`\`
+
+**销毁过程**
+
+\`\`\`js
+父beforeDestroy->子beforeDestroy->子destroyed->父destroyed
+\`\`\`
+
+\`keep-alive\`可以实现组件缓存，当组件切换时不会对当前组件进行卸载。
+
+**使用 keepAlive 后生命周期变化（重要）：**
+
+首次进入缓存页面：beforeRouteEnter --> created --> mounted --> activated --> deactivated  
+再次进入缓存页面：beforeRouteEnter --> activated --> deactivated
+
+::: tip 注意
+
+配置了 \`keepAlive\` 的页面，在再次进入时不会重新渲染（第一次进来时会触发所有钩子函数），该页面内的组件同理不会再次渲染。  
+而这可能会导致该组件内的相关操作（那些每次都需要重新渲染页面的操作：如父子组件间的传值）不再生效。 这一点可能会导致一些莫名其妙而又无从查证的 bug；
+
+:::
+
+### 二、**Composition API** 中的生命周期钩子
+
+在 **Vue 3** 中引入了 **Composition API**，这使得生命周期钩子不再直接作为组件选项的一部分，而是通过 \`onXXX\` 的形式暴露出来。以下是与 **Options API** 对应的生命周期钩子函数。
+
+#### 1. **创建阶段**
+
+- \`onBeforeMount\`：与 \`beforeMount\` 对应，组件挂载之前执行。
+- \`onMounted\`：与 \`mounted\` 对应，组件挂载后执行。
+
+#### 2. **更新阶段**
+
+- \`onBeforeUpdate\`：与 \`beforeUpdate\` 对应，数据更新之前执行。
+- \`onUpdated\`：与 \`updated\` 对应，数据更新之后执行。
+
+#### 3. **销毁阶段**
+
+- \`onBeforeUnmount\`：与 \`beforeUnmount\` 对应，组件销毁之前执行。
+- \`onUnmounted\`：与 \`unmounted\` 对应，组件销毁后执行。
+
+#### 4. **错误捕获阶段**
+
+- \`onErrorCaptured\`：与 \`errorCaptured\` 对应，用于捕获组件中的错误。
+
+### 三、**Vue 3 生命周期钩子的总结表**
+
+| 生命周期钩子 | Options API                   | Composition API                   |
+| ------------ | ----------------------------- | --------------------------------- |
+| **创建阶段** | \`beforeCreate\` / \`created\`    | \`onBeforeMount\` / \`onMounted\`     |
+| **挂载阶段** | \`beforeMount\` / \`mounted\`     | \`onBeforeMount\` / \`onMounted\`     |
+| **更新阶段** | \`beforeUpdate\` / \`updated\`    | \`onBeforeUpdate\` / \`onUpdated\`    |
+| **销毁阶段** | \`beforeUnmount\` / \`unmounted\` | \`onBeforeUnmount\` / \`onUnmounted\` |
+| **错误捕获** | \`errorCaptured\`               | \`onErrorCaptured\`                 |
+
+---
+
+### 四、**Composition API** 生命周期钩子的使用示例
+
+\`\`\`javascript
+import { ref, onMounted, onBeforeUnmount } from "vue";
+
+export default {
+  setup() {
+    const count = ref(0);
+
+    // 组件挂载时调用
+    onMounted(() => {
+      console.log("组件已挂载");
+    });
+
+    // 组件销毁前调用
+    onBeforeUnmount(() => {
+      console.log("组件即将销毁");
+    });
+
+    return {
+      count
+    };
+  }
+};
+\`\`\`
+
+**Vue3 中各属性初始化的顺序**
+
+下面这段代码是 Vue 中初始化组件状态的核心部分。
+
+\`\`\`js
+export function initState(vm: Component) {
+  const opts = vm.$options
+  if (opts.props) initProps(vm, opts.props)
+
+  // Composition API
+  initSetup(vm)
+
+  if (opts.methods) initMethods(vm, opts.methods)
+  if (opts.data) {
+    initData(vm)
+  } else {
+    const ob = observe((vm._data = {}))
+    ob && ob.vmCount++
+  }
+  if (opts.computed) initComputed(vm, opts.computed)
+  if (opts.watch && opts.watch !== nativeWatch) {
+    initWatch(vm, opts.watch)
+  }
+\`\`\`
+
+可以看到依次初始化了:
+
+\`\`\`js
+props > setup > methods > data > computed > watch
+\`\`\`
+`;export{n as default};

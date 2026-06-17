@@ -1,0 +1,195 @@
+const n=`# TypeScript 泛型
+
+[[toc]]
+
+在 \`TypeScript\` 中，**泛型（Generics）** 是一种用于定义**函数、类、接口**的类型的工具，它允许你在编写代码时不指定具体的类型，而是在使用时动态地指定类型，从而实现类型的复用与灵活性。
+
+泛型的引入使得 \`TypeScript\` 在类型安全的同时，具备了更高的灵活性，并能避免因类型不匹配而出现的错误。
+
+### 1. 泛型的基本语法
+
+泛型的基本语法通过尖括号 \`<>\` 来指定类型参数，可以用来代替某个特定类型，让代码更加灵活。
+
+\`\`\`typescript
+function identity<T>(arg: T): T {
+  return arg;
+}
+\`\`\`
+
+- \`T\` 是泛型类型参数，可以是任何有效的类型。
+- \`arg: T\` 表示函数的参数类型是泛型 \`T\`，返回值的类型也会是 \`T\`。
+
+#### 使用泛型函数
+
+\`\`\`typescript
+const result = identity(42); // TypeScript 推导出 T 是 number
+console.log(result); // 输出: 42
+
+const stringResult = identity("hello"); // T 被推导为 string
+console.log(stringResult); // 输出: hello
+\`\`\`
+
+在这个例子中，\`identity\` 函数使用了泛型 \`T\`，它会根据调用时传入的参数类型来推导出 \`T\` 的类型。
+
+### 2. 泛型的多类型参数
+
+有时你可能希望一个函数接受多个类型的参数，返回值也基于这些类型。你可以为泛型提供多个类型参数。
+
+\`\`\`typescript
+function pair<T, U>(first: T, second: U): [T, U] {
+  return [first, second];
+}
+
+const result = pair(1, "hello"); // T 是 number, U 是 string
+console.log(result); // 输出: [1, "hello"]
+\`\`\`
+
+在这个例子中，\`pair\` 函数接受两个不同类型的参数，并返回一个元组，其中第一个元素的类型是 \`T\`，第二个元素的类型是 \`U\`。
+
+### 3. 泛型约束（Constraints）
+
+泛型有时需要做一些限制，确保传入的类型满足一定条件。你可以使用 **\`extends\`** 关键字对泛型类型参数进行约束。
+
+\`\`\`typescript
+function length<T extends { length: number }>(arg: T): number {
+  return arg.length;
+}
+
+console.log(length([1, 2, 3])); // 输出: 3 (数组的 length 属性)
+console.log(length("Hello")); // 输出: 5 (字符串的 length 属性)
+
+// 以下会报错，因为没有 length 属性
+// console.log(length(42));  // Error: Argument of type '42' is not assignable to parameter of type '{ length: number; }'.
+\`\`\`
+
+在这个例子中，泛型 \`T\` 被约束为具有 \`length\` 属性的类型，这样就只能传递具有 \`length\` 属性的类型，如数组或字符串。
+
+### 4. 使用泛型接口
+
+你可以将泛型用于接口中，定义一个类型安全的通用结构。
+
+\`\`\`typescript
+interface Box<T> {
+  value: T;
+}
+
+const box1: Box<number> = { value: 42 };
+const box2: Box<string> = { value: "hello" };
+
+console.log(box1.value); // 输出: 42
+console.log(box2.value); // 输出: hello
+\`\`\`
+
+在这个例子中，\`Box\` 是一个泛型接口，它接受一个类型参数 \`T\`，该接口的属性 \`value\` 的类型就是 \`T\`。
+
+### 5. 泛型类
+
+泛型不仅可以用于函数和接口，也可以用于类。这样，你可以为类的实例指定类型，避免写死类型，增加灵活性。
+
+\`\`\`typescript
+class Container<T> {
+  value: T;
+
+  constructor(value: T) {
+    this.value = value;
+  }
+
+  getValue(): T {
+    return this.value;
+  }
+}
+
+const numberContainer = new Container(123);
+console.log(numberContainer.getValue()); // 输出: 123
+
+const stringContainer = new Container("Hello");
+console.log(stringContainer.getValue()); // 输出: Hello
+\`\`\`
+
+这里，\`Container\` 是一个泛型类，可以接受任意类型的值，并返回与该类型一致的值。通过这种方式，\`Container\` 类被赋予了更高的灵活性。
+
+### 6. 默认泛型类型
+
+你可以为泛型指定默认类型，这样在使用时如果没有传入类型参数，默认类型会自动使用。
+
+\`\`\`typescript
+function createArray<T = string>(length: number, value: T): T[] {
+  return new Array(length).fill(value);
+}
+
+const arr1 = createArray(3, "hello"); // T 默认是 string
+console.log(arr1); // 输出: ['hello', 'hello', 'hello']
+
+const arr2 = createArray(3, 42); // T 被推导为 number
+console.log(arr2); // 输出: [42, 42, 42]
+\`\`\`
+
+在上面的例子中，\`createArray\` 函数的泛型 \`T\` 默认是 \`string\`，如果没有传入类型参数，则使用默认值。如果传入了其他类型，\`T\` 会被推导成那个类型。
+
+### 7. 泛型约束与联合类型
+
+有时，你可能希望在泛型类型上进行更复杂的约束，例如联合类型的约束。你可以结合使用 \`extends\` 和联合类型来实现这一点。
+
+\`\`\`typescript
+function log<T extends string | number>(value: T): T {
+  console.log(value);
+  return value;
+}
+
+log("Hello"); // 合法
+log(123); // 合法
+
+// 以下会报错，因为布尔类型不符合约束
+// log(true);  // Error: Argument of type 'true' is not assignable to parameter of type 'string | number'.
+\`\`\`
+
+在上面的例子中，\`T\` 被限制为 \`string\` 或 \`number\` 类型，这意味着你只能传入这两种类型。
+
+### 8. 泛型函数与类型推导
+
+TypeScript 在很多情况下能够自动推导出泛型的类型，这使得你可以减少显式的类型声明。例如：
+
+\`\`\`typescript
+function wrapInArray<T>(value: T): T[] {
+  return [value];
+}
+
+const stringArray = wrapInArray("hello"); // T 被推导为 string
+const numberArray = wrapInArray(42); // T 被推导为 number
+
+console.log(stringArray); // 输出: ['hello']
+console.log(numberArray); // 输出: [42]
+\`\`\`
+
+这里，\`wrapInArray\` 函数自动推导出泛型 \`T\` 的类型，不需要显式指定。
+
+### 9. 泛型与类型别名
+
+你还可以使用泛型来定义类型别名。例如，创建一个泛型的类型别名，表示返回某个类型的数组。
+
+\`\`\`typescript
+type ArrayOf<T> = T[];
+
+const numbers: ArrayOf<number> = [1, 2, 3];
+const strings: ArrayOf<string> = ["apple", "banana"];
+\`\`\`
+
+### 10. 高级泛型：条件类型（Conditional Types）
+
+条件类型是 TypeScript 中的一种高级泛型用法，允许你基于类型的条件来做类型推导。条件类型的语法是：
+
+\`\`\`typescript
+T extends U ? X : Y
+\`\`\`
+
+这意味着，如果 \`T\` 能够赋值给 \`U\`，那么类型就是 \`X\`，否则是 \`Y\`。
+
+\`\`\`typescript
+type IsString<T> = T extends string ? "Yes" : "No";
+
+type A = IsString<string>; // "Yes"
+type B = IsString<number>; // "No"
+\`\`\`
+
+在这个例子中，\`IsString\` 根据传入的类型 \`T\` 来判断，如果 \`T\` 是 \`string\`，则返回 \`"Yes"\`，否则返回 \`"No"\`。
+`;export{n as default};

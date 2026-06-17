@@ -1,0 +1,180 @@
+const n=`# TypeScript 类型守卫解析
+
+[[toc]]
+
+在 \`TypeScript\` 中，**类型守卫**（Type Guards）是用于确保某个变量在运行时符合特定类型的一种机制。类型守卫可以帮助我们在运行时精确地确定一个变量的类型，从而获得类型的自动推导，避免类型错误。
+
+类型守卫的核心思想是通过某些条件检查，**动态地缩小**（narrow）变量的类型范围，以便让 TypeScript 在后续的代码中能够更准确地推断变量的类型。
+
+### 1. 类型守卫的基本概念
+
+\`TypeScript\` 中的类型守卫主要有以下几种方式来实现类型缩小：
+
+- **使用 \`typeof\` 操作符**：判断基本类型（如 \`string\`、\`number\`、\`boolean\` 等）。
+- **使用 \`instanceof\` 操作符**：判断对象是否是某个类的实例。
+- **用户自定义类型守卫**：通过函数实现更复杂的类型判断。
+- **\`in\` 操作符**：判断对象是否具有某个属性。
+
+### 2. \`typeof\` 类型守卫
+
+\`typeof\` 操作符常用于基本类型的类型检查。它返回一个字符串，表示目标值的类型。通过 \`typeof\`，我们可以判断一个变量是否为 \`string\`、\`number\`、\`boolean\` 等类型。
+
+#### 示例：使用 \`typeof\` 进行类型守卫
+
+\`\`\`typescript
+function greet(value: string | number) {
+  if (typeof value === "string") {
+    console.log(\`Hello, \${value.toUpperCase()}\`);
+  } else {
+    console.log(\`Hello, your number is \${value}\`);
+  }
+}
+
+greet("Alice"); // 输出: Hello, ALICE
+greet(42); // 输出: Hello, your number is 42
+\`\`\`
+
+在这个例子中，\`typeof value === "string"\` 是一个类型守卫，保证了在 \`if\` 语句内，\`value\` 被正确地推导为 \`string\` 类型，反之在 \`else\` 语句内，\`value\` 被推导为 \`number\` 类型。
+
+### 3. \`instanceof\` 类型守卫
+
+\`instanceof\` 操作符用于判断对象是否为某个类的实例。它可以用来检查对象类型并缩小类型的范围，尤其是与面向对象编程相关的类型。
+
+#### 示例：使用 \`instanceof\` 进行类型守卫
+
+\`\`\`typescript
+class Dog {
+  bark() {
+    console.log("Woof");
+  }
+}
+
+class Cat {
+  meow() {
+    console.log("Meow");
+  }
+}
+
+function speak(animal: Dog | Cat) {
+  if (animal instanceof Dog) {
+    animal.bark(); // animal 类型被推导为 Dog
+  } else {
+    animal.meow(); // animal 类型被推导为 Cat
+  }
+}
+
+const dog = new Dog();
+const cat = new Cat();
+
+speak(dog); // 输出: Woof
+speak(cat); // 输出: Meow
+\`\`\`
+
+在这个例子中，\`animal instanceof Dog\` 是一个类型守卫，它使得 \`animal\` 在 \`if\` 语句内被推导为 \`Dog\` 类型，而在 \`else\` 语句内，\`animal\` 被推导为 \`Cat\` 类型。
+
+### 4. 用户自定义类型守卫
+
+用户自定义类型守卫是通过一个返回 \`boolean\` 的函数来实现的，函数中可以包含特定的类型检查逻辑。关键是返回值类型的签名：返回 \`is SomeType\` 表示这个函数是一个类型守卫。
+
+#### 示例：自定义类型守卫
+
+\`\`\`typescript
+interface Dog {
+  type: "dog";
+  bark(): void;
+}
+
+interface Cat {
+  type: "cat";
+  meow(): void;
+}
+
+function isDog(animal: Dog | Cat): animal is Dog {
+  return animal.type === "dog";
+}
+
+function speak(animal: Dog | Cat) {
+  if (isDog(animal)) {
+    animal.bark(); // animal 类型被缩小为 Dog
+  } else {
+    animal.meow(); // animal 类型被缩小为 Cat
+  }
+}
+
+const dog: Dog = {
+  type: "dog",
+  bark() {
+    console.log("Woof!");
+  }
+};
+const cat: Cat = {
+  type: "cat",
+  meow() {
+    console.log("Meow!");
+  }
+};
+
+speak(dog); // 输出: Woof!
+speak(cat); // 输出: Meow!
+\`\`\`
+
+在这个例子中，\`isDog\` 函数是一个类型守卫，它检查 \`animal.type\` 是否等于 \`"dog"\`，并返回一个布尔值。\`animal is Dog\` 语法告诉 TypeScript，\`isDog\` 函数是一个类型守卫，它能够缩小 \`animal\` 的类型范围。
+
+### 5. \`in\` 操作符类型守卫
+
+\`in\` 操作符用于检查对象是否包含某个属性。如果对象具有某个属性，可以用 \`in\` 来缩小类型的范围。\`in\` 类型守卫特别适用于接口的类型检查。
+
+#### 示例：使用 \`in\` 进行类型守卫
+
+\`\`\`typescript
+interface Car {
+  drive(): void;
+}
+
+interface Boat {
+  sail(): void;
+}
+
+function move(vehicle: Car | Boat) {
+  if ("drive" in vehicle) {
+    vehicle.drive(); // vehicle 被推导为 Car
+  } else {
+    vehicle.sail(); // vehicle 被推导为 Boat
+  }
+}
+
+const car: Car = {
+  drive() {
+    console.log("Driving");
+  }
+};
+const boat: Boat = {
+  sail() {
+    console.log("Sailing");
+  }
+};
+
+move(car); // 输出: Driving
+move(boat); // 输出: Sailing
+\`\`\`
+
+在这个例子中，\`"drive" in vehicle\` 是一个类型守卫，它会检查 \`vehicle\` 是否具有 \`drive\` 方法，如果有，则 \`vehicle\` 类型被推导为 \`Car\`，否则为 \`Boat\`。
+
+### 6. \`typeof\` vs \`instanceof\`
+
+| 特性         | \`typeof\` 类型守卫                                    | \`instanceof\` 类型守卫        |
+| ------------ | ---------------------------------------------------- | ---------------------------- |
+| **检查类型** | 主要用于基础类型（\`string\`、\`number\`、\`boolean\` 等） | 主要用于对象类型（类的实例） |
+| **语法**     | \`typeof value === "type"\`                            | \`value instanceof ClassName\` |
+| **适用场景** | 用于基本类型、函数、数组等基本类型的检查             | 用于对象实例的类型判断       |
+
+### 7. 总结
+
+- **类型守卫** 是 TypeScript 提供的一种机制，用于缩小类型的范围。它帮助 TypeScript 在条件语句中根据类型信息做出更精确的推断。
+- TypeScript 提供了多种类型守卫，包括：
+
+  - \`typeof\`：适用于基础数据类型的判断。
+  - \`instanceof\`：适用于类实例的判断。
+  - 用户自定义类型守卫：通过 \`is\` 语法，返回 \`boolean\` 值的函数。
+  - \`in\` 操作符：检查对象是否具有特定属性。
+`;export{n as default};

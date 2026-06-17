@@ -1,0 +1,223 @@
+const n=`# Vue 中的 \`v-for\` 列表渲染
+
+[[toc]]
+
+::: tip
+
+\`v-for\` 是 Vue 提供的一个指令，用于在模板中渲染一个 **列表** 或 **数组** 的数据。它允许我们根据数据集合的长度动态生成多个 DOM 元素，并且在数据变化时自动更新视图。通过 \`v-for\`，我们可以高效地实现列表渲染，展示数据集合中的每一项。
+
+:::
+
+## 1. \`v-for\` 的基础语法
+
+**1.1. 基本用法**
+
+\`v-for\` 通过一个简单的语法结构实现列表渲染：
+
+\`\`\`html
+<ul>
+  <li v-for="item in items" :key="item.id">{{ item.name }}</li>
+</ul>
+\`\`\`
+
+- \`item in items\`：\`items\` 是一个数组或对象，\`item\` 是当前循环项，每次迭代时它代表 \`items\` 中的一个元素。
+- \`:key\`：为了提高渲染性能，Vue 要求我们在使用 \`v-for\` 时为每个元素提供一个 **唯一的 \`key\`**，它有助于 Vue 进行高效的 DOM 更新。
+
+**1.2. \`v-for\` 的语法结构**
+
+\`v-for\` 可以使用如下语法：
+
+\`\`\`html
+v-for="(item, index) in items"
+\`\`\`
+
+- \`item\`：当前项（数组中的每个元素）。
+- \`index\`：当前项的索引（在数组中的位置）。
+
+**示例**：
+
+\`\`\`html
+<ul>
+  <li v-for="(item, index) in items" :key="item.id">{{ index }}. {{ item.name }}</li>
+</ul>
+\`\`\`
+
+在这个例子中，\`index\` 将是数组中每个元素的索引，\`item.name\` 是该元素的 \`name\` 属性。
+
+## 2. \`v-for\` 渲染数组
+
+\`v-for\` 常用于渲染数组。例如，如果你有一个包含多个用户的数组，想要渲染成一个用户列表：
+
+**示例**：
+
+\`\`\`html
+<template>
+  <ul>
+    <li v-for="(user, index) in users" :key="user.id">{{ index + 1 }}. {{ user.name }} ({{ user.age }} years old)</li>
+  </ul>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        users: [
+          { id: 1, name: "Alice", age: 28 },
+          { id: 2, name: "Bob", age: 34 },
+          { id: 3, name: "Charlie", age: 25 }
+        ]
+      };
+    }
+  };
+<\/script>
+\`\`\`
+
+**解释**：
+
+- \`v-for="(user, index) in users"\`：循环渲染 \`users\` 数组中的每一项。
+- \`:key="user.id"\`：使用 \`id\` 作为唯一标识符，提高渲染性能。
+- \`{{ index + 1 }}\`：输出数组项的索引，从 1 开始。
+
+## 3. 渲染对象的属性
+
+除了数组，\`v-for\` 还可以用于渲染 **对象的属性**。当你需要遍历一个对象时，可以使用 \`v-for\` 获取每个键值对。
+
+**示例**：
+
+\`\`\`html
+<template>
+  <ul>
+    <li v-for="(value, key) in userInfo" :key="key">{{ key }}: {{ value }}</li>
+  </ul>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        userInfo: {
+          name: "Alice",
+          age: 28,
+          city: "New York"
+        }
+      };
+    }
+  };
+<\/script>
+\`\`\`
+
+**解释**：
+
+- \`v-for="(value, key) in userInfo"\`：循环遍历 \`userInfo\` 对象的每个属性，\`key\` 是属性名，\`value\` 是属性值。
+- \`:key="key"\`：使用对象的 \`key\` 作为 \`key\`，确保每个元素的唯一性。
+
+## 4. 使用 \`v-for\` 渲染复杂组件列表
+
+在 Vue 中，\`v-for\` 不仅可以用来渲染简单的 HTML 元素，也可以用来渲染 **组件** 列表。
+
+**示例**：
+
+\`\`\`vue
+<template>
+  <div>
+    <product-card v-for="product in products" :key="product.id" :product="product" />
+  </div>
+</template>
+
+<script>
+import ProductCard from "./ProductCard.vue";
+
+export default {
+  components: { ProductCard },
+  data() {
+    return {
+      products: [
+        { id: 1, name: "Product 1", price: 100 },
+        { id: 2, name: "Product 2", price: 200 },
+        { id: 3, name: "Product 3", price: 300 }
+      ]
+    };
+  }
+};
+<\/script>
+\`\`\`
+
+**解释**：
+
+- \`v-for="product in products"\`：循环渲染 \`products\` 数组中的每个商品。
+- \`<product-card>\` 是一个自定义组件，\`product\` 会作为 \`prop\` 传递给组件。
+- \`:key="product.id"\`：使用每个商品的 \`id\` 作为 \`key\`，确保组件在 DOM 中的唯一标识。
+
+## 5. 性能优化：\`key\` 的重要性
+
+在 \`v-for\` 中，**\`key\` 属性** 是非常重要的，它能够显著提高渲染性能，尤其是当列表很大时。如果没有 \`key\`，Vue 会通过位置来判断每个元素是否变化，造成不必要的 DOM 更新。
+
+**为什么需要 \`key\`**：
+
+- **提高性能**：Vue 会基于 \`key\` 来决定哪些元素需要被更新，哪些元素需要被复用。没有 \`key\` 时，Vue 只能依赖索引来比较每个元素，可能导致不必要的渲染和 DOM 操作。
+- **避免不必要的状态丢失**：使用 \`key\` 时，Vue 可以保持组件的状态（如输入框中的内容）。如果没有 \`key\`，元素可能会被错误地复用，从而丢失状态。
+
+**示例**：没有 \`key\` 的问题
+
+\`\`\`html
+<ul>
+  <li v-for="(item, index) in items">{{ item }}</li>
+</ul>
+\`\`\`
+
+如果你向 \`items\` 数组添加、删除或重新排序元素，Vue 可能无法正确地处理这些变化，从而影响性能和视图更新的正确性。
+
+## 6. \`v-for\` 与 \`v-if\` 的配合使用
+
+有时，我们需要在 \`v-for\` 中使用 \`v-if\` 来过滤某些元素，但 **\`v-if\` 和 \`v-for\` 不应该直接一起使用**，因为它们的优先级不同，可能导致性能问题。通常的做法是先进行过滤，再用 \`v-for\` 渲染。
+
+**示例**：
+
+\`\`\`html
+<ul>
+  <li v-for="item in filteredItems" :key="item.id">{{ item.name }}</li>
+</ul>
+\`\`\`
+
+\`\`\`javascript
+data() {
+  return {
+    items: [
+      { id: 1, name: 'Item 1', visible: true },
+      { id: 2, name: 'Item 2', visible: false },
+      { id: 3, name: 'Item 3', visible: true }
+    ]
+  };
+},
+computed: {
+  filteredItems() {
+    return this.items.filter(item => item.visible);
+  }
+}
+\`\`\`
+
+**解释**：
+
+- \`filteredItems\` 是一个计算属性，先对数据进行过滤，然后再通过 \`v-for\` 渲染。
+
+## 7. \`v-for\` 中的嵌套循环
+
+有时，我们需要在一个列表内嵌套渲染另一个列表。Vue 支持 **嵌套 \`v-for\`** 循环。
+
+**示例**：
+
+\`\`\`html
+<ul>
+  <li v-for="(category, index) in categories" :key="category.id">
+    {{ category.name }}
+    <ul>
+      <li v-for="(item, index) in category.items" :key="item.id">{{ item.name }}</li>
+    </ul>
+  </li>
+</ul>
+\`\`\`
+
+**解释**：
+
+- 外层 \`v-for\` 用于遍历 \`categories\`，每个 \`category\` 下有一个内层的 \`v-for\`，用于渲染该类别下的商品（\`items\`）。
+`;export{n as default};

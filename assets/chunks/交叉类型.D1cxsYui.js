@@ -1,0 +1,204 @@
+const n=`# TypeScript 交叉类型（Intersection Types）
+
+[[toc]]
+
+在 \`TypeScript\` 中，\`交叉类型（Intersection Types\`）用于将多个类型组合成一个新的类型。它表示类型的组合，包含所有参与类型的所有成员。交叉类型通常使用 \`&\` 符号来表示。
+
+交叉类型的意义是让一个类型拥有多个类型的特征。这个特性特别适用于当你需要将多个不同的类型组合成一个更复杂的类型时。
+
+### 1. 基本的交叉类型
+
+#### 1.1 语法
+
+交叉类型的语法非常简单，使用 \`&\` 符号将多个类型组合在一起。例如：
+
+\`\`\`typescript
+type Person = {
+  name: string;
+  age: number;
+};
+
+type Address = {
+  street: string;
+  city: string;
+};
+
+type PersonWithAddress = Person & Address;
+
+const personWithAddress: PersonWithAddress = {
+  name: "Alice",
+  age: 30,
+  street: "123 Main St",
+  city: "Wonderland"
+};
+
+console.log(personWithAddress);
+\`\`\`
+
+在上面的例子中，\`PersonWithAddress\` 是一个交叉类型，它将 \`Person\` 和 \`Address\` 类型组合成一个新的类型。这个新的类型需要同时包含 \`Person\` 类型的 \`name\` 和 \`age\` 属性，还需要包含 \`Address\` 类型的 \`street\` 和 \`city\` 属性。
+
+#### 1.2 交叉类型的特点
+
+- **所有属性都必须存在**：交叉类型会合并所有参与的类型，所以最终的类型需要拥有所有字段。换句话说，交叉类型是“并集”的概念，但更严格地要求所有类型的成员都存在。
+- **如果有同名属性，则要求类型一致**：如果两个类型有相同的属性，交叉类型要求这些属性具有相同的类型。
+
+例如：
+
+\`\`\`typescript
+type A = { x: number };
+type B = { x: number; y: string };
+
+type C = A & B; // 合并类型
+
+const obj: C = { x: 1, y: "Hello" }; // 合法
+\`\`\`
+
+如果 \`A\` 和 \`B\` 类型中的 \`x\` 有不同的类型，编译时会报错。
+
+\`\`\`typescript
+type A = { x: number };
+type B = { x: string }; // 类型冲突
+
+type C = A & B; // 错误：类型 "number" 与 "string" 不兼容
+
+const obj: C = { x: "Hello" }; // 错误
+\`\`\`
+
+### 2. 使用交叉类型的场景
+
+#### 2.1 混合多个接口
+
+交叉类型非常适合合并多个接口，生成一个包含所有属性的对象。
+
+\`\`\`typescript
+interface Car {
+  brand: string;
+  speed: number;
+}
+
+interface Features {
+  hasAirbags: boolean;
+  isElectric: boolean;
+}
+
+type ElectricCar = Car & Features;
+
+const tesla: ElectricCar = {
+  brand: "Tesla",
+  speed: 120,
+  hasAirbags: true,
+  isElectric: true
+};
+\`\`\`
+
+在这个例子中，\`ElectricCar\` 类型是 \`Car\` 和 \`Features\` 的交叉类型，包含了所有这两个接口的属性。
+
+#### 2.2 混合函数类型
+
+交叉类型还可以用于合并函数类型。你可以将多个函数类型合并为一个类型，这样该函数既能执行某些操作，也能返回其他类型的值。
+
+\`\`\`typescript
+type Greet = (name: string) => string;
+type Age = (age: number) => number;
+
+type GreetAndAge = Greet & Age;
+
+const greetAndAge: GreetAndAge = (input: any) => {
+  if (typeof input === "string") {
+    return \`Hello, \${input}\`;
+  } else if (typeof input === "number") {
+    return input + 1;
+  }
+};
+
+console.log(greetAndAge("Alice")); // 输出: Hello, Alice
+console.log(greetAndAge(25)); // 输出: 26
+\`\`\`
+
+在这个例子中，\`GreetAndAge\` 是一个交叉类型，既包含了 \`Greet\` 类型（接收一个 \`string\` 类型的参数并返回一个 \`string\`）又包含了 \`Age\` 类型（接收一个 \`number\` 类型的参数并返回一个 \`number\`）。
+
+#### 2.3 用于联合类型的扩展
+
+交叉类型也可以和联合类型配合使用，用于扩展现有的类型。例如，假设你有一个基础类型和多个变体，你可以通过交叉类型将它们结合起来。
+
+\`\`\`typescript
+type Shape = { color: string };
+
+type Circle = Shape & { radius: number };
+type Square = Shape & { sideLength: number };
+
+const circle: Circle = { color: "red", radius: 10 };
+const square: Square = { color: "blue", sideLength: 5 };
+\`\`\`
+
+通过交叉类型，可以将基础 \`Shape\` 类型与 \`Circle\` 或 \`Square\` 类型结合，确保每个形状都拥有 \`color\` 属性和各自特定的属性。
+
+### 3. 交叉类型与联合类型的对比
+
+交叉类型与联合类型非常相似，但它们有根本的不同：
+
+- **交叉类型 (\`&\`)**：要求同时具备多个类型的所有属性，即合并所有类型的特征。
+- **联合类型 (\`|\`)**：要求符合多个类型中的至少一个，代表多个可能的类型选择。
+
+#### 3.1 交叉类型
+
+\`\`\`typescript
+type A = { name: string };
+type B = { age: number };
+type C = A & B; // 需要同时具备 A 和 B 的属性
+
+const person: C = { name: "Alice", age: 30 };
+\`\`\`
+
+#### 3.2 联合类型
+
+\`\`\`typescript
+type A = { name: string };
+type B = { age: number };
+type C = A | B; // 只需要满足 A 或 B 中的一个类型
+
+const person1: C = { name: "Alice" }; // 合法
+const person2: C = { age: 30 }; // 合法
+\`\`\`
+
+#### 3.3 总结
+
+- 交叉类型：所有参与的类型的成员都必须出现在最终类型中。
+- 联合类型：类型可以是多个类型中的一个。
+
+### 4. 使用交叉类型的高级应用
+
+#### 4.1 在函数返回值中使用交叉类型
+
+交叉类型还可以应用于函数的返回值，使得函数可以返回多个类型的组合结果。
+
+\`\`\`typescript
+function createPerson(name: string, age: number): Person & Address {
+  return {
+    name,
+    age,
+    street: "123 Main St",
+    city: "Wonderland"
+  };
+}
+
+const personWithAddress = createPerson("Alice", 30);
+console.log(personWithAddress.name); // Alice
+console.log(personWithAddress.street); // 123 Main St
+\`\`\`
+
+#### 4.2 交叉类型与泛型
+
+交叉类型与泛型结合使用时非常有用，允许你灵活组合多个类型，同时提供类型安全。
+
+\`\`\`typescript
+function merge<T, U>(a: T, b: U): T & U {
+  return { ...a, ...b };
+}
+
+const merged = merge({ name: "Alice" }, { age: 30 });
+console.log(merged); // 输出: { name: "Alice", age: 30 }
+\`\`\`
+
+在这个例子中，\`merge\` 函数返回的是 \`T\` 和 \`U\` 的交叉类型，意味着返回的对象将同时具有两个类型的属性。
+`;export{n as default};

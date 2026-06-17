@@ -1,0 +1,264 @@
+const n=`# Vue 类与样式绑定：灵活控制元素外观
+
+[[toc]]
+
+在 \`Vue\` 中，类（\`class\`）和样式（\`style\`）的绑定是非常常见的操作，它们帮助我们根据数据动态地控制元素的外观。可以根据组件的状态动态地切换 CSS 类或者直接设置元素的样式，增强应用的交互性和响应性。
+
+## 1. 类绑定（\`class\` binding）
+
+在 \`Vue\` 中，可以使用 **动态类绑定** 来根据组件的状态（如数据的变化）动态地为元素添加或移除 CSS 类。Vue 提供了几种方式来绑定类，包括 **对象语法**、**数组语法** 和 **字符串语法**。
+
+### 1.1. 字符串语法
+
+字符串语法用于绑定单一的类，类似于传统的 HTML 属性绑定。
+
+#### 示例：
+
+\`\`\`vue
+<template>
+  <div :class="className">Hello, Vue!</div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      className: "highlight"
+    };
+  }
+};
+<\/script>
+
+<style>
+.highlight {
+  color: red;
+}
+</style>
+\`\`\`
+
+在这个例子中，\`className\` 是一个字符串，\`class\` 属性绑定到 \`highlight\` 类。当 \`className\` 改变时，\`class\` 会动态更新。
+
+### 1.2. 对象语法
+
+对象语法允许我们根据条件动态地添加或移除类。对象的键是类名，值是一个布尔值，表示是否添加该类。
+
+#### 示例：
+
+\`\`\`vue
+<template>
+  <div :class="{ active: isActive, 'text-danger': hasError }">Hello, Vue!</div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      isActive: true,
+      hasError: false
+    };
+  }
+};
+<\/script>
+
+<style>
+.active {
+  font-weight: bold;
+}
+.text-danger {
+  color: red;
+}
+</style>
+\`\`\`
+
+在这个例子中：
+
+- 如果 \`isActive\` 为 \`true\`，则添加 \`active\` 类。
+- 如果 \`hasError\` 为 \`true\`，则添加 \`text-danger\` 类。
+
+### 1.3. 数组语法
+
+数组语法可以让你将多个类动态地绑定到元素上。每个数组项都可以是一个字符串（类名）或一个对象。
+
+#### 示例：
+
+\`\`\`vue
+<template>
+  <div :class="['base-class', { active: isActive, 'text-danger': hasError }]">Hello, Vue!</div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      isActive: true,
+      hasError: false
+    };
+  }
+};
+<\/script>
+
+<style>
+.base-class {
+  font-size: 16px;
+}
+.active {
+  font-weight: bold;
+}
+.text-danger {
+  color: red;
+}
+</style>
+\`\`\`
+
+在这个例子中，类名 \`base-class\` 始终存在，而 \`active\` 和 \`text-danger\` 根据 \`isActive\` 和 \`hasError\` 的状态来动态添加。
+
+## 2. 样式绑定（\`style\` binding）
+
+Vue 也提供了动态绑定内联样式的功能，允许我们根据数据的变化动态地调整元素的样式。样式绑定有两种语法：**对象语法** 和 **数组语法**。
+
+### 2.1. 对象语法
+
+对象语法允许你将样式属性的名称作为对象的键，样式的值作为对象的值。Vue 会根据对象中的样式属性动态更新元素的样式。
+
+#### 示例：
+
+\`\`\`vue
+<template>
+  <div :style="styleObject">Hello, Vue!</div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      styleObject: {
+        color: "blue",
+        fontSize: "20px"
+      }
+    };
+  }
+};
+<\/script>
+\`\`\`
+
+在这个例子中，\`styleObject\` 定义了两个样式：\`color\` 和 \`font-size\`，它们会动态应用到 \`<div>\` 元素上。
+
+### 2.2. 数组语法
+
+数组语法允许你绑定多个样式对象或类名对象。这样做可以实现 **多个样式的合并**。
+
+#### 示例：
+
+\`\`\`vue
+<template>
+  <div :style="[baseStyle, activeStyle]">Hello, Vue!</div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      baseStyle: {
+        color: "blue",
+        fontSize: "20px"
+      },
+      activeStyle: {
+        fontWeight: "bold"
+      }
+    };
+  }
+};
+<\/script>
+\`\`\`
+
+在这个例子中，\`baseStyle\` 和 \`activeStyle\` 被合并，最终应用到元素上，生成如下样式：
+
+\`\`\`css
+color: blue;
+font-size: 20px;
+font-weight: bold;
+\`\`\`
+
+### 2.3. 动态修改样式
+
+你也可以通过 **动态计算** 来修改样式，例如根据某个变量的值来改变颜色或大小。
+
+#### 示例：
+
+\`\`\`vue
+<template>
+  <div :style="{ color: isActive ? 'green' : 'red' }">Hello, Vue!</div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      isActive: true
+    };
+  }
+};
+<\/script>
+\`\`\`
+
+在这个例子中，\`isActive\` 为 \`true\` 时，文本颜色为绿色，否则为红色。
+
+## 3. 计算属性与类/样式绑定
+
+在实际开发中，你可能会有一些复杂的样式或类绑定逻辑，这时候可以使用 **计算属性** 来处理这些动态类和样式。计算属性能让你的代码更加清晰和可维护。
+
+### 示例：使用计算属性绑定类和样式
+
+\`\`\`vue
+<template>
+  <div :class="computedClass" :style="computedStyle">Hello, Vue!</div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      isActive: true,
+      hasError: false,
+      width: 100
+    };
+  },
+  computed: {
+    computedClass() {
+      return {
+        active: this.isActive,
+        "text-danger": this.hasError
+      };
+    },
+    computedStyle() {
+      return {
+        width: \`\${this.width}px\`,
+        backgroundColor: this.isActive ? "lightgreen" : "lightcoral"
+      };
+    }
+  }
+};
+<\/script>
+
+<style>
+.active {
+  font-weight: bold;
+}
+.text-danger {
+  color: red;
+}
+</style>
+\`\`\`
+
+### 解释：
+
+- \`computedClass\` 计算属性返回一个对象，根据 \`isActive\` 和 \`hasError\` 的状态动态添加 \`active\` 和 \`text-danger\` 类。
+- \`computedStyle\` 计算属性根据 \`isActive\` 的状态动态设置 \`backgroundColor\`，并根据 \`width\` 的值设置元素的宽度。
+
+## 4. 小结
+
+1. **类绑定（\`class\`）**：可以通过字符串、对象或数组的方式绑定动态类。
+2. **样式绑定（\`style\`）**：可以通过对象或数组的方式动态绑定内联样式。
+3. **计算属性**：可以用于处理复杂的类和样式绑定逻辑，让代码更加清晰。
+4. **动态样式**：样式可以通过条件表达式进行动态计算，灵活应对各种需求。
+`;export{n as default};
