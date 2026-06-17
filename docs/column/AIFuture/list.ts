@@ -34,7 +34,18 @@ const aiFutureList = [
     collapsed: false,
     items: [
       {
-        text: "AGENTS规则约束"
+        text: "AGENTS规则约束",
+        items: [
+          {
+            text: "什么是AGENTS.md"
+          },
+          {
+            text: "前端专用AGENTS.md模板"
+          },
+          {
+            text: "后端专用AGENTS.md模板"
+          }
+        ]
       },
       {
         text: "Agent Skills"

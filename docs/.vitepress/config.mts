@@ -60,6 +60,7 @@ export default defineConfig({
   /**
    * 功能配置
    */
+  ignoreDeadLinks: true, // 忽略死链接报错
   lastUpdated: true, // 开启最后更新时间
   cleanUrls: true, // 启用干净的 URL (去除 .html 后缀)
   transformHtml(code) {

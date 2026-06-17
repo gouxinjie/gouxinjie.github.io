@@ -37,6 +37,7 @@ import MNavLinks from "../components/MNavLinks.vue"; // 导航组件
 import PoetryDisplay from "../components/poetry/PoetryDisplay.vue"; // 诗词展示组件
 import HeroDisplay from "../components/poetry/HeroDisplay.vue"; // 励志文本展示组件
 import FamousDisplay from "../components/poetry/FamousDisplay.vue"; // 名句展示组件
+import CopyMarkdown from "../components/CopyMarkdown.vue"; // 复制完整 Markdown 组件
 
 /**
  * 彩虹背景动画样式元素
@@ -82,6 +83,7 @@ const theme: Theme = {
     app.component("PoetryDisplay", PoetryDisplay); // 诗词组件
     app.component("HeroDisplay", HeroDisplay); // 励志文本组件
     app.component("FamousDisplay", FamousDisplay); // 名句组件
+    app.component("CopyMarkdown", CopyMarkdown); // 复制完整 Markdown 组件
 
     /**
      * 彩虹背景动画样式
@@ -102,12 +104,12 @@ const theme: Theme = {
       // 进度条配置
       NProgress.configure({ showSpinner: false });
       void fetchBusuanzi();
-      
+
       // 路由守卫
       router.onBeforeRouteChange = () => {
         NProgress.start(); // 开始进度条
       };
-      
+
       router.onAfterRouteChange = () => {
         void fetchBusuanzi(); // 触发访问量统计
         NProgress.done(); // 停止进度条
@@ -121,7 +123,7 @@ const theme: Theme = {
   setup() {
     const route = useRoute();
     let zoom: ReturnType<typeof mediumZoom> | undefined;
-    
+
     /**
      * 初始化图片预览
      */
@@ -130,12 +132,12 @@ const theme: Theme = {
       zoom?.detach();
       zoom = mediumZoom(".main img", { background: "var(--vp-c-bg)" }); // 不显式添加{data-zoomable}的情况下为所有图像启用此功能
     };
-    
+
     // 组件挂载时初始化
     onMounted(() => {
       initZoom();
     });
-    
+
     // 路由变化时重新初始化
     watch(
       () => route.path,

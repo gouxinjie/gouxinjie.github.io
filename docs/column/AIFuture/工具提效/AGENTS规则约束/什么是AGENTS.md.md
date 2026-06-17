@@ -1,5 +1,7 @@
 # AGENTS.md 进行规则约束
 
+<CopyMarkdown />
+
 ## 一、什么是 AGENTS.md？
 
 ### 1.1 本质一句话
@@ -117,7 +119,7 @@ AGENTS.md 可以定义：
 
 除非你主动关闭，如下图（trae关闭）：
 
-![trae关闭AGENTS.md](../images/agents-1.png)
+![trae关闭AGENTS.md](../../images/agents-1.png)
 
 然后就可以在 AI 编辑器中使用它了。下面我会提供我常用的 `AGENTS.md` 模板。
 
