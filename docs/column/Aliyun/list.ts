@@ -7,6 +7,7 @@ const aliyunList = [
     items: [
       { text: "阿里云 ECS 入门介绍" },
       { text: '阿里云的容器镜像服务讲解' },
+      { text: '阿里云安全组和服务器防火墙' },
       { text: "为什么前端项目部署需要nginx" },
       { text: "GitHub Actions 核心概念详解" },
       { text: "PM2在Next项目部署中的作用" },
@@ -26,6 +27,13 @@ const aliyunList = [
       { text: '前后端项目使用docker部署到ECS实战' }
     ]
   },
+  {
+    text: '踩坑记录',
+    collapsed: false,
+    items: [
+      { text: 'ECS中通过SSH克隆GitHub仓库' },
+    ]
+  }
 ];
 
 export const transformAliyunList = (path: string, isFilterList: boolean = false) => {

@@ -74,7 +74,7 @@ export const nav: DefaultTheme.NavItem[] = [
         link: "/column/Docker/index.md"
       },
       {
-        text: "阿里云",
+        text: "阿里云ECS",
         link: "/column/Aliyun/index.md"
       }
     ]
