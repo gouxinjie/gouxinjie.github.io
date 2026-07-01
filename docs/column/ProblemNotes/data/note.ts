@@ -13,9 +13,6 @@ export const noteData = [
         text: "JavaScript常用函数与算法精粹"
       },
       {
-        text: "有限状态机在前端开发中的应用"
-      },
-      {
         text: "页面阅读位置记忆功能实现方案"
       },
       {
@@ -68,6 +65,9 @@ export const noteData = [
       },
       {
         text: 'better-sqlite3管理SQLite数据库'
+      },
+      {
+        text: 'Prisma 介绍'
       }
     ]
   }
