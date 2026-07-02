@@ -7,15 +7,18 @@ title: 关于 me
 
   <!-- Hero Section -->
   <section class="profile-hero">
+    <div class="hero-glow-center"></div>
+    <div class="hero-dots"></div>
     <div class="avatar-wrapper">
       <img src="/avatar.png" alt="Avatar" class="avatar-img">
     </div>
     <div class="hero-info">
       <h1>苟新节 (XinJie)</h1>
+      <br>
       <p class="tagline">全栈开发工程师 • 技术探索者 • 终身学习者</p>
       <div class="hero-desc">
-        专注于构建高性能、易用的 Web 应用程序。深耕 React/Vue 生态，对 Node.js/Python 后端开发及 DevOps 工程也有浓厚兴趣。
-        <br>持之以恒，静水流深。
+        热爱用代码创造优雅、高性能的 Web 体验。前端深耕 React/Vue 生态，同时涉猎 Node.js、Python 后端及 DevOps 工程化实践。
+        <br>相信持续精进的力量——功不唐捐，静水流深。
       </div>
     </div>
   </section>
@@ -23,18 +26,27 @@ title: 关于 me
   <!-- Quick Stats -->
   <section class="stats-grid">
     <div class="stat-item">
+      <div class="stat-icon">💼</div>
       <span class="stat-val">5+</span>
       <span class="stat-lab">工作年限</span>
     </div>
     <div class="stat-item">
+      <div class="stat-icon">⚡</div>
       <span class="stat-val">50+</span>
       <span class="stat-lab">技术沉淀</span>
     </div>
     <div class="stat-item" @click="openCsdn">
+      <div class="stat-icon">📝</div>
       <span class="stat-val">300+</span>
       <span class="stat-lab">发布文章</span>
     </div>
     <div class="stat-item">
+      <div class="stat-icon">📦</div>
+      <span class="stat-val">20+</span>
+      <span class="stat-lab">开源项目</span>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon">🚀</div>
       <span class="stat-val" style="font-size: 2em;">+∞</span>
       <span class="stat-lab">学习热情</span>
     </div>
