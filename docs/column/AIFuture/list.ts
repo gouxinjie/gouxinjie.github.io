@@ -19,9 +19,6 @@ const aiFutureList = [
         text: "什么是RAG检索增强生成"
       },
       {
-        text: "Embedding向量化入门"
-      },
-      {
         text: "什么是MCP协议"
       },
       {
@@ -49,12 +46,6 @@ const aiFutureList = [
       },
       {
         text: "Agent Skills"
-      },
-      {
-        text: "AI编码助手实战指南"
-      },
-      {
-        text: "AI辅助代码评审清单"
       }
     ]
   },
@@ -63,13 +54,13 @@ const aiFutureList = [
     collapsed: false,
     items: [
       {
-        text: "2026年AI应用趋势清单"
+        text: "从卷模型到卷产品：AI应用层的机会在哪"
       },
       {
-        text: "多模态AI的产品机会"
+        text: "AI变成基础设施之后，什么最值钱"
       },
       {
-        text: "AI治理与安全边界"
+        text: "开发者的AI生存手册：哪些技能在贬值"
       }
     ]
   }
