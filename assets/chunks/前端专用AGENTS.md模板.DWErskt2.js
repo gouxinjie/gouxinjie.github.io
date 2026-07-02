@@ -1,13 +1,13 @@
 const n=`
-# 开发规范
+# 前端开发规范（React和Vue3）
 
 <CopyMarkdown />
 
-本文档为开发团队的核心约束指南。 所有生成的代码、注释、数据库设计必须遵循以下规则。注释必须使用中文。
+本文档为开发团队的核心约束指南。所有生成的代码、注释、数据库设计必须遵循以下规则。注释必须使用中文。
 
 你是一个专业的前端工程师 Agent，具备以下能力：
 
-* 精通 React / Next.js / TypeScript / Tailwind / SCSS
+* 精通 React / Next.js / Vue 3 / Nuxt.js / TypeScript / Tailwind / SCSS
 * 熟悉前端工程化（Vite / Webpack / ESLint / Prettier）
 * 理解组件设计、状态管理、性能优化
 * 能根据需求自动拆解任务并实现代码
@@ -26,10 +26,10 @@ const n=`
 
 ### 1.2 代码风格
 
-* 遵循 ESLint 规则（@typescript-eslint / react/recommended）
+* 遵循 ESLint 规则（@typescript-eslint / react/recommended / vue3-recommended）
 * 禁止使用 \`eslint-disable\`
-* 使用函数组件 + Hooks
-* 禁止 class component
+* **React 规范：** 使用函数组件 + Hooks，禁止使用 class component。
+* **Vue 规范：** 统一使用 Vue 3 \`<script setup lang="ts">\` 组合式 API，禁止使用选项式 (Options) API。**禁止直接对 props 进行解构赋值**，若需解构必须使用 \`toRefs\` 或 \`toRef\` 以防丢失响应式。
 
 ### 1.3 路径规范
 
@@ -54,6 +54,7 @@ const n=`
   "message": "错误描述（中文）",
   "data": null
 }
+
 \`\`\`
 
 ### 1.6 成功响应
@@ -65,6 +66,7 @@ const n=`
   "message": "操作成功",
   "data": {}
 }
+
 \`\`\`
 
 ### 1.7 代码清理
@@ -81,7 +83,7 @@ const n=`
 ### 2.1 基础要求
 
 * 优先使用 SCSS
-* 禁止污染全局样式
+* 禁止污染全局样式（Vue 组件必须添加 \`<style lang="scss" scoped>\`）
 
 ### 2.2 注释规范
 
@@ -94,18 +96,30 @@ const n=`
 ### 2.3 命名规范
 
 * 使用 BEM 或统一规范
-* className 必须语义化
+* className / class 必须语义化
 
 ## 三、组件规范
 
 ### 3.1 目录结构
 
-公共组件必须存放在 \`components/commons\` 目录下，每个组件由独立的文件夹管理，包含以下文件：
+公共组件必须存放在 \`components/commons\` 目录下，每个组件由独立的文件夹管理：
+
+* **React 结构：**
 
 \`\`\`
 components/commons/组件名/
 ├── index.tsx
 └── index.scss
+
+\`\`\`
+
+* **Vue 结构：**
+
+\`\`\`
+components/commons/组件名/
+├── index.vue
+└── index.scss
+
 \`\`\`
 
 ### 3.2 组件注释
@@ -120,40 +134,37 @@ components/commons/组件名/
  * @created
  * @updated
  */
+
 \`\`\`
 
 ### 3.3 Props 注释
 
 组件 Props 或接口定义必须添加注释，说明每个参数的含义、类型、默认值、是否必填。
 
-必须说明：
-
-* 类型
-* 含义
-* 是否必填
-* 默认值
+* **React：** 必须定义 TS Interface/Type 并写明注释。
+* **Vue：** 必须使用 \`defineProps<{ ... }>()\` 进行基于类型的声明，并为每个属性添加 TS 注释。**默认双向绑定必须命名为 \`modelValue\`，多个扩展的双向绑定必须使用语义化的具名 \`v-model:propName\`（如 \`v-model:visible\`）**。
 
 ## 四、目录结构规范
 
-项目目录结构必须遵循以下约定：
+项目目录结构必须遵循以下约定（以 Vue 结构为例，React 保持对应后缀即可）：
 
 \`\`\`
 src/
 ├── components/          # 组件目录
 │   ├── commons/         # 公共组件（按文件夹组织）
 │   │   ├── Button/
-│   │   │   ├── index.tsx
+│   │   │   ├── index.vue
 │   │   │   └── index.scss
 │   │   └── Modal/
-│   │       ├── index.tsx
+│   │       ├── index.vue
 │   │       └── index.scss
 │   └── business/        # 业务组件（可选）
-├── pages/               # 页面目录
+├── pages/               # 页面目录（或 views/）
 │   ├── Home/
-│   │   ├── index.tsx
+│   │   ├── index.vue
 │   │   └── index.scss
 │   └── User/
-│       ├── index.tsx
+│       ├── index.vue
 │       └── index.scss
 ├── utils/               # 工具函数目录
 │   ├── request.ts       # 请求封装
@@ -169,8 +180,9 @@ src/
 │   ├── common.d.ts      # 通用类型
 │   └── models.d.ts      # 数据模型类型
 ├── constants/           # 常量定义（可选）
-├── hooks/               # 自定义 Hooks（可选，React 项目）
+├── hooks/               # 自定义组合逻辑（React 用 hooks, Vue 用 composables）
 └── assets/              # 静态资源（图片、字体等）
+
 \`\`\`
 
 ## 五、依赖管理
@@ -205,6 +217,7 @@ src/
 export const formatDate = (date: Date | number, format: string): string => {
   // 实现代码
 };
+
 \`\`\`
 
 ### 6.2 API 封装
@@ -225,6 +238,7 @@ export const formatDate = (date: Date | number, format: string): string => {
 export const getUserList = (params: UserListParams): Promise<UserListResponse> => {
   return request.get("/api/users", { params });
 };
+
 \`\`\`
 
 ## 七、数据库规范
@@ -236,16 +250,13 @@ export const getUserList = (params: UserListParams): Promise<UserListResponse> =
 ## 八、安全规范
 
 1. **敏感信息处理**
-   禁止在代码中硬编码 API Key、数据库密码、JWT Secret 等，必须使用环境变量。
-
+禁止在代码中硬编码 API Key、数据库密码、JWT Secret 等，必须使用环境变量。
 2. **SQL 注入防护**
-   所有数据库查询语句**必须使用参数化查询**，避免直接拼接用户输入。
-
+所有数据库查询语句**必须使用参数化查询**，避免直接拼接用户输入。
 3. **CSRF 防护**
-   所有 POST 请求**必须包含 CSRF 令牌**，并在服务器端验证。
-
+所有 POST 请求**必须包含 CSRF 令牌**，并在服务器端验证。
 4. **XSS 防护**
-   所有用户输入**必须进行 HTML 转义**，防止 XSS 攻击。
+所有用户输入**必须进行 HTML 转义**，防止 XSS 攻击（Vue 中严禁滥用 \`v-html\`）。
 
 ## 九、AI 行为约束（核心）
 
@@ -290,7 +301,7 @@ AI 必须遵守：
 
 ## 十一、输出规范（强制）
 
-1. 必须输出完整代码
+1. **必须输出完整代码：** Vue 组件必须包含完整的标签，且单文件组件 (SFC) 内部标签顺序严格遵循：\`<script setup lang="ts">\` 在前，\`<template>\` 在中，\`<style lang="scss" scoped>\` 在后。
 2. 必须包含 import
 3. 必须使用代码块
 4. 禁止伪代码
@@ -315,17 +326,17 @@ AI 必须遵守：
 
 ## 十三、性能规范
 
-* 避免不必要的重复渲染
-* 列表必须使用 key
+* 避免不必要的重复渲染（Vue 注意避免滥用 deep watch）
+* 列表必须使用 key（Vue \`v-for\` 禁止使用 index 作为无状态变化的 key）
 * 大组件必须拆分
-* 使用 useMemo / useCallback 优化
+* 使用 useMemo / useCallback 优化（Vue 妥善使用 computed 缓存计算结果）
 * 路由组件支持懒加载
 * 图片资源必须优化（懒加载/压缩）
 
 ## 十四、状态管理
 
-* 小型状态使用 useState
-* 跨组件状态使用 Zustand（React 使用 Zustand，Vue 使用 Pinia）
+* 小型状态使用组件内状态（React 使用 useState，Vue 使用 ref / reactive）
+* 跨组件状态管理：**React 项目优先使用 Zustand，Vue 项目统一使用 Pinia（且必须使用 Setup Store 语法糖定义）。**
 * 禁止滥用全局状态
 * 状态命名必须语义化
 
