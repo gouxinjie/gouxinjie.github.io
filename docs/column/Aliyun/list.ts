@@ -24,7 +24,8 @@ const aliyunList = [
       { text: 'Nuxt项目自动部署到ECS' },
       { text: 'ECS+Nginx配置二级域名与多项目部署实战' },
       { text: 'PythonWeb项目发布到ECS实战' },
-      { text: '前后端项目使用docker部署到ECS实战' }
+      { text: '前后端项目使用docker部署到ECS实战' },
+      { text: 'Next.js + SQLite 自动部署到 ECS 全流程' }
     ]
   },
   {
