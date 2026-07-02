@@ -308,27 +308,32 @@ $hero-glow-3: var(--vp-c-brand-3);
                 &::before { background: linear-gradient(90deg, #6366f1, #818cf8); }
                 &::after  { background: #6366f1; }
                 .stat-icon { background: linear-gradient(135deg, #6366f1, #818cf8); }
+                .stat-val  { color: #6366f1; }
             }
             &:nth-child(2) {
                 &::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
                 &::after  { background: #f59e0b; }
                 .stat-icon { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+                .stat-val  { color: #f59e0b; }
             }
             &:nth-child(3) {
                 &::before { background: linear-gradient(90deg, #10b981, #34d399); }
                 &::after  { background: #10b981; }
                 .stat-icon { background: linear-gradient(135deg, #10b981, #34d399); }
+                .stat-val  { color: #10b981; }
                 cursor: pointer;
             }
             &:nth-child(4) {
                 &::before { background: linear-gradient(90deg, #06b6d4, #22d3ee); }
                 &::after  { background: #06b6d4; }
                 .stat-icon { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
+                .stat-val  { color: #06b6d4; }
             }
             &:nth-child(5) {
                 &::before { background: linear-gradient(90deg, #ec4899, #f472b6); }
                 &::after  { background: #ec4899; }
                 .stat-icon { background: linear-gradient(135deg, #ec4899, #f472b6); }
+                .stat-val  { color: #ec4899; }
             }
 
             &:hover {
@@ -789,17 +794,17 @@ $hero-glow-3: var(--vp-c-brand-3);
             .badges {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 8px;
+                gap: 6px;
 
                 img {
-                    height: 22px;
-                    border-radius: 4px;
+                    height: 20px;
+                    border-radius: 3px;
                     transition: all 0.25s ease;
                     filter: saturate(0.85);
 
                     &:hover {
-                        transform: translateY(-3px) scale(1.06);
-                        box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.12);
+                        transform: translateY(-2px) scale(1.05);
+                        box-shadow: 0 4px 12px -3px rgba(0, 0, 0, 0.12);
                         filter: saturate(1);
                     }
                 }
