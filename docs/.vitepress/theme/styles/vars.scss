@@ -121,11 +121,18 @@
 
 /* 首页 卡片悬浮效果 */
 .VPFeatures .items .item {
-  transition: transform 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .VPFeatures .items .item:hover {
   transform: translateY(-5px);
+  box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.08);
+}
+
+.VPFeatures .items .item:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
+  border-radius: 12px;
 }
 
 /**

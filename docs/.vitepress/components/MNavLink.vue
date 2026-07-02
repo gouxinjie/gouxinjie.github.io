@@ -71,15 +71,21 @@ const formatBadge = computed(() => {
   border-radius: 12px;
   height: 100%;
   background-color: var(--vp-c-bg-soft);
-  transition: all 0.25s;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s, background-color 0.25s;
 }
 
-.m-nav-link:hover {
+.m-nav-link:hover,
+.m-nav-link:focus-visible {
   box-shadow: var(--vp-shadow-2);
   border-color: var(--vp-c-brand);
   text-decoration: initial;
   background-color: var(--vp-c-bg-soft-up);
   transform: translateY(-5px);
+}
+
+.m-nav-link:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
 }
 
 .m-nav-link .box {

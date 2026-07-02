@@ -57,8 +57,9 @@ onMounted(() => {
 }
 
 .container {
-  background-color: var(--vp-c-bg-soft);
-  border-radius: 8px;
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
   width: 100%;
   min-height: 32px;
   max-width: 1152px;
@@ -68,18 +69,53 @@ onMounted(() => {
 
 .grid {
   font-weight: 500;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding: 20px 24px;
   justify-items: center;
   align-items: center;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   display: grid;
+  gap: 8px;
 }
 
 .text {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+  font-size: 0.9rem;
+  line-height: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.text :deep(.font-bold) {
+  font-size: 1.2rem;
+  font-weight: 700;
+  background: linear-gradient(120deg, var(--vp-c-brand-1), var(--vp-c-brand-next));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.grid img {
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s;
+}
+
+.grid img:hover {
+  transform: scale(1.08);
+}
+
+@media (max-width: 640px) {
+  .grid {
+    padding: 16px 12px;
+    gap: 4px;
+  }
+
+  .text {
+    font-size: 0.78rem;
+  }
+
+  .text :deep(.font-bold) {
+    font-size: 1rem;
+  }
 }
 </style>

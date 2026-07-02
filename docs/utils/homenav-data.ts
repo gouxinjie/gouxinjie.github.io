@@ -1,4 +1,4 @@
-import type { NavData } from "./types";
+import type { NavData, Project } from "./types";
 
 /**
  * 首页导航数据
@@ -74,73 +74,133 @@ export const NAV_DATA: NavData[] = [
     items: [
       {
         title: "深度求索 DeepSeek",
+        desc: "国产开源大模型，推理能力出色，支持 1M 超长上下文与联网搜索。",
         link: "https://chat.deepseek.com/",
         icon: "https://chat.deepseek.com/favicon.svg"
       },
       {
         title: "Kimi Chat（月之暗面）",
+        desc: "长文本处理专家，支持 200 万字上下文，擅长文档分析与总结。",
         link: "https://www.kimi.com/",
         icon: "https://www.kimi.com/favicon.ico"
       },
       {
         title: "通义千问（阿里）",
+        desc: "阿里云旗下大模型，深度整合办公场景，支持代码生成与多轮对话。",
         link: "https://www.tongyi.com/qianwen/",
         icon: "https://img.alicdn.com/imgextra/i4/O1CN01EfJVFQ1uZPd7W4W6i_!!6000000006051-2-tps-112-112.png"
       },
 
       {
         title: "文心一言（百度）",
+        desc: "百度出品的大语言模型，支持文学创作、商业文案与知识问答。",
         link: "https://yiyan.baidu.com/",
         icon: "https://eb-static.cdn.bcebos.com/logo/favicon.ico"
       },
 
       {
-        icon: "https://cdn.oaistatic.com/assets/favicon-l4nq08hd.svg",
         title: "ChatGPT（OpenAI）",
-        link: "https://chatgpt.com/"
+        desc: "全球领先的通用大模型，支持多模态交互、代码生成与复杂推理。",
+        link: "https://chatgpt.com/",
+        icon: "https://cdn.oaistatic.com/assets/favicon-l4nq08hd.svg"
       },
 
       {
         title: "Grok Chat（xAI）",
+        desc: "马斯克 xAI 推出的实时 AI 助手，连接 X 平台，风格大胆直接。",
         link: "https://grok.com/chat",
         icon: "https://grok.com/favicon.ico"
       },
 
       {
         title: "Google Gemini（Google）",
+        desc: "谷歌多模态大模型，深度融合搜索与 Workspace 生态，支持超长文本。",
         link: "https://gemini.google.com/",
         icon: "https://www.gstatic.com/lamda/images/gemini_sparkle_aurora_33f86dc0c0257da337c63.svg"
       },
 
       {
         title: "v0 Chat（Vercel）",
+        desc: "Vercel 推出的 UI 代码生成工具，一句话生成前端组件与页面原型。",
         link: "https://v0.app/chat",
         icon: "https://v0.app/assets/icon.svg"
       },
 
       {
-        icon: "https://www.notion.so/images/logo-ios.png",
         title: "Notion AI（笔记）",
-        link: "https://www.notion.so"
+        desc: "集成在 Notion 中的 AI 助手，支持文档撰写、内容总结与知识问答。",
+        link: "https://www.notion.so",
+        icon: "https://www.notion.so/images/logo-ios.png"
       },
 
       {
         title: "腾讯元宝（腾讯）",
+        desc: "腾讯旗下 AI 助手，支持公众号内容检索、文档解析与多轮对话。",
         link: "https://yuanbao.tencent.com/",
         icon: "https://static.yuanbao.tencent.com/modern/_next/static/media/logo_light.d078142a.svg"
       },
 
       {
         title: "豆包（字节跳动）",
+        desc: "字节跳动出品的 AI 助手，内置丰富应用生态，支持语音与多模态。",
         link: "https://www.doubao.com/chat/",
         icon: "/navIcon/doubao.png"
       },
 
       {
-        icon: "https://chatglm.cn/favicon.ico",
         title: "智谱清言（ChatGLM）",
-        link: "https://chatglm.cn"
+        desc: "智谱 AI 推出的对话助手，清华技术背景，支持长文档与编程辅助。",
+        link: "https://chatglm.cn",
+        icon: "https://chatglm.cn/favicon.ico"
       }
     ]
   }
+];
+
+/**
+ * 在线项目数据
+ */
+export const PROJECTS_DATA: Project[] = [
+  {
+    name: "Blog",
+    desc: "我的博客系统",
+    url: "https://gouxinjie.com",
+    tech: ["VitePress", "GitHub Pages"],
+    deploy: "Git Actions 自动部署，监听本地 80 端口",
+  },
+  {
+    name: "Prompt Gallery",
+    desc: "基于 Next.js + Supabase 的画廊应用",
+    url: "https://prompt.gouxinjie.com",
+    tech: ["Next.js", "Supabase", "PM2"],
+    deploy: "Git Actions 自动部署，PM2 管理，端口 5173",
+  },
+  {
+    name: "Archive",
+    desc: "基于 Nuxt4 + SQLite 的个人档案项目",
+    url: "https://archive.gouxinjie.com",
+    tech: ["Nuxt4", "SQLite", "PM2"],
+    deploy: "Git Actions 自动部署，PM2 管理，端口 3000",
+  },
+  {
+    name: "Compress Imgs",
+    desc: "基于 TinyPNG API 的 Python Web 单体项目",
+    url: "https://compress-imgs.gouxinjie.com",
+    tech: ["Python", "TinyPNG"],
+    deploy: "Git Actions 自动部署，端口 8000",
+  },
+  {
+    name: "CodeView",
+    desc: "基于 Node.js + React 的前后端分离项目",
+    url: "https://codeview.gouxinjie.com",
+    tech: ["Node.js", "React", "Docker"],
+    deploy: "Git Actions + Docker 镜像自动部署",
+  },
+  {
+    name: "Flow Calendar",
+    desc: "青柠日历（Lime Calendar），以月历为核心的轻量生活记录 H5 工具",
+    url: "https://flow-calendar.gouxinjie.com",
+    tech: ["Next.js", "PM2", "Nginx"],
+    deploy: "Git Actions 自动部署，PM2 管理，端口 3400",
+  },
 ];

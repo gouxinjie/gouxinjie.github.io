@@ -20,3 +20,16 @@ export interface NavData {
   title: string;
   items: NavLink[];
 }
+
+export interface Project {
+  /** 项目名称 */
+  name: string
+  /** 项目描述 */
+  desc: string
+  /** 访问地址 */
+  url: string
+  /** 技术栈标签 */
+  tech: string[]
+  /** 部署方式 */
+  deploy: string
+}

@@ -34,15 +34,12 @@ import MouseFollower from "../components/MouseFollower.vue"; // 鼠标跟随效�
 import ArticleMetadata from "../components/ArticleMetadata.vue"; // 字数及阅读时间
 import BackToTop from "../components/BackToTop.vue";
 import MNavLinks from "../components/MNavLinks.vue"; // 导航组件
+import ProjectsPanel from "../components/ProjectsPanel.vue"; // 在线项目展示
 import PoetryDisplay from "../components/poetry/PoetryDisplay.vue"; // 诗词展示组件
 import HeroDisplay from "../components/poetry/HeroDisplay.vue"; // 励志文本展示组件
 import FamousDisplay from "../components/poetry/FamousDisplay.vue"; // 名句展示组件
 import CopyMarkdown from "../components/CopyMarkdown.vue"; // 复制完整 Markdown 组件
 
-/**
- * 彩虹背景动画样式元素
- */
-let homePageStyle: HTMLStyleElement | undefined;
 const BUSUANZI_HOSTNAME = "gouxinjie.github.io";
 
 const fetchBusuanzi = async () => {
@@ -80,22 +77,11 @@ const theme: Theme = {
     app.component("BackToTop", BackToTop);
     app.component("Mermaid", defineAsyncComponent(() => import("../components/MermaidRenderer.vue")));
     app.component("MNavLinks", MNavLinks); // 导航组件
+    app.component("ProjectsPanel", ProjectsPanel); // 在线项目展示
     app.component("PoetryDisplay", PoetryDisplay); // 诗词组件
     app.component("HeroDisplay", HeroDisplay); // 励志文本组件
     app.component("FamousDisplay", FamousDisplay); // 名句组件
     app.component("CopyMarkdown", CopyMarkdown); // 复制完整 Markdown 组件
-
-    /**
-     * 彩虹背景动画样式
-     * 监听路由变化，在首页添加彩虹背景动画
-     */
-    if (typeof window !== "undefined") {
-      watch(
-        () => router.route.data.relativePath,
-        () => updateHomePageStyle(location.pathname === "/"),
-        { immediate: true }
-      );
-    }
 
     /**
      * 访问量统计和进度条配置
@@ -153,25 +139,3 @@ const theme: Theme = {
 };
 
 export default theme;
-
-/**
- * 彩虹背景动画样式
- * @param value 是否添加彩虹背景动画
- */
-function updateHomePageStyle(value: boolean) {
-  if (value) {
-    if (homePageStyle) return;
-
-    homePageStyle = document.createElement("style");
-    homePageStyle.innerHTML = `
-    :root {
-      animation: rainbow 12s linear infinite;
-    }`;
-    document.body.appendChild(homePageStyle);
-  } else {
-    if (!homePageStyle) return;
-
-    homePageStyle.remove();
-    homePageStyle = undefined;
-  }
-}
