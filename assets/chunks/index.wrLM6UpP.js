@@ -103,6 +103,9 @@ import { NAV_DATA } from './utils/homenav-data.ts'
 <!-- 首页站点导航 -->
 <MNavLinks v-for="{title, items} in NAV_DATA" :title="title" :items="items"/>
 
+<!-- 在线项目 -->
+<ProjectsPanel />
+
 <!-- 回到顶部组件 -->
 <BackToTop />
 `;export{n as default};
