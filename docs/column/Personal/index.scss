@@ -299,6 +299,166 @@
         }
     }
 
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+
+        .project-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 16px;
+            background: var(--vp-c-bg-soft);
+            border-radius: 12px;
+            border: 1px solid var(--vp-c-gutter);
+            text-decoration: none !important;
+            color: inherit !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            cursor: pointer;
+
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: linear-gradient(90deg, var(--vp-c-brand-1), var(--vp-c-brand-2));
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            &:hover {
+                border-color: var(--vp-c-brand-1);
+                box-shadow: 0 6px 20px -10px var(--vp-c-brand-soft);
+                transform: translateY(-2px);
+
+                &::before {
+                    opacity: 1;
+                }
+
+                .project-link {
+                    color: var(--vp-c-brand-1);
+                    gap: 6px;
+                }
+            }
+
+            .project-top {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 8px;
+
+                .project-icon {
+                    width: 36px;
+                    height: 36px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1.2rem;
+                    background: var(--vp-c-brand-soft);
+                    border-radius: 10px;
+                    flex-shrink: 0;
+                    transition: transform 0.3s ease;
+                }
+
+                &:hover .project-icon {
+                    transform: scale(1.1) rotate(-5deg);
+                }
+
+                .project-name {
+                    flex: 1;
+                    font-size: 1.05rem;
+                    font-weight: 700;
+                    color: var(--vp-c-text-1);
+                    margin: 0;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .project-status {
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    font-size: 0.72rem;
+                    color: var(--vp-c-text-3);
+                    flex-shrink: 0;
+
+                    .status-dot {
+                        width: 6px;
+                        height: 6px;
+                        background: #22c55e;
+                        border-radius: 50%;
+                        box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+                        animation: pulse-dot 2s ease-in-out infinite;
+                    }
+                }
+            }
+
+            .project-desc {
+                font-size: 0.8rem;
+                color: var(--vp-c-text-2);
+                line-height: 1.4;
+                margin-bottom: 10px;
+            }
+
+            .project-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 4px;
+                margin-bottom: 12px;
+
+                .tag {
+                    font-size: 0.68rem;
+                    padding: 2px 8px;
+                    background: var(--vp-c-brand-soft);
+                    color: var(--vp-c-brand-1);
+                    border-radius: 20px;
+                    font-weight: 500;
+                    white-space: nowrap;
+                }
+            }
+
+            .project-meta {
+                display: flex;
+                gap: 16px;
+                padding: 6px 0;
+                border-top: 1px solid var(--vp-c-divider);
+                margin-bottom: 0;
+
+                .meta-item {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1px;
+
+                    .meta-label {
+                        font-size: 0.65rem;
+                        color: var(--vp-c-text-3);
+                    }
+
+                    .meta-val {
+                        font-size: 0.75rem;
+                        color: var(--vp-c-text-1);
+                        font-weight: 600;
+                    }
+                }
+            }
+
+            .project-link {
+                display: flex;
+                align-items: center;
+                gap: 3px;
+                font-size: 0.75rem;
+                color: var(--vp-c-text-3);
+                transition: all 0.3s ease;
+                margin-top: 6px;
+            }
+        }
+    }
+
     .contact-links {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -341,7 +501,25 @@
     }
 }
 
+/* 状态点脉冲动画 */
+@keyframes pulse-dot {
+    0%, 100% {
+        box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.1);
+    }
+}
+
 /* 响应式适配 */
+@media (max-width: 1024px) {
+    .personal-wrapper {
+        .projects-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+}
+
 @media (max-width: 768px) {
     .personal-wrapper {
         .stats-grid {
@@ -349,6 +527,10 @@
         }
 
         .skills-container {
+            grid-template-columns: 1fr;
+        }
+
+        .projects-grid {
             grid-template-columns: 1fr;
         }
 
