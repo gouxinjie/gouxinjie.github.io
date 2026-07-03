@@ -1,4 +1,4 @@
-# 前后端项目使用docker部署到ECS实战
+# React+Node+SQLite项目自动发布到ECS实战-git看板
 
 > CodeView项目部署实战：用 GitHub Actions + Docker Compose 把项目稳定发布到阿里云 ECS
 
