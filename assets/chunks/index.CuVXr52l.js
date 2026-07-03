@@ -97,15 +97,12 @@ title: 关于 me
   <div class="project-status"><span class="status-dot"></span>运行中</div>
   </div>
   <div class="project-desc">我的博客系统，记录技术沉淀与成长</div>
-  <div class="project-tags">
-  <span class="tag">VitePress</span>
-  <span class="tag">GitHub Actions</span>
-  </div>
+  <div class="project-tags"><span>VitePress</span><span>GitHub Actions</span></div>
   <div class="project-meta">
   <div class="meta-item"><span class="meta-label">端口</span><span class="meta-val">80</span></div>
   <div class="meta-item"><span class="meta-label">部署</span><span class="meta-val">自动部署</span></div>
   </div>
-  <div class="project-link">gouxinjie.com →</div>
+  <div class="project-link">gouxinjie.com</div>
   </a>
   <a href="http://prompt.gouxinjie.com" class="project-card" target="_blank">
   <div class="project-top">
@@ -114,16 +111,12 @@ title: 关于 me
   <div class="project-status"><span class="status-dot"></span>运行中</div>
   </div>
   <div class="project-desc">基于 Next.js + Supabase 的画廊应用</div>
-  <div class="project-tags">
-  <span class="tag">Next.js</span>
-  <span class="tag">Supabase</span>
-  <span class="tag">PM2</span>
-  </div>
+  <div class="project-tags"><span>Next.js</span><span>Supabase</span><span>PM2</span></div>
   <div class="project-meta">
   <div class="meta-item"><span class="meta-label">端口</span><span class="meta-val">5173</span></div>
   <div class="meta-item"><span class="meta-label">部署</span><span class="meta-val">PM2</span></div>
   </div>
-  <div class="project-link">prompt.gouxinjie.com →</div>
+  <div class="project-link">prompt.gouxinjie.com</div>
   </a>
   <a href="http://archive.gouxinjie.com" class="project-card" target="_blank">
   <div class="project-top">
@@ -132,16 +125,12 @@ title: 关于 me
   <div class="project-status"><span class="status-dot"></span>运行中</div>
   </div>
   <div class="project-desc">基于 Nuxt 4 + SQLite 的个人档案项目</div>
-  <div class="project-tags">
-  <span class="tag">Nuxt 4</span>
-  <span class="tag">SQLite</span>
-  <span class="tag">PM2</span>
-  </div>
+  <div class="project-tags"><span>Nuxt 4</span><span>SQLite</span><span>PM2</span></div>
   <div class="project-meta">
   <div class="meta-item"><span class="meta-label">端口</span><span class="meta-val">3000</span></div>
   <div class="meta-item"><span class="meta-label">部署</span><span class="meta-val">PM2</span></div>
   </div>
-  <div class="project-link">archive.gouxinjie.com →</div>
+  <div class="project-link">archive.gouxinjie.com</div>
   </a>
   <a href="http://compress-imgs.gouxinjie.com" class="project-card" target="_blank">
   <div class="project-top">
@@ -150,15 +139,12 @@ title: 关于 me
   <div class="project-status"><span class="status-dot"></span>运行中</div>
   </div>
   <div class="project-desc">基于 TinyPNG API 的图片压缩工具</div>
-  <div class="project-tags">
-  <span class="tag">Python</span>
-  <span class="tag">TinyPNG API</span>
-  </div>
+  <div class="project-tags"><span>Python</span><span>TinyPNG API</span></div>
   <div class="project-meta">
   <div class="meta-item"><span class="meta-label">端口</span><span class="meta-val">8000</span></div>
   <div class="meta-item"><span class="meta-label">部署</span><span class="meta-val">自动部署</span></div>
   </div>
-  <div class="project-link">compress-imgs.gouxinjie.com →</div>
+  <div class="project-link">compress-imgs.gouxinjie.com</div>
   </a>
   <a href="http://codeview.gouxinjie.com" class="project-card" target="_blank">
   <div class="project-top">
@@ -167,16 +153,12 @@ title: 关于 me
   <div class="project-status"><span class="status-dot"></span>运行中</div>
   </div>
   <div class="project-desc">基于 Node.js + React 的前后端分离项目</div>
-  <div class="project-tags">
-  <span class="tag">Node.js</span>
-  <span class="tag">React</span>
-  <span class="tag">Docker</span>
-  </div>
+  <div class="project-tags"><span>Node.js</span><span>React</span><span>Docker</span></div>
   <div class="project-meta">
   <div class="meta-item"><span class="meta-label">端口</span><span class="meta-val">8000</span></div>
   <div class="meta-item"><span class="meta-label">部署</span><span class="meta-val">Docker</span></div>
   </div>
-  <div class="project-link">codeview.gouxinjie.com →</div>
+  <div class="project-link">codeview.gouxinjie.com</div>
   </a>
   <a href="http://flow-calendar.gouxinjie.com" class="project-card" target="_blank">
   <div class="project-top">
@@ -185,16 +167,12 @@ title: 关于 me
   <div class="project-status"><span class="status-dot"></span>运行中</div>
   </div>
   <div class="project-desc">青柠日历 — 以月历为核心的轻量生活记录 H5 工具</div>
-  <div class="project-tags">
-  <span class="tag">Next.js</span>
-  <span class="tag">Standalone</span>
-  <span class="tag">PM2</span>
-  </div>
+  <div class="project-tags"><span>Next.js</span><span>Standalone</span><span>PM2</span></div>
   <div class="project-meta">
   <div class="meta-item"><span class="meta-label">端口</span><span class="meta-val">3400</span></div>
   <div class="meta-item"><span class="meta-label">部署</span><span class="meta-val">PM2</span></div>
   </div>
-  <div class="project-link">flow-calendar.gouxinjie.com →</div>
+  <div class="project-link">flow-calendar.gouxinjie.com</div>
   </a>
   </section>
 
