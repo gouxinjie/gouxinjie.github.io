@@ -147,23 +147,23 @@
 ::-webkit-scrollbar:horizontal {
   height: 10px;
 }
-/* 2. 横向滚动条内部的“滑块” */
+/* 2. 横向滚动条内部的"滑块" */
 ::-webkit-scrollbar-thumb:horizontal {
   height: 10px;
-  background: #ddd;
+  background: var(--vp-c-text-3);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f5f5f5;
+  background: var(--vp-c-bg-soft);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #ddd;
+  background: var(--vp-c-text-3);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #ccc;
+  background: var(--vp-c-text-2);
 }
 
 // 暗黑模式下的滚动条样式

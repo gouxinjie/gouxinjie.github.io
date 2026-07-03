@@ -65,7 +65,7 @@ const createTitle = computed(() => {
 }
 .site-section {
   .title {
-    color: #222;
+    color: var(--vp-c-text-1);
   }
   .list {
     display: flex;
@@ -88,16 +88,16 @@ const createTitle = computed(() => {
     .item {
       width: 212px;
       margin: 15px 15px 0 0px;
-      border: 1px solid transparent;
+      border: 1px solid var(--vp-c-divider);
       position: relative;
-      background-color: #f6f6f7;
+      background-color: var(--vp-c-bg-soft);
       border-radius: 6px;
       transition: all 0.3s ease-in-out;
 
       &:hover {
         transform: translateY(-6px); /* 轻微上移模拟抬升效果 */
         border: 1px solid var(--vp-c-brand);
-        background: #fff;
+        background: var(--vp-c-bg);
       }
       .link {
         width: 210px;
@@ -115,7 +115,7 @@ const createTitle = computed(() => {
           font-weight: 600;
           margin-top: 15px;
           @include single-ellipsis;
-          color: #000;
+          color: var(--vp-c-text-1);
         }
         .desc {
           font-size: 13px;
@@ -133,23 +133,10 @@ const createTitle = computed(() => {
 // -- ★ 暗黑模式专用 使用全局类.dark --
 .dark {
   .site-section {
-    .title {
-      color: var(--vp-c-text-1);
-    }
     .list {
       .item {
-        background-color: var(--vp-c-bg-alt);
+        border-color: transparent;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        &:hover {
-          transform: translateY(-6px); /* 轻微上移模拟抬升效果 */
-          background: var(--vp-c-bg-alt);
-        }
-        .name {
-          color: var(--vp-c-text-1) !important;
-        }
-        &:hover {
-          border: 1px solid var(--vp-c-brand);
-        }
       }
     }
   }

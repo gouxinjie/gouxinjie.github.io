@@ -20,7 +20,7 @@ li.task-list-item input[type="checkbox"] {
   height: 13px;
   line-height: 12px;
   margin-right: 8px;
-  border: 1px solid #949494;
+  border: 1px solid var(--vp-c-text-3);
 
   -webkit-appearance: none;
   appearance: none;
@@ -30,7 +30,7 @@ li.task-list-item input[type="checkbox"] {
 li.task-list-item input[type="checkbox"]:after {
   position: absolute;
   top: 0;
-  color: #000;
+  color: var(--vp-c-text-1);
   width: 13px;
   height: 13px;
   display: inline-block;
@@ -55,7 +55,7 @@ li.task-list-item input[type="checkbox"]:checked::after {
 }
 
 .timeline-dot {
-  color: #7f8c8d;
+  color: var(--vp-c-text-3);
 }
 
 .task-list {
