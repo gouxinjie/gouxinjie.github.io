@@ -17,24 +17,21 @@ import { PROJECTS_DATA } from "../../utils/homenav-data"
         rel="noopener noreferrer"
         class="project-card"
       >
-        <div class="card-accent"></div>
-        <div class="card-body">
-          <div class="card-top">
-            <div class="card-title-row">
-              <span class="project-name">{{ project.name }}</span>
-              <span class="status-badge">
-                <span class="status-dot"></span>
-                在线
-              </span>
-            </div>
-            <p class="project-desc">{{ project.desc }}</p>
+        <div class="card-top">
+          <div class="card-title-row">
+            <span class="project-name">{{ project.name }}</span>
+            <span class="status-badge">
+              <span class="status-dot"></span>
+              在线
+            </span>
           </div>
-          <div class="card-bottom">
-            <div class="tech-tags">
-              <span v-for="tag in project.tech" :key="tag" class="tag">{{ tag }}</span>
-            </div>
-            <span class="deploy-info">{{ project.deploy }}</span>
+          <p class="project-desc">{{ project.desc }}</p>
+        </div>
+        <div class="card-bottom">
+          <div class="tech-tags">
+            <span v-for="tag in project.tech" :key="tag">{{ tag }}</span>
           </div>
+          <span class="deploy-info">{{ project.deploy }}</span>
         </div>
       </a>
     </div>
@@ -60,25 +57,45 @@ h2 {
   max-width: 1152px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
 }
 
 .project-card {
   position: relative;
-  background: var(--vp-c-bg-soft);
-  border-radius: 12px;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 16px;
   text-decoration: none;
   color: var(--vp-c-text-1);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   display: flex;
-  min-height: 120px;
+  flex-direction: column;
+  min-height: 130px;
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--vp-c-brand-1), var(--vp-c-brand-next, var(--vp-c-brand-1)));
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .project-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 30px -10px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.1);
+  border-color: var(--vp-c-brand-soft);
+  background: var(--vp-c-bg-soft);
+}
+
+.project-card:hover::before {
+  opacity: 1;
 }
 
 .project-card:focus-visible {
@@ -86,32 +103,12 @@ h2 {
   outline-offset: 2px;
 }
 
-.card-accent {
-  width: 3px;
-  flex-shrink: 0;
-  background: linear-gradient(180deg, var(--vp-c-brand-1), var(--vp-c-brand-next));
-  border-radius: 0;
-  transition: width 0.25s ease;
-}
-
-.project-card:hover .card-accent {
-  width: 4px;
-}
-
-.card-body {
-  flex: 1;
-  padding: 14px 22px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 14px;
-  min-width: 0;
-}
-
 .card-top {
+  padding: 20px 22px 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
+  flex: 1;
 }
 
 .card-title-row {
@@ -132,56 +129,64 @@ h2 {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: #16a34a;
-  padding: 3px 10px;
-  border-radius: 10px;
-  background: rgba(34, 197, 94, 0.1);
+  padding: 2px 9px;
+  border-radius: 20px;
+  background: rgba(34, 197, 94, 0.08);
   white-space: nowrap;
   flex-shrink: 0;
   font-weight: 500;
 }
 
 .status-dot {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: #22c55e;
-  box-shadow: 0 0 6px rgba(34, 197, 94, 0.5);
 }
 
 .project-desc {
   margin: 0;
-  font-size: 0.85rem;
-  line-height: 1.55;
+  font-size: 0.84rem;
+  line-height: 1.6;
   color: var(--vp-c-text-2);
 }
 
 .card-bottom {
+  padding: 14px 22px 18px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  border-top: 1px solid var(--vp-c-divider);
+  margin-top: 14px;
 }
 
 .tech-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-}
+  align-items: center;
 
-.tag {
-  font-size: 0.72rem;
-  padding: 1px 8px;
-  border-radius: 4px;
-  background: var(--vp-c-bg-mute);
-  color: var(--vp-c-text-2);
-  border: 1px solid var(--vp-c-divider);
-  white-space: nowrap;
-  font-weight: 500;
+  span {
+    font-size: 0.73rem;
+    color: var(--vp-c-text-2);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+
+    &:not(:last-child)::after {
+      content: "|";
+      margin: 0 4px;
+      color: var(--vp-c-text-3);
+      font-size: 0.75em;
+      font-weight: 300;
+      vertical-align: -0.1em;
+    }
+  }
 }
 
 .deploy-info {
-  font-size: 0.74rem;
+  font-size: 0.73rem;
   color: var(--vp-c-text-3);
   line-height: 1.4;
 }
@@ -189,11 +194,7 @@ h2 {
 @media (max-width: 768px) {
   .projects-grid {
     grid-template-columns: 1fr;
-    gap: 14px;
-  }
-
-  .card-body {
-    padding: 16px 18px;
+    gap: 12px;
   }
 }
 </style>
