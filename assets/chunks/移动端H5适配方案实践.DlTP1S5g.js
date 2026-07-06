@@ -1,0 +1,475 @@
+const n=`# 移动端 H5 适配方案实践指南
+
+> 从 rem 到 vw，一文讲透移动端 H5 适配的两种主流方案
+
+
+## 一、前言
+
+移动端开发中，"如何在各种屏幕宽度的手机上完美展示页面"是一个绕不开的话题。从 iPhone SE（320px）到 iPhone 14 Pro Max（430px），再到折叠屏、iPad，屏幕碎片化让适配成为一大痛点。
+
+本文将介绍当前主流的移动端适配方案，深度剖析 **rem 弹性布局**和 **vw 自适应**这两大方案的核心原理、配置方法和适用场景，并以实际项目为例讲解落地过程。
+
+
+## 二、主流适配方案对比
+
+| 方案 | 原理 | 优点 | 缺点 | 推荐场景 |
+|------|------|------|------|----------|
+| **vw 自适应** | \`postcss-px-to-viewport\` 编译时将 px 自动转为 vw | 一次配置全局生效，真正等比缩放，开发时继续写 px | 字体/边框也等比缩放（可配置排除） | ✅ 新项目首选 |
+| **rem 弹性** | \`amfe-flexible\` + \`postcss-pxtorem\` 动态计算根字体 | 生态成熟，可配合 lib-flexible | 需额外 JS，多一层换算，Vant 4 不再推荐 | 老项目维护 |
+| **媒体查询** | 手动编写 \`@media\` 断点 | 精确控制每个断点 | 工作量大，仅覆盖固定断点 | 少量特殊场景 |
+| **scale 缩放** | \`transform: scale()\` 整体缩放 | 简单粗暴 | 布局变形，事件坐标偏移 | 不推荐 |
+
+
+## 三、vw 自适应方案详解（推荐 ✅）
+
+### 3.1 为什么选择 vw？
+
+1. **Vant 4 官方推荐**：本项目使用 Vant 4 作为 UI 框架，官方文档推荐 vw 方案
+2. **零入侵开发**：仍以设计稿 px 值书写样式，编译后自动转 vw，无需改变开发习惯
+3. **真正连续等比缩放**：任何屏幕宽度都能完美适配，不像媒体查询只能覆盖几个断点
+4. **纯 CSS 方案**：只需一个 PostCSS 插件，编译时完成转换，无需 JS 运行时，无首屏闪动
+5. **调试直观**：开发者工具中看到 \`66.67vw\`，配合视口宽度一眼就能估算实际像素
+
+### 3.2 vw 换算原理
+
+\`\`\`
+以 375px 设计稿为基准：
+  设计稿中 250px  →  250 / 375 × 100 = 66.67vw
+
+不同屏幕效果：
+  375px 屏幕 → 66.67vw × 3.75 = 250px     (即设计稿尺寸)
+  320px 屏幕 → 66.67vw × 3.20 = 213px     (等比缩小 85%)
+  430px 屏幕 → 66.67vw × 4.30 = 287px     (等比放大 115%)
+\`\`\`
+
+### 3.3 安装插件
+
+\`\`\`bash
+pnpm add -D postcss-px-to-viewport-8-plugin
+\`\`\`
+
+### 3.4 创建 PostCSS 配置文件
+
+在项目根目录创建 \`postcss.config.cjs\`：
+
+\`\`\`js
+const pxToViewport = require('postcss-px-to-viewport-8-plugin');
+
+module.exports = {
+  plugins: [
+    pxToViewport({
+      /** 设计稿宽度（以 UI 设计稿为准） */
+      viewportWidth: 375,
+
+      /** 转换后的单位 */
+      viewportUnit: 'vw',
+
+      /** 字体使用的视口单位（与 viewportUnit 一致即可） */
+      fontViewportUnit: 'vw',
+
+      /** vw 值保留的小数位数 */
+      unitPrecision: 2,
+
+      /** 需要转换的 CSS 属性列表，* 表示全部 */
+      propList: ['*'],
+
+      /** 最小转换像素值，1px 边框不转换以保持精细 */
+      minPixelValue: 1,
+
+      /** 排除不需要转换的目录/文件 */
+      exclude: [/node_modules\\/vant/],
+
+      /** 转换后的单位选择器属性列表 */
+      selectorBlackList: [],
+
+      /** 是否允许媒体查询中的 px 也转换 */
+      mediaQuery: false,
+
+      /** 是否转换 landscape 横屏 */
+      landscape: false,
+
+      /** 是否添加注释标记 */
+      replace: true,
+    }),
+  ],
+};
+\`\`\`
+
+### 3.5 配置项详解
+
+| 配置项 | 说明 | 推荐值 |
+|--------|------|--------|
+| \`viewportWidth\` | 设计稿宽度 | 375（大部分移动端设计稿） |
+| \`unitPrecision\` | vw 精度 | 2（避免过长的浮点数） |
+| \`minPixelValue\` | 最小转换像素 | 1（保留 1px 边框精细度） |
+| \`exclude\` | 排除无需转换的模块 | \`/node_modules\\/vant/\`（避免 Vant 被二次转换） |
+| \`propList\` | 要转换的属性 | \`['*']\`（全部转换） |
+| \`mediaQuery\` | 媒体查询中的 px 是否转换 | \`false\` |
+
+### 3.6 验证效果
+
+| 视口宽度 | 设计稿 250px 元素实际大小 | 验证 |
+|----------|--------------------------|------|
+| 375px（iPhone 6/7/8） | 250px | ✅ 与设计稿一致 |
+| 320px（iPhone SE） | 213px | ✅ 等比缩小 |
+| 414px（iPhone 11 Pro Max） | 276px | ✅ 等比放大 |
+
+**验证方法**：打开浏览器开发者工具 → 切换到移动端模式 → 切换不同设备宽度 → 观察元素是否按预期缩放。
+
+### 3.7 最佳实践
+
+#### 保留 1px 边框
+
+\`\`\`js
+// postcss.config.cjs
+minPixelValue: 1,  // ≤1px 的值不转换，确保边框精细
+\`\`\`
+
+#### 排除第三方 UI 库
+
+\`\`\`js
+// 避免 Vant 等 UI 库的样式被二次转换导致尺寸异常
+exclude: [/node_modules\\/vant/],
+\`\`\`
+
+#### 设计稿尺寸选择
+
+- **375px**：目前最主流，适用于大多数 H5 项目
+- **750px**：部分设计团队以 2x 出图，配置 \`viewportWidth: 750\` 即可
+
+#### 配合 SCSS 变量
+
+\`\`\`scss
+// variables.scss
+$design-width: 375;  // 与 postcss.config.cjs 保持一致
+
+// 可直接用 px 写样式，PostCSS 会自动转换
+.home__hero-btn--primary {
+  width: 250px;        // → 66.67vw
+  height: 48px;        // → 12.80vw
+  border-radius: 24px; // → 6.40vw
+}
+\`\`\`
+
+#### 局部排除转换
+
+如果某个元素不希望被转换，可以使用注释标记：
+
+\`\`\`css
+/* px-to-viewport-ignore-next */
+.element {
+  width: 1px;  /* 这条规则不会被转换 */
+}
+
+/* 或使用选择器黑名单 */
+.element-fixed {
+  /* px-to-viewport-ignore */
+  min-width: 2px;
+}
+\`\`\`
+
+#### 横屏适配建议
+
+当应用需要支持横屏时：
+
+\`\`\`js
+landscape: true,        // 开启横屏转换
+landscapeWidth: 812,    // 横屏设计稿宽度（iPhone X 横屏）
+landscapeUnit: 'vw',
+\`\`\`
+
+
+## 四、rem 弹性布局方案详解
+
+rem 是移动端适配的**经典方案**，从 2015 年淘宝 flexible 开源至今，已被无数项目验证。
+
+### 4.1 rem 是什么？
+
+\`rem\`（root em）是 CSS 的相对单位，它相对于 \`<html>\` 根元素的 \`font-size\` 进行计算：
+
+\`\`\`css
+html {
+  font-size: 100px;   /* 1rem = 100px */
+}
+.box {
+  width: 2rem;        /* 实际 = 2 × 100 = 200px */
+  height: 1.5rem;     /* 实际 = 1.5 × 100 = 150px */
+}
+\`\`\`
+
+**核心思路**：让 \`html\` 的 \`font-size\` 随屏幕宽度动态变化，那么所有用 \`rem\` 表示的值也会自动等比缩放。
+
+### 4.2 工作原理
+
+\`\`\`
+第一步：用 JS 动态设置 html 的 font-size
+第二步：用 PostCSS 插件将 px 编译为 rem
+第三步：屏幕宽度变化 → font-size 变化 → 所有 rem 值等比缩放
+\`\`\`
+
+**动态计算 font-size 的公式**：
+
+\`\`\`
+htmlFontSize = (屏幕宽度 / 设计稿宽度) × 基准值
+\`\`\`
+
+以 375px 设计稿、基准值 37.5 为例（方便口算，1rem = 10px）：
+
+| 屏幕宽度 | font-size 计算 | 1rem 实际值 |
+|---------|---------------|-----------|
+| 375px | 375 / 375 × 37.5 = 37.5px | 37.5px |
+| 320px | 320 / 375 × 37.5 = 32px | 32px |
+| 414px | 414 / 375 × 37.5 = 41.4px | 41.4px |
+
+### 4.3 技术栈
+
+| 组件 | 作用 |
+|------|------|
+| \`amfe-flexible\` | 阿里出品，JS 动态计算并设置 \`html\` 的 \`font-size\`，同时设置 \`data-dpr\` 处理高清屏 |
+| \`postcss-pxtorem\` | PostCSS 插件，编译时将 px 自动转为 rem |
+| \`lib-flexible\` | 淘宝早期方案（已停止维护），功能与 amfe-flexible 类似 |
+
+### 4.4 实战步骤
+
+#### Step 1：安装依赖
+
+\`\`\`bash
+pnpm add amfe-flexible
+pnpm add -D postcss-pxtorem
+\`\`\`
+
+#### Step 2：引入 flexible
+
+在 \`main.ts\` 入口文件引入：
+
+\`\`\`ts
+// main.ts
+import 'amfe-flexible';
+\`\`\`
+
+加载后，\`<html>\` 标签上会自动注入内联样式：
+
+\`\`\`html
+<html style="font-size: 37.5px;" data-dpr="2">
+\`\`\`
+
+\`data-dpr\` 属性用于处理 Retina 高清屏（可通过 CSS 属性选择器控制高清屏下的 border、图片等）。
+
+#### Step 3：配置 postcss-pxtorem
+
+创建或修改 \`postcss.config.cjs\`：
+
+\`\`\`js
+const pxToRem = require('postcss-pxtorem');
+
+module.exports = {
+  plugins: [
+    pxToRem({
+      /** 设计稿根元素字体大小，即 1rem = rootValue px */
+      rootValue: 37.5,
+
+      /** 需要转换的 CSS 属性，* 表示全部 */
+      propList: ['*'],
+
+      /** 排除不需要转换的选择器 */
+      selectorBlackList: ['.norem'],
+
+      /** 最小转换像素值 */
+      minPixelValue: 1,
+
+      /** 排除 node_modules 中的第三方 UI 库 */
+      exclude: [/node_modules\\/vant/i],
+
+      /** 允许在媒体查询中也转换 */
+      mediaQuery: false,
+
+      /** 替换规则 */
+      replace: true,
+    }),
+  ],
+};
+\`\`\`
+
+#### Step 4：配置项详解
+
+| 配置项 | 说明 | 推荐值 | 注意事项 |
+|--------|------|--------|----------|
+| \`rootValue\` | 设计稿下 1rem 等于多少 px | 37.5（375 设计稿）或 75（750 设计稿） | **必须和 flexible 计算逻辑一致** |
+| \`propList\` | 要转换的属性 | \`['*']\` | 也可指定 \`['width', 'height', 'font-size']\` |
+| \`selectorBlackList\` | 不转换的选择器 | \`['.norem', '.ignore']\` | 类名含 \`.norem\` 的元素不做转换 |
+| \`minPixelValue\` | 最小转换像素 | 1 | 保留 1px 边框精细度 |
+| \`exclude\` | 排除目录 | \`/node_modules\\/vant/i\` | 防止 UI 库被二次转换 |
+
+#### Step 5：rootValue 的计算依据
+
+这是 rem 方案最容易出错的配置项。**rootValue 必须等于 \`设计稿宽度 / 10\`**：
+
+| 设计稿宽度 | rootValue | 换算关系 |
+|-----------|-----------|----------|
+| 375px | 37.5 | 1rem = 37.5px → 设计稿 37.5px → 1rem |
+| 750px | 75 | 1rem = 75px → 设计稿 75px → 1rem |
+| 640px | 64 | 1rem = 64px → 设计稿 64px → 1rem |
+
+**如果 rootValue 配错，整个页面的比例都会错误**。flexible 源码中也是 \`width / 10\`，所以二者必须一致。
+
+#### Step 6：amfe-flexible 源码核心逻辑
+
+\`\`\`js
+// amfe-flexible 核心逻辑（简化版）
+(function flexible() {
+  const docEl = document.documentElement;
+  const dpr = window.devicePixelRatio || 1;
+
+  function setBodyFontSize() {
+    document.body.style.fontSize = 12 * dpr + 'px';
+  }
+
+  function setRemUnit() {
+    // 核心：屏幕宽度 / 10 = 根字体大小
+    const rem = docEl.clientWidth / 10;
+    docEl.style.fontSize = rem + 'px';
+  }
+
+  setBodyFontSize();
+  setRemUnit();
+
+  // resize 时重新计算
+  window.addEventListener('resize', setRemUnit);
+  // pageshow 事件处理（兼容浏览器前进后退缓存）
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) setRemUnit();
+  });
+})();
+\`\`\`
+
+**关键逻辑**：\`clientWidth / 10\` —— 所以 rootValue 必须是设计稿宽度的 1/10。
+
+#### Step 7：rem 换算验证
+
+以 375px 设计稿、rootValue = 37.5 为例：
+
+\`\`\`
+编译时（PostCSS）：
+  设计稿 width: 250px  →  250 / 37.5 = 6.6667rem
+
+运行时（JS）：
+  375px 屏幕 → html font-size = 37.5px → 6.6667 × 37.5 = 250px ✅
+  320px 屏幕 → html font-size = 32.0px → 6.6667 × 32.0 = 213px ✅
+  414px 屏幕 → html font-size = 41.4px → 6.6667 × 41.4 = 276px ✅
+\`\`\`
+
+### 4.5 rem 方案的优缺点
+
+**优点**：
+
+- ✅ **生态成熟**：经过淘宝双十一级别验证，久经考验
+- ✅ **兼容性好**：IE9+、Android 2.1+ 均支持，对老旧设备友好
+- ✅ **灵活控制**：可在 JS 层面精细控制缩放逻辑，不依赖 CSS 视口单位
+- ✅ **高清屏处理**：通过 \`data-dpr\` 配合 CSS 属性选择器，能精细处理 Retina 屏下的 1px 边框和图片
+
+**缺点**：
+
+- ❌ **需要 JS 运行时**：依赖 \`amfe-flexible\` 在页面加载时设置 font-size，多一层运行时开销
+- ❌ **首屏闪动**：JS 执行前可能出现未适配的短暂"裸奔"状态，需要内联 JS 或 loading 遮罩
+- ❌ **Vant 4 不再推荐**：新版 Vant 已将官方方案迁移到 vw，rem 方案不再是最佳实践
+- ❌ **调试不直观**：开发者工具中看到的是 rem 值，需要脑补换算回 px，排查布局问题较麻烦
+- ❌ **第三方组件适配**：如果第三方库内部使用了 px 而非 rem，可能出现尺寸不一致
+- ❌ **高清屏 border 复杂**：需要用 \`[data-dpr="2"]\`、\`[data-dpr="3"]\` 属性选择器单独处理，增加维护成本
+
+### 4.6 适用场景
+
+- 需要兼容**老旧设备**（Android 4.x、iOS 8 以下）的项目
+- 已有的**老项目维护**，历史代码已大量使用 rem
+- 需要**精细化高清屏适配**的场景（如电商详情页的商品图）
+- 对 **JS 运行时依赖**不敏感的项目
+
+
+## 五、vw vs rem 终极对比
+
+### 5.1 维度对比
+
+| 维度 | vw 方案 | rem 方案 | 胜出 |
+|------|---------|----------|------|
+| **原理** | CSS 视口单位 \`1vw = 视口宽度/100\` | JS 动态设置 \`html font-size\` + 编译转 rem | — |
+| **运行时依赖** | 无（纯 CSS） | 需要 JS（amfe-flexible） | ✅ vw |
+| **首屏闪动** | 不存在 | 可能存在（JS 未执行时） | ✅ vw |
+| **调试体验** | \`66.67vw\` 直观换算 | \`6.6667rem\` 需要知道 font-size | ✅ vw |
+| **兼容性** | Android 4.4+ / iOS 9.3+ | Android 2.1+ / IE9+ | ✅ rem |
+| **生态成熟度** | 较新（2017+） | 经典（2015+，淘宝双十一验证） | ✅ rem |
+| **Vant 4 支持** | 官方推荐 ✅ | 不再推荐 ❌ | ✅ vw |
+| **高清屏处理** | 无法精确控制 Retina 1px | \`data-dpr\` 可精细处理 | ✅ rem |
+| **配置复杂度** | 1 个 PostCSS 插件 | 1 个 JS 包 + 1 个 PostCSS 插件 | ✅ vw |
+| **rootValue 陷阱** | 不存在 | 容易配错导致全站比例错误 | ✅ vw |
+| **第三方库适配** | 排除即可 | 第三方库有 px 则尺寸不一致 | ✅ vw |
+| **性能** | 零运行时开销 | resize 需重新计算 | ✅ vw |
+
+### 5.2 选择建议
+
+\`\`\`
+新项目 + 现代浏览器         → 优先 vw ✅
+新项目 + 需兼容 Android 4.x  → rem
+老项目已在用 rem            → 保持 rem，不必迁移
+需要 Retina 1px 精细控制    → rem + data-dpr
+使用 Vant 4 / Vant 3        → 必须 vw
+\`\`\`
+
+
+## 六、常见问题
+
+### Q1：配置后没生效？
+
+1. 确认文件名是 \`postcss.config.cjs\`（\`.cjs\` 后缀，非 \`.js\`）
+2. 重启开发服务器（\`--force\` 清除缓存）
+3. 检查 \`package.json\` 中 \`"type": "module"\` 是否导致 CJS 配置未被加载
+
+### Q2：桌面端元素变得很大？
+
+这是正常现象 —— vw 相对视口宽度等比缩放，桌面浏览器视口通常有 1280px+，元素自然按比例放大。如果需要限制最大宽度：
+
+\`\`\`scss
+.app-container {
+  max-width: 750px;      // 移动端设计稿 2x 宽度
+  margin: 0 auto;        // 居中
+}
+\`\`\`
+
+### Q3：第三方组件库样式异常？
+
+确保 \`exclude\` 配置正确：
+
+\`\`\`js
+exclude: [/node_modules\\/vant/],
+\`\`\`
+
+### Q4：某些 px 不想被转换怎么办？
+
+- **单个值**：使用 \`Px\` 大写（\`10Px\` 不会被转换）
+- **整条规则**：添加注释 \`/* px-to-viewport-ignore-next */\`
+- **整个文件**：加入 \`exclude\` 数组
+
+### Q5：rem 方案的 rootValue 配错有什么后果？
+
+整个页面的尺寸比例都会错误。常见症状：
+- 所有元素均匀偏大/偏小
+- 设计稿还原度差
+- 不同机型上表现不一致
+
+**排查方法**：检查 \`rootValue\` 是否等于 \`设计稿宽度 / 10\`。
+
+
+## 七、总结
+
+| 维度 | vw 方案 | rem 方案 |
+|------|---------|----------|
+| 配置复杂度 | ⭐ 极低 | ⭐⭐ 中等 |
+| 开发体验 | ⭐⭐⭐ 写 px，自动转 vw | ⭐⭐ 写 px，自动转 rem，换算略绕 |
+| 适配效果 | ⭐⭐⭐ 任意宽度等比缩放 | ⭐⭐⭐ 任意宽度等比缩放 |
+| 维护成本 | ⭐ 几乎为零 | ⭐⭐ 需关注 flexible 版本和兼容 |
+| 性能影响 | ⭐⭐⭐ 编译时完成 | ⭐⭐ resize 有 JS 计算 |
+| **推荐场景** | **新项目、现代浏览器、Vant 4** | **老项目维护、需兼容旧设备** |
+
+> **核心结论**：2025 年新建移动端 H5 项目，**首选 vw 自适应方案**。rem 作为经典方案依然值得了解，在维护老项目或特定兼容场景下仍有价值。
+
+
+*本文基于实际项目（Vue 3 + Vant 4 + Vite）实践总结，方案适用于 React / Vue / 各类前端框架。*
+`;export{n as default};
