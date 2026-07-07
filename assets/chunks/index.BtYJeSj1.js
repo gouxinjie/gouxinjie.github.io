@@ -106,6 +106,5 @@ import { NAV_DATA } from './utils/homenav-data.ts'
 <!-- 在线项目 -->
 <ProjectsPanel />
 
-<!-- 回到顶部组件 -->
-<BackToTop />
+<!-- 回到顶部组件由 MyLayout 统一挂载 -->
 `;export{n as default};
