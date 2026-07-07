@@ -103,7 +103,6 @@ onBeforeUnmount(() => {
     </template>
 
     <template #layout-top>
-      <MouseFollower v-if="false" />
       <MouseClick v-if="showMouseClick" />
     </template>
 

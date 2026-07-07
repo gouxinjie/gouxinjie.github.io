@@ -1,0 +1,66 @@
+/**
+ * Poetry 系列组件公共样式 mixin
+ */
+@mixin poetry-container($margin: 40px 0 20px, $padding: 18px 24px, $shadow: true) {
+  position: relative;
+  margin: $margin;
+  border-radius: 8px;
+  padding: $padding;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--vp-c-divider);
+
+  @if $shadow {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  :deep(.dark) & {
+    background-color: rgba(30, 30, 30, 0.9);
+    border-color: var(--vp-c-divider-dark);
+  }
+}
+
+@mixin poetry-content($line-margin: 8px 0) {
+  margin-bottom: 8px;
+  p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: $line-margin;
+    white-space: pre-line;
+    color: var(--vp-c-text-1);
+  }
+}
+
+@mixin poetry-notes($note-font-size: 14px) {
+  .note {
+    display: block;
+    font-size: $note-font-size;
+    font-weight: 600;
+    color: var(--vp-c-text-1);
+    margin: 10px 0;
+  }
+  margin-top: 22px;
+  border-top: 1px solid var(--vp-c-divider);
+  p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--vp-c-text-3);
+    margin: 5px 0;
+  }
+}
+
+@mixin poetry-main {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border: 1px solid var(--vp-badge-info-border);
+  border-radius: 12px;
+  padding: 0px 10px;
+  font-size: 13px;
+  color: var(--vp-c-brand-1);
+  background-color: var(--vp-badge-info-bg);
+}

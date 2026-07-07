@@ -18,7 +18,6 @@
       </li>
     </ul>
   </section>
-  <BackToTop></BackToTop>
 </template>
 
 <script setup>

@@ -147,7 +147,7 @@ onMounted(() => {
   justify-content: space-between;
   padding: 16px 0;
   z-index: 100;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--vp-c-divider);
 
   .header-title {
     font-size: 24px;
@@ -173,14 +173,14 @@ onMounted(() => {
       padding: 6px 14px;
       font-size: 14px;
       transition: all 0.3s ease;
-      background-color: #f9f9f9;
+      background-color: var(--vp-c-bg-soft);
       width: 220px;
 
       &:focus {
         outline: none;
         border-color: var(--vp-c-brand-1);
-        background-color: #fff;
-        box-shadow: 0 0 0 3px rgba(0, 212, 116, 0.1);
+        background-color: var(--vp-c-bg);
+        box-shadow: 0 0 0 3px var(--vp-c-brand-dimm);
       }
     }
   }
@@ -202,7 +202,7 @@ onMounted(() => {
   .list-title {
     font-size: 20px;
     font-weight: 600;
-    color: #444;
+    color: var(--vp-c-text-1);
     margin-bottom: 16px;
     padding-bottom: 8px;
     display: inline-block;
@@ -215,11 +215,11 @@ onMounted(() => {
 
   .item {
     position: relative;
-    border: 1px solid #eaeaea;
+    border: 1px solid var(--vp-c-divider);
     padding: 14px 20px;
     border-radius: 8px;
     font-size: 15px;
-    background-color: #fff;
+    background-color: var(--vp-c-bg);
     transition: all 0.3s ease;
     margin-bottom: 12px;
     list-style: none;

@@ -30,7 +30,6 @@ import Confetti from "../components/Confetti.vue"; // 首页五彩纸屑动画
 import MyLayout from "../components/MyLayout.vue"; // 布局组件 添加页面上下渐变出现的效果
 import HomeUnderline from "../components/HomeUnderline.vue"; // 首页hero文字下划线
 import MouseClick from "../components/MouseClick.vue"; // 鼠标点击效果
-import MouseFollower from "../components/MouseFollower.vue"; // 鼠标跟随效果
 import ArticleMetadata from "../components/ArticleMetadata.vue"; // 字数及阅读时间
 import BackToTop from "../components/BackToTop.vue";
 import MNavLinks from "../components/MNavLinks.vue"; // 导航组件
@@ -72,7 +71,6 @@ const theme: Theme = {
     app.component("Confetti", Confetti);
     app.component("HomeUnderline", HomeUnderline); // 首页hero文字下划线
     app.component("MouseClick", MouseClick);
-    app.component("MouseFollower", MouseFollower);
     app.component("ArticleMetadata", ArticleMetadata); // 字数及阅读时间
     app.component("BackToTop", BackToTop);
     app.component("Mermaid", defineAsyncComponent(() => import("../components/MermaidRenderer.vue")));
