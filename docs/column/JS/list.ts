@@ -34,7 +34,8 @@ export const JSList = [
           { text: "generator和async讲解" },
           { text: "AbortController请求中断" },
           { text: "requestAnimationFrame" },
-          { text: "IntersectionObserver" }
+          { text: "IntersectionObserver" },
+          { text: "IntersectionObserver实现高效懒加载" }
         ]
       }
     ]
@@ -82,6 +83,9 @@ export const JSList = [
       },
       {
         text: "offset、client、scroll区别"
+      },
+      {
+        text: "重排和重绘的区别"
       }
     ]
   }

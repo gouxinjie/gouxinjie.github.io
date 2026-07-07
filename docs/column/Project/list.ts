@@ -20,6 +20,12 @@ const projectList = [
       },
       {
         text: "神策埋点"
+      },
+      {
+        text: "移动端下拉刷新功能的实现"
+      },
+      {
+        text: "移动端B站风格弹幕系统实现方案"
       }
     ]
   },
@@ -84,7 +90,9 @@ const projectList = [
       {
         text: "前端常用加密方式"
       },
-      { text: "防抖和节流函数细节" }
+      { text: "防抖和节流函数细节" },
+      { text: "构建时Hash与ContentHash的差异详解" },
+      { text: "NProgress页面加载进度条原理" }
     ]
   }
 ];

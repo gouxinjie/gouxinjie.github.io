@@ -43,7 +43,8 @@ const networkList = [
       { text: "数字证书简述" },
       { text: "添加埋点方式和原理" },
       { text: "sendBeacon可靠上报" },
-      { text: "OAuth2.0授权流程" }
+      { text: "OAuth2.0授权流程" },
+      { text: "HttpOnly签名Cookie登录方案" }
     ]
   },
 

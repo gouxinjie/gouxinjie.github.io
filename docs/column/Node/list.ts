@@ -29,6 +29,9 @@ const nodeList = [
         text: "nvm相关"
       },
       {
+        text: "fnm管理node版本"
+      },
+      {
         text: "npm serve"
       },
       {
@@ -106,7 +109,10 @@ const nodeList = [
       },
       {
         text: "prisma"
-      }
+      },
+      {
+        text: "better-sqlite3"
+      },
     ]
   }
 ];

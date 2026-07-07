@@ -19,21 +19,6 @@ export const noteData = [
         text: "前端本地开发构建和更新的过程"
       },
       {
-        text: "IntersectionObserver实现高效懒加载"
-      },
-      {
-        text: '构建时Hash与ContentHash的差异详解'
-      },
-      {
-        text: '使用FNM进行多个Node版本的管理'
-      },
-      {
-        text: '移动端下拉刷新功能的实现'
-      },
-      {
-        text: '移动端B站风格弹幕系统实现方案'
-      },
-      {
         text: 'SVG与Canvas水印添加技术对比'
       },
       {
@@ -52,22 +37,7 @@ export const noteData = [
         text: '顶部阅读进度条的方案实现'
       },
       {
-        text: 'NProgress页面加载进度条原理'
-      },
-      {
         text: '不依赖点击的MouseEvent事件触发机制'
-      },
-      {
-        text: 'AntDesign项目集成阿里Iconfont图标库'
-      },
-      {
-        text: "HttpOnly签名Cookie登录方案"
-      },
-      {
-        text: 'better-sqlite3管理SQLite数据库'
-      },
-      {
-        text: 'Prisma 介绍'
       },
       {
         text: '移动端H5适配方案实践'

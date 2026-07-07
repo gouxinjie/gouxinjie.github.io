@@ -133,6 +133,9 @@ const ReactList = [
       },
       {
         text: "函数式组件中使用Redux"
+      },
+      {
+        text: "AntDesign项目集成阿里Iconfont图标库"
       }
     ]
   },
