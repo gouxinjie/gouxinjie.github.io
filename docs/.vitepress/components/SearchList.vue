@@ -188,11 +188,11 @@ onMounted(() => {
 
 .no-match {
   font-size: 1.1em;
-  color: var(--vt-c-text-3);
+  color: var(--vp-c-text-3);
   text-align: center;
   margin-top: 48px;
   padding-top: 48px;
-  border-top: 1px solid var(--vt-c-divider-light);
+  border-top: 1px solid var(--vp-c-divider);
 }
 
 .list {
@@ -244,46 +244,55 @@ onMounted(() => {
 <style>
 /* 注意这里移除了scoped属性 */
 .dark #js-index .header {
-  background-color: var(--vt-c-bg);
-  border-bottom-color: var(--vt-c-divider-dark);
+  background-color: var(--vp-c-bg);
+  border-bottom-color: var(--vp-c-divider);
 }
 
 .dark #js-index .header .header-title {
-  color: var(--vt-c-text-1);
+  color: var(--vp-c-text-1);
 }
 
 .dark #js-index .header .label {
-  color: var(--vt-c-text-2);
+  color: var(--vp-c-text-2);
 }
 
 .dark #js-index #api-filter {
-  border-color: var(--vt-c-divider-dark);
+  border-color: rgba(255, 255, 255, 0.1);
   background-color: rgba(255, 255, 255, 0.05);
-  color: var(--vt-c-text-1);
+  color: var(--vp-c-text-1);
 }
 
 .dark #js-index #api-filter:focus {
-  border-color: var(--vt-c-green);
+  border-color: var(--vp-c-brand-1);
   background-color: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 0 3px rgba(0, 212, 116, 0.1);
+  box-shadow: 0 0 0 3px var(--vp-c-brand-dimm);
 }
 
 .dark .list .list-title {
-  color: var(--vt-c-text-1);
-  border-bottom-color: var(--vt-c-green);
+  color: var(--vp-c-text-1);
+  border-bottom-color: var(--vp-c-brand-1);
 }
 
 .dark .list .item {
-  border-color: var(--vt-c-divider-dark);
-  background-color: var(--vt-c-bg-soft);
+  border-color: rgba(255, 255, 255, 0.08);
+  background-color: var(--vp-c-bg-soft);
+}
+
+.dark .list .item:hover {
+  border-color: var(--vp-c-brand-1);
+  background-color: var(--vp-c-bg-mute);
 }
 
 .dark .list .item-link {
-  color: var(--vt-c-text-2);
+  color: var(--vp-c-text-2);
+}
+
+.dark .list .item-link:hover {
+  color: var(--vp-c-text-1);
 }
 
 .dark .no-match {
-  border-top-color: var(--vt-c-divider-dark);
-  color: var(--vt-c-text-3);
+  border-top-color: var(--vp-c-divider);
+  color: var(--vp-c-text-3);
 }
 </style>

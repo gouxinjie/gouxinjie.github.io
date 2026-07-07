@@ -26,6 +26,11 @@ export default defineConfig({
   description: "XinJie's Blog Web Site", // 站点描述
   lang: "zh-CN", // 站点语言
   head: [
+    // Google Fonts: Inter (正文) + JetBrains Mono (代码)
+    ["link", { rel: "preconnect", href: "https://fonts.googleapis.com" }],
+    ["link", { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" }],
+    ["link", { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" }],
+
     // 网站图标
     ["link", { rel: "icon", href: "/xinjie.png" }],
     ["link", { rel: "apple-touch-icon", href: "/xinjie.png" }],

@@ -19,15 +19,15 @@ onMounted(() => {
     return;
   }
 
-  /* 第一个特效：五彩纸屑 */
+  /* 第一个特效：五彩纸屑（降低密度） */
   confetti({
-    particleCount: 100,
+    particleCount: 40,
     spread: 170,
     origin: { y: 0.6 }
   });
 
-  /* 第二个特效：雪花 */
-  var duration = 15 * 1000;
+  /* 第二个特效：雪花（缩短持续时间） */
+  var duration = 5 * 1000;
   var animationEnd = Date.now() + duration;
   var skew = 1;
   function randomInRange(min: number, max: number) {

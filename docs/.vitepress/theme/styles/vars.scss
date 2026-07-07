@@ -4,6 +4,17 @@
  */
 
 /**
+ * 字体
+ * Inter: 拉丁正文，SIL Open Font License，GitHub/Figma 同款
+ * JetBrains Mono: 代码字体，SIL Open Font License
+ * 中文使用系统字体栈，不额外加载中文字体文件以保证加载速度
+ * -------------------------------------------------------------------------- */
+:root {
+  --vp-font-family-base: 'Inter', 'Noto Sans SC', -apple-system, 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif;
+  --vp-font-family-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Consolas, 'Courier New', monospace;
+}
+
+/**
  * Colors
  * -------------------------------------------------------------------------- */
 :root {
@@ -24,9 +35,27 @@
   --vp-c-highlight-text: var(--vp-c-bg);
 }
 
+/**
+ * 暗色模式：GitHub 风格纯深色背景，避免发灰
+ * -------------------------------------------------------------------------- */
 .dark {
-  --vp-code-block-bg: rgba(0, 0, 0, 0.2);
-  --vp-c-text-code: #c0cec0;
+  // 背景层次：更纯的深色，层次分明
+  --vp-c-bg: #0d1117;
+  --vp-c-bg-soft: #161b22;
+  --vp-c-bg-mute: #21262d;
+  --vp-c-bg-alt: #161b22;
+
+  // 侧边栏与导航背景
+  --vp-sidebar-bg-color: #0d1117;
+  --vp-nav-bg-color: rgba(13, 17, 23, 0.7);
+
+  // 分割线更细腻
+  --vp-c-divider: #21262d;
+  --vp-c-gutter: #21262d;
+
+  // 代码块
+  --vp-code-block-bg: #161b22;
+  --vp-c-text-code: #c9d1d9;
 }
 
 /**
@@ -113,10 +142,45 @@
 }
 
 /**
- * 去除a链接下面的下划线
+ * 链接渐显下划线动画
+ * 技巧：用 background-image 渐变模拟下划线，transition background-size 做滑入效果
  */
 .vp-doc a {
   text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 0.3s ease;
+}
+
+.vp-doc a:hover {
+  background-size: 100% 1px;
+}
+
+/**
+ * 文字选中色
+ */
+::selection {
+  background: var(--vp-c-brand-dimm);
+  color: var(--vp-c-brand-1);
+}
+
+/**
+ * 图片 hover 微缩放（非 gif / 非 inline icon 的图片）
+ */
+.vp-doc img:not(.VPImage) {
+  border-radius: 8px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.vp-doc img:not(.VPImage):hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.dark .vp-doc img:not(.VPImage):hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 /* 首页 卡片悬浮效果 */

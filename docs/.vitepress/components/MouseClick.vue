@@ -14,7 +14,6 @@ import { ref, onMounted, onUnmounted } from "vue";
 const canvas = ref(null);
 let animationFrameId = null;
 let particles = [];
-let circles = [];
 const colors = ["#FF1461", "#18FF92", "#5A87FF", "#FBF38C"];
 
 // 设置画布大小
@@ -69,68 +68,6 @@ function createParticle(x, y) {
   };
 }
 
-// 创建圆形扩散效果
-function createCircle(x, y) {
-  const radius = 5 + Math.random() * 10;
-  const color = "#FFF";
-
-  return {
-    x,
-    y,
-    radius,
-    color,
-    maxRadius: 80 + Math.random() * 80,
-    lineWidth: 6,
-    alpha: 0.5,
-    speed: 1 + Math.random(),
-    draw(ctx) {
-      ctx.globalAlpha = this.alpha;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.lineWidth = this.lineWidth;
-      ctx.strokeStyle = this.color;
-      ctx.stroke();
-      ctx.globalAlpha = 1;
-    },
-    update() {
-      this.radius += this.speed * 2;
-      this.alpha *= 0.97;
-      this.lineWidth *= 0.98;
-      return this.radius < this.maxRadius && this.alpha > 0.01;
-    }
-  };
-}
-
-// 创建随机圆形
-function createRandomCircle(x, y) {
-  const radius = 1;
-  const color = colors[Math.floor(Math.random() * colors.length)];
-  const maxRadius = 50 + Math.random() * 40;
-
-  return {
-    x,
-    y,
-    radius,
-    color,
-    maxRadius,
-    alpha: 1,
-    speed: 1 + Math.random(),
-    draw(ctx) {
-      ctx.globalAlpha = this.alpha;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fillStyle = this.color;
-      ctx.fill();
-      ctx.globalAlpha = 1;
-    },
-    update() {
-      this.radius += this.speed * 3;
-      this.alpha *= 0.96;
-      return this.radius < this.maxRadius && this.alpha > 0.01;
-    }
-  };
-}
-
 // 动画循环
 function animate() {
   const canvasEl = canvas.value;
@@ -149,14 +86,7 @@ function animate() {
     return particle.currentLife < particle.life;
   });
 
-  // 更新并绘制圆形
-  circles = circles.filter((circle) => {
-    const shouldKeep = circle.update();
-    circle.draw(ctx);
-    return shouldKeep;
-  });
-
-  animationFrameId = particles.length || circles.length ? requestAnimationFrame(animate) : null;
+  animationFrameId = particles.length ? requestAnimationFrame(animate) : null;
 }
 
 function startAnimation() {
@@ -171,16 +101,10 @@ function handleClick(e) {
   const x = point.clientX;
   const y = point.clientY;
 
-  // 创建粒子
-  for (let i = 0; i < 20; i++) {
+  // 创建粒子（降低数量）
+  for (let i = 0; i < 8; i++) {
     particles.push(createParticle(x, y));
   }
-
-  // 创建圆形扩散效果
-  circles.push(createCircle(x, y));
-
-  // 创建随机圆形
-  circles.push(createRandomCircle(x, y));
 
   startAnimation();
 }
