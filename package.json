@@ -1,7 +1,7 @@
 {
   "name": "gouxinjie-blog",
   "version": "1.0.0",
-  "description": "苟新节的技术博客 — 基于 VitePress 的个人技术站点，记录前端开发、AI 应用与工程实践",
+  "description": "苟新节的技术博客 — 从前端基础到框架实战，从编码提效到工程化部署，基于 VitePress 记录真实项目的踩坑与复盘",
   "main": "index.js",
   "scripts": {
     "dev": "vitepress dev docs",

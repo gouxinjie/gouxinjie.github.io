@@ -2,7 +2,7 @@
 
 # 苟新节的技术博客
 
-基于 VitePress 搭建的个人技术站点，记录前端开发、AI 应用和工程实践的真实踩坑经历。
+基于 VitePress 搭建的个人技术站点。从前端基础到框架实战，从编码提效到工程化部署，记录每个真实项目的踩坑、决策和复盘——不追热点，写自己验证过的东西。
 
 [![VitePress](https://img.shields.io/badge/VitePress-646CFF?style=flat&logo=vitepress&logoColor=white)](https://vitepress.dev/)
 [![Vue](https://img.shields.io/badge/Vue-4FC08D?style=flat&logo=vue.js&logoColor=white)](https://vuejs.org/)
@@ -35,13 +35,17 @@
 
 | 类别 | 技术 |
 |------|------|
-| 框架 | VitePress |
-| 前端 | Vue 3 + TypeScript |
-| 样式 | Sass + 少量 TailwindCSS |
-| 包管理 | pnpm |
+| 框架 | VitePress + Vue 3 + TypeScript |
+| 样式 | Sass + TailwindCSS，Google Fonts (Inter / JetBrains Mono) |
 | 搜索 | Algolia DocSearch |
-| 图表 | Mermaid |
-| 部署 | GitHub Pages + Vercel |
+| 图表 | Mermaid (vitepress-plugin-mermaid) |
+| 交互 | medium-zoom 图片预览、NProgress 进度条、canvas-confetti 特效 |
+| 统计 | Busuanzi 访问量 |
+| 代码质量 | ESLint + Prettier + vue-tsc |
+| 包管理 | pnpm |
+| CI/CD | GitHub Actions（ECS 自动部署 + GitHub Pages） |
+| 部署 | GitHub Pages / Vercel / 阿里云 ECS / Gitee Pages |
+| 自定义 | 诗词展示、项目面板、复制源码、首页动画等 15+ Vue 组件 |
 
 ---
 
@@ -107,7 +111,18 @@ docs/
 
 - **GitHub Pages** — `gh-pages` 分支，[gouxinjie.github.io](https://gouxinjie.github.io)
 - **Vercel** — 监听同一个仓库，自动构建，[gouxinjie.vercel.app](https://gouxinjie.vercel.app)
+- **ECS** — 阿里云 ECS 自托管，[gouxinjie.com](http://gouxinjie.com)
 - **Gitee** — 国内镜像，手动 push 同步
+
+### ECS 部署详情
+
+- **描述**: 个人技术博客（VitePress 静态站点），双线部署保障国内外访问
+- **部署路径**: `/var/www/blog`
+- **启动方式**: Nginx 直接托管静态文件，GitHub Actions 构建后 SCP 上传到 ECS
+- **状态**: 正常运行
+- **备注**: GitHub Actions 自动部署，push main 触发 vitepress build → SCP 上传 dist → ECS Nginx reload
+- **端口**: 80 / 443（宿主 Nginx）
+- **访问**: [gouxinjie.com](http://gouxinjie.com) · [gouxinjie.github.io](https://gouxinjie.github.io) · [gouxinjie.vercel.app](https://gouxinjie.vercel.app)
 
 ---
 
