@@ -1,7 +1,7 @@
 {
-  "name": "vitepress-demo-mondaylab",
+  "name": "gouxinjie-blog",
   "version": "1.0.0",
-  "description": "",
+  "description": "苟新节的技术博客 — 基于 VitePress 的个人技术站点，记录前端开发、AI 应用与工程实践",
   "main": "index.js",
   "scripts": {
     "dev": "vitepress dev docs",
