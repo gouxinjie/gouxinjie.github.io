@@ -52,6 +52,14 @@
 
 /* 首页样式修改 */
 .VPHero {
+  .name {
+    max-width: none !important;
+  }
+  @media (min-width: 960px) {
+    .name {
+      white-space: nowrap;
+    }
+  }
   .image-bg {
     opacity: 0.8;
     transition: opacity 1s ease;

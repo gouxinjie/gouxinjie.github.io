@@ -910,6 +910,14 @@ $hero-glow-3: var(--vp-c-brand-3);
                 font-size: 1.1rem;
                 margin-bottom: 6px;
                 color: var(--vp-c-text-1);
+
+                .exp-company {
+                    font-size: 0.9rem;
+                    color: var(--vp-c-text-2);
+                    font-weight: 500;
+                    margin-left: 10px;
+                    opacity: 0.8;
+                }
             }
 
             .exp-content {
