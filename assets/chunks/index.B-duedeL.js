@@ -27,7 +27,7 @@ title: 关于 me
   <section class="stats-grid">
     <div class="stat-item">
       <div class="stat-icon">💼</div>
-      <span class="stat-val">5+</span>
+      <span class="stat-val">6+</span>
       <span class="stat-lab">工作年限</span>
     </div>
     <div class="stat-item">
@@ -304,19 +304,19 @@ title: 关于 me
   <div class="module-header"><h2>成长足迹</h2></div>
   <section class="exp-timeline">
     <div class="exp-item">
-      <div class="exp-date">2024.01 - 至今</div>
-      <div class="exp-title">高级前端工程师 @ 互联网科技企业</div>
-      <div class="exp-content">主导复杂业务系统的前端架构设计，优化构建流程，提升团队开发效率 30%+。</div>
+      <div class="exp-date">2025.02 - 至今</div>
+      <div class="exp-title">高级前端工程师 <span class="exp-company">上海云济信息科技有限公司</span></div>
+      <div class="exp-content">主导企业级中后台及复杂业务架构设计，沉淀可复用的组件库与技术方案，通过工程化手段提升团队研发效能 30%+。</div>
     </div>
     <div class="exp-item">
-      <div class="exp-date">2022.06 - 2023.12</div>
-      <div class="exp-title">中级前端工程师 @ 软件服务公司</div>
-      <div class="exp-content">负责多个小程序及后台管理平台的从零到一开发，深度参与产品设计与技术方案评审。</div>
+      <div class="exp-date">2023.06 - 2024.12</div>
+      <div class="exp-title">中级前端工程师 <span class="exp-company">上海盛硅科技发展有限公司</span></div>
+      <div class="exp-content">独立负责多端小程序及大规模中后台系统 from 0 to 1 的全链路开发，参与核心业务建模与技术评审，保障项目高质量交付。</div>
     </div>
     <div class="exp-item">
-      <div class="exp-date">2019.07 - 2022.05</div>
-      <div class="exp-title">初级前端工程师 @ 软件服务公司</div>
-      <div class="exp-content">在快速迭代的环境中负责 UI 落地及业务交互开发，积累了深厚的原生 JS/CSS 功底。</div>
+      <div class="exp-date">2020.07 - 2023.05</div>
+      <div class="exp-title">初级前端工程师 <span class="exp-company">上海奥诃信息技术有限公司</span></div>
+      <div class="exp-content">专注于高质量 UI 还原与复杂业务交互实现，在快速迭代的实战中沉淀了深厚的原生 JavaScript 与 CSS 工程能力。</div>
     </div>
   </section>
 
