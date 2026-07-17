@@ -4,6 +4,9 @@ export const noteData = [
     collapsed: false,
     items: [
       {
+        text: "VitePress首屏加载优化实战"
+      },
+      {
         text: "软件设计五大核心原则"
       },
       {

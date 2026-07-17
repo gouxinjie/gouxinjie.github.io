@@ -23,21 +23,23 @@ import { NProgress } from "nprogress-v2/dist/index.js"; // 进度条组件
 import "nprogress-v2/dist/index.css"; // 进度条样式
 
 // 组件导入
-import DataPanel from "../components/DataPanel.vue"; // 浏览量统计
-import MyCard from "../components/MyCard.vue"; // 卡片组件
-import SearchList from "../components/SearchList.vue"; // 搜索列表
-import Confetti from "../components/Confetti.vue"; // 首页五彩纸屑动画
 import MyLayout from "../components/MyLayout.vue"; // 布局组件 添加页面上下渐变出现的效果
 import HomeUnderline from "../components/HomeUnderline.vue"; // 首页hero文字下划线
-import MouseClick from "../components/MouseClick.vue"; // 鼠标点击效果
 import ArticleMetadata from "../components/ArticleMetadata.vue"; // 字数及阅读时间
-import BackToTop from "../components/BackToTop.vue";
 import MNavLinks from "../components/MNavLinks.vue"; // 导航组件
 import ProjectsPanel from "../components/ProjectsPanel.vue"; // 在线项目展示
 import PoetryDisplay from "../components/poetry/PoetryDisplay.vue"; // 诗词展示组件
 import HeroDisplay from "../components/poetry/HeroDisplay.vue"; // 励志文本展示组件
 import FamousDisplay from "../components/poetry/FamousDisplay.vue"; // 名句展示组件
-import CopyMarkdown from "../components/CopyMarkdown.vue"; // 复制完整 Markdown 组件
+
+// 异步组件导入
+const SearchList = defineAsyncComponent(() => import("../components/SearchList.vue"));
+const MyCard = defineAsyncComponent(() => import("../components/MyCard.vue"));
+const DataPanel = defineAsyncComponent(() => import("../components/DataPanel.vue"));
+const Confetti = defineAsyncComponent(() => import("../components/Confetti.vue"));
+const MouseClick = defineAsyncComponent(() => import("../components/MouseClick.vue"));
+const BackToTop = defineAsyncComponent(() => import("../components/BackToTop.vue"));
+const CopyMarkdown = defineAsyncComponent(() => import("../components/CopyMarkdown.vue"));
 
 const BUSUANZI_HOSTNAME = "gouxinjie.github.io";
 

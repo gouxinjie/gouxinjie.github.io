@@ -26,10 +26,11 @@ export default defineConfig({
   description: "XinJie's Blog Web Site", // 站点描述
   lang: "zh-CN", // 站点语言
   head: [
-    // Google Fonts: Inter (正文) + JetBrains Mono (代码)
-    ["link", { rel: "preconnect", href: "https://fonts.googleapis.com" }],
-    ["link", { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" }],
-    ["link", { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" }],
+    // 本地字体配置: Inter (正文) + JetBrains Mono (代码)
+    ["link", { rel: "stylesheet", href: "/font/fonts.css" }],
+
+    // DNS Prefetch
+    ["link", { rel: "dns-prefetch", href: "https://v8p16id925-dsn.algolia.net" }],
 
     // 网站图标
     ["link", { rel: "icon", href: "/xinjie.png" }],
@@ -231,7 +232,7 @@ export default defineConfig({
      * 插件配置
      */
     build: {
-      chunkSizeWarningLimit: 2500,
+      chunkSizeWarningLimit: 1000,
       modulePreload: {
         resolveDependencies(_, deps) {
           return deps.filter((dep) => {
