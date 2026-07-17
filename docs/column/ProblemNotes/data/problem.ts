@@ -38,6 +38,9 @@ export const problemData = [
       },
       {
         text: 'Nextjs16页面循环刷新问题'
+      },
+      {
+        text: "iOS底部TabBar安全区适配"
       }
 
     ]
