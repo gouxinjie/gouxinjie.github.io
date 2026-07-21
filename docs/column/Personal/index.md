@@ -15,7 +15,7 @@ title: 关于 me
     <div class="hero-info">
       <h1>苟新节 (XinJie)</h1>
       <br>
-      <p class="tagline">全栈开发工程师 • 技术探索者 • 终身学习者</p>
+      <p class="tagline">Web开发工程师 • 技术探索者 • 终身学习者</p>
       <div class="hero-desc">
         热爱用代码创造优雅、高性能的 Web 体验。前端深耕 React/Vue 生态，同时涉猎 Node.js、Python 后端及 DevOps 工程化实践。
         <br>相信持续精进的力量——功不唐捐，静水流深。
@@ -306,12 +306,12 @@ title: 关于 me
     <div class="exp-item">
       <div class="exp-date">2025.02 - 至今</div>
       <div class="exp-title">高级前端工程师 <span class="exp-company">上海云济信息科技有限公司</span></div>
-      <div class="exp-content">主导企业级中后台及复杂业务架构设计，沉淀可复用的组件库与技术方案，通过工程化手段提升团队研发效能 30%+。</div>
+      <div class="exp-content">负责复星集团本部的前端日常开发工作，深入对接钉钉微应用建设，同时参与银行服务器运维与跨团队资源整合；优化老项目打包构建优化与工程提效，将 AI工具融入研发流程；使用 AI 表格进行项目的规整和记录。</div>
     </div>
     <div class="exp-item">
       <div class="exp-date">2023.06 - 2024.12</div>
       <div class="exp-title">中级前端工程师 <span class="exp-company">上海盛硅科技发展有限公司</span></div>
-      <div class="exp-content">独立负责多端小程序及大规模中后台系统 from 0 to 1 的全链路开发，参与核心业务建模与技术评审，保障项目高质量交付。</div>
+      <div class="exp-content">独立负责多端小程序及大规模中后台系统 from 0 to 1 的全链路开发，参与核心业务建模与技术评审。沉淀可复用的组件库与技术方案，通过工程化手段提升团队研发效能 30%+。保障项目高质量交付。</div>
     </div>
     <div class="exp-item">
       <div class="exp-date">2020.07 - 2023.05</div>
