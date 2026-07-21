@@ -111,7 +111,7 @@ docs/
 
 - **GitHub Pages** — `gh-pages` 分支，[gouxinjie.github.io](https://gouxinjie.github.io)
 - **Vercel** — 监听同一个仓库，自动构建，[gouxinjie.vercel.app](https://gouxinjie.vercel.app)
-- **ECS** — 阿里云 ECS 自托管，[gouxinjie.com](http://gouxinjie.com)
+- **ECS** — 阿里云 ECS 自托管，[blog.gouxinjie.com](http://blog.gouxinjie.com)（HTTP）
 - **Gitee** — 国内镜像，手动 push 同步
 
 ### ECS 部署详情
@@ -121,8 +121,8 @@ docs/
 - **启动方式**: Nginx 直接托管静态文件，GitHub Actions 构建后 SCP 上传到 ECS
 - **状态**: 正常运行
 - **备注**: GitHub Actions 自动部署，push main 触发 vitepress build → SCP 上传 dist → ECS Nginx reload
-- **端口**: 80 / 443（宿主 Nginx）
-- **访问**: [gouxinjie.com](http://gouxinjie.com) · [gouxinjie.github.io](https://gouxinjie.github.io) · [gouxinjie.vercel.app](https://gouxinjie.vercel.app)
+- **端口**: 80（宿主 Nginx）
+- **访问**: [blog.gouxinjie.com](http://blog.gouxinjie.com) · [gouxinjie.github.io](https://gouxinjie.github.io) · [gouxinjie.vercel.app](https://gouxinjie.vercel.app)
 
 ---
 
