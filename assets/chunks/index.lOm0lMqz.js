@@ -90,7 +90,7 @@ title: 关于 me
   <!-- Deployed Projects -->
   <div class="module-header"><h2>线上项目</h2></div>
   <section class="projects-grid">
-  <a href="http://gouxinjie.com" class="project-card" target="_blank">
+  <a href="http://blog.gouxinjie.com" class="project-card" target="_blank">
   <div class="project-top">
   <div class="project-icon">📝</div>
   <h3 class="project-name">Blog</h3>
@@ -102,7 +102,7 @@ title: 关于 me
   <div class="meta-item"><span class="meta-label">端口</span><span class="meta-val">80</span></div>
   <div class="meta-item"><span class="meta-label">部署</span><span class="meta-val">自动部署</span></div>
   </div>
-  <div class="project-link">gouxinjie.com</div>
+  <div class="project-link">blog.gouxinjie.com</div>
   </a>
   <a href="http://prompt.gouxinjie.com" class="project-card" target="_blank">
   <div class="project-top">
