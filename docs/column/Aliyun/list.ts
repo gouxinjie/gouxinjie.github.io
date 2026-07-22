@@ -11,7 +11,8 @@ const aliyunList = [
       { text: "为什么前端项目部署需要nginx" },
       { text: "GitHub Actions 核心概念详解" },
       { text: "PM2在Next项目部署中的作用" },
-      { text: 'SQLite 和 better-sqlite3介绍' }
+      { text: 'SQLite 和 better-sqlite3介绍' },
+      { text: '为什么使用 Docker 镜像' }
     ]
   },
   {
