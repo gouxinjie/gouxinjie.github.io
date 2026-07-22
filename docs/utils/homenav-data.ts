@@ -162,11 +162,11 @@ export const NAV_DATA: NavData[] = [
  */
 export const PROJECTS_DATA: Project[] = [
   {
-    name: "Blog",
-    desc: "我的博客系统",
-    url: "http://blog.gouxinjie.com",
-    tech: ["VitePress", "GitHub Pages"],
-    deploy: "Git Actions 自动部署，监听本地 80 端口",
+    name: "Mylab",
+    desc: "我的个人项目展示站（Portfolio），支持中英文双语浏览",
+    url: "http://www.gouxinjie.com",
+    tech: ["Next.js", "React 18", "TypeScript", "SCSS", "next-intl", "Docker"],
+    deploy: "Docker Compose 编排（Next.js standalone 镜像 + Nginx 反代），GitHub Actions 构建镜像推送到 ghcr.io 后由 ECS 拉取运行",
   },
   {
     name: "Prompt Gallery",
