@@ -26,7 +26,8 @@ const aliyunList = [
       { text: 'PythonWeb项目发布到ECS实战' },
       { text: 'React+Node+SQLite项目自动发布到ECS实战-git看板' },
       { text: 'Next.js+SQLite项目自动部署到ECS全流程' },
-      { text: 'React+Node+SQLite项目自动发布到ECS实战-天气看板' }
+      { text: 'React+Node+SQLite项目自动发布到ECS实战-天气看板' },
+      { text: 'Next项目+Docker自动部署到ECS实战-个人站点' }
 
     ]
   },
