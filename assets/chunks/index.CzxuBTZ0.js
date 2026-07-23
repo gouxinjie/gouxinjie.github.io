@@ -104,7 +104,7 @@ import { NAV_DATA } from './utils/homenav-data.ts'
 <MNavLinks v-for="{title, items} in NAV_DATA" :title="title" :items="items"/>
 
 <!-- 在线项目 -->
-<ProjectsPanel />
+
 
 <!-- 回到顶部组件由 MyLayout 统一挂载 -->
 `;export{n as default};

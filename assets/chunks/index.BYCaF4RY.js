@@ -90,19 +90,19 @@ title: 关于 me
   <!-- Deployed Projects -->
   <div class="module-header"><h2>线上项目</h2></div>
   <section class="projects-grid">
-  <a href="http://blog.gouxinjie.com" class="project-card" target="_blank">
+  <a href="http://gouxinjie.com" class="project-card" target="_blank">
   <div class="project-top">
-  <div class="project-icon">📝</div>
-  <h3 class="project-name">Blog</h3>
+  <div class="project-icon">💻</div>
+  <h3 class="project-name">Mylab</h3>
   <div class="project-status"><span class="status-dot"></span>运行中</div>
   </div>
-  <div class="project-desc">我的博客系统，记录技术沉淀与成长</div>
+  <div class="project-desc">基于Next.js的个人技术展示的网站</div>
   <div class="project-tags"><span>VitePress</span><span>GitHub Actions</span></div>
   <div class="project-meta">
-  <div class="meta-item"><span class="meta-label">端口</span><span class="meta-val">80</span></div>
+  <div class="meta-item"><span class="meta-label">端口</span><span class="meta-val">3500</span></div>
   <div class="meta-item"><span class="meta-label">部署</span><span class="meta-val">自动部署</span></div>
   </div>
-  <div class="project-link">blog.gouxinjie.com</div>
+  <div class="project-link">gouxinjie.com</div>
   </a>
   <a href="http://prompt.gouxinjie.com" class="project-card" target="_blank">
   <div class="project-top">
