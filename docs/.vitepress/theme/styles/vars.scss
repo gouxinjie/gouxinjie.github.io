@@ -200,9 +200,16 @@
 }
 
 /**
- * 修改全局滚动条样式
+ * 修改全局滚动条样式（跟随主题品牌色变化）
  * -------------------------------------------------------------------------- */
 
+/* Firefox 滚动条（标准属性） */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--vp-c-brand-1) transparent;
+}
+
+/* WebKit 滚动条 */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -214,29 +221,29 @@
 /* 2. 横向滚动条内部的"滑块" */
 ::-webkit-scrollbar-thumb:horizontal {
   height: 10px;
-  background: var(--vp-c-text-3);
+  background: var(--vp-c-brand-1);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--vp-c-bg-soft);
+  background: transparent;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--vp-c-text-3);
+  background: var(--vp-c-brand-1);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--vp-c-text-2);
+  background: var(--vp-c-brand-2);
 }
 
 // 暗黑模式下的滚动条样式
-.dark ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
+.dark, .dark * {
+  scrollbar-color: var(--vp-c-brand-dark) transparent;
 }
 .dark ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--vp-c-brand-dark);
 }
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--vp-c-brand-2);
 }
