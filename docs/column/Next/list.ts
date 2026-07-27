@@ -13,7 +13,13 @@ const nextList = [
         text: "了解CSR、SSR、SSG"
       },
       {
-        text: "什么是RSC渲染"
+        text: 'SSR 服务端渲染的原理'
+      },
+      {
+        text: "什么是 RSC 渲染组件"
+      },
+      {
+        text: 'SSR渲染和RSC组件的区别'
       },
       {
         text: "服务端和客户端组件"

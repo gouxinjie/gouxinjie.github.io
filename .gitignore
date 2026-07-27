@@ -27,3 +27,10 @@ auto-*.d.ts
 
 # OS
 Thumbs.db
+
+# 临时日志 / 诊断文件
+*.log
+dev.err
+dev.log
+build.log
+docs/.vitepress/.temp
