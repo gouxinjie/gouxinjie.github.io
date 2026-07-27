@@ -18,6 +18,9 @@ const shadeStyle = computed(() => ({
 
 const showMouseClick = computed(() => allowMotion.value && route.path === "/");
 
+// 备案号占位：备案通过后填写真实号（如「京ICP备12345678号-1」），留空则不显示
+const beianNo = "沪ICP备2026024942号";
+
 function syncMotionPreference() {
   if (typeof window === "undefined") {
     allowMotion.value = false;
@@ -109,6 +112,23 @@ onBeforeUnmount(() => {
     <template #doc-footer-before>
       <BackToTop />
     </template>
+
+    <template #layout-bottom>
+      <div class="beian-footer">
+        <a
+          v-if="beianNo"
+          class="beian-link"
+          href="https://beian.miit.gov.cn/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg class="beian-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 1 3 5v6c0 5.25 3.75 10.2 9 12 5.25-1.8 9-6.75 9-12V5l-9-4Z" />
+          </svg>
+          <span>{{ beianNo }}</span>
+        </a>
+      </div>
+    </template>
   </Layout>
 </template>
 
@@ -160,5 +180,56 @@ onBeforeUnmount(() => {
 ::view-transition-new(root),
 .dark::view-transition-old(root) {
   z-index: 9999;
+}
+
+.beian-footer {
+  display: flex;
+  justify-content: center;
+  padding: 10px 24px 16px;
+  font-size: 12px;
+}
+
+/* 拉近与 VPFooter 的垂直距离 */
+.VPFooter {
+  margin-bottom: 0 !important;
+  padding-bottom: 8px !important;
+}
+
+.beian-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1;
+  color: var(--vp-c-text-2);
+  text-decoration: none;
+  background: var(--vp-c-bg-soft);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: color 0.25s, border-color 0.25s, background 0.25s,
+    box-shadow 0.25s, transform 0.25s;
+}
+
+.beian-link:hover {
+  color: var(--vp-c-brand-1);
+  border-color: var(--vp-c-brand-1);
+  background: var(--vp-c-bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+.beian-icon {
+  width: 13px;
+  height: 13px;
+  fill: currentColor;
+  opacity: 0.6;
+  transition: opacity 0.25s, transform 0.25s;
+}
+
+.beian-link:hover .beian-icon {
+  opacity: 1;
+  transform: scale(1.12);
 }
 </style>
