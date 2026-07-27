@@ -1,3 +1,5 @@
+/// <reference path="./types.d.ts" />
+
 /**
  * VitePress 站点配置文件
  * 配置站点标题、描述、导航、侧边栏、Markdown 插件等

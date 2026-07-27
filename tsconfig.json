@@ -43,9 +43,11 @@
   "include": [
     "docs/**/*.ts",
     "docs/**/*.tsx",
+    "docs/**/*.d.ts",
     "docs/**/*.vue",
     "docs/**/*.mts",
     "docs/.vitepress/**/*.ts",
+    "docs/.vitepress/**/*.d.ts",
     "docs/.vitepress/**/*.vue"
   ],
   "exclude": [
