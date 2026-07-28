@@ -117,10 +117,12 @@ export default defineConfig({
 
     /**
      * 页脚配置
+     * 注：底部内容与备案号已移至 components/MyLayout.vue 的自定义页脚（#layout-bottom），
+     * 并在此隐藏了默认的 VPFooter，故此处不再单独配置。
      */
     footer: {
-      message: "我见青山多妩媚，料青山见我应如是", // 页脚消息
-      copyright: "Copyright © 2026-present gouxinjie" // 版权信息
+      message: "", // 页脚消息（已迁移至 MyLayout.vue 自定义页脚）
+      copyright: "" // 版权信息（已迁移至 MyLayout.vue 自定义页脚）
     },
 
     /**
