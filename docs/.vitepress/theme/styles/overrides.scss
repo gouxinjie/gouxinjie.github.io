@@ -250,3 +250,11 @@ table {
 .dark::view-transition-old(root) {
   z-index: 9999;
 }
+
+
+/* Mermaid 图表：居中显示 */
+.vp-doc .mermaid {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+}
