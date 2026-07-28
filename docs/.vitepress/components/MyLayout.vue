@@ -18,6 +18,12 @@ const shadeStyle = computed(() => ({
 
 const showMouseClick = computed(() => allowMotion.value && route.path === "/");
 
+// 仅首页（站点根路径与 Personal 主页）显示自定义页脚
+const isHome = computed(() => {
+  const p = route.path.replace(/index\.html$/, "").replace(/\/+$/, "");
+  return p === "" || p === "/column/Personal";
+});
+
 // 备案号占位：备案通过后填写真实号（如「京ICP备12345678号-1」），留空则不显示
 const beianNo = "沪ICP备2026024942号";
 
@@ -136,7 +142,7 @@ function toggleFooterCol(key: keyof FooterCollapsed) {
     </template>
 
     <template #layout-bottom>
-      <footer class="site-footer">
+      <footer v-if="isHome" class="site-footer">
         <div class="footer-inner">
           <div class="footer-col footer-brand">
             <a class="footer-logo" href="/">
