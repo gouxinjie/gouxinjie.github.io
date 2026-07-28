@@ -375,6 +375,34 @@ $hero-glow-3: var(--vp-c-brand-3);
                 letter-spacing: 0.5px;
             }
         }
+
+        // 移动端：取消 nowrap，自动换行，避免卡片被挤压
+        @media (max-width: 640px) {
+            flex-wrap: wrap;
+            gap: 10px;
+
+            .stat-item {
+                flex: 1 1 calc(33.333% - 10px);
+                min-width: calc(33.333% - 10px);
+                padding: 12px 6px;
+
+                .stat-val {
+                    font-size: 1.3rem;
+                }
+
+                .stat-lab {
+                    font-size: 0.75rem;
+                }
+            }
+        }
+
+        // 极窄屏：每行 2 个
+        @media (max-width: 380px) {
+            .stat-item {
+                flex-basis: calc(50% - 10px);
+                min-width: calc(50% - 10px);
+            }
+        }
     }
 
     // ========================================================
