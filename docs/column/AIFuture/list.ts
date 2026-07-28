@@ -48,21 +48,6 @@ const aiFutureList = [
         text: "Agent Skills"
       }
     ]
-  },
-  {
-    text: "趋势观察",
-    collapsed: false,
-    items: [
-      {
-        text: "从卷模型到卷产品：AI应用层的机会在哪"
-      },
-      {
-        text: "AI变成基础设施之后，什么最值钱"
-      },
-      {
-        text: "开发者的AI生存手册：哪些技能在贬值"
-      }
-    ]
   }
 ];
 
