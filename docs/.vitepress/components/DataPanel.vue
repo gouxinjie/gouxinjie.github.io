@@ -95,6 +95,8 @@ onMounted(() => {
 }
 
 .grid img {
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
   transition: transform 0.3s;
@@ -106,16 +108,25 @@ onMounted(() => {
 
 @media (max-width: 640px) {
   .grid {
-    padding: 16px 12px;
-    gap: 4px;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    padding: 18px 16px;
+    gap: 12px;
+  }
+
+  .grid img {
+    width: 72px;
+    height: 72px;
   }
 
   .text {
-    font-size: 0.78rem;
+    font-size: 0.8rem;
+    justify-content: center;
+    text-align: center;
   }
 
   .text :deep(.font-bold) {
-    font-size: 1rem;
+    font-size: 1.05rem;
   }
 }
 </style>
