@@ -1,3 +1,5 @@
+import { text } from "stream/consumers";
+
 export const noteData = [
   {
     text: "日常笔记",
@@ -44,6 +46,9 @@ export const noteData = [
       },
       {
         text: '移动端H5适配方案实践'
+      },
+      {
+        text: '邀请新用户返利链接的实现原理'
       }
     ]
   }

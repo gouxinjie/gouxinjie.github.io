@@ -78,6 +78,9 @@ const vueList = [
         text: "KeepAlive"
       },
       {
+        text: 'KeepAlive原理讲解'
+      },
+      {
         text: "Suspense"
       }
     ]
