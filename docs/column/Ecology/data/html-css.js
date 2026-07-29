@@ -130,7 +130,7 @@ const siteData = [
       {
         icon: "",
         name: "Sass",
-        desc: "世界上最成熟、稳定、强大的专业级 CSS 扩展语言",
+        desc: "世界上最成熟、稳定、强大的专业级 CSS 扩展语言（已弃用 @import，推荐 @use）",
         link: "https://sass.bootcss.com/",
         isHot: true
       },
@@ -175,7 +175,7 @@ const siteData = [
       {
         icon: "",
         name: "Tailwind CSS",
-        desc: "只需书写 HTML 代码，无需书写 CSS，即可快速构建美观的网站",
+        desc: "只需书写 HTML 代码，无需书写 CSS，即可快速构建美观的网站（v4 已发布，基于 Lightning CSS 重构）",
         link: "https://www.tailwindcss.cn/",
         isHot: true
       },
@@ -189,7 +189,7 @@ const siteData = [
       {
         icon: "",
         name: "Windi CSS",
-        desc: "下一代实用为先的CSS框架，它支持按需生成",
+        desc: "下一代实用为先的CSS框架（已停更，官方建议迁移到 UnoCSS）",
         link: "https://windicss.org/",
         isHot: true
       },
@@ -204,6 +204,19 @@ const siteData = [
         name: "Bulma",
         desc: "基于Flexbox的现代CSS框架",
         link: "https://bulma.io/"
+      },
+      {
+        icon: "",
+        name: "Panda CSS",
+        desc: "基于 Rust 的原子化 CSS 引擎，构建时生成类型安全的样式",
+        link: "https://panda-css.com/",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "Open Props",
+        desc: "开箱即用的 CSS 自定义属性（设计变量）集合",
+        link: "https://open-props.style/"
       }
     ]
   },
@@ -295,6 +308,19 @@ const siteData = [
         desc: "字节跳动开源的高质量图标库，超过2000个图标，支持多主题和定制",
         link: "https://iconpark.oceanengine.com/official",
         isHot: true
+      },
+      {
+        icon: "",
+        name: "Lucide",
+        desc: "开源的精美线性图标库，风格统一、可自定义，支持多框架",
+        link: "https://lucide.dev/",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "Tabler Icons",
+        desc: "开源的扁平化 SVG 图标集，可自由调整与导出",
+        link: "https://tabler.io/icons"
       }
     ]
   }

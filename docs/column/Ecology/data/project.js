@@ -83,7 +83,7 @@ const siteData = [
       {
         icon: "",
         name: "Turbopack",
-        desc: "Webpack作者开发的Rust版打包工具，速度极快",
+        desc: "Webpack作者开发的Rust版打包工具，速度极快（仍在 Beta）",
         link: "https://turbo.build/pack",
         isHot: true
       },
@@ -96,9 +96,30 @@ const siteData = [
       },
       {
         icon: "",
-        name: "Rome",
-        desc: "一体化前端工具链，包含编译、打包、lint等功能",
-        link: "https://rome.tools/"
+        name: "Rspack",
+        desc: "字节开源的Rust打包器，兼容 webpack 生态且速度极快",
+        link: "https://rspack.dev/",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "Rolldown",
+        desc: "基于 Rust 的打包器，使用 Oxc 解析，将作为 Vite 的新默认 bundler",
+        link: "https://rolldown.rs/",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "Oxc",
+        desc: "基于 Rust 的 JavaScript/TypeScript 工具链（解析、lint、转换一体化）",
+        link: "https://oxc.rs/",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "Biome",
+        desc: "基于 Rust 的一体化工具链，集 lint 与格式化于一体（原 Rome）",
+        link: "https://biomejs.dev/"
       },
       {
         icon: "",
@@ -165,6 +186,13 @@ const siteData = [
         name: "Husky",
         desc: "Git钩子工具，可在提交前运行检查",
         link: "https://typicode.github.io/husky/"
+      },
+      {
+        icon: "",
+        name: "Oxlint",
+        desc: "基于 Rust 的极速 linter，可替代 ESLint 做增量检查",
+        link: "https://oxc.rs/docs/guide/usage/linter.html",
+        isHot: true
       }
     ]
   },
@@ -262,6 +290,19 @@ const siteData = [
         name: "Netlify",
         desc: "现代化Web应用部署平台",
         link: "https://www.netlify.com/"
+      },
+      {
+        icon: "",
+        name: "Cloudflare Pages",
+        desc: "Cloudflare 提供的全球边缘部署平台，与 Workers 深度集成",
+        link: "https://pages.cloudflare.com/",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "Render",
+        desc: "面向现代应用的托管平台，支持自动部署与托管服务",
+        link: "https://render.com/"
       }
     ]
   }

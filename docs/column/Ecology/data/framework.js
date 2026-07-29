@@ -76,8 +76,8 @@ const siteData = [
       },
       {
         icon: "",
-        name: "Volar",
-        desc: "Vue官方推荐的VSCode插件",
+        name: "Vue - Official",
+        desc: "Vue官方VS Code插件（原 Volar，提供语法高亮、类型检查与补全）",
         link: "https://marketplace.visualstudio.com/items?itemName=Vue.volar"
       },
       {
@@ -106,8 +106,8 @@ const siteData = [
       },
       {
         icon: "",
-        name: "React Router v6",
-        desc: "React路由",
+        name: "React Router v7",
+        desc: "React路由，已合并 Remix 能力，支持框架模式与数据加载",
         link: "https://reactrouter.com/en/main",
         isHot: true
       },
@@ -180,14 +180,36 @@ const siteData = [
       {
         icon: "",
         name: "Remix",
-        desc: "是一个全栈Web框架，由 React Router 原班团队打造",
+        desc: "是一个全栈Web框架，由 React Router 原班团队打造（能力已并入 React Router v7）",
         link: "https://remix.run/"
       },
       {
         icon: "",
-        name: "React Query",
-        desc: "React数据获取库",
-        link: "https://tanstack.com/query/latest"
+        name: "TanStack Query",
+        desc: "React数据获取与缓存库（原 React Query）",
+        link: "https://tanstack.com/query/latest",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "TanStack Router",
+        desc: "类型安全的React路由库，支持搜索参数与数据加载",
+        link: "https://tanstack.com/router/latest",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "React Compiler",
+        desc: "React官方编译优化器，自动记忆化组件，减少手动 useMemo",
+        link: "https://react.dev/learn/react-compiler",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "Radix UI",
+        desc: "无样式、可访问的React组件原语，便于自定义设计系统",
+        link: "https://www.radix-ui.com/",
+        isHot: true
       },
       {
         icon: "",
@@ -203,56 +225,56 @@ const siteData = [
       {
         icon: "",
         name: "Angular",
-        desc: "现代Web开发平台，构建高效单页应用",
-        link: "https://angular.cn/ "
+        desc: "现代Web开发平台，构建高效单页应用（当前稳定版 v21）",
+        link: "https://angular.cn/"
       },
       {
         icon: "",
         name: "Angular CLI",
         desc: "官方命令行工具，快速初始化与构建项目",
-        link: "https://cli.angular.io/ "
+        link: "https://cli.angular.io/"
       },
       {
         icon: "",
         name: "RxJS",
         desc: "响应式编程库，优雅处理异步与事件流",
-        link: "https://rxjs.dev/ "
+        link: "https://rxjs.dev/"
       },
       {
         icon: "",
         name: "NgRx",
         desc: "Redux风格状态管理，集中维护应用数据",
-        link: "https://ngrx.io/ "
+        link: "https://ngrx.io/"
       },
       {
         icon: "",
         name: "Ionic",
         desc: "跨平台移动开发框架，一套代码多端运行",
-        link: "https://ionicframework.com/ "
+        link: "https://ionicframework.com/"
       },
       {
         icon: "",
         name: "Angular Material",
         desc: "Material Design组件库，统一视觉交互风格",
-        link: "https://material.angular.io/ "
+        link: "https://material.angular.io/"
       },
       {
         icon: "",
         name: "NG-ZORRO",
         desc: "阿里企业级组件库，贴合中后台业务场景",
-        link: "https://ng.ant.design/docs/introduce/zh "
+        link: "https://ng.ant.design/docs/introduce/zh"
       },
       {
         icon: "",
         name: "Angular Universal",
         desc: "官方服务端渲染方案，提升SEO与首屏性能",
-        link: "https://angular.io/guide/universal "
+        link: "https://angular.io/guide/universal"
       },
       {
         icon: "",
         name: "Nx",
         desc: "Monorepo开发工具集，高效管理多应用共享库",
-        link: "https://nx.dev/ "
+        link: "https://nx.dev/"
       }
     ]
   },
@@ -263,48 +285,48 @@ const siteData = [
         icon: "",
         name: "Uni-app",
         desc: "基于Vue的多端框架，编译到小程序、App、H5、桌面等全平台",
-        link: "https://uniapp.dcloud.io/ ",
+        link: "https://uniapp.dcloud.io/",
         isHot: true
       },
       {
         icon: "",
         name: "Taro",
         desc: "一套代码编译到微信/支付宝/百度/QQ小程序及H5、RN",
-        link: "https://taro.jd.com/ ",
+        link: "https://taro.jd.com/",
         isHot: true
       },
       {
         icon: "",
         name: "Flutter",
         desc: "Google UI工具包，编译原生ARM代码流畅运行iOS/Android",
-        link: "https://flutter.dev/ ",
+        link: "https://flutter.dev/",
         isHot: true
       },
       {
         icon: "",
         name: "React Native",
         desc: "React语法写原生应用，共享JS代码实现iOS与Android",
-        link: "https://reactnative.dev/ ",
+        link: "https://reactnative.dev/",
         isHot: true
       },
       {
         icon: "",
         name: "Electron",
         desc: "Web技术栈打包桌面程序，一次开发同时支持Win/macOS/Linux",
-        link: "https://www.electronjs.org/ ",
+        link: "https://www.electronjs.org/",
         isHot: true
       },
       {
         icon: "",
         name: "Capacitor",
         desc: "Ionic团队维护的跨平台运行时，把Web应用封装成原生壳",
-        link: "https://capacitorjs.com/ "
+        link: "https://capacitorjs.com/"
       },
       {
         icon: "",
         name: "Weex",
         desc: "阿里开源移动端跨平台方案，Vue语法写页面原生渲染",
-        link: "https://weexapp.com/zh/ "
+        link: "https://weexapp.com/zh/"
       }
     ]
   },
@@ -315,28 +337,56 @@ const siteData = [
         icon: "",
         name: "Node.js",
         desc: "Chrome V8驱动的JavaScript服务端运行环境",
-        link: "https://nodejs.org/ ",
+        link: "https://nodejs.org/",
         isHot: true
       },
       {
         icon: "",
         name: "Express",
         desc: "极简灵活的Web框架，一键搭建REST API与中间件链",
-        link: "https://expressjs.com/ ",
+        link: "https://expressjs.com/",
         isHot: true
       },
       {
         icon: "",
         name: "Koa",
         desc: "下一代Web框架，基于Async/Await实现更轻量的中间件机制",
-        link: "https://koajs.com/ ",
+        link: "https://koajs.com/",
         isHot: true
       },
       {
         icon: "",
         name: "Nest.js",
         desc: "企业级渐进式框架，内置IoC与模块化，支持微服务与GraphQL",
-        link: "https://docs.nestjs.cn/ ",
+        link: "https://docs.nestjs.cn/",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "Hono",
+        desc: "超轻量、跨运行时的Web框架，基于 Web Standards，适合边缘与全栈",
+        link: "https://hono.dev/",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "Fastify",
+        desc: "高性能、低开销的Node.js Web框架，内置schema校验",
+        link: "https://fastify.dev/",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "Elysia",
+        desc: "基于 Bun 的极致性能 TypeScript 框架，类型推导友好",
+        link: "https://elysiajs.com/",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "Rspack",
+        desc: "字节开源的Rust打包器，兼容 webpack 生态且速度极快",
+        link: "https://rspack.dev/",
         isHot: true
       }
     ]
@@ -348,7 +398,7 @@ const siteData = [
         icon: "",
         name: "ECharts",
         desc: "一个基于 JavaScript 的开源可视化图表库",
-        link: "https://echarts.apache.org/zh/index.html ",
+        link: "https://echarts.apache.org/zh/index.html",
         isHot: true
       },
       {
@@ -377,6 +427,20 @@ const siteData = [
         name: "Chart.js",
         desc: "一个基于 HTML5 的图表库，简单易用，功能强大",
         link: "https://www.chartjs.org/"
+      },
+      {
+        icon: "",
+        name: "react-three-fiber",
+        desc: "Three.js 的 React 渲染器，用声明式组件写 3D 场景",
+        link: "https://r3f.docs.pmnd.rs/",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "PixiJS",
+        desc: "基于 WebGL 的高性能 2D 渲染库，适合游戏与交互动画",
+        link: "https://pixijs.com/",
+        isHot: true
       }
     ]
   },
@@ -387,7 +451,7 @@ const siteData = [
         icon: "",
         name: "VitePress",
         desc: "基于 Vue 的静态站点生成器，简单易用，功能强大",
-        link: "https://vitepress.dev/ ",
+        link: "https://vitepress.dev/",
         isHot: true
       },
       {
@@ -414,6 +478,27 @@ const siteData = [
         name: "Hexo",
         desc: "基于 Node.js 的静态站点生成器，简单易用，功能强大",
         link: "https://hexo.io/"
+      },
+      {
+        icon: "",
+        name: "Nextra",
+        desc: "基于 Next.js 的文档站点框架，MDX 驱动、主题精美",
+        link: "https://nextra.site/",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "Fumadocs",
+        desc: "基于 Next.js 的现代化文档生成方案，类型安全、可定制",
+        link: "https://fumadocs.dev/",
+        isHot: true
+      },
+      {
+        icon: "",
+        name: "Rspress",
+        desc: "字节开源的基于 Rspack 的静态站点生成器，构建极快",
+        link: "https://rspress.dev/",
+        isHot: true
       }
     ]
   }
