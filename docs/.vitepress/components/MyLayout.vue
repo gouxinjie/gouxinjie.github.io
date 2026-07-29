@@ -311,7 +311,7 @@ function toggleFooterCol(key: keyof FooterCollapsed) {
 .footer-inner {
   max-width: 1152px;
   margin: 0 auto;
-  padding: 32px 24px 20px;
+  padding: 20px 24px 20px;
   display: grid;
   grid-template-columns: 1.8fr 1fr 1fr 1fr;
   gap: 32px;
@@ -411,15 +411,6 @@ function toggleFooterCol(key: keyof FooterCollapsed) {
   display: flex;
   align-items: center;
   gap: 6px;
-}
-
-.footer-col h4::before {
-  content: "";
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--vp-c-brand-1);
 }
 
 /* 折叠箭头：桌面端隐藏，移动端显示 */
@@ -572,7 +563,7 @@ function toggleFooterCol(key: keyof FooterCollapsed) {
   .footer-inner {
     grid-template-columns: 1fr 1fr;
     gap: 24px;
-    padding: 28px 24px 16px;
+    padding: 18px 24px 16px;
   }
 
   .footer-brand {
