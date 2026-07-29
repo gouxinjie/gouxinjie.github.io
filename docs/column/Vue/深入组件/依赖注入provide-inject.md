@@ -1,172 +1,313 @@
-# Vue 依赖注入(provide/inject) 的原理
+# Vue 依赖注入(provide/inject)：组件跨层级通信的优雅方案
 
 [[toc]]
 
-在 Vue 中，`provide` 和 `inject` 用于解决跨层级组件通信（避免“Prop 逐级透传 / Prop Drilling”）。
+`provide` 和 `inject` 是 Vue 3 提供的新特性，主要用于在 **组件树** 中 **祖先组件与后代组件之间共享数据**。它们是一种 **依赖注入**（Dependency Injection，简称 DI）机制，用于避免通过逐层传递 props 或使用 `vuex` 等全局状态管理工具来共享数据。
 
-它的核心设计非常优雅，在 **Vue 3** 中，实现原理本质上巧用了 **JavaScript 原型链（Prototype Chain）** 的查找特性；而在 **Vue 2** 中，则是基于 **组件实例链逐级向上遍历（`while` 循环）**。
+::: tip
 
-![provide-inject-vue3-vue2](../images/provide.png)
+这对 **深层嵌套组件** 或 **跨层级组件** 的数据传递非常有用，能够简化组件间的通信。
 
-## 一、 Vue 3 的实现原理：原型链（Prototype Chain）
+:::
 
-Vue 3 的 `provide / inject` 依靠组件实例（Component Instance）上的 `provides` 对象来实现。
+## 1. `provide` 和 `inject` 的基本概念
 
-### 1. 关键的数据结构
+- **`provide`**：在祖先组件中定义并提供数据或方法。
+- **`inject`**：在后代组件中注入祖先组件提供的数据或方法。
 
-每一个组件实例内部都有一个 `provides` 属性：
+这种方式解决了 **prop drilling**（逐层传递 props）的问题，使得跨层级组件的数据共享变得更容易。
 
-* 默认情况下，子组件的 `instance.provides` 简单**继承/指向**父组件的 `provides`。
-* 当子组件 **自己也调用 `provide()`** 时，Vue 会以父组件的 `provides` 为原型（`Object.create()`）创建一个新的 `provides` 对象。
+## 2. `provide` 和 `inject` 的工作原理
 
-### 2. `provide` 源码逻辑与原型链构建
+### 2.1. `provide`
 
-在 Vue 3 源码中（简化版逻辑）：
+`provide` 让你在祖先组件中提供一个值，后代组件可以使用 `inject` 来获取这个值。通过 `provide` 提供的数据可以是 **任何类型的值**，包括对象、数组、方法等。
 
-```typescript
-export function provide<T>(key: InjectionKey<T> | string | number, value: T) {
-  // 1. 获取当前正在初始化的组件实例
-  const currentInstance = currentInstance
+### 2.2. `inject`
 
-  if (currentInstance) {
-    let provides = currentInstance.provides
-    const parentProvides = currentInstance.parent && currentInstance.parent.provides
+`inject` 用于在后代组件中接收祖先组件通过 `provide` 提供的数据。`inject` 只能用于 **后代组件**，而且不能直接修改从 `provide` 获取的数据。
 
-    // 2. 第一次在该组件中 provide 时，进行初始化
-    // 默认情况下 provides 和 parent.provides 指向同一个对象
-    if (provides === parentProvides) {
-      // 巧用 Object.create：以父级的 provides 为原型创建一个新的对象！
-      provides = currentInstance.provides = Object.create(parentProvides)
-    }
+## 3. `provide` 和 `inject` 的基本用法
 
-    // 3. 将 key-value 挂载到全新的 provides 对象上
-    provides[key as string] = value
+### 3.1. 在祖先组件中使用 `provide`
+
+```vue
+<template>
+  <div>
+    <h2>祖先组件</h2>
+    <p>{{ message }}</p>
+    <child></child>
+    <!-- 子组件 -->
+  </div>
+</template>
+
+<script>
+import { provide } from "vue";
+import Child from "./Child.vue";
+
+export default {
+  components: { Child },
+  setup() {
+    const message = "Hello from the parent!";
+    provide("message", message); // 提供数据给后代组件
+
+    return { message };
   }
-}
-
+};
+</script>
 ```
 
-#### 原型链是如何建立起来的？
+### 3.2. 在后代组件中使用 `inject`
 
-假设存在组件树：`App (Root) -> Parent -> Child`
+```vue
+<template>
+  <div>
+    <h3>子组件</h3>
+    <p>{{ injectedMessage }}</p>
+    <!-- 获取祖先组件的数据 -->
+  </div>
+</template>
 
-1. **Root 组件**：`provides = {}`
-2. **Parent 组件初始化**：
-* 默认继承 Root：`Parent.provides = Root.provides`
-* Parent 调用 `provide('theme', 'dark')`：
-* 触发 `provides === parentProvides` 校验，执行 `Parent.provides = Object.create(Root.provides)`
-* 此时 `Parent.provides.__proto__ === Root.provides`
+<script>
+import { inject } from "vue";
 
+export default {
+  setup() {
+    const injectedMessage = inject("message"); // 注入祖先组件提供的数据
 
-3. **Child 组件初始化**：
-* 默认继承 Parent：`Child.provides = Parent.provides`
-
-
-
-最终形成的 `provides` 原型链链路如下：
-
-```text
-Child.provides  ──(继承)──>  Parent.provides  ──(__proto__)──>  Root.provides
-
-```
-
-### 3. `inject` 源码逻辑：直接属性查找
-
-因为原型链已经建立好，`inject` 查找数据的实现变得极为简单和高效：
-
-```typescript
-export function inject(key, defaultValue, treatDefaultAsFactory = false) {
-  // 1. 获取当前组件实例
-  const instance = currentInstance || currentRenderingInstance
-
-  if (instance) {
-    // 2. 注意：如果 ancestor/parent 存在，优先从 parent.provides 中查找
-    const provides = instance.parent == null
-      ? instance.vnode.appContext && instance.vnode.appContext.provides
-      : instance.parent.provides
-
-    // 3. 利用 JS 原型链机制直接检索 key
-    if (provides && key in provides) {
-      return provides[key]
-    } else if (arguments.length > 1) {
-      // 支持默认值
-      return treatDefaultAsFactory && isFunction(defaultValue)
-        ? defaultValue.call(instance.proxy)
-        : defaultValue
-    }
+    return { injectedMessage };
   }
-}
-
+};
+</script>
 ```
 
-因为 `provides` 建立了原型链结构，执行 `key in provides` 或 `provides[key]` 时，JavaScript 引擎会**自动沿着 `__proto__` 向上查找**，直到找到对应的属性或到达终端 `null`。这意味着 `inject` 查找的时间复杂度接近 $O(1)$，效率极高。
+### 解释：
 
-## 二、 Vue 2 的实现原理：沿父链向上递归遍历
+- **祖先组件**：使用 `provide('message', message)` 来提供数据 `message`。
+- **子组件**：使用 `inject('message')` 来获取祖先组件提供的 `message`。
 
-在 Vue 2 的 Options API 中，实现机制有所不同：
+这样，`provide` 和 `inject` 让你不需要逐层传递 `props`，也不需要使用 Vuex 这种全局状态管理工具，在组件树之间共享数据变得更加便捷。
 
-1. **`provide` 阶段**：
-在组件初始化（`initInjections` -> `initProvide`）时，运行 `provide` 选项（若是函数则执行并获取返回的对象），直接将其挂载在 `vm._provided` 属性上。
-2. **`inject` 阶段**：
-在子组件初始化 `initInjections` 时，Vue 2 会通过一个 `while` 循环，**沿着 `$parent` 指针逐级向上查找**：
+## 4. `provide` 和 `inject` 进阶用法
 
-```javascript
-// Vue 2 核心思想模拟
-function initInjections (vm) {
-  const result = resolveInject(vm.$options.inject, vm)
-  // ... 将 result 定义为响应式/挂载到 vm 上
-}
+### 4.1. 提供和注入对象
 
-function resolveInject (inject, vm) {
-  if (inject) {
-    const result = {}
-    const keys = Object.keys(inject)
+`provide` 和 `inject` 可以传递一个对象，这对于共享复杂的数据或方法特别有用。
 
-    for (let i = 0; i < keys.length; i++) {
-      const key = keys[i]
-      let source = vm
-      // 沿 $parent 树一直向上搜寻，直到找到 _provided 中包含 key 的祖先
-      while (source) {
-        if (source._provided && hasOwn(source._provided, key)) {
-          result[key] = source._provided[key]
-          break
-        }
-        source = source.$parent
-      }
-    }
-    return result
+#### 示例：提供和注入一个对象
+
+```vue
+<template>
+  <div>
+    <h2>祖先组件</h2>
+    <p>{{ message }}</p>
+    <child></child>
+  </div>
+</template>
+
+<script>
+import { provide } from "vue";
+import Child from "./Child.vue";
+
+export default {
+  components: { Child },
+  setup() {
+    const state = reactive({
+      message: "Hello from the parent!",
+      counter: 0
+    });
+
+    provide("state", state); // 提供一个对象
+
+    return { state };
   }
-}
-
+};
+</script>
 ```
 
-* **Vue 2 缺点**：如果有深度嵌套的组件树，每次 `inject` 都需要运行 `while` 循环做链表遍历，查找性能略低于 Vue 3 的原型链。
+子组件：
 
-## 三、 响应式原理（为什么 provide 的值能保持响应式？）
+```vue
+<template>
+  <div>
+    <h3>子组件</h3>
+    <p>{{ injectedState.message }}</p>
+    <p>Counter: {{ injectedState.counter }}</p>
+  </div>
+</template>
 
-许多开发者有一个误区，以为 `provide` 本身会自动把数据变成响应式的。**事实上，`provide` / `inject` 本身只负责传递引用（Pass by reference）。**
+<script>
+import { inject } from "vue";
 
-1. **传递非响应式数据（如普通字符串/数字）**：
-`provide('color', 'red')` -> 子组件 `inject('color')` 拿到的是静态字面量，后续父组件修改变量，子组件不会触发视图更新。
-2. **传递响应式数据（如 `ref` 或 `reactive`）**：
-`provide('color', ref('red'))` -> `provides` 对象上保存的是该 `ref` 的引用。
-当子组件在 Template 中使用这个 `inject` 进来的 `ref` 时，**子组件的渲染 Watcher 会自动收集这个 `ref` 的依赖**。当父组件更新 `ref.value` 时，依赖触发，子组件自然随之重新渲染。
+export default {
+  setup() {
+    const injectedState = inject("state"); // 注入对象
 
+    return { injectedState };
+  }
+};
+</script>
+```
 
-## 四、 Vue 2 vs Vue 3 原理对比表
+### 4.2. `inject` 的默认值
 
-| 维度 | Vue 2 实现 | Vue 3 实现 |
-| --- | --- | --- |
-| **内部存储字段** | `vm._provided` | `instance.provides` |
-| **查找算法** | `while(source = source.$parent)` 递归向上遍历 | 利用 `Object.create()` 建立原型链，直接读取 |
-| **性能表现** | 嵌套越深，查找越慢 | 借助 JS 引擎优化，原型链查找性能更优 |
-| **与 Setup 配合** | Options 阶段通过 `initInjections` 确定 | 可以在 `setup()` 中灵活多次调用 `provide/inject` |
+当使用 `inject` 时，如果祖先组件没有提供相应的值，你可以设置一个 **默认值**，这样后代组件就不会报错。
 
-## 五、 总结
+#### 示例：设置默认值
 
-Vue 的 `provide / inject` 依赖注入机制，巧妙地避开了组件层层透传 Props 的尴尬。
+```vue
+<template>
+  <div>
+    <h3>子组件</h3>
+    <p>{{ injectedMessage }}</p>
+  </div>
+</template>
 
-* **在 Vue 3 中**，它利用 JavaScript 的 `Object.create()` 在组件初始化时动态构建了一条基于 `provides` 的原型链，让 `inject` 操作可以直接依赖引擎底层的属性查找机制，高效且优雅。
-* **在响应式处理上**，它遵循“只传引用，不改本质”的原则，完美契合 Vue 自身的依赖收集与响应式更新体系。
+<script>
+import { inject } from "vue";
 
-掌握了这一底层原理，在日常架构大型应用或封装复杂组件库（如 Form、Tree、Menu 等）时，我们就能更加游刃有余地运用 `provide / inject` 来设计解耦、高效的通信方案。
+export default {
+  setup() {
+    const injectedMessage = inject("message", "Default message"); // 如果没有提供 `message`，使用默认值
+
+    return { injectedMessage };
+  }
+};
+</script>
+```
+
+如果祖先组件没有提供 `message`，则子组件会使用默认值 `'Default message'`。
+
+### 4.3. 动态更新 `provide` 的值
+
+`provide` 提供的值是 **响应式** 的，如果提供的值是响应式对象（如 `ref`、`reactive`），那么在后代组件中注入的值也会自动更新。
+
+#### 示例：动态更新 `provide` 的值
+
+```vue
+<template>
+  <div>
+    <h2>祖先组件</h2>
+    <p>{{ state.counter }}</p>
+    <button @click="incrementCounter">Increment</button>
+    <child></child>
+  </div>
+</template>
+
+<script>
+import { provide, reactive } from "vue";
+import Child from "./Child.vue";
+
+export default {
+  components: { Child },
+  setup() {
+    const state = reactive({ counter: 0 });
+
+    provide("state", state); // 提供响应式对象
+
+    const incrementCounter = () => {
+      state.counter++; // 更新 state 中的数据
+    };
+
+    return { state, incrementCounter };
+  }
+};
+</script>
+```
+
+子组件：
+
+```vue
+<template>
+  <div>
+    <h3>子组件</h3>
+    <p>Counter in child: {{ injectedState.counter }}</p>
+  </div>
+</template>
+
+<script>
+import { inject } from "vue";
+
+export default {
+  setup() {
+    const injectedState = inject("state"); // 注入响应式对象
+
+    return { injectedState };
+  }
+};
+</script>
+```
+
+在这个例子中，`state` 是一个响应式对象，`counter` 的变化会自动在祖先组件和子组件之间同步更新。
+
+### 4.4. 在组件间共享方法
+
+除了共享数据，`provide` 和 `inject` 还可以用来共享方法或事件处理函数。
+
+#### 示例：共享方法
+
+```vue
+<template>
+  <div>
+    <h2>祖先组件</h2>
+    <button @click="incrementCounter">Increment Counter</button>
+    <child></child>
+  </div>
+</template>
+
+<script>
+import { provide, reactive } from "vue";
+import Child from "./Child.vue";
+
+export default {
+  components: { Child },
+  setup() {
+    const state = reactive({ counter: 0 });
+
+    const incrementCounter = () => {
+      state.counter++;
+    };
+
+    provide("incrementCounter", incrementCounter); // 提供方法
+
+    return { incrementCounter };
+  }
+};
+</script>
+```
+
+子组件：
+
+```vue
+<template>
+  <div>
+    <h3>子组件</h3>
+    <button @click="incrementCounter">Increment Counter</button>
+  </div>
+</template>
+
+<script>
+import { inject } from "vue";
+
+export default {
+  setup() {
+    const incrementCounter = inject("incrementCounter"); // 注入方法
+
+    return { incrementCounter };
+  }
+};
+</script>
+```
+
+在这个例子中，祖先组件提供了一个 `incrementCounter` 方法，子组件注入并使用它来更新 `counter`。
+
+## 5. 总结
+
+`provide` 和 `inject` 是 Vue 中用于 **跨层级组件通信** 的强大工具，它们简化了在深层嵌套组件中传递数据的过程。通过 `provide`，你可以在祖先组件中提供数据或方法，后代组件通过 `inject` 注入并使用它们。
+
+- `provide` 用于在祖先组件中提供数据或方法。
+- `inject` 用于在后代组件中注入祖先组件提供的数据或方法。
+- `provide` 和 `inject` 是响应式的，可以在组件树中共享响应式对象和方法。
+- 如果祖先组件没有提供对应的数据，`inject` 可以使用默认值。
+
+不过需要注意的是，`provide` 和 `inject` 并不适合用于全局状态管理，通常用于跨层级传递数据。如果你需要全局状态管理，仍然推荐使用 Vuex。
