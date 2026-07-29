@@ -61,6 +61,9 @@ export default defineConfig({
     // 主题颜色
     ["meta", { name: "theme-color", content: "#3eaf7c" }],
     ["meta", { name: "msapplication-TileColor", content: "#3eaf7c" }],
+
+    // 百度统计
+    ["script", {}, "var _hmt=_hmt||[];(function(){var hm=document.createElement('script');hm.src='https://hm.baidu.com/hm.js?a53e5ca2ef7c9063450d8922ca7ae449';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(hm,s);})();"],
   ],
 
   // appearance: "dark", // 外观模式: force-dark(强制暗色), light(浅色), undefined(跟随系统)

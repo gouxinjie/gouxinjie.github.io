@@ -96,9 +96,14 @@ const theme: Theme = {
         NProgress.start(); // 开始进度条
       };
 
-      router.onAfterRouteChange = () => {
+      router.onAfterRouteChange = (to) => {
         void fetchBusuanzi(); // 触发访问量统计
         NProgress.done(); // 停止进度条
+
+        // 百度统计：SPA 路由切换上报 PV
+        if (import.meta.env.PROD && (window as any)._hmt) {
+          (window as any)._hmt.push(["_trackPageview", to]);
+        }
       };
     }
   },
