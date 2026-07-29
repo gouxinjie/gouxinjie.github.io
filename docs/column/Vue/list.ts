@@ -78,6 +78,9 @@ const vueList = [
         text: "Teleport"
       },
       {
+        text: "Teleport原理讲解"
+      },
+      {
         text: "Transition"
       },
       {
@@ -88,6 +91,9 @@ const vueList = [
       },
       {
         text: "Suspense"
+      },
+      {
+        text: 'Suspense原理讲解'
       }
     ]
   },
