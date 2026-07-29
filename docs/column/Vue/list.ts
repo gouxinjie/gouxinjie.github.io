@@ -56,7 +56,10 @@ const vueList = [
         text: "scoped属性原理"
       },
       {
-        text: "依赖注入"
+        text: "依赖注入provide-inject"
+      },
+      {
+        text: "依赖注入provide-inject实现原理"
       },
       {
         text: "异步组件"

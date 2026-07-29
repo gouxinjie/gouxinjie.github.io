@@ -44,18 +44,8 @@ const nextList = [
           }
         ]
       },
-
       {
         text: "layout页面布局"
-      }
-    ]
-  },
-  {
-    text: "进阶",
-    collapsed: false,
-    items: [
-      {
-        text: "集成aiSDK"
       },
       {
         text: "自定义Document"
@@ -64,13 +54,22 @@ const nextList = [
         text: "自定义错误页面"
       },
       {
-        text: "middleware中间件"
+        text: "Script组件"
       },
+    ]
+  },
+  {
+    text: "进阶",
+    collapsed: false,
+    items: [
       {
         text: "图像优化"
       },
       {
-        text: "Script组件"
+        text: "集成aiSDK"
+      },
+      {
+        text: "middleware中间件"
       },
       {
         text: "Turbopack构建工具"
@@ -89,6 +88,9 @@ const nextList = [
       },
       {
         text: "Nextjs打包为什么比较大"
+      },
+      {
+        text: 'Next.js的standalone构建原理和作用'
       }
     ]
   }
