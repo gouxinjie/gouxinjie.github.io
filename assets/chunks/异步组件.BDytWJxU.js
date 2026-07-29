@@ -1,4 +1,4 @@
-const n=`# Vue 异步组件(defineAsyncComponent)：优化应用加载性能
+const n=`# Vue3 异步组件(defineAsyncComponent)使用
 
 ::: tip 异步组件
 
