@@ -6,12 +6,11 @@ const aliyunList = [
     collapsed: false,
     items: [
       { text: "阿里云 ECS 入门介绍" },
-      { text: '阿里云的容器镜像服务讲解' },
+      { text: '阿里云的容器镜像ACR' },
       { text: '阿里云安全组和服务器防火墙' },
       { text: "为什么前端项目部署需要nginx" },
       { text: "GitHub Actions 核心概念详解" },
-      { text: "PM2在Next项目部署中的作用" },
-      { text: 'SQLite 和 better-sqlite3介绍' }
+      { text: "PM2在Next项目部署中的作用" }
     ]
   },
   {
@@ -27,7 +26,8 @@ const aliyunList = [
       { text: 'React+Node+SQLite项目自动发布到ECS实战-git看板' },
       { text: 'Next.js+SQLite项目自动部署到ECS全流程' },
       { text: 'React+Node+SQLite项目自动发布到ECS实战-天气看板' },
-      { text: 'Next项目+Docker自动部署到ECS实战-个人站点' }
+      { text: 'Next项目+Docker自动部署到ECS实战-个人站点' },
+      { text: 'React+Python+Mysql+Docker自动部署到ECS实战-ai聊天' }
 
     ]
   },
