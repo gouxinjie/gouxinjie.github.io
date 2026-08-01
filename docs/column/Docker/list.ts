@@ -2,7 +2,7 @@ import { transformMenuList } from "../../utils/functions";
 
 const dockerList = [
   {
-    text: "Docker容器与部署",
+    text: "基础",
     collapsed: false,
     items: [
       { text: "核心概念和安装" },
@@ -12,6 +12,13 @@ const dockerList = [
       { text: "Docker网络" },
       { text: "容器存储" },
       { text: "容器日志和监控" },
+      { text: "Docker 镜像与网络隔离" }
+    ]
+  },
+  {
+    text: "进阶",
+    collapsed: false,
+    items: [
       { text: "Docker本地部署CSR前端项目" },
       { text: "Docker本地部署SSR前端项目" }
     ]
