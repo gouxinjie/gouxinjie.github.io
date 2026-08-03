@@ -46,6 +46,9 @@ const aiFutureList = [
       },
       {
         text: "Agent Skills"
+      },
+      {
+        text: "为什么 prompt 开头要写「你是 xx 专家」？"
       }
     ]
   }
