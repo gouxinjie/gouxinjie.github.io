@@ -49,7 +49,7 @@ import { ref, computed } from 'vue';
 
 - 在 \`setup\` 函数中，我们通过 \`ref\` 创建了 \`firstName\` 和 \`lastName\` 两个响应式数据。
 - 使用 \`computed\` 创建了 \`fullName\` 计算属性，它会基于 \`firstName\` 和 \`lastName\` 自动计算并返回一个拼接后的字符串。
-- 在模板中，\`{{ fullName }}\` 会自动显示计算后的结果。当 \`firstName\` 或 \`lastName\` 改变时，\`fullName\` 会自动重新计算并更新视图。
+- 在模板中，\`&#123;&#123; fullName &#125;&#125;\` 会自动显示计算后的结果。当 \`firstName\` 或 \`lastName\` 改变时，\`fullName\` 会自动重新计算并更新视图。
 
 ## 3. 计算属性的 Getter 和 Setter
 
