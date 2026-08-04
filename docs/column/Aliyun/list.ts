@@ -19,6 +19,7 @@ const aliyunList = [
     items: [
       { text: "VitePress博客自动部署到ECS" },
       { text: "Next.js项目自动部署到ECS-prompt案例" },
+      { text: 'OSS图片加载实时转JPG方案' },
       { text: 'Nuxt.js项目自动部署到ECS-个人档案' },
       { text: 'ECS+Nginx配置二级域名与多项目部署实战' },
       { text: 'PythonWeb项目发布到ECS实战' },
