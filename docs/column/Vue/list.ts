@@ -7,10 +7,19 @@ const vueList = [
     collapsed: false,
     items: [
       {
+        text: 'Vue2核心响应式与渲染原理拆解'
+      },
+      {
+        text: 'Vue3核心响应式与渲染原理拆解'
+      },
+      {
         text: "生命周期"
       },
       {
         text: "计算属性"
+      },
+      {
+        text: "计算属性原理拆解"
       },
       {
         text: "类与样式绑定"
