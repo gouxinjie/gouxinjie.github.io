@@ -4,6 +4,8 @@ const n=`# Vue 2 核心响应式与渲染原理全景拆解
 
 [[toc]]
 
+![Vue2核心响应式与渲染原理拆解](../images/vue2.png)
+
 ## 1. 响应式基石：\`Object.defineProperty\` 与 Getter / Setter
 
 Vue 2 在初始化时，利用 \`Object.defineProperty\` 将 \`data\` 中定义的普通属性，改写为具有拦截能力的**访问器属性（Accessor Properties）**。
