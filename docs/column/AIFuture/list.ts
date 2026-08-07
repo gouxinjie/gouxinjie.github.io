@@ -13,13 +13,16 @@ const aiFutureList = [
         text: "AI模型中的token是什么"
       },
       {
+        text: "什么是模型蒸馏"
+      },
+      {
         text: "什么是提示词工程"
       },
       {
         text: "什么是RAG检索增强生成"
       },
       {
-        text: "什么是模型蒸馏"
+        text: "为什么 prompt 开头要写「你是 xx 专家」？"
       }
     ]
   },
@@ -39,28 +42,29 @@ const aiFutureList = [
     ]
   },
   {
-    text: "工具提效",
+    text: "Skill",
     collapsed: false,
     items: [
       {
-        text: "AGENTS规则约束",
-        items: [
-          {
-            text: "什么是AGENTS.md"
-          },
-          {
-            text: "前端专用AGENTS.md模板"
-          },
-          {
-            text: "后端专用AGENTS.md模板"
-          }
-        ]
+        text: "Skill（技能）详解"
       },
       {
-        text: "Agent Skills"
+        text: "Skill 从零编写到发布上线"
+      }
+    ]
+  },
+  {
+    text: "AGENTS 规则约束",
+    collapsed: false,
+    items: [
+      {
+        text: "什么是AGENTS.md"
       },
       {
-        text: "为什么 prompt 开头要写「你是 xx 专家」？"
+        text: "前端专用AGENTS.md模板"
+      },
+      {
+        text: "后端专用AGENTS.md模板"
       }
     ]
   },
