@@ -34,6 +34,7 @@
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-vue": "^9.32.0",
+    "markdown-it-mathjax3": "^5.2.0",
     "markdown-it-task-checkbox": "^1.0.6",
     "medium-zoom": "^1.1.0",
     "mermaid": "^11.12.2",

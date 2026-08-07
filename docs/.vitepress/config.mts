@@ -16,6 +16,9 @@ import { nav, sidebar } from "./navAndSidebarConfig";
 import markdownItTaskCheckbox from "markdown-it-task-checkbox"; // todoList 任务列表
 import { MermaidMarkdown } from "vitepress-plugin-mermaid"; // 图表渲染插件
 
+// 工具函数
+import { wrapMathjaxRenderers } from "./utils/mathjaxStyle";
+
 /**
  * 站点配置
  */
@@ -75,6 +78,7 @@ export default defineConfig({
   lastUpdated: true, // 开启最后更新时间
   cleanUrls: true, // 启用干净的 URL (去除 .html 后缀)
   transformHtml(code) {
+    // 移除 Mermaid 相关冗余 preload 链接
     return code.replace(/\n\s*<link rel="(?:modulepreload|prefetch)" href="[^"]*(?:mermaid|MermaidRenderer)[^"]*">/gi, "");
   },
 
@@ -171,6 +175,10 @@ export default defineConfig({
     },
     lineNumbers: true, // 启用代码行号
 
+    // 启用数学公式渲染（VitePress 内置 markdown-it-mathjax3 支持，
+    // 并自动将 mjx- 开头的标签注册为自定义元素，避免 Vue 编译器破坏公式 SVG）
+    math: true,
+
     /**
      * 图片配置
      */
@@ -206,6 +214,15 @@ export default defineConfig({
        * 配置任务列表 (todoList)
        */
       md.use(markdownItTaskCheckbox);
+
+      /**
+       * 剥离 mathjax3 公式输出中的内联 <style> 标签，
+       * 避免 Vue 编译器（vite:vue）报 "Tags with side effect..." 错误。
+       * 对应样式已全局注入 theme/styles/mathjax.scss。
+       * 注意：公式渲染由 markdown.math 启用（VitePress 内置支持），
+       * 并会将 mjx- 标签注册为自定义元素以保留公式 SVG 内容。
+       */
+      wrapMathjaxRenderers(md);
 
       /**
        * 配置 Mermaid 图表渲染

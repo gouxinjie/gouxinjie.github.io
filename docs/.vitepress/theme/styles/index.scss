@@ -9,6 +9,7 @@
 @use "./vp-code.scss";
 @use "./vp-code-group.scss";
 @use "./task-list.scss";
+@use "./mathjax.scss"; // MathJax 公式样式（全局注入一次，避免内联 <style> 报错）
 
 // NProgress 进度条样式
 .nprogress .bar {
