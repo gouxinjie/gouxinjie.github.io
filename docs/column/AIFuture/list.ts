@@ -19,10 +19,22 @@ const aiFutureList = [
         text: "什么是RAG检索增强生成"
       },
       {
-        text: "什么是MCP协议"
+        text: "什么是模型蒸馏"
+      }
+    ]
+  },
+  {
+    text: "MCP",
+    collapsed: false,
+    items: [
+      {
+        text: "MCP核心概念"
       },
       {
-        text: "什么是模型蒸馏"
+        text: "MCP端到端流程"
+      },
+      {
+        text: 'MCP从零编写到发布上线'
       }
     ]
   },
@@ -51,7 +63,8 @@ const aiFutureList = [
         text: "为什么 prompt 开头要写「你是 xx 专家」？"
       }
     ]
-  }
+  },
+
 ];
 
 export const transformAIFutureList = (path: string, isFilterList: boolean = false) => {
