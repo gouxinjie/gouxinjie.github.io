@@ -392,6 +392,8 @@ AI 助手（CodeBuddy / WorkBuddy / Claude Desktop）通过配置文件启动你
 }
 \`\`\`
 
+![](../images/mcp-4.png)
+
 **方式二：本地源码路径**（开发调试时）
 
 \`\`\`json
@@ -411,6 +413,9 @@ AI 助手（CodeBuddy / WorkBuddy / Claude Desktop）通过配置文件启动你
 1. 打开 AI 助手右上角**连接器管理**（Connectors）页面
 2. 找到 \`local-time\`，点击 **Trust（信任）**
 3. 在对话中测试
+
+
+![](../images/mcp-5.png)
 
 ### 9.3 MCP 工具什么时候会被调用？
 
