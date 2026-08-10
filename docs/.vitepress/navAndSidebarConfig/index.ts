@@ -34,7 +34,7 @@ export const nav: DefaultTheme.NavItem[] = [
     link: "/column/Personal/index.md" // 表示docs/index.md
   },
   {
-    text: "AI",
+    text: "AI 提效",
     link: "/column/AIFuture/index.md"
   },
   {
