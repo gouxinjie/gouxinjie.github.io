@@ -47,6 +47,9 @@ export const noteData = [
       },
       {
         text: '前端图片瀑布流实现方案详解'
+      },
+      {
+        text: 'JS异步机制与Event Loop解析'
       }
     ]
   }
