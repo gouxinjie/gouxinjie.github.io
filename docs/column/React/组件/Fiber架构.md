@@ -1,106 +1,115 @@
-# Fiber 架构
+
+# 从 useState 到 React Fiber：一文彻底搞懂 Fiber 架构与链表设计
 
 [[toc]]
 
-## 一、引言
+![](../images/fiber.png)
 
-在讲解`Fiber`架构之前，我们需要知道`react`中为什么`useState`钩子函数能够保留最新用户更该的值，（函数式组件中某一个 state 状态的改变，都会触发组件的重新渲染）
+## 一、引言：useState 的状态丢失谜题
 
-那么它是怎么存储更新后的值呢？
+在 React 函数组件中，**每次组件重新渲染，组件函数都会从头到尾重新执行一次**。但为什么通过 `useState` 定义的状态（State）却能在多次渲染之间持久保存更新后的值，而不会被重复初始化呢？
 
-**因为**：
+其背后的底层机制涉及 **闭包（Closure）** 与 **React Fiber 架构** 的紧密协作。
 
-在 React 中，`useState` 能够保留最新的状态值，**即使函数组件在每次渲染时都会重新执行**，其背后的机制涉及 **闭包（Closure）** 和 **React Fiber 架构** 的协作。
+### 1.1 闭包（Closure）的作用与陷阱
 
-### 1.1、闭包（Closure）的作用
+`useState` 返回的状态值（如 `count`）和更新函数（如 `setCount`）通过闭包捕获了**当前渲染周期**的状态快照。
 
-`useState `返回的状态值（如 `count`）和更新函数（如 `setCount`）通过闭包引用了当前渲染周期的状态快照。每次组件渲染时，`useState` 会返回 当前最新的状态值（由 `React` 内部维护）。
-
-更新函数（如 `setCount`）会将新状态 提交到 `React` 的调度系统，触发重新渲染。
-
-```ts
+```tsx
 function Counter() {
-  const [count, setCount] = useState(0); // 闭包捕获当前 count 值
+  const [count, setCount] = useState(0); // 闭包捕获当前渲染周期的 count 值
+
   const handleClick = () => {
-    setCount(count + 1); // 提交更新，闭包中的 count 是当前渲染周期的值
+    // 提交更新，闭包中的 count 是当前渲染周期的值（例如 0）
+    setCount(count + 1);
   };
+
   return <button onClick={handleClick}>{count}</button>;
 }
+
 ```
 
-### 1.2、React Fiber 的状态存储
+#### ⚠️ 闭包陷阱与批处理机制
 
-`React` 内部通过 `Fiber` 节点 管理组件的状态：每个函数组件对应一个 `Fiber` 节点，状态值存储在 `Fiber` 节点的 `memoizedState` 属性中。
-
-组件重新渲染时，`useState` 会从` Fiber` 节点读取最新状态，而不是重新初始化。
-
-Fiber 节点结构示例:
-
-```ts
-{
-  memoizedState: 42, // 当前状态值
-  queue: { ... },    // 更新队列（存储 setState 的调用）
-  next: null,        // 指向下一个 Hook
-}
-```
-
-### 1.3、状态更新的异步批处理
-
-当调用 setCount 时： 1，React 不会立即修改状态，而是将更新放入 调度队列。 2，在下次渲染时，React 会 合并多个更新（批处理），并计算最终状态。 3，组件重新执行时，useState 会返回 更新后的最新值。
+看下面这个常见场景：
 
 ```tsx
 function Counter() {
   const [count, setCount] = useState(0);
+
   const handleClick = () => {
-    setCount(count + 1); // 第一次更新：基于当前 count=0
-    setCount(count + 1); // 第二次更新：仍基于当前 count=0（闭包陷阱！）
+    setCount(count + 1); // 第一次更新：基于当前闭包 count = 0
+    setCount(count + 1); // 第二次更新：仍基于当前闭包 count = 0
   };
-  // 点击后 count 只会 +1，而非 +2
+
+  // 点击后 count 只会变为 1，而不是 2
   return <button onClick={handleClick}>{count}</button>;
 }
+
 ```
 
-## 二、Fiber 架构讲解
+* **原因一（闭包）**：在同一次事件回调中，两次 `count` 拿到的都是旧快照 `0`。
+* **原因二（批处理与计算）**：传入的是具体数值 `setCount(1)`，React 在下一轮合并更新时，会将旧值覆盖。
+* **解决方案**：如果需要依赖最新状态，需改用**函数式更新** `setCount(prev => prev + 1)`，React 会将更新函数放入队列，依次计算出最终状态。
 
-在`React`的 `Fiber` 架构 中，组件的节点关系是通过 链表结构（而非数组或纯对象）管理的；
+### 1.2 Fiber 节点的状态存储机制
 
-### 2.1、Fiber 节点的核心结构
+闭包负责在单次渲染中提供状态快照，而**真正跨渲染周期存储状态的地方是 React 的 Fiber 节点**。
 
-每个 Fiber 节点是一个 JavaScript 对象，包含以下关键属性（简化版）：
+每个函数组件在 React 内部都对应一个 Fiber 节点，其状态链表存储在 Fiber 节点的 `memoizedState` 属性中。
+
+组件重新渲染时，`useState` 不会重新初始化状态，而是直接从 Fiber 节点的 `memoizedState` 中读取最新计算好的状态值。
+
+```ts
+// Fiber 节点存储 Hook 状态的结构示意
+{
+  memoizedState: {
+    memoizedState: 42, // 当前 Hook 的状态值
+    queue: { ... },    // 待处理的 setState 更新队列
+    next: { ... }      // 指向下一个 Hook
+  }
+}
+
+```
+
+## 二、React Fiber 架构深度剖析
+
+在 React 16 之前（Stack Reconciler），渲染过程通过原生的递归函数调用栈完成，一旦开始就无法中断，容易导致主线程卡顿。
+
+引入 **Fiber 架构** 后，React 将树形结构改造成了**指针链表**，从而实现了可中断、可恢复的增量渲染。
+
+### 2.1 Fiber 节点的核心数据结构
+
+每一个 Fiber 节点都是一个 JavaScript 对象，包含了组件类型、状态、DOM 节点以及调度所需的链表指针：
 
 ```ts
 interface Fiber {
-  // 标识组件类型（函数/类组件、Host 组件等）
-  tag: WorkTag; // 如 FunctionComponent, ClassComponent, HostComponent
+  // 1. 标识组件/节点类型
+  tag: WorkTag;                         // 如 FunctionComponent, ClassComponent, HostComponent
+  type: any;                            // 对于函数组件，type 是组件函数本身；对于 DOM 节点，是 'div' 等字符串
 
-  // 组件相关的实例或函数
-  type: any; // 对于函数组件，type 是组件函数本身
-
-  // 状态相关的属性
-  memoizedState: any; // 当前状态（hooks 链表存储在这里）
-  stateNode: any;     // 类组件的实例或 DOM 节点
-
-  // 链表结构（关键）
-  child: Fiber | null;      // 第一个子节点
-  sibling: Fiber | null;    // 下一个兄弟节点
-  return: Fiber | null;     // 父节点
-
-  // 更新队列和副作用
+  // 2. 状态与副作用存储
+  memoizedState: any;                   // 状态存储（函数组件的 Hooks 单向链表保存在这里）
+  stateNode: any;                       // 对应的真实 DOM 节点或类组件实例
   updateQueue: UpdateQueue<any> | null; // 状态更新队列
-  flags: Flags; // 标记是否需要插入、更新、删除等操作
+  flags: Flags;                         // 副作用标记（如 Placement 插入、Update 更新、Deletion 删除）
 
-  // 其他调度相关属性
-  alternate: Fiber | null; // 指向当前/WorkInProgress 树的对应节点
+  // 3. 核心指针链表（构成 Fiber 树的关键）
+  child: Fiber | null;                  // 指向“第一个子节点”
+  sibling: Fiber | null;                // 指向“下一个兄弟节点”
+  return: Fiber | null;                 // 指向“父节点”
+
+  // 4. 双缓存机制指针
+  alternate: Fiber | null;              // 指向另一棵树（current <-> workInProgress）对应的 Fiber 节点
 }
+
 ```
 
-### 2.2、多个 Fiber 节点如何组织？      
+### 2.2 Fiber 节点的组织形式（真正的链表树）
 
-Fiber 节点之间通过 链表（而非数组）形成树状结构：
+以如下组件结构为例：
 
-**HTML结构:**
-
-```html
+```tsx
 function App() {
   return (
     <div>
@@ -109,78 +118,137 @@ function App() {
     </div>
   );
 }
-```
-**对应的Fiber 树：**
-```html
-        App Fiber
-           |
-        div Fiber
-         /    \
-Header Fiber   Content Fiber 
+
 ```
 
-### 2.3、Hooks 的存储方式
+传统树形结构是用数组包含子节点，而 **Fiber 树本质上是一棵通过指针串联起来的单链表架构**：
 
-1，函数组件的状态（如 `useState、useEffect`）存储在 `Fiber `节点的 `memoizedState` 属性中，具体是通过 单向链表 组织的：
-每个 Hook 是一个对象，包含` memoizedState（`如状态值）、`next`（指向下一个 Hook）。
+```text
+       App Fiber
+           | (child)
+       div Fiber
+           | (child)
+    Header Fiber ----(sibling)----> Content Fiber
+       | (return)                       | (return)
+       +--------------------------------+---> div Fiber
 
+```
 
-2，React 通过调用顺序匹配 Hook（因此不能条件式调用 Hook）
+> **重点**：
+> * 父节点的 `child` 仅仅指向**第一个子节点**（`Header`）。
+> * 子节点通过 `sibling` 链表指向下一个**兄弟节点**（`Content`）。
+> * 所有子节点通过 `return` 指向其**父节点**（`div`）。
+>
+>
 
-**Hook 链表示例:**
+### 2.3 Hooks 在 Fiber 中的单向链表排布
+
+函数组件内的多个 Hook（如 `useState`, `useEffect`）按调用顺序存在于 Fiber 的 `memoizedState` 中，以**单向链表**的形式组织：
 
 ```tsx
 function Example() {
   const [count, setCount] = useState(0); // Hook 1
   const [name, setName] = useState("");  // Hook 2
-  useEffect(() => {});                   // Hook 3
-  // ...
+  useEffect(() => {}, []);              // Hook 3
 }
-```
-对应的 Hook 链表：
 
-```tsx
-Fiber.memoizedState -> Hook1(count) -> Hook2(name) -> Hook3(effect) -> null
-                        |                |               |
-                     memoizedState    memoizedState    memoizedState
 ```
 
-### 2.4、为什么用链表而非数组？
+对应的 Hook 内存链表：
 
-1.动态性：链表可以高效地插入、删除节点（如条件渲染）。<br/>
-2.增量渲染：React 可以中断和恢复渲染过程，链表结构更灵活。<br/>
-3.Hooks 依赖调用顺序：链表能严格保证 Hook 的顺序一致性。<br/>
+```text
+Fiber.memoizedState
+       |
+    Hook1 (count) ----next----> Hook2 (name) ----next----> Hook3 (effect) ----> null
+       |                           |                          |
+ memoizedState: 0            memoizedState: ""          memoizedState: { ... }
 
-### 2.5、完整 Fiber 树的遍历过程
-React 通过 深度优先遍历 Fiber 树：<br/>
-1.从根节点开始，访问 child 直到叶子节点。<br/>
-2.如果没有 child，则访问 sibling。<br/>
-3.如果没有 sibling，则回溯到 return（父节点）。<br/>
+```
 
----
-那么问题来了？什么是链表结构？js该怎么表示出来？
-
-
-## 三、链表相关
-
-### 3.1、什么是链表结构？
-链表（`Linked List`）是一种 线性数据结构，由一系列节点（`Node`）组成，每个节点包含：<br/>
-(1) 数据域（存储数据）<br/>
-(2) 指针域（指向下一个节点的引用）<br/>
+> **为什么 React 规定 Hook 不能写在条件语句或循环中？**
+> 因为 React 内部依靠**单向链表的游标指针**，按 Hook 执行顺序逐个读取节点。如果条件分支导致某个 Hook 被跳过，链表结点的匹配就会全部错位！
 
 
-### 3.2、单链表的 JavaScript 实现
+### 2.4 为什么 React 选用链表而不是数组？
+
+1. **可中断与恢复（最核心原因）**：
+原生的递归调用栈无法暂停。而使用**链表指针**模拟调用栈后，React 可以将当前工作节点记录在一个全局指针（如 `workInProgress`）中。当浏览器帧率不足（通过 `Scheduler` 调度）时，React 随时可以**中断（Pause）** 渲染，让出主线程；下一帧再从记录的指针处**恢复（Resume）** 遍历。
+2. **高效的结构变更**：
+在树的 DOM 节点插入、删除、移动时，链表只需要修改指针（如 `child` 或 `sibling`），操作的时间复杂度为 $O(1)$，效率极高。
+3. **保证 Hook 调用的顺序确定性**：
+单向链表天生具备严格的前后依赖关系，能以极低的开销保障 Hook 调用的固定顺序。
+
+
+### 2.5 双缓存机制（Double Buffering）
+
+在 2.1 节提到了 `alternate` 属性，这是 React 优化 DOM 渲染的核心思想——**双缓存机制**：
+
+* **`current` 树**：代表当前在屏幕上显示的真实 DOM 对应的 Fiber 树。
+* **`workInProgress` 树**：代表正在内存中构建/更新的 Fiber 树。
+
+当触发更新时，React 会在后台基于 `current` 树构建全新的 `workInProgress` 树。所有 Diff 比较与副作用标记都在后台完成后，React 只需要**将指针切换一次**，直接把 `workInProgress` 替换为 `current`，即可无缝完成界面更新，避免中间状态导致的页面闪烁。
+
+
+### 2.6 Fiber 树的 DFS 遍历过程与伪代码
+
+React 遍历 Fiber 树采用的是**深度优先遍历（DFS）**，整个过程被称为 `WorkLoop`（工作循环）：
+
+```javascript
+// 模拟 Fiber 树单次单元工作的伪代码
+function performUnitOfWork(fiber) {
+  // 1. 执行当前 Fiber 节点的 reconcile/更新逻辑 ...
+
+  // 2. 如果有子节点，优先深入向下遍历 child
+  if (fiber.child) {
+    return fiber.child;
+  }
+
+  // 3. 如果没有子节点，说明到了叶子节点，查找兄弟节点或向父节点回溯
+  let nextFiber = fiber;
+  while (nextFiber) {
+    // 完成当前节点的“归（complete Work）”逻辑 ...
+
+    // 如果有兄弟节点，走 sibling 指针
+    if (nextFiber.sibling) {
+      return nextFiber.sibling;
+    }
+    // 否则回溯给父节点 return 指针，继续向上查找
+    nextFiber = nextFiber.return;
+  }
+
+  return null; // 回溯到 Root 节点，遍历结束
+}
+
+```
+
+
+## 三、链表数据结构基础与 JS 实现
+
+为了更好地理解 Fiber 的设计，我们回顾一下数据结构中的**单链表**原理。
+
+### 3.1 什么是单链表？
+
+链表（Linked List）是一种线性数据结构，由一系列节点（Node）组成。节点在内存中无需连续存储，每个节点包含：
+
+1. **数据域**（存储节点的值/状态）
+2. **指针域**（指向下一个节点的引用）
+
+
+### 3.2 单链表的 JavaScript 实现
 
 ```ts
-// 下面是链表结构
-class ListNode {
-  constructor(value) {
-    this.value = value; // 数据域
-    this.next = null;   // 指针域（指向下一个节点）
+// 1. 定义链表节点结构
+class ListNode<T> {
+  value: T;
+  next: ListNode<T> | null;
+
+  constructor(value: T) {
+    this.value = value;
+    this.next = null;
   }
 }
 
-// 创建链表: 1 -> 2 -> 3
+// 2. 创建单链表: 1 -> 2 -> 3
 const node1 = new ListNode(1);
 const node2 = new ListNode(2);
 const node3 = new ListNode(3);
@@ -188,44 +256,31 @@ const node3 = new ListNode(3);
 node1.next = node2;
 node2.next = node3;
 
-// 遍历链表
-let current = node1;
-console.log("链表内容：",current);
+// 3. 遍历单链表
+let current: ListNode<number> | null = node1;
 while (current !== null) {
-  console.log(current.value); // 依次输出 1, 2, 3
+  console.log(current.value); // 依次输出: 1, 2, 3
   current = current.next;
 }
+
 ```
 
-**输出：**
 
-```ts
-// 链表内容：
- ListNode {
-  value: 1,
-  next: ListNode { value: 2, next: ListNode { value: 3, next: null } }
-}
-```
+### 3.3 链表 vs 数组 性能对比
 
-### 3.3、链表 vs 数组
-
-链表优点：动态大小，插入删除比较快
+| 特性 | 数组 (Array) | 链表 (Linked List) |
+| --- | --- | --- |
+| **内存分配** | 连续内存空间 | 动态随机分配（内存非连续） |
+| **随机访问 (Index)** | 快，时间复杂度 $O(1)$ | 慢，需要沿指针遍历，时间复杂度 $O(n)$ |
+| **头部/中间插入与删除** | 慢，需要移动后续所有元素 $O(n)$ | 快，只需改变对应指针指向 $O(1)$ |
+| **适用场景** | 需要快速检索/遍历元素的场景 | 元素频繁变动、大小不固定、需要随时中断/中断恢复的场景 |
 
 
-| **特性**       | **数组**                          | **链表**                     |
-|--------------|----------------------------------|-----------------------------|
-| **内存**     | 连续内存                         | 非连续内存（动态分配）       |
-| **查询**     | 快（O(1) 索引访问）              | 慢（O(n)，需遍历）          |
-| **插入**     | 慢（需移动元素，O(n)）           | 快（修改指针，O(1)）        |
-| **删除**     | 慢（需移动元素，O(n)）           | 快（修改指针，O(1)）        |
-| **优点**     | 随机访问快                       | 动态大小，插入/删除快       |
+## 四、总结
 
+React 将复杂的 UI 界面更新拆解为高效率的计算调度，其核心贯穿逻辑如下：
 
-**为什么查询比较慢：**<br/>
-1，链表的节点在内存中是非连续存储的（无法像数组直接通过索引访问）。<br/>
-2，链表的查询操作通常是线性查找，即从链表的头部开始，逐个节点遍历，直到找到目标节点。<br/>
-
-**总结：**<br/>
-链表：通过指针连接的非连续数据结构，适合动态增删（如 React 的 Fiber 树）。<br/>
-DFS/BFS：DFS 用栈/递归深入到底，BFS 用队列按层扩展。<br/>
-React 的应用：Fiber 树的链表结构 + DFS 遍历，实现了可中断的渲染。<br/>
+1. **`useState` 的存储**：依赖组件对应的 **Fiber 节点**，其内部以 **单向链表** 的形式在 `memoizedState` 中保存每个 Hook 的状态。
+2. **闭包与快照**：组件函数每次渲染通过闭包获取当次渲染的状态快照；修改状态时使用函数式更新可以避免闭包拿旧值的问题。
+3. **Fiber 的链表拓扑**：Fiber 节点通过 `child`（子）、`sibling`（兄）、`return`（父）三条指针将组件树串联为链表结构。
+4. **可中断渲染的基石**：正是基于这种显示的**指针链表**结构，React 才能脱离原生 JS 递归栈的限制，实现无卡顿的**增量渲染（Incremental Rendering）** 与 **双缓存机制**。
