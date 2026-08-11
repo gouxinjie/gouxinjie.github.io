@@ -52,17 +52,25 @@ export const nav: DefaultTheme.NavItem[] = [
     link: "/column/Next/index.md"
   },
   {
-    text: "Node.js",
-    link: "/column/Node/index.md"
-  },
-  {
-    text: "Python",
-    link: "/column/Python/index.md"
-  },
-
-  {
     text: "网络相关",
     link: "/column/Network/index.md"
+  },
+  {
+    text: "后端相关",
+    items: [
+      {
+        text: "Node.js",
+        link: "/column/Node/index.md"
+      },
+      {
+        text: "Python",
+        link: "/column/Python/index.md"
+      },
+      {
+        text: "数据库",
+        link: "/column/数据库/index.md"
+      }
+    ]
   },
   {
     text: "服务与部署",
@@ -106,10 +114,6 @@ export const nav: DefaultTheme.NavItem[] = [
           {
             text: "前端进阶",
             link: "/column/前端进阶/index.md"
-          },
-          {
-            text: "数据库",
-            link: "/column/数据库/index.md"
           }
         ]
       },

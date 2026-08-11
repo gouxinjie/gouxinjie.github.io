@@ -242,6 +242,11 @@ export default defineConfig({
       host: "0.0.0.0", // 服务器主机
       port: 5180, // 服务器端口
 
+      // Windows 下文件监听上限较低，排除高频变动/大量静态资源目录，避免 dev server 频繁挂掉
+      watch: {
+        ignored: ["**/dist/**", "**/dist_old_bak/**", "**/cache/**", "**/node_modules/**"]
+      },
+
       /**
        * 内网穿透配置
        * 允许 ngrok 访问的主机
