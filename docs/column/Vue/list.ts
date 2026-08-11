@@ -47,6 +47,15 @@ const vueList = [
       },
       {
         text: "组件注册和组件通信"
+      },
+      {
+        text: "路由传参的三种方式"
+      },
+      {
+        text: "常见的移动端rem适配方案"
+      },
+      {
+        text: "优雅的vue2项目总体结构"
       }
     ]
   },
@@ -75,6 +84,9 @@ const vueList = [
       },
       {
         text: '异步组件实现原理'
+      },
+      {
+        text: "路由匹配和懒加载"
       }
     ]
   },
@@ -149,15 +161,6 @@ const vueList = [
       }
     ]
   },
-  // {
-  //   text: "性能优化",
-  //   collapsed: false,
-  //   items: [
-  //     {
-  //       text: ""
-  //     }
-  //   ]
-  // },
   {
     text: "构建打包相关",
     collapsed: false,
@@ -173,6 +176,12 @@ const vueList = [
       },
       {
         text: "index.html中获取环境"
+      },
+      {
+        text: "webpack的基本使用和总结"
+      },
+      {
+        text: "常见的性能优化"
       }
     ]
   },
@@ -227,33 +236,9 @@ const vueList = [
       },
       {
         text: "图片添加水印和截图"
-      }
-    ]
-  },
-  {
-    text: "其它",
-    collapsed: false,
-    items: [
-      {
-        text: "路由传参的三种方式"
-      },
-      {
-        text: "常见的性能优化"
-      },
-      {
-        text: "常见的移动端rem适配方案"
       },
       {
         text: "腾讯地图使用"
-      },
-      {
-        text: "优雅的vue2项目总体结构"
-      },
-      {
-        text: "路由匹配和懒加载"
-      },
-      {
-        text: "webpack的基本使用和总结"
       }
     ]
   }

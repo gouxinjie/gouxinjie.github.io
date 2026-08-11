@@ -75,7 +75,7 @@ features:
     icon:
       src: /lightning.svg
     details: 前端常用加密方式有很多，比如 MD5、SHA1、AES、DES 等。选择合适的加密方式可以提高数据的安全性和完整性，保障用户隐私和数据的安全性。
-    link: /column/Project/性能与架构/前端常用加密方式.html
+    link: /column/前端进阶/性能优化/前端常用加密方式.html
     linkText: 查看详情
 ---
 

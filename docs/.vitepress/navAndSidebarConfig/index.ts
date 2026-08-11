@@ -7,13 +7,15 @@ import { transformJSList } from "../../column/JS/list";
 import { transformVueList } from "../../column/Vue/list";
 import { ReactListExport } from "../../column/React/list";
 import { HtmlCssListExport } from "../../column/HtmlCss/list";
-import { transformProjectList } from "../../column/Project/list";
+import { transformFrontendAdvanceList } from "../../column/前端进阶/list";
+import { transformDatabaseList } from "../../column/数据库/list";
 import { transformMiniProgramList } from "../../column/miniProgram/list";
 import { transformNetworkList } from "../../column/Network/list";
 import { transformNodeList } from "../../column/Node/list";
 import { transformAngularList } from "../../column/Angular/list";
 import { transformTSList } from "../../column/TS/list";
-import { transformProblemData, transformNoteData } from "../../column/ProblemNotes/list";
+import { transformProblemData } from "../../column/ProblemNotes/list";
+import { transformComponentFileList } from "../../column/ProblemNotes/组件封装与文件处理/list";
 import { transformPoetryList } from "../../column/Poetry/list";
 import { transformPythonList } from "../../column/Python/list";
 import { transformNextList } from "../../column/Next/list";
@@ -102,8 +104,12 @@ export const nav: DefaultTheme.NavItem[] = [
             link: "/column/Git/index.md"
           },
           {
-            text: "项目相关",
-            link: "/column/Project/"
+            text: "前端进阶",
+            link: "/column/前端进阶/index.md"
+          },
+          {
+            text: "数据库",
+            link: "/column/数据库/index.md"
           },
           {
             text: "小程序相关",
@@ -141,15 +147,15 @@ export const nav: DefaultTheme.NavItem[] = [
         ]
       },
       {
-        text: "问题笔记",
+        text: "日常记录",
         items: [
           {
             text: "踩坑记录",
             link: "/column/ProblemNotes/踩坑记录/"
           },
           {
-            text: "日常笔记",
-            link: "/column/ProblemNotes/日常笔记/"
+            text: "组件封装与文件处理",
+            link: "/column/ProblemNotes/组件封装与文件处理/"
           }
         ]
       }
@@ -244,14 +250,17 @@ export const sidebar: DefaultTheme.Sidebar = {
   /** 小程序相关 */
   "/column/miniProgram/": transformMiniProgramList("/column/miniProgram/"),
 
-  /** 项目相关 */
-  "/column/Project/": transformProjectList("/column/Project/"),
+  /** 前端进阶相关 */
+  "/column/前端进阶/": transformFrontendAdvanceList("/column/前端进阶/"),
+
+  /** 数据库相关 */
+  "/column/数据库/": transformDatabaseList("/column/数据库/"),
 
   /** 踩坑记录相关 */
   "/column/ProblemNotes/踩坑记录/": transformProblemData("/column/ProblemNotes/"),
 
-  /** 日常笔记相关 */
-  "/column/ProblemNotes/日常笔记/": transformNoteData("/column/ProblemNotes/"),
+  /** 组件封装与文件处理相关 */
+  "/column/ProblemNotes/组件封装与文件处理/": transformComponentFileList("/column/ProblemNotes/组件封装与文件处理/"),
 
   /** 诗词相关 */
   "/column/Poetry/": transformPoetryList("/column/Poetry/"),

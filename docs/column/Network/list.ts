@@ -10,7 +10,8 @@ const networkList = [
       { text: "TCP-IP协议和三次握手" },
       { text: "浏览器输入URL发生了什么" },
       { text: "本地开发端口原理" },
-      { text: "网络常用命令集锦" }
+      { text: "网络常用命令集锦" },
+      { text: "CDN资源不会产生跨域问题" }
     ]
   },
 

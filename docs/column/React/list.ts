@@ -25,6 +25,9 @@ const ReactList = [
       },
       {
         text: "严格模式"
+      },
+      {
+        text: "AntDesign项目集成阿里Iconfont图标库"
       }
     ]
   },
@@ -64,6 +67,12 @@ const ReactList = [
       },
       {
         text: "useDeferredValue"
+      },
+      {
+        text: "Hooks为什么不能写到判断里面"
+      },
+      {
+        text: "自定义Hooks的封装"
       }
     ]
   },
@@ -97,6 +106,9 @@ const ReactList = [
       },
       {
         text: "createContext与useContext"
+      },
+      {
+        text: "函数式组件中使用Redux"
       }
     ]
   },
@@ -119,27 +131,6 @@ const ReactList = [
     ]
   },
   {
-    text: "其它相关",
-    collapsed: false,
-    items: [
-      {
-        text: "Immer库使用"
-      },
-      {
-        text: "Hooks为什么不能写到判断里面"
-      },
-      {
-        text: "自定义Hooks的封装"
-      },
-      {
-        text: "函数式组件中使用Redux"
-      },
-      {
-        text: "AntDesign项目集成阿里Iconfont图标库"
-      }
-    ]
-  },
-  {
     text: "Zustand",
     collapsed: false,
     items: [
@@ -148,6 +139,9 @@ const ReactList = [
       },
       {
         text: "Immer和持久化"
+      },
+      {
+        text: "Immer库使用"
       },
       {
         text: "状态简化"

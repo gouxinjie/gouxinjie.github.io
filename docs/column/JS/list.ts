@@ -2,7 +2,7 @@ import { transformMenuList } from "../../utils/functions";
 // js模块
 export const JSList = [
   {
-    text: "JS核心机制",
+    text: "核心机制",
     items: [
       {
         text: "语言基础",
@@ -37,11 +37,14 @@ export const JSList = [
           { text: "IntersectionObserver" },
           { text: "IntersectionObserver实现高效懒加载" }
         ]
+      },
+      {
+        text: "JS异步机制与Event Loop解析"
       }
     ]
   },
   {
-    text: "数据操作与处理",
+    text: "数据处理",
     items: [
       {
         text: "数组处理",
@@ -68,11 +71,14 @@ export const JSList = [
             text: "URLSearchParams获取参数"
           }
         ]
+      },
+      {
+        text: "JavaScript常用函数与算法精粹"
       }
     ]
   },
   {
-    text: "浏览器与DOM操作",
+    text: "浏览器与DOM",
     items: [
       {
         text: "事件冒泡和事件委托"

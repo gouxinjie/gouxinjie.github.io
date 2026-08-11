@@ -59,6 +59,15 @@ const HtmlCssList = [
       },
       {
         text: "@media print 打印样式"
+      },
+      {
+        text: "SVG与Canvas水印添加技术对比"
+      },
+      {
+        text: "移动端H5适配方案实践"
+      },
+      {
+        text: "网站主题切换的原理与最佳实践"
       }
     ]
   }
