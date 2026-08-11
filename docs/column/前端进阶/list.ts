@@ -7,9 +7,6 @@ const frontendAdvanceList = [
     collapsed: false,
     items: [
       {
-        text: "网站图片优化方案"
-      },
-      {
         text: "防抖和节流函数细节"
       },
       {
