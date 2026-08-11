@@ -1,4 +1,4 @@
-import { transformMenuList } from '../../utils/functions';
+import { transformMenuList } from '../../../utils/functions';
 
 const miniProgramList = [
   {
@@ -49,7 +49,7 @@ const miniProgramList = [
  * @description  导出左侧菜单栏的列表
  * @param {String} path 路径前缀
  * @param {Boolean} isFilterList  是否用于筛选页面的处理
- * @example transformVueList("/column/miniProgram/", true)
+ * @example transformVueList("/column/ProblemNotes/miniProgram/", true)
  */
 export const transformMiniProgramList = (path: string, isFilterList: boolean = false) => {
   return transformMenuList(miniProgramList, path, isFilterList, true);

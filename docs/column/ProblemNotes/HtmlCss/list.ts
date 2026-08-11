@@ -1,4 +1,4 @@
-import { transformMenuList } from "../../utils/functions";
+import { transformMenuList } from "../../../utils/functions";
 
 // CSS 模块相关 这里写入的顺序和渲染的顺序是一致的
 const HtmlCssList = [

@@ -6,10 +6,10 @@ import { DefaultTheme } from "vitepress";
 import { transformJSList } from "../../column/JS/list";
 import { transformVueList } from "../../column/Vue/list";
 import { ReactListExport } from "../../column/React/list";
-import { HtmlCssListExport } from "../../column/HtmlCss/list";
+import { HtmlCssListExport } from "../../column/ProblemNotes/HtmlCss/list";
 import { transformFrontendAdvanceList } from "../../column/前端进阶/list";
 import { transformDatabaseList } from "../../column/数据库/list";
-import { transformMiniProgramList } from "../../column/miniProgram/list";
+import { transformMiniProgramList } from "../../column/ProblemNotes/miniProgram/list";
 import { transformNetworkList } from "../../column/Network/list";
 import { transformNodeList } from "../../column/Node/list";
 import { transformAngularList } from "../../column/Angular/list";
@@ -110,14 +110,6 @@ export const nav: DefaultTheme.NavItem[] = [
           {
             text: "数据库",
             link: "/column/数据库/index.md"
-          },
-          {
-            text: "小程序相关",
-            link: "/column/miniProgram/"
-          },
-          {
-            text: "HTML/CSS",
-            link: "/column/HtmlCss/index.md"
           }
         ]
       },
@@ -131,10 +123,6 @@ export const nav: DefaultTheme.NavItem[] = [
           {
             text: "工程化相关",
             link: "/column/Ecology/project.md"
-          },
-          {
-            text: "HTML/CSS",
-            link: "/column/Ecology/html-css.md"
           },
           {
             text: "工具推荐",
@@ -156,6 +144,14 @@ export const nav: DefaultTheme.NavItem[] = [
           {
             text: "组件封装与文件处理",
             link: "/column/ProblemNotes/组件封装与文件处理/"
+          },
+          {
+            text: "小程序相关",
+            link: "/column/ProblemNotes/miniProgram/"
+          },
+          {
+            text: "HTML/CSS",
+            link: "/column/ProblemNotes/HtmlCss/index.md"
           }
         ]
       }
@@ -233,7 +229,7 @@ export const sidebar: DefaultTheme.Sidebar = {
   "/column/TS/": transformTSList("/column/TS/"),
 
   /** html/css模块 */
-  "/column/HtmlCss/": HtmlCssListExport("/column/HtmlCss/"),
+  "/column/ProblemNotes/HtmlCss/": HtmlCssListExport("/column/ProblemNotes/HtmlCss/"),
 
   /** git相关 */
   "/column/Git/": transformGitList("/column/Git/"),
@@ -248,7 +244,7 @@ export const sidebar: DefaultTheme.Sidebar = {
   "/column/Aliyun/": transformAliyunList("/column/Aliyun/"),
 
   /** 小程序相关 */
-  "/column/miniProgram/": transformMiniProgramList("/column/miniProgram/"),
+  "/column/ProblemNotes/miniProgram/": transformMiniProgramList("/column/ProblemNotes/miniProgram/"),
 
   /** 前端进阶相关 */
   "/column/前端进阶/": transformFrontendAdvanceList("/column/前端进阶/"),
