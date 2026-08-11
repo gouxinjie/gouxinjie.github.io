@@ -54,7 +54,7 @@ features:
     icon:
       src: /terminal.svg
     details: 本文详解了使用Docker部署Vue3+Vite项目的完整方案，涵盖多阶段构建、Nginx优化及docker-compose编排，简化部署流程。
-    link: /column/Docker/Docker容器与部署/Docker本地部署CSR前端项目
+    link: /column/Docker/进阶/Docker本地部署CSR前端项目
     linkText: 查看详情
 
   - title: 工作中常用的git操作
@@ -75,7 +75,7 @@ features:
     icon:
       src: /lightning.svg
     details: 前端常用加密方式有很多，比如 MD5、SHA1、AES、DES 等。选择合适的加密方式可以提高数据的安全性和完整性，保障用户隐私和数据的安全性。
-    link: /column/前端进阶/性能优化/前端常用加密方式.html
+    link: /column/前端进阶/网络安全/前端常用加密方式
     linkText: 查看详情
 ---
 
