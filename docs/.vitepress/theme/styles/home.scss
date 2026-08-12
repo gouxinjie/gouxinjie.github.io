@@ -755,6 +755,18 @@
   .xinjie-hero__right {
     min-height: auto;
   }
+
+  /* 小屏统计数字字号相应减小，避免卡片内数字过大 */
+  .xinjie-stats__value {
+    font-size: 20px;
+  }
+
+  /* 超小屏进一步减小数字字号，防止两列卡片内数字溢出 */
+  @media (max-width: 400px) {
+    .xinjie-stats__value {
+      font-size: 17px;
+    }
+  }
 }
 
 

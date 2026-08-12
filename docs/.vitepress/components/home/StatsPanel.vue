@@ -4,35 +4,21 @@
  * @author gxj
  * @date 2026-08-11
  *
- * 4 项统计：文章总数 / 分类数量 / 阅读量 / 创建天数
+ * 4 项统计：文章总数 / 分类数量 / 累计字数 / 创建天数
  * 数据来源：
  *   - 文章总数：手动维护（docs/column 下 .md 不含 index.md）
  *   - 分类数量：sidebar 一级分类数（静态 22）
- *   - 阅读量：与 DataPanel 共享不蒜子真实统计（sitePv）
+ *   - 累计字数：静态统计（docs/column 下全部 md 正文约 86 万字）
  *   - 创建天数：首次提交 2024-11-05，运行时自动计算
  *
  * 每个图标的颜色和分类色与首页 hero 特性标签一致：
- *   文章总数（红）、分类数量（橙）、阅读量（绿）、创建天数（蓝）
+ *   文章总数（红）、分类数量（橙）、累计字数（绿）、创建天数（蓝）
  */
-import { computed, ref, watch, onMounted } from "vue";
-import { sitePv } from "../../utils/site-stats";
+import { computed, ref, onMounted } from "vue";
 
-// 阅读量 = PV（与 DataPanel 共享同一份不蒜子真实数据）
-// SSR 安全：构建时用静态值 "24K+"，客户端拿到不蒜子真实值后响应式更新
-const displayPv = ref("24K+");
-const formatPv = (value: string) => {
-  const n = parseInt(value, 10);
-  if (isNaN(n)) return "0";
-  if (n >= 10000) return (n / 1000).toFixed(0) + "K+";
-  return String(n);
-};
-// 监听不蒜子返回的真实 PV，响应式更新阅读量
-watch(sitePv, (val) => {
-  if (val) displayPv.value = formatPv(val);
-});
-onMounted(() => {
-  if (sitePv.value) displayPv.value = formatPv(sitePv.value);
-});
+// 累计字数 = 全站文章正文总字数（静态统计，docs/column 下全部 md 不含 index.md）
+// 展示 86.5 万（实际统计约 864774 字符）
+const totalWords = "86.5万";
 
 interface StatItem {
   title: string;
@@ -72,13 +58,13 @@ const stats = computed<StatItem[]>(() => [
       '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>'
   },
   {
-    title: "阅读量",
-    value: displayPv.value, // SSR 安全：静态值，客户端 onMounted 后响应式更新
-    sub: "累计访问次数",
+    title: "累计字数",
+    value: totalWords, // 静态统计值
+    sub: "全部文章正文",
     iconBg: "rgba(34, 197, 94, 0.12)",
     iconColor: "#22c55e",
     icon:
-      '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>'
+      '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/>'
   },
   {
     title: "创建天数",

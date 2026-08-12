@@ -20,7 +20,16 @@ export const isProdHostname = (hostname?: string): boolean => {
 };
 
 /**
- * 共享的真实统计值（由不蒜子回调写入）
+ * 历史统计基数（启用不蒜子统计之前的既有数据）
+ * - PV_BASE：历史总访问量
+ * - UV_BASE：历史访客数
+ * 最终显示值 = 不蒜子实时值 + 该历史基数
+ */
+export const PV_BASE = 49437;
+export const UV_BASE = 36102;
+
+/**
+ * 共享的真实统计值（由不蒜子回调写入，已叠加历史基数）
  * - sitePv：总访问量（PV）
  * - siteUv：访客数（UV）
  * 供 DataPanel、StatsPanel 等组件响应式读取
@@ -29,12 +38,14 @@ export const sitePv = ref("");
 export const siteUv = ref("");
 
 /**
- * 不蒜子回调：写入真实统计值
+ * 不蒜子回调：写入真实统计值（叠加历史基数）
  * @param data 不蒜子返回的数据，包含 site_pv / site_uv 等字段
  */
 const applyBusuanzi = (data: Record<string, string>) => {
-  if (data?.["site_pv"] != null) sitePv.value = String(data["site_pv"]);
-  if (data?.["site_uv"] != null) siteUv.value = String(data["site_uv"]);
+  if (data?.["site_pv"] != null)
+    sitePv.value = String((parseInt(data["site_pv"], 10) || 0) + PV_BASE);
+  if (data?.["site_uv"] != null)
+    siteUv.value = String((parseInt(data["site_uv"], 10) || 0) + UV_BASE);
 };
 
 /**

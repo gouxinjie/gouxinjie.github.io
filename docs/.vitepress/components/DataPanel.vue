@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { sitePv, siteUv } from "../utils/site-stats";
+import { sitePv, siteUv, PV_BASE, UV_BASE } from "../utils/site-stats";
 
 // 正式域名下由不蒜子（busuanzi）填充真实统计值（共享响应式 store）
-// SSR/未加载时显示占位符，避免首屏空白闪烁
-const displayPv = computed(() => sitePv.value || "—");
-const displayUv = computed(() => siteUv.value || "—");
+// 本地/SSR 未加载时显示历史基数，避免首屏空白闪烁
+const displayPv = computed(() => sitePv.value || String(PV_BASE));
+const displayUv = computed(() => siteUv.value || String(UV_BASE));
 </script>
 
 <!-- 访问量展示 -->
@@ -13,15 +13,17 @@ const displayUv = computed(() => siteUv.value || "—");
   <div class="xinjie-datapanel">
     <div class="xinjie-datapanel__inner">
       <section class="xinjie-datapanel__grid">
-        <span class="xinjie-datapanel__text">
-          本站总访问量
-          <span id="busuanzi_value_site_pv" class="font-bold">{{ displayPv }}</span> 次
+        <span class="xinjie-datapanel__item">
+          <span class="xinjie-datapanel__label">本站总访问量</span>
+          <span id="busuanzi_value_site_pv" class="xinjie-datapanel__value font-bold">{{ displayPv }}</span>
+          <span class="xinjie-datapanel__sub">累计页面访问次数</span>
         </span>
         <img src="/xinjie.png" alt="heart" width="100" height="100" />
         <!-- <img src="/tap.gif" alt="我让你敲" width="150" height="150" /> -->
-        <span class="xinjie-datapanel__text">
-          本站访客数
-          <span id="busuanzi_value_site_uv" class="font-bold">{{ displayUv }}</span> 人次
+        <span class="xinjie-datapanel__item">
+          <span class="xinjie-datapanel__label">本站访客数</span>
+          <span id="busuanzi_value_site_uv" class="xinjie-datapanel__value font-bold">{{ displayUv }}</span>
+          <span class="xinjie-datapanel__sub">累计独立访客人数</span>
         </span>
       </section>
     </div>
@@ -52,21 +54,32 @@ const displayUv = computed(() => siteUv.value || "—");
   gap: 8px;
 }
 
-.xinjie-datapanel__text {
-  font-size: 0.9rem;
-  line-height: 1.5rem;
+.xinjie-datapanel__item {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 2px;
+  text-align: center;
 }
 
-.xinjie-datapanel__text :deep(.font-bold) {
-  font-size: 1.2rem;
+.xinjie-datapanel__label {
+  font-size: 0.85rem;
+  color: var(--vp-c-text-2);
+}
+
+.xinjie-datapanel__value {
+  font-size: 1.35rem;
   font-weight: 700;
+  line-height: 1.4;
   background: linear-gradient(120deg, var(--vp-c-brand-1), var(--vp-c-brand-next));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.xinjie-datapanel__sub {
+  font-size: 0.75rem;
+  color: var(--vp-c-text-3);
 }
 
 .xinjie-datapanel__grid img {
@@ -83,25 +96,28 @@ const displayUv = computed(() => siteUv.value || "—");
 
 @media (max-width: 640px) {
   .xinjie-datapanel__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr auto 1fr;
     justify-items: center;
-    padding: 18px 16px;
-    gap: 12px;
+    align-items: center;
+    padding: 18px 8px;
+    gap: 8px;
   }
 
   .xinjie-datapanel__grid img {
-    width: 72px;
-    height: 72px;
+    width: 52px;
+    height: 52px;
   }
 
-  .xinjie-datapanel__text {
-    font-size: 0.8rem;
-    justify-content: center;
-    text-align: center;
+  .xinjie-datapanel__label {
+    font-size: 0.75rem;
   }
 
-  .xinjie-datapanel__text :deep(.font-bold) {
-    font-size: 1.05rem;
+  .xinjie-datapanel__value {
+    font-size: 1rem;
+  }
+
+  .xinjie-datapanel__sub {
+    font-size: 0.65rem;
   }
 }
 </style>
