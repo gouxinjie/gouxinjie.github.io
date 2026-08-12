@@ -1,13 +1,14 @@
 ---
-layout: page
+layout: home
 title: Xinjie
 titleTemplate: "blog"
 editLink: false
 lastUpdated: false
+
+hero:
+  name: ""
+  text: ""
+  tagline: ""
+
+features: []
 ---
-
-<XinjieHome />
-
-<script setup>
-import { NAV_DATA } from './utils/homenav-data.ts'
-</script>

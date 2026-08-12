@@ -138,8 +138,11 @@ function toggleFooterCol(key: keyof FooterCollapsed) {
       <MouseClick v-if="showMouseClick" />
     </template>
 
-    <!-- XinjieHome 已改为通过 index.md 的 markdown body (<XinjieHome />) 渲染，
-         layout 从 home 改为 page，避免 slot 注入导致 SSR scope id 丢失 -->
+    <!-- 首页：XinjieHome 通过 #home-hero-after slot 注入，
+         各子组件已添加 <style scoped> 确保 SSR scope id 正确注入 -->
+    <template v-if="isHome" #home-hero-after>
+      <XinjieHome />
+    </template>
 
     <template #doc-footer-before>
       <BackToTop />

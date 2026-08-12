@@ -107,3 +107,7 @@ const stats = computed<StatItem[]>(() => [
     </div>
   </section>
 </template>
+
+<style scoped>
+.xinjie-stats { display: block; }
+</style>

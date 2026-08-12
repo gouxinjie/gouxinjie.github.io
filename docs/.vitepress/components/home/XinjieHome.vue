@@ -17,7 +17,7 @@ import { NAV_DATA } from "../../../utils/homenav-data";
 </script>
 
 <template>
-  <div class="xinjie-home">
+  <div id="xinjie-home-root" class="xinjie-home">
     <!-- 碎纸屑特效 -->
     <Confetti />
 
@@ -121,3 +121,10 @@ import { NAV_DATA } from "../../../utils/homenav-data";
     </div>
   </div>
 </template>
+
+<style scoped>
+/* 确保 Vue SSR 注入 scope id，使客户端 hydration 能正确匹配组件 */
+.xinjie-home {
+  display: block;
+}
+</style>

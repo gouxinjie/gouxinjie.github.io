@@ -46,3 +46,7 @@ import { FEATURED_ARTICLES } from "./home-articles";
     </div>
   </section>
 </template>
+
+<style scoped>
+.xinjie-section { display: block; }
+</style>
