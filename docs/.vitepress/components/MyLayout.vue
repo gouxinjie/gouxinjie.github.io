@@ -145,10 +145,11 @@ function toggleFooterCol(key: keyof FooterCollapsed) {
     </template>
 
     <!-- 首页：把 default Hero & Features 全部替换为 XinjieHome 渲染的设计稿内容
-         使用 #home-features-after slot：插入到 features 之后、Content(markdown body) 之前
-         隐藏 VPHero / VPFeatures 后，整页顺序 = XinjieHome → MNavLinks(markdown body)
-         XinjieHome 由 index.ts 中 defineAsyncComponent 全局注册，此处直接使用全局组件名 -->
-    <template v-if="isHomeRoute" #home-features-after>
+         使用 #home-hero-after slot：插入到 VPHero 之后、VPFeatures 之前
+         VPHero / VPFeatures 由 home.scss display:none 隐藏，XinjieHome 成为视觉上的唯一内容
+         改 slot 的原因：home-features-after 中 SSR 输出的根节点丢失 data-v scope id，
+         导致客户端 hydration 时无法识别 XinjieHome，会重挂组件 → 旧 SSR DOM 残留 → 重复两遍 -->
+    <template v-if="isHomeRoute" #home-hero-after>
       <XinjieHome />
     </template>
 
