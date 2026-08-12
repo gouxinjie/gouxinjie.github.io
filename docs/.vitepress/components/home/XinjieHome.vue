@@ -40,17 +40,13 @@ import { NAV_DATA } from "../../../utils/homenav-data";
           </p>
 
           <div class="xinjie-hero__actions">
-            <a class="xinjie-hero__btn xinjie-hero__btn--primary" href="/column/Vue/">
-              探索文章
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
-            </a>
-            <a class="xinjie-hero__btn xinjie-hero__btn--ghost" href="/column/React/">React</a>
-            <a class="xinjie-hero__btn xinjie-hero__btn--ghost" href="/column/Vue/">Vue</a>
-            <a class="xinjie-hero__btn xinjie-hero__btn--ghost" href="/column/Next/">Next.js</a>
             <a class="xinjie-hero__btn xinjie-hero__btn--ghost" href="/column/Personal/">
               <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></svg>
               关于我
             </a>
+            <a class="xinjie-hero__btn xinjie-hero__btn--ghost" href="/column/React/">React</a>
+            <a class="xinjie-hero__btn xinjie-hero__btn--ghost" href="/column/Vue/">Vue</a>
+            <a class="xinjie-hero__btn xinjie-hero__btn--ghost" href="/column/Next/">Next.js</a>
           </div>
 
           <div class="xinjie-hero__tags">
