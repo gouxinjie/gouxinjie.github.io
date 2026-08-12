@@ -45,14 +45,10 @@ import FeaturedArticles from "../components/home/FeaturedArticles.vue";
 import StatsPanel from "../components/home/StatsPanel.vue";
 import MermaidRenderer from "../components/MermaidRenderer.vue";
 import XinjieHome from "../components/home/XinjieHome.vue";
+import { fetchBusuanziStats } from "../utils/site-stats";
 
-const BUSUANZI_HOSTNAME = "gouxinjie.github.io";
-
-const fetchBusuanzi = async () => {
-  if (window.location.hostname !== BUSUANZI_HOSTNAME) return;
-
-  const { default: busuanzi } = await import("busuanzi.pure.js");
-  busuanzi.fetch();
+const fetchBusuanzi = () => {
+  fetchBusuanziStats();
 };
 
 /**

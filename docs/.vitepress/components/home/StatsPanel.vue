@@ -8,25 +8,30 @@
  * 数据来源：
  *   - 文章总数：手动维护（docs/column 下 .md 不含 index.md）
  *   - 分类数量：sidebar 一级分类数（静态 22）
- *   - 阅读量：通过 inject 从 DataPanel 获取（与访问量面板数据一致）
+ *   - 阅读量：与 DataPanel 共享不蒜子真实统计（sitePv）
  *   - 创建天数：首次提交 2024-11-05，运行时自动计算
  *
  * 每个图标的颜色和分类色与首页 hero 特性标签一致：
  *   文章总数（红）、分类数量（橙）、阅读量（绿）、创建天数（蓝）
  */
-import { inject, computed, ref, onMounted, type Ref } from "vue";
+import { computed, ref, watch, onMounted } from "vue";
+import { sitePv } from "../../utils/site-stats";
 
-// 从 DataPanel 注入访问量数据（由 DataPanel onMounted 时 provide）
-const injectedPv = inject<Ref<string>>("sitePv", ref("23680"));
-
-// 阅读量 = PV（与 DataPanel 面板一致）
-// SSR 安全：构建时用静态值 "24K+"，客户端 onMounted 后更新为实际值
+// 阅读量 = PV（与 DataPanel 共享同一份不蒜子真实数据）
+// SSR 安全：构建时用静态值 "24K+"，客户端拿到不蒜子真实值后响应式更新
 const displayPv = ref("24K+");
+const formatPv = (value: string) => {
+  const n = parseInt(value, 10);
+  if (isNaN(n)) return "0";
+  if (n >= 10000) return (n / 1000).toFixed(0) + "K+";
+  return String(n);
+};
+// 监听不蒜子返回的真实 PV，响应式更新阅读量
+watch(sitePv, (val) => {
+  if (val) displayPv.value = formatPv(val);
+});
 onMounted(() => {
-  const n = parseInt(injectedPv.value, 10);
-  if (isNaN(n)) { displayPv.value = "50K+"; return; }
-  if (n >= 10000) { displayPv.value = (n / 1000).toFixed(0) + "K+"; return; }
-  displayPv.value = String(n);
+  if (sitePv.value) displayPv.value = formatPv(sitePv.value);
 });
 
 interface StatItem {

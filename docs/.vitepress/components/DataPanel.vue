@@ -1,35 +1,11 @@
 <script setup lang="ts">
-import { onMounted, ref, provide } from "vue";
+import { computed } from "vue";
+import { sitePv, siteUv } from "../utils/site-stats";
 
-const BUSUANZI_HOSTNAME = "gouxinjie.github.io";
-
-const useStaticStats = ref(false);
-const staticSitePv = ref("23680");
-const staticSiteUv = ref("22460");
-
-// 暴露给 StatsPanel 使用
-provide("sitePv", staticSitePv);
-provide("siteUv", staticSiteUv);
-
-const getRandomInt = (min: number, max: number) => {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
-const updateStaticStats = () => {
-  const uv = getRandomInt(21800, 23200);
-  const pv = uv + getRandomInt(900, 1800);
-
-  staticSiteUv.value = String(uv);
-  staticSitePv.value = String(pv);
-};
-
-onMounted(() => {
-  useStaticStats.value = window.location.hostname !== BUSUANZI_HOSTNAME;
-
-  if (useStaticStats.value) {
-    updateStaticStats();
-  }
-});
+// 正式域名下由不蒜子（busuanzi）填充真实统计值（共享响应式 store）
+// SSR/未加载时显示占位符，避免首屏空白闪烁
+const displayPv = computed(() => sitePv.value || "—");
+const displayUv = computed(() => siteUv.value || "—");
 </script>
 
 <!-- 访问量展示 -->
@@ -39,15 +15,13 @@ onMounted(() => {
       <section class="xinjie-datapanel__grid">
         <span class="xinjie-datapanel__text">
           本站总访问量
-          <span v-if="useStaticStats" class="font-bold">{{ staticSitePv }}</span>
-          <span v-else id="busuanzi_value_site_pv" class="font-bold">{{ staticSitePv }}</span> 次
+          <span id="busuanzi_value_site_pv" class="font-bold">{{ displayPv }}</span> 次
         </span>
         <img src="/xinjie.png" alt="heart" width="100" height="100" />
         <!-- <img src="/tap.gif" alt="我让你敲" width="150" height="150" /> -->
         <span class="xinjie-datapanel__text">
           本站访客数
-          <span v-if="useStaticStats" class="font-bold">{{ staticSiteUv }}</span>
-          <span v-else id="busuanzi_value_site_uv" class="font-bold">{{ staticSiteUv }}</span> 人次
+          <span id="busuanzi_value_site_uv" class="font-bold">{{ displayUv }}</span> 人次
         </span>
       </section>
     </div>
