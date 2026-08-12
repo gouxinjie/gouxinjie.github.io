@@ -33,8 +33,8 @@
   padding: 0;
 }
 
-/* 全局 a 下划线渐变与设计稿按钮冲突：禁用 */
-.xinjie-home a.xinjie-hero__btn,
+/* 全局 a 下划线渐变与设计稿按钮冲突：禁用（排除 --about 按钮，它需要渐变背景） */
+.xinjie-home a.xinjie-hero__btn:not(.xinjie-hero__btn--about),
 .xinjie-home a.xinjie-article,
 .xinjie-home a.xinjie-section__more {
   background-image: none !important;
@@ -96,10 +96,22 @@
 
   .xinjie-hero__actions {
     justify-content: center;
+    width: 100%;
   }
 
   .xinjie-hero__tags {
     justify-content: center;
+    width: 100%;
+  }
+
+  /* 移动端：tag 文字加粗并大 1px */
+  .xinjie-hero__tag-title {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .xinjie-hero__tag-sub {
+    font-size: 12px;
   }
 }
 
@@ -128,16 +140,22 @@
   border-radius: 999px;
   font-size: 13px;
   font-weight: 600;
+  align-self: flex-start;
+}
+
+/* 徽章文字：主题色渐变 */
+.xinjie-hero__badge-text {
   background: linear-gradient(120deg, var(--vp-c-brand-1), var(--vp-c-brand-next));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  align-self: flex-start;
+  color: transparent;
 }
 
+/* 徽章圆点：主题色脉冲 */
 .xinjie-hero__badge-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--vp-c-brand-1);
   flex-shrink: 0;
@@ -240,6 +258,30 @@
 .xinjie-hero__btn--ghost:hover {
   border-color: var(--vp-c-brand-1);
   color: var(--vp-c-brand-1) !important;
+}
+
+/* 关于我按钮：主题色渐变背景，只用 background-image 避免 shorthand 冲突 */
+.xinjie-hero__btn.xinjie-hero__btn--about {
+  background-image: linear-gradient(135deg, var(--vp-c-brand-1, #0096fd) 0%, var(--vp-c-brand-2, #004fab) 100%);
+  color: #ffffff !important;
+  border-color: transparent;
+  font-weight: 600;
+}
+
+.xinjie-hero__btn.xinjie-hero__btn--about:hover {
+  background-image: linear-gradient(135deg, var(--vp-c-brand-2, #004fab) 0%, var(--vp-c-brand-1, #0096fd) 100%);
+  color: #ffffff !important;
+  border-color: transparent;
+  box-shadow: 0 8px 24px -6px var(--vp-c-brand-1, rgba(80, 150, 255, 0.45));
+}
+
+/* 按钮内箭头 SVG 动画 */
+.xinjie-hero__btn-arrow {
+  transition: transform 0.2s ease;
+}
+
+.xinjie-hero__btn:hover .xinjie-hero__btn-arrow {
+  transform: translateX(3px);
 }
 
 .xinjie-hero__btn svg {

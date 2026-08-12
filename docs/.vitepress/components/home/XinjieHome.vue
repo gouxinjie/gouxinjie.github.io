@@ -24,8 +24,8 @@ import { NAV_DATA } from "../../../utils/homenav-data";
         <div class="xinjie-hero__left">
           <div class="xinjie-hero__title-block">
             <span class="xinjie-hero__badge">
-              <span class="xinjie-hero__badge-dot" />
-              欢迎来到我的技术博客
+              <span class="xinjie-hero__badge-dot" aria-hidden="true"></span>
+              <span class="xinjie-hero__badge-text">欢迎来到我的技术博客</span>
             </span>
             <h1 class="xinjie-hero__title">
               <span class="xinjie-hero__title-grad">Xinjie's Personal Blog</span>
@@ -40,9 +40,10 @@ import { NAV_DATA } from "../../../utils/homenav-data";
           </p>
 
           <div class="xinjie-hero__actions">
-            <a class="xinjie-hero__btn xinjie-hero__btn--ghost" href="/column/Personal/">
+            <a class="xinjie-hero__btn xinjie-hero__btn--about" href="/column/Personal/">
               <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></svg>
               关于我
+              <svg class="xinjie-hero__btn-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
             </a>
             <a class="xinjie-hero__btn xinjie-hero__btn--ghost" href="/column/React/">React</a>
             <a class="xinjie-hero__btn xinjie-hero__btn--ghost" href="/column/Vue/">Vue</a>
