@@ -18,9 +18,6 @@ import { NAV_DATA } from "../../../utils/homenav-data";
 
 <template>
   <div id="xinjie-home-root" class="xinjie-home">
-    <!-- 碎纸屑特效 -->
-    <Confetti />
-
     <!-- ============ HERO ============ -->
     <section class="xinjie-hero">
       <div class="xinjie-hero__inner">

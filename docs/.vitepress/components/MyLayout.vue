@@ -25,6 +25,12 @@ const isHome = computed(() => {
   return p === "" || p === "/column/Personal";
 });
 
+// 仅在站点根路径 / 注入 XinjieHome
+const isHomeRoute = computed(() => {
+  const p = route.path.replace(/index\.html$/, "").replace(/\/+$/, "");
+  return p === "";
+});
+
 // 备案号占位，留空则不显示
 const beianNo = "沪ICP备2026024942号";
 
@@ -135,12 +141,13 @@ function toggleFooterCol(key: keyof FooterCollapsed) {
     </template>
 
     <template #layout-top>
+      <Confetti v-if="isHomeRoute" />
       <MouseClick v-if="showMouseClick" />
     </template>
 
     <!-- 首页：XinjieHome 通过 #home-hero-after slot 注入，
          各子组件已添加 <style scoped> 确保 SSR scope id 正确注入 -->
-    <template v-if="isHome" #home-hero-after>
+    <template v-if="isHomeRoute" #home-hero-after>
       <XinjieHome />
     </template>
 
