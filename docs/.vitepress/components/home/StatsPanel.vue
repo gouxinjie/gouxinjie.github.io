@@ -14,17 +14,19 @@
  * 每个图标的颜色和分类色与首页 hero 特性标签一致：
  *   文章总数（红）、分类数量（橙）、阅读量（绿）、创建天数（蓝）
  */
-import { inject, computed, ref, type Ref } from "vue";
+import { inject, computed, ref, onMounted, type Ref } from "vue";
 
 // 从 DataPanel 注入访问量数据（由 DataPanel onMounted 时 provide）
 const injectedPv = inject<Ref<string>>("sitePv", ref("23680"));
 
 // 阅读量 = PV（与 DataPanel 面板一致）
-const displayPv = computed(() => {
+// SSR 安全：构建时用静态值 "24K+"，客户端 onMounted 后更新为实际值
+const displayPv = ref("24K+");
+onMounted(() => {
   const n = parseInt(injectedPv.value, 10);
-  if (isNaN(n)) return "50K+";
-  if (n >= 10000) return (n / 1000).toFixed(0) + "K+";
-  return String(n);
+  if (isNaN(n)) { displayPv.value = "50K+"; return; }
+  if (n >= 10000) { displayPv.value = (n / 1000).toFixed(0) + "K+"; return; }
+  displayPv.value = String(n);
 });
 
 interface StatItem {
@@ -38,6 +40,12 @@ interface StatItem {
 }
 
 const startDate = new Date("2024-11-05").getTime();
+
+// SSR 安全：构建时用静态天数，客户端 onMounted 后更新
+const daysCount = ref(Math.floor((Date.now() - startDate) / 86400000) + "+");
+onMounted(() => {
+  daysCount.value = Math.floor((Date.now() - startDate) / 86400000) + "+";
+});
 
 const stats = computed<StatItem[]>(() => [
   {
@@ -60,7 +68,7 @@ const stats = computed<StatItem[]>(() => [
   },
   {
     title: "阅读量",
-    value: displayPv.value,
+    value: displayPv.value, // SSR 安全：静态值，客户端 onMounted 后响应式更新
     sub: "累计访问次数",
     iconBg: "rgba(34, 197, 94, 0.12)",
     iconColor: "#22c55e",
@@ -69,7 +77,7 @@ const stats = computed<StatItem[]>(() => [
   },
   {
     title: "创建天数",
-    value: Math.floor((Date.now() - startDate) / 86400000) + "+",
+    value: daysCount.value, // SSR 安全：静态值，客户端 onMounted 后响应式更新
     sub: "持续创作中",
     iconBg: "rgba(59, 130, 246, 0.12)",
     iconColor: "#3b82f6",
