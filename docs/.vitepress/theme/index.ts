@@ -6,7 +6,7 @@
  */
 
 // Vue 核心导入
-import { defineAsyncComponent, onMounted, onBeforeUnmount, watch, nextTick } from "vue";
+import { onMounted, onBeforeUnmount, watch, nextTick } from "vue";
 
 // VitePress 导入
 import { useRoute } from "vitepress";
@@ -33,17 +33,18 @@ import PoetryDisplay from "../components/poetry/PoetryDisplay.vue"; // 诗词展
 import HeroDisplay from "../components/poetry/HeroDisplay.vue"; // 励志文本展示组件
 import FamousDisplay from "../components/poetry/FamousDisplay.vue"; // 名句展示组件
 
-// 异步组件导入
-const SearchList = defineAsyncComponent(() => import("../components/SearchList.vue"));
-const MyCard = defineAsyncComponent(() => import("../components/MyCard.vue"));
-const DataPanel = defineAsyncComponent(() => import("../components/DataPanel.vue"));
-const Confetti = defineAsyncComponent(() => import("../components/Confetti.vue"));
-const MouseClick = defineAsyncComponent(() => import("../components/MouseClick.vue"));
-const BackToTop = defineAsyncComponent(() => import("../components/BackToTop.vue"));
-const CopyMarkdown = defineAsyncComponent(() => import("../components/CopyMarkdown.vue"));
-const FeaturedArticles = defineAsyncComponent(() => import("../components/home/FeaturedArticles.vue"));
-const StatsPanel = defineAsyncComponent(() => import("../components/home/StatsPanel.vue"));
-const XinjieHome = defineAsyncComponent(() => import("../components/home/XinjieHome.vue"));
+// 同步组件导入（SSR 需要 scope id 来 hydration 匹配，defineAsyncComponent 在 SSR 中不会注入 scope id）
+import SearchList from "../components/SearchList.vue";
+import MyCard from "../components/MyCard.vue";
+import DataPanel from "../components/DataPanel.vue";
+import Confetti from "../components/Confetti.vue";
+import MouseClick from "../components/MouseClick.vue";
+import BackToTop from "../components/BackToTop.vue";
+import CopyMarkdown from "../components/CopyMarkdown.vue";
+import FeaturedArticles from "../components/home/FeaturedArticles.vue";
+import StatsPanel from "../components/home/StatsPanel.vue";
+import MermaidRenderer from "../components/MermaidRenderer.vue";
+import XinjieHome from "../components/home/XinjieHome.vue";
 
 const BUSUANZI_HOSTNAME = "gouxinjie.github.io";
 
@@ -79,7 +80,7 @@ const theme: Theme = {
     app.component("MouseClick", MouseClick);
     app.component("ArticleMetadata", ArticleMetadata); // 字数及阅读时间
     app.component("BackToTop", BackToTop);
-    app.component("Mermaid", defineAsyncComponent(() => import("../components/MermaidRenderer.vue")));
+    app.component("Mermaid", MermaidRenderer);
     app.component("MNavLinks", MNavLinks); // 导航组件
     app.component("ProjectsPanel", ProjectsPanel); // 在线项目展示
     app.component("PoetryDisplay", PoetryDisplay); // 诗词组件
