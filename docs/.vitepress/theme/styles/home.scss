@@ -6,23 +6,12 @@
  */
 
 /* ============================================================
- * 1. 首页容器重置：把默认 VPHome 撑满，并隐藏默认 hero/features
+ * 1. 首页容器重置：layout:page 下 .vp-doc 包裹 XinjieHome，
+ *    需去掉默认 .vp-doc 的内边距限制
  * ============================================================ */
-.VPHome {
+.vp-doc:has(.xinjie-home) {
   padding: 0 !important;
-  width: 100% !important;
   max-width: none !important;
-  background: var(--vp-c-bg);
-}
-
-.VPHome:not(.has-sidebar) {
-  padding: 0 !important;
-}
-
-/* 默认 VPHero 与 VPFeatures 完全隐藏 */
-.VPHome > .VPHero,
-.VPHome > .VPFeatures {
-  display: none !important;
 }
 
 /* 设计稿首页顶层容器 */
