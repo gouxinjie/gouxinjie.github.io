@@ -16,6 +16,7 @@ import type { Theme } from "vitepress";
 
 // 样式导入
 import "./styles/index.scss"; // 启用新样式
+import "./styles/home.scss"; // 新首页样式
 
 // 第三方库导入
 import mediumZoom from "medium-zoom"; // 图片预览插件
@@ -40,6 +41,9 @@ const Confetti = defineAsyncComponent(() => import("../components/Confetti.vue")
 const MouseClick = defineAsyncComponent(() => import("../components/MouseClick.vue"));
 const BackToTop = defineAsyncComponent(() => import("../components/BackToTop.vue"));
 const CopyMarkdown = defineAsyncComponent(() => import("../components/CopyMarkdown.vue"));
+const FeaturedArticles = defineAsyncComponent(() => import("../components/home/FeaturedArticles.vue"));
+const StatsPanel = defineAsyncComponent(() => import("../components/home/StatsPanel.vue"));
+const XinjieHome = defineAsyncComponent(() => import("../components/home/XinjieHome.vue"));
 
 const BUSUANZI_HOSTNAME = "gouxinjie.github.io";
 
@@ -81,7 +85,10 @@ const theme: Theme = {
     app.component("PoetryDisplay", PoetryDisplay); // 诗词组件
     app.component("HeroDisplay", HeroDisplay); // 励志文本组件
     app.component("FamousDisplay", FamousDisplay); // 名句组件
-    app.component("CopyMarkdown", CopyMarkdown); // 复制完整 Markdown 组件
+    app.component("CopyMarkdown", CopyMarkdown);
+    app.component("FeaturedArticles", FeaturedArticles); // 精选文章
+    app.component("StatsPanel", StatsPanel); // 统计面板
+    app.component("XinjieHome", XinjieHome); // 新首页主组件
 
     /**
      * 访问量统计和进度条配置
