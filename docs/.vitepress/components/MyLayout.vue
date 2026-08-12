@@ -147,7 +147,7 @@ function toggleFooterCol(key: keyof FooterCollapsed) {
 
     <!-- 首页：XinjieHome 通过 #home-hero-after slot 注入，
          各子组件已添加 <style scoped> 确保 SSR scope id 正确注入 -->
-    <template v-if="isHomeRoute" #home-hero-after>
+    <template v-if="isHomeRoute" #home-hero-before>
       <XinjieHome />
     </template>
 
