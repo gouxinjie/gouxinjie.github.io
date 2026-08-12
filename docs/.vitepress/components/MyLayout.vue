@@ -3,6 +3,7 @@ import { useRouter, useData } from "vitepress";
 import DefaultTheme from "vitepress/theme";
 import { watch, ref, computed, nextTick, provide, onMounted, onBeforeUnmount } from "vue";
 
+
 const { Layout } = DefaultTheme;
 const { route } = useRouter();
 const { isDark } = useData();
@@ -22,6 +23,12 @@ const showMouseClick = computed(() => allowMotion.value && route.path === "/");
 const isHome = computed(() => {
   const p = route.path.replace(/index\.html$/, "").replace(/\/+$/, "");
   return p === "" || p === "/column/Personal";
+});
+
+// 仅在站点根路径（/）注入 XinjieHome，Personal 主页（/column/Personal）保留原有布局
+const isHomeRoute = computed(() => {
+  const p = route.path.replace(/index\.html$/, "").replace(/\/+$/, "");
+  return p === "";
 });
 
 // 备案号占位：备案通过后填写真实号（如「京ICP备12345678号-1」），留空则不显示
@@ -135,6 +142,14 @@ function toggleFooterCol(key: keyof FooterCollapsed) {
 
     <template #layout-top>
       <MouseClick v-if="showMouseClick" />
+    </template>
+
+    <!-- 首页：把 default Hero & Features 全部替换为 XinjieHome 渲染的设计稿内容
+         使用 #home-features-after slot：插入到 features 之后、Content(markdown body) 之前
+         隐藏 VPHero / VPFeatures 后，整页顺序 = XinjieHome → MNavLinks(markdown body)
+         XinjieHome 由 index.ts 中 defineAsyncComponent 全局注册，此处直接使用全局组件名 -->
+    <template v-if="isHomeRoute" #home-features-after>
+      <XinjieHome />
     </template>
 
     <template #doc-footer-before>
