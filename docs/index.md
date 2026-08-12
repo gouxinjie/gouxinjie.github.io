@@ -1,17 +1,13 @@
 ---
-# https://vitepress.dev/reference/default-theme-home-page
-
-layout: home
+layout: page
 title: Xinjie
 titleTemplate: "blog"
 editLink: false
 lastUpdated: false
-
-# 默认 hero / features 留空，由 MyLayout 的 #home-features-after slot 接管
-hero:
-  name: ""
-  text: ""
-  tagline: ""
-
-features: []
 ---
+
+<XinjieHome />
+
+<script setup>
+import { NAV_DATA } from './utils/homenav-data.ts'
+</script>

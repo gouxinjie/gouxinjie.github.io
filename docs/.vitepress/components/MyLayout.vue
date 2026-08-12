@@ -25,13 +25,7 @@ const isHome = computed(() => {
   return p === "" || p === "/column/Personal";
 });
 
-// 仅在站点根路径（/）注入 XinjieHome，Personal 主页（/column/Personal）保留原有布局
-const isHomeRoute = computed(() => {
-  const p = route.path.replace(/index\.html$/, "").replace(/\/+$/, "");
-  return p === "";
-});
-
-// 备案号占位：备案通过后填写真实号（如「京ICP备12345678号-1」），留空则不显示
+// 备案号占位，留空则不显示
 const beianNo = "沪ICP备2026024942号";
 
 function syncMotionPreference() {
@@ -144,14 +138,8 @@ function toggleFooterCol(key: keyof FooterCollapsed) {
       <MouseClick v-if="showMouseClick" />
     </template>
 
-    <!-- 首页：把 default Hero & Features 全部替换为 XinjieHome 渲染的设计稿内容
-         使用 #home-hero-after slot：插入到 VPHero 之后、VPFeatures 之前
-         VPHero / VPFeatures 由 home.scss display:none 隐藏，XinjieHome 成为视觉上的唯一内容
-         改 slot 的原因：home-features-after 中 SSR 输出的根节点丢失 data-v scope id，
-         导致客户端 hydration 时无法识别 XinjieHome，会重挂组件 → 旧 SSR DOM 残留 → 重复两遍 -->
-    <template v-if="isHomeRoute" #home-hero-after>
-      <XinjieHome />
-    </template>
+    <!-- XinjieHome 已改为通过 index.md 的 markdown body (<XinjieHome />) 渲染，
+         layout 从 home 改为 page，避免 slot 注入导致 SSR scope id 丢失 -->
 
     <template #doc-footer-before>
       <BackToTop />
