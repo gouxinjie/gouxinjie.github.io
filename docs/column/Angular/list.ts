@@ -9,7 +9,13 @@ const angularList = [
         text: "概念"
       },
       {
+        text: "模块"
+      },
+      {
         text: "组件"
+      },
+      {
+        text: "模板语法与指令"
       },
       {
         text: "数据绑定"
@@ -21,11 +27,26 @@ const angularList = [
         text: "服务和依赖注入"
       },
       {
+        text: "表单"
+      },
+      {
+        text: "生命周期实战"
+      },
+      {
+        text: "装饰器"
+      },
+      {
+        text: "变更检测"
+      },
+      {
         text: "http客户端"
       },
       { text: "Signal(信号)" },
       {
         text: "路由和导航"
+      },
+      {
+        text: "AngularCLI与项目结构"
       }
     ]
   },
@@ -36,6 +57,15 @@ const angularList = [
     items: [
       {
         text: "基本使用"
+      },
+      {
+        text: "核心概念"
+      },
+      {
+        text: "完整状态管理流程"
+      },
+      {
+        text: "Entity与路由状态与ComponentStore"
       }
     ]
   },
@@ -45,6 +75,15 @@ const angularList = [
     items: [
       {
         text: "基本使用"
+      },
+      {
+        text: "Subject详解"
+      },
+      {
+        text: "操作符实战"
+      },
+      {
+        text: "订阅管理与内存泄漏"
       }
     ]
   }
