@@ -1,0 +1,164 @@
+const n=`# Angular 模块（NgModule）与独立组件
+
+模块是 \`Angular\` 的**第一概念**。它把组件、指令、管道、服务等资源组织成一个个功能单元，是 \`Angular\` 应用组织代码的基本单位。
+
+## 一、什么是 NgModule
+
+\`NgModule\` 是一个用 \`@NgModule\` 装饰器标记的类，它描述了一组相关资源的编译范围与运行时注入方式。
+
+\`\`\`typescript
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { AppComponent } from "./app.component";
+import { WelcomeComponent } from "./welcome.component";
+import { UserService } from "./user.service";
+
+@NgModule({
+  declarations: [AppComponent, WelcomeComponent], // 声明本模块拥有的组件、指令、管道
+  imports: [BrowserModule, FormsModule], // 导入其他模块，使用它们导出的资源
+  providers: [UserService], // 提供服务（注入器作用域）
+  bootstrap: [AppComponent], // 启动的根组件（仅根模块需要）
+  exports: [WelcomeComponent] // 导出资源，供其他模块使用
+})
+export class AppModule {}
+\`\`\`
+
+### @NgModule 各属性的作用
+
+| 属性          | 作用                                                       |
+| ------------- | ---------------------------------------------------------- |
+| \`declarations\` | 声明本模块内的组件、指令、管道（不能重复声明）             |
+| \`imports\`     | 导入其他模块，让本模块能使用它们 \`exports\` 的资源          |
+| \`exports\`     | 导出资源，让导入本模块的模块可以使用                       |
+| \`providers\`   | 声明服务，决定服务在本模块注入器作用域内的可用性           |
+| \`bootstrap\`   | 指定应用启动的根组件（只有根模块需要）                     |
+
+## 二、根模块与特性模块
+
+### 1. 根模块（AppModule）
+
+每个应用只有一个根模块，通过 \`bootstrap\` 指定根组件，是应用的入口：
+
+\`\`\`typescript
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+\`\`\`
+
+### 2. 特性模块（Feature Module）
+
+用于按业务领域划分功能，例如订单模块：
+
+\`\`\`typescript
+@NgModule({
+  declarations: [OrderListComponent, OrderDetailComponent],
+  imports: [CommonModule, SharedModule],
+  exports: [OrderListComponent]
+})
+export class OrderModule {}
+\`\`\`
+
+## 三、独立组件（Standalone Component）
+
+\`Angular 14+\` 引入了**独立组件**，它不需要声明在任何 \`NgModule\` 中，通过 \`standalone: true\` 标记，并使用 \`imports\` 直接声明自己依赖的资源。
+
+\`\`\`typescript
+import { Component } from "@angular/core";
+import { CommonModule } from "@angular/common";
+
+@Component({
+  selector: "app-profile",
+  standalone: true, // 声明为独立组件
+  imports: [CommonModule], // 独立组件直接导入自己需要的模块/组件
+  templateUrl: "./profile.component.html"
+})
+export class ProfileComponent {}
+\`\`\`
+
+使用独立组件时，无需再写 \`declarations\`，直接在父组件或路由中导入即可。
+
+## 四、NgModule 与 Standalone 的对比
+
+| 特性         | NgModule                     | Standalone 独立组件             |
+| ------------ | ---------------------------- | -------------------------------- |
+| 组织方式     | 通过模块集中管理资源         | 组件自包含，自行声明依赖         |
+| 依赖声明     | \`declarations\` / \`imports\`   | 组件 \`imports\` 中直接声明        |
+| 使用场景     | 老项目、需要统一导出         | 新项目（默认）、便于 tree-shaking |
+| 启动方式     | \`bootstrap: [AppComponent]\`  | \`bootstrapApplication()\`         |
+
+**独立组件应用的启动**（\`main.ts\`）：
+
+\`\`\`typescript
+import { bootstrapApplication } from "@angular/platform-browser";
+import { AppComponent } from "./app/app.component";
+
+bootstrapApplication(AppComponent);
+\`\`\`
+
+## 五、惰性加载（Lazy Loading）
+
+模块级惰性加载：
+
+\`\`\`typescript
+{
+  path: "orders",
+  loadChildren: () => import("./orders/orders.module").then((m) => m.OrdersModule)
+}
+\`\`\`
+
+独立组件/路由惰性加载（\`Angular 15+\`）：
+
+\`\`\`typescript
+{
+  path: "orders",
+  loadComponent: () => import("./orders/orders.component").then((m) => m.OrdersComponent)
+}
+\`\`\`
+
+惰性加载能让应用首屏只加载必要的代码，其余模块在访问时按需下载，显著提升启动性能。
+
+## 六、共享模块（SharedModule）
+
+把多个模块都会用到的公共组件、指令、管道集中导出，避免重复声明：
+
+\`\`\`typescript
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ButtonComponent } from "./button/button.component";
+import { CardComponent } from "./card/card.component";
+
+@NgModule({
+  declarations: [ButtonComponent, CardComponent],
+  imports: [CommonModule],
+  exports: [ButtonComponent, CardComponent, CommonModule] // 连 CommonModule 一起导出，方便使用方
+})
+export class SharedModule {}
+\`\`\`
+
+> 注意：\`declarations\` 中的组件**只能在一个模块中声明**，不能同时出现在多个模块里。要跨模块复用，必须通过 \`exports\` 导出。
+
+## 七、常见问题解答
+
+**Q1：组件可以声明在多个模块中吗？**
+
+- 不可以。一个组件只能属于一个模块的 \`declarations\`，跨模块复用时通过 \`exports\` + \`imports\` 实现。
+
+**Q2：\`declarations\` 和 \`imports\` 里的组件有什么区别？**
+
+- \`declarations\` 声明「本模块拥有的」组件
+- \`imports\` 引入「其他模块导出的」组件/模块
+
+**Q3：应该用 NgModule 还是 Standalone？**
+
+- 新项目官方推荐 Standalone 独立组件（默认就是）
+- 维护老项目、需要模块边界清晰导出时用 NgModule
+- 两者可以混用：独立组件可以导入 NgModule，NgModule 也可以导入独立组件
+
+**Q4：为什么不把组件声明到 AppModule 就算完，还要特性模块？**
+
+- 模块化能让代码按业务拆分、支持惰性加载、减少首屏体积、方便团队协作与单元测试隔离。
+`;export{n as default};

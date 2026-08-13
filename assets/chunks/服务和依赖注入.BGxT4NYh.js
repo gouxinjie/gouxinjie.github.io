@@ -1,0 +1,230 @@
+const n=`# Angular 服务与依赖注入：构建可维护应用的核心机制
+
+## 一、服务(Service)基础概念
+
+### 什么是 Angular 服务？
+
+\`Angular\` 服务是 \`Angular\` 应用中用于封装业务逻辑、数据访问或共享功能的单例对象。它们通过依赖注入系统在整个应用中共享。
+
+\`Angular\` 认为，组件是与用户交互的一种对象，其中的内容都应该是与用户操作有关系的，而与用户操作无关的都应该剥离出去；放在“服务对象” ，在外面为组件服务（比如日志、计时统计、数据库的访问）。
+
+### 为什么需要服务？
+
+1. **单一职责原则**：将组件与业务逻辑分离
+2. **代码复用**：避免在多个组件中重复相同逻辑
+3. **状态共享**：在不同组件间共享数据和功能
+4. **可测试性**：更容易进行单元测试
+
+## 二、创建和使用服务
+
+### 1. 创建服务
+
+使用 Angular CLI 生成服务：
+
+\`\`\`bash
+ng generate service data
+\`\`\`
+
+生成的基本服务结构：
+
+\`\`\`typescript
+import { Injectable } from "@angular/core";
+// 所有的服务对象都是可注入的
+// root 是根模块
+@Injectable({ providedIn: "root" })
+export class LogServe {
+  doLog(log: string) {
+    console.log("log service");
+  }
+}
+\`\`\`
+
+### 2. 依赖注入
+
+开始依赖注入：
+
+\`\`\`typescript
+import { Component } from "@angular/core";
+import { LogServe } from "../log.service";
+
+@Component({
+  selector: "app-first",
+  imports: [NgFor, NgIf, FormsModule],
+  templateUrl: "./first.component.html",
+  styleUrl: "./first.component.scss",
+  standalone: true
+})
+export class FirstComponent {
+  log: LogServe;
+  // 1.声明依赖
+  constructor(log: LogServe) {
+    this.log = log;
+  }
+  // 2.使用依赖
+  setUppercaseName(e: any) {
+    this.log.doLog("1"); //  不用new
+  }
+}
+\`\`\`
+
+也可以使用 \`inject\` 函数的方式（Angular 14+ 推荐，尤其适合函数式组件场景）：
+
+\`\`\`typescript
+import { inject } from "@angular/core";
+
+export class FirstComponent {
+  // 直接在字段上注入，无需构造函数
+  log = inject(LogServe);
+
+  setUppercaseName(e: any) {
+    this.log.doLog("1");
+  }
+}
+\`\`\`
+
+## 三、服务的作用域（providedIn）
+
+\`@Injectable\` 装饰器中的 \`providedIn\` 决定了服务的**提供范围**和**单例级别**：
+
+\`\`\`typescript
+import { Injectable } from "@angular/core";
+import { SomeModule } from "./some.module"; // 指定模块时需先导入目标模块类
+
+// 1. root：在根注入器中提供，整个应用共享同一个实例（最常用）
+@Injectable({ providedIn: "root" })
+export class RootService {}
+
+// 2. any：每个「模块注入器」都会提供独立的实例（懒加载模块各自独立）
+@Injectable({ providedIn: "any" })
+export class AnyService {}
+
+// 3. 指定模块：只在某个模块作用域内提供（SomeModule 需替换为实际的模块类）
+@Injectable({ providedIn: SomeModule })
+export class ModuleScopedService {}
+\`\`\`
+
+| providedIn | 实例数量                 | 适用场景                     |
+| ---------- | ------------------------ | ---------------------------- |
+| \`root\`     | 应用全局单例             | 大多数业务服务               |
+| \`any\`      | 每个模块注入器一个       | 需要模块间隔离状态的场景     |
+| 指定模块   | 该模块作用域内单例       | 不希望暴露到全局的模块私有服务 |
+
+## 四、Provider 的几种写法
+
+除了最常用的 \`@Injectable({ providedIn: "root" })\`，还可以通过 Provider 配置来灵活控制「注入什么、如何创建」：
+
+### 1. useClass（用某个类替换）
+
+\`\`\`typescript
+// 抽象基类/接口
+export abstract class Logger {
+  abstract log(msg: string): void;
+}
+
+export class ConsoleLogger extends Logger {
+  log(msg: string) {
+    console.log(msg);
+  }
+}
+
+export class FileLogger extends Logger {
+  log(msg: string) {
+    console.log("[file]", msg);
+  }
+}
+
+// 提供时用 ConsoleLogger 替换 Logger
+providers: [{ provide: Logger, useClass: ConsoleLogger }]
+\`\`\`
+
+### 2. useValue（提供固定值）
+
+\`\`\`typescript
+export const API_URL = "https://api.example.com";
+
+providers: [{ provide: "API_URL", useValue: API_URL }]
+\`\`\`
+
+### 3. useFactory（工厂函数动态创建）
+
+\`\`\`typescript
+providers: [
+  {
+    provide: Logger,
+    // deps 声明工厂函数依赖的其他服务
+    useFactory: (config: ConfigService) => {
+      return config.isProd ? new FileLogger() : new ConsoleLogger();
+    },
+    deps: [ConfigService]
+  }
+]
+\`\`\`
+
+### 4. useExisting（复用已有实例，起别名）
+
+\`\`\`typescript
+providers: [{ provide: Logger, useExisting: ConsoleLogger }]
+\`\`\`
+
+## 五、@Inject 与 @Optional
+
+### 1. @Inject 注入令牌（Token）
+
+当依赖不是类（比如上面用字符串 \`"API_URL"\` 作为令牌）时，需要显式使用 \`@Inject\`：
+
+\`\`\`typescript
+import { Inject } from "@angular/core";
+
+export class SomeService {
+  constructor(@Inject("API_URL") private apiUrl: string) {}
+}
+\`\`\`
+
+### 2. @Optional 可选依赖
+
+当某个依赖可能不存在时，使用 \`@Optional\` 避免注入失败抛错：
+
+\`\`\`typescript
+import { Optional } from "@angular/core";
+
+export class SomeComponent {
+  constructor(@Optional() private logger: Logger) {
+    // logger 可能为 null，使用时需判空
+  }
+}
+\`\`\`
+
+## 六、多级注入器
+
+\`Angular\` 的依赖注入是**层级化的**，解析依赖时会从当前组件向上逐级查找：
+
+1. **根注入器（root）**：\`providedIn: "root"\` 或 \`AppModule\` 的 providers
+2. **模块注入器**：懒加载模块自己的 providers
+3. **组件注入器**：组件自己 \`providers\` 数组中声明的服务（每个组件实例独立）
+
+\`\`\`typescript
+@Component({
+  selector: "app-detail",
+  providers: [DataService] // 每个 app-detail 组件实例都会拿到独立的 DataService
+})
+export class DetailComponent {}
+\`\`\`
+
+> 关键点：在组件级 \`providers\` 中声明的服务，其生命周期跟随组件实例，组件销毁时服务也随之销毁。利用这一点可以实现「组件级的状态隔离」。
+
+## 七、常见问题解答
+
+**Q1：\`providedIn: "root"\` 和手动在 providers 里声明有什么区别？**
+
+- \`providedIn: "root"\` 支持 **Tree-shaking**（未使用的服务会被打包工具移除）
+- 手动声明在 \`providers\` 中则无法被 tree-shake，但更灵活（如 \`useClass\` 替换实现）
+
+**Q2：什么时候需要 \`@Optional\`？**
+
+- 当服务是可选的、缺失也不影响功能时（如可选的日志、配置服务）
+
+**Q3：服务是单例吗？**
+
+- \`providedIn: "root"\` 的服务是全局单例
+- 组件级 providers 声明的服务则是每个组件实例一个，不是全局单例
+`;export{n as default};
