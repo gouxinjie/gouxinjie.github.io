@@ -22,7 +22,7 @@ const aiFutureList = [
         text: "什么是RAG检索增强生成"
       },
       {
-        text: "为什么 Prompt 开头要写「你是 xx 专家」？"
+        text: "为什么 Prompt 开头要写 你是xx专家"
       }
     ]
   },
