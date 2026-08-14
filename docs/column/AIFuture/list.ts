@@ -10,7 +10,7 @@ const aiFutureList = [
         text: "AI概念与AI Agent"
       },
       {
-        text: "AI模型中的Token是什么"
+        text: "AI模型中的Token含义"
       },
       {
         text: "什么是模型蒸馏"
