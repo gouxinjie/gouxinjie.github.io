@@ -34,9 +34,9 @@ const formatTitle = computed(() => {
 
 <style scoped>
 .m-nav-links {
-  --m-nav-gap: 18px;
+  --m-nav-gap: 12px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   grid-row-gap: var(--m-nav-gap);
   grid-column-gap: var(--m-nav-gap);
   grid-auto-flow: row dense;

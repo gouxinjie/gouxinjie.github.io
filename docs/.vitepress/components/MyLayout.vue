@@ -176,7 +176,7 @@ function toggleFooterCol(key: keyof FooterCollapsed) {
             </div>
           </div>
 
-          <div class="footer-col">
+          <div class="footer-col footer-col-nav">
             <h4 class="col-head" @click="toggleFooterCol('nav')">
               导航
               <svg class="col-chevron" :class="{ open: !footerCollapsed.nav }" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
@@ -190,7 +190,7 @@ function toggleFooterCol(key: keyof FooterCollapsed) {
             </div>
           </div>
 
-          <div class="footer-col">
+          <div class="footer-col footer-col-resource">
             <h4 class="col-head" @click="toggleFooterCol('resource')">
               资源
               <svg class="col-chevron" :class="{ open: !footerCollapsed.resource }" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
@@ -609,8 +609,50 @@ function toggleFooterCol(key: keyof FooterCollapsed) {
 
 @media (max-width: 480px) {
   .footer-inner {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  /* 窄屏下：导航与资源并排一行 */
+  .footer-col-nav {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .footer-col-resource {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  /* 窄屏并排时：导航与资源始终展开，禁用折叠，隐藏箭头 */
+  .footer-col-nav .col-head,
+  .footer-col-resource .col-head {
+    cursor: default;
+    user-select: auto;
+  }
+
+  .footer-col-nav .col-chevron,
+  .footer-col-resource .col-chevron {
+    display: none;
+  }
+
+  .footer-col-nav .footer-col-body,
+  .footer-col-resource .footer-col-body {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .footer-col-nav .footer-col-body.collapsed,
+  .footer-col-resource .footer-col-body.collapsed {
+    max-height: none;
+  }
+
+  .footer-col:not(.footer-brand):not(.footer-col-nav):not(.footer-col-resource) {
+    grid-column: 1 / -1;
   }
 
   .footer-bottom {

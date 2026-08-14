@@ -769,5 +769,15 @@
   }
 }
 
+/* 覆盖 VitePress 默认主题的首页底部间距（默认 96/128px 过大） */
+.VPHome {
+  margin-bottom: 24px !important;
+}
+
+@media (min-width: 768px) {
+  .VPHome {
+    margin-bottom: 32px !important;
+  }
+}
 
 
