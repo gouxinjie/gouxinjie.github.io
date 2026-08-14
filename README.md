@@ -2,6 +2,7 @@
 
 # 苟新节的技术博客
 
+
 基于 VitePress 搭建的个人技术站点。从前端基础到框架实战，从编码提效到工程化部署，记录每个真实项目的踩坑、决策和复盘——不追热点，写自己验证过的东西。
 
 [![VitePress](https://img.shields.io/badge/VitePress-646CFF?style=flat&logo=vitepress&logoColor=white)](https://vitepress.dev/) [![Vue](https://img.shields.io/badge/Vue-4FC08D?style=flat&logo=vue.js&logoColor=white)](https://vuejs.org/) [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/) [![pnpm](https://img.shields.io/badge/pnpm-F69220?style=flat&logo=pnpm&logoColor=white)](https://pnpm.io/)
