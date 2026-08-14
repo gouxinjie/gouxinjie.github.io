@@ -31,7 +31,9 @@
   max-width: none;
   background: var(--vp-c-bg);
   padding: 0;
-  overflow-x: hidden;
+  /* 用 clip 而非 hidden：hidden 会强制 overflow-y 为 auto，
+     从而把向上溢出到导航栏区域的 hero 光晕裁掉 */
+  overflow-x: clip;
 }
 
 /* 全局 a 下划线渐变与设计稿按钮冲突：禁用（排除 --about 按钮，它需要渐变背景） */
@@ -204,6 +206,15 @@
   white-space: normal;
   word-break: break-word;
   overflow-wrap: break-word;
+}
+
+/* 大屏：标题不换行 */
+@media (min-width: 960px) {
+  .xinjie-hero__title {
+    white-space: nowrap;
+    word-break: normal;
+    overflow-wrap: normal;
+  }
 }
 
 .xinjie-hero__title-grad {
