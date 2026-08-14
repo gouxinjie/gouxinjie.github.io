@@ -148,23 +148,30 @@ onMounted(() => {
   padding: 16px 0;
   z-index: 100;
   border-bottom: 1px solid var(--vp-c-divider);
+  gap: 16px;
 
   .header-title {
     font-size: 24px;
     font-weight: 700;
     color: var(--vp-c-brand-1);
     margin: 0;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .api-filter {
     display: flex;
     align-items: center;
     gap: 12px;
+    flex-shrink: 1;
+    min-width: 0;
 
     .label {
       font-weight: 600;
       color: var(--vp-c-brand-1);
       font-size: 14px;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     #api-filter {
@@ -175,6 +182,8 @@ onMounted(() => {
       transition: all 0.3s ease;
       background-color: var(--vp-c-bg-soft);
       width: 220px;
+      max-width: 100%;
+      min-width: 0;
 
       &:focus {
         outline: none;
@@ -182,6 +191,28 @@ onMounted(() => {
         background-color: var(--vp-c-bg);
         box-shadow: 0 0 0 3px var(--vp-c-brand-dimm);
       }
+    }
+  }
+}
+
+/* 移动端：标题与搜索框改为纵向布局，避免挤换行 */
+@media (max-width: 640px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+
+    .header-title {
+      font-size: 18px;
+    }
+
+    .api-filter {
+      width: 100%;
+    }
+
+    .api-filter #api-filter {
+      width: 100%;
+      flex: 1;
     }
   }
 }
