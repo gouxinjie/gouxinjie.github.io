@@ -31,6 +31,7 @@
   max-width: none;
   background: var(--vp-c-bg);
   padding: 0;
+  overflow-x: hidden;
 }
 
 /* 全局 a 下划线渐变与设计稿按钮冲突：禁用（排除 --about 按钮，它需要渐变背景） */
@@ -86,6 +87,12 @@
     align-items: center;
   }
 
+  /* 移动端：标题字号适度缩小 */
+  .xinjie-hero__title {
+    font-size: clamp(28px, 8vw, 38px);
+    max-width: 100%;
+  }
+
   .xinjie-hero__badge {
     align-self: center;
   }
@@ -100,8 +107,19 @@
   }
 
   .xinjie-hero__tags {
-    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 24px;
     width: 100%;
+    justify-content: center;
+  }
+
+  .xinjie-hero__tag {
+    flex: 0 0 auto;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: 130px;
+    max-width: 200px;
   }
 
   /* 移动端：tag 文字加粗并大 1px */
@@ -183,7 +201,9 @@
   line-height: 1.1;
   letter-spacing: -0.02em;
   color: var(--vp-c-text-1);
-  white-space: nowrap;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .xinjie-hero__title-grad {
