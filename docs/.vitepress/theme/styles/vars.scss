@@ -17,6 +17,21 @@
   font-synthesis: weight;
 }
 
+/*
+ * 关键：VitePress 默认主题用 `:root:where(:lang(zh))` 覆盖了中文站点的字体栈，
+ * 落到 ui-sans-serif / system-ui，移动端对 500/600 中间字重渲染不稳定导致中文不粗。
+ * 这里用更高优先级 + !important 强制改回可控的中文字体栈，并关闭 font-optical-sizing 的干扰。
+ */
+:root:where(:lang(zh)) {
+  --vp-font-family-base: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei',
+    'Hiragino Sans GB', sans-serif !important;
+}
+
+:root,
+:root:where(:lang(zh)) {
+  font-optical-sizing: none;
+}
+
 /**
  * Colors
  * -------------------------------------------------------------------------- */
