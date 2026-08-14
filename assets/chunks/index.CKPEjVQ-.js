@@ -37,7 +37,7 @@ title: 关于 me
     </div>
     <div class="stat-item" @click="openCsdn">
       <div class="stat-icon">📝</div>
-      <span class="stat-val">300+</span>
+      <span class="stat-val">440+</span>
       <span class="stat-lab">发布文章</span>
     </div>
     <div class="stat-item">
