@@ -4,18 +4,25 @@
 
 基于 VitePress 搭建的个人技术站点。从前端基础到框架实战，从编码提效到工程化部署，记录每个真实项目的踩坑、决策和复盘——不追热点，写自己验证过的东西。
 
-[![VitePress](https://img.shields.io/badge/VitePress-646CFF?style=flat&logo=vitepress&logoColor=white)](https://vitepress.dev/)
-[![Vue](https://img.shields.io/badge/Vue-4FC08D?style=flat&logo=vue.js&logoColor=white)](https://vuejs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![pnpm](https://img.shields.io/badge/pnpm-F69220?style=flat&logo=pnpm&logoColor=white)](https://pnpm.io/)
+[![VitePress](https://img.shields.io/badge/VitePress-646CFF?style=flat&logo=vitepress&logoColor=white)](https://vitepress.dev/) [![Vue](https://img.shields.io/badge/Vue-4FC08D?style=flat&logo=vue.js&logoColor=white)](https://vuejs.org/) [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/) [![pnpm](https://img.shields.io/badge/pnpm-F69220?style=flat&logo=pnpm&logoColor=white)](https://pnpm.io/)
 
 [在线访问](https://gouxinjie.github.io) · [Vercel 镜像](https://gouxinjie.vercel.app) · [GitHub](https://github.com/gouxinjie/gouxinjie.github.io) · [提 Issue](https://github.com/gouxinjie/gouxinjie.github.io/issues)
 
 </div>
 
-![](./docs/public/home.png)
+## 首页预览
 
+![PC 端 - Hero 区](./shots/pc-1-hero.png)
 
+![PC 端 - 精选文章与站点统计](./shots/pc-2-articles.png)
+
+<div align="center">
+
+| 移动端 - Hero 区 | 移动端 - 精选文章 | 移动端 - 站点统计 |
+|:---:|:---:|:---:|
+| <img src="./shots/mobile-1-hero.png" width="200" /> | <img src="./shots/mobile-2-articles.png" width="200" /> | <img src="./shots/mobile-3-stats.png" width="200" /> |
+
+</div>
 
 ## 站点在写什么
 
@@ -34,16 +41,16 @@
 | 类别 | 技术 |
 |------|------|
 | 框架 | VitePress + Vue 3 + TypeScript |
-| 样式 | Sass + TailwindCSS，Google Fonts (Inter / JetBrains Mono) |
+| 样式 | Sass + TailwindCSS，本地字体 (Inter / JetBrains Mono) |
 | 搜索 | Algolia DocSearch |
 | 图表 | Mermaid (vitepress-plugin-mermaid) |
 | 交互 | medium-zoom 图片预览、NProgress 进度条、canvas-confetti 特效 |
-| 统计 | Busuanzi 访问量 |
+| 统计 | 百度统计 + 不蒜子（Busuanzi）访问量 |
 | 代码质量 | ESLint + Prettier + vue-tsc |
 | 包管理 | pnpm |
 | CI/CD | GitHub Actions（ECS 自动部署 + GitHub Pages） |
 | 部署 | GitHub Pages / Vercel / 阿里云 ECS / Gitee Pages |
-| 自定义 | 诗词展示、项目面板、复制源码、首页动画等 15+ Vue 组件 |
+| 自定义 | 诗词展示、项目面板、复制源码、首页动画等 20 个 Vue 组件 |
 
 ---
 
@@ -59,7 +66,7 @@ pnpm install
 
 # 启动开发服务器
 pnpm dev
-# 访问 http://localhost:5174
+# 访问 http://localhost:5180
 ```
 
 ### 常用命令
@@ -79,15 +86,22 @@ pnpm dev
 docs/
 ├── .vitepress/
 │   ├── components/    # 自定义 Vue 组件
+│   │   ├── home/      # 首页相关（Hero、精选文章、统计面板）
+│   │   └── poetry/    # 诗词展示相关
 │   ├── theme/         # 主题样式
 │   ├── config.mts     # 站点配置
+│   ├── utils/         # 工具函数（homenav-data、site-stats、mathjaxStyle）
 │   └── navAndSidebarConfig/  # 导航栏 & 侧边栏
-├── column/            # 文章目录，按主题分类
+├── column/            # 文章目录，按主题分类（22 个分类）
 │   ├── AIFuture/      # AI 应用与思考
 │   ├── Vue/           # Vue 相关
 │   ├── React/         # React 相关
+│   ├── Next/          # Next.js 相关
+│   ├── Node/          # Node.js 相关
+│   ├── Network/       # 网络相关
+│   ├── Docker/        # Docker 相关
 │   └── ...            # 更多分类
-├── public/            # 静态资源（图片等）
+├── public/            # 静态资源（图片、字体等）
 └── utils/             # 工具函数
 ```
 
