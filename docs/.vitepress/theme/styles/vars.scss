@@ -192,12 +192,18 @@ body {
 
 /**
  * 文档页面 h1 标题颜色
+ * 移动端折行时，-webkit-background-clip: text 会让每行渐变错位
+ * 用 background-size + background-position 让渐变按行独立渲染
  */
 .VPDoc h1 {
   background: -webkit-linear-gradient(120deg, var(--vp-c-brand-1) 30%, var(--vp-c-brand-next));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
+  /* 让每行文字独立应用渐变，避免跨行颜色断层 */
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
 /**
