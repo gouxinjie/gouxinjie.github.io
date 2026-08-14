@@ -10,8 +10,11 @@
  * 中文使用系统字体栈，不额外加载中文字体文件以保证加载速度
  * -------------------------------------------------------------------------- */
 :root {
-  --vp-font-family-base: 'Inter', 'Noto Sans SC', -apple-system, 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif;
+  --vp-font-family-base: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif;
   --vp-font-family-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Consolas, 'Courier New', monospace;
+
+  /* 移动端缺失字重时做合成加粗，避免「该粗不粗」 */
+  font-synthesis: weight;
 }
 
 /**

@@ -10,7 +10,7 @@
 @font-face {
   font-family: 'Inter';
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500 900; /* 让 500-900 都命中 Bold，避免中间字重合成失败导致移动端不显示加粗 */
   font-display: swap;
   src: url('/font/Inter-Bold.woff2') format('woff2');
 }
@@ -27,7 +27,7 @@
 @font-face {
   font-family: 'JetBrains Mono';
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500 900; /* 同上，覆盖中间字重 */
   font-display: swap;
   src: url('/font/JetBrainsMono-Bold.woff2') format('woff2');
 }
