@@ -32,6 +32,47 @@
   font-optical-sizing: none;
 }
 
+/*
+ * 真正的根因：VitePress 默认主题对 body 设置了 `font-synthesis: style`，
+ * 只合成斜体、不合成字重 —— 当中文字体缺少 500/600/700 字重时，
+ * 浏览器不会做合成加粗，直接用 400，导致「该粗不粗」。
+ * 同时 text-rendering / font-smoothing 会让笔画更细，进一步削弱加粗感。
+ * 这里在 body 上强制改回「合成字重」，并放宽渲染以保留加粗视觉。
+ */
+body {
+  font-synthesis: weight !important;
+  font-optical-sizing: none !important;
+}
+
+/*
+ * 兜底：对需要加粗的中文元素（标题 + 强调文字）显式锁定字重，
+ * 并对中文用 -webkit-text-stroke 做极细描边伪加粗，确保任何机型都能看出粗细差异。
+ * 描边只在移动端（窄屏）启用，避免桌面端大标题出现毛边。
+ */
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3,
+.vp-doc h4,
+.vp-doc h5,
+.vp-doc h6,
+.vp-doc strong,
+.vp-doc b {
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .vp-doc h1,
+  .vp-doc h2,
+  .vp-doc h3,
+  .vp-doc h4,
+  .vp-doc h5,
+  .vp-doc h6,
+  .vp-doc strong,
+  .vp-doc b {
+    -webkit-text-stroke: 0.3px currentColor;
+  }
+}
+
 /**
  * Colors
  * -------------------------------------------------------------------------- */
