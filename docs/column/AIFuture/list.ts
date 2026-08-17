@@ -13,7 +13,7 @@ const aiFutureList = [
         text: "AI模型中的Token含义"
       },
       {
-        text: "什么是模型蒸馏"
+        text: '模型模型上下文与命中缓存'
       },
       {
         text: "什么是提示词工程"
@@ -22,8 +22,8 @@ const aiFutureList = [
         text: "什么是RAG检索增强生成"
       },
       {
-        text: "为什么 Prompt 开头要写 你是xx专家"
-      }
+        text: "什么是模型蒸馏"
+      },
     ]
   },
   {
