@@ -41,6 +41,9 @@ export const problemData = [
       },
       {
         text: "iOS底部TabBar安全区适配"
+      },
+      {
+        text: '钉钉H5微应用页面缓存问题'
       }
 
     ]

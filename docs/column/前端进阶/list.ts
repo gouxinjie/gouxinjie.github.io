@@ -50,6 +50,12 @@ const frontendAdvanceList = [
     items: [
       {
         text: "前端发版后实现提醒用刷新页面策略"
+      },
+      {
+        text: "移动端H5适配方案实践"
+      },
+      {
+        text: "网站主题切换的原理与最佳实践"
       }
     ]
   },
