@@ -31,6 +31,7 @@ export const JSList = [
         items: [
           { text: "promise讲解" },
           { text: "promise.all和race进阶" },
+          { text: "promise静态方法详解" },
           { text: "generator和async讲解" },
           { text: "AbortController请求中断" },
           { text: "requestAnimationFrame" },

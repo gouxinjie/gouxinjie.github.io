@@ -1,37 +1,63 @@
-# 获取本地时区和公网IP
+# 获取本地时区与公网 IP 的实用方法
 
 [[toc]]
 
-在日常的前端开发或业务需求中，我们经常会遇到"根据用户所在时区展示本地时间"、"限制特定 IP 访问"或"进行风控设备指纹采集"等场景。
-
-你可能会好奇：**作为一个仅在客户端沙箱中运行的浏览器，JavaScript 到底能拿到我们电脑的哪些底层网络与环境数据？当开启科学上网（VPN）时，前端又能探测到什么？**
-
-本文将结合一段经过实战检验、兼顾国内外网络环境的 HTML/JS 脚本，深度剖析浏览器获取客户端环境信息的底层逻辑与网络机制。
-
-## 一、核心原理剖析
-
-### 1. 时间与时区：原生 API 的"直通车"
-
-JavaScript 提供了原生的 `Intl` 国际化 API 以及 `Date` 对象，可以极低成本地直接读取宿主操作系统（用户电脑）的系统时间和时区设置。
-
-- **本地时间**：`new Date().toLocaleString()` 读取系统当前时钟。
-- **IANA 时区标识**：`Intl.DateTimeFormat().resolvedOptions().timeZone`（如 `Asia/Shanghai` 或 `America/New_York`）。
-- **UTC 偏移量**：`new Date().getTimezoneOffset()` 可以精准拿到当前时区相对 UTC 的分钟差值。
-
-### 2. 公网 IP vs 内网 IP：浏览器拿不到什么？
-
-很多开发者容易混淆 `ipconfig` 输出的 IP 和 JavaScript 查到的 IP：
-
-- **内网 IP（如 `10.x.x.x` / `192.168.x.x`）**：这是你电脑在局域网/Wi-Fi 下的私有地址。受现代浏览器安全策略（如 WebRTC 隐私遮蔽）限制，前端已经**无法轻易直接静态获取**真实的局域网网卡 IP。
-- **出口公网 IP（Egress IP）**：这是数据包经过路由器 NAT（网络地址转换）或 VPN 代理节点后，向外网展示的"身份卡"。前端无法通过纯原生语法获取，但可以通过**向外网发送 HTTP 请求，由服务器解析 Header 并返回**。
-
-## 二、兼顾国内外网络环境的完整源码
-
 ![](../images/ip.png)
 
-在实际开发中，如果直接请求国外的 IP 接口（如 `ipify`），关闭 VPN 后可能因为 GFW 阻断导致请求超时；而如果使用部分传统的国内 JSONP 接口（如搜狐 `pv.sohu.com`），又会因为浏览器的 CORS（跨域）限制或防盗链策略导致直接返回本地回环地址 `127.0.0.1`。
+在前端开发中，经常需要获取用户的**本地时区**和**公网 IP**。前者用于时间展示与本地化，后者常用于日志、风控、地理位置相关功能。本文介绍浏览器环境下最常用、最稳定的获取方式，并提供可直接运行的完整 HTML 案例。
 
-为了解决这一痛点，以下代码采用了 **`Promise.any()` 多 API 竞速机制**：同时请求支持 CORS 的国内主流 CDN 侧 IP 接口与海外 API，哪个先响应就采用哪个，自动适配开启/关闭 VPN 的不同场景。
+
+## 一、获取本地时区
+
+浏览器原生提供了可靠的时区信息，无需第三方接口。
+
+### 1. 推荐方式：IANA 时区名称
+
+```js
+const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+console.log(timeZone); // 例如 "Asia/Shanghai"、"America/New_York"
+```
+
+### 2. 获取时区偏移量（分钟）
+
+```js
+const offset = new Date().getTimezoneOffset();
+console.log(offset); // 例如 -480 表示 UTC+8
+```
+
+注意：返回值是 **UTC 减去本地时间的分钟数**。
+- 正数：本地时间落后于 UTC
+- 负数：本地时间领先于 UTC
+
+转换为小时可读形式：
+
+```js
+const offsetHours = -new Date().getTimezoneOffset() / 60;
+console.log(`UTC${offsetHours >= 0 ? '+' : ''}${offsetHours}`);
+// 输出示例：UTC+8
+```
+
+
+## 二、获取公网 IP
+
+浏览器无法直接读取公网 IP，需要请求外部接口。推荐使用免费且支持 CORS 的接口：
+
+```js
+async function getPublicIP() {
+  const res = await fetch('https://api.ipify.org?format=json');
+  const data = await res.json();
+  return data.ip;
+}
+```
+
+其他可用接口：
+- `https://api.ipsimple.org/ipv4?format=json`
+- `https://api.ip.sb/jsonip`
+
+
+## 三、完整 HTML 案例（可直接运行）
+
+将下面代码保存为 `index.html`，用浏览器打开即可查看效果：
 
 ```html
 <!DOCTYPE html>
@@ -39,106 +65,215 @@ JavaScript 提供了原生的 `Intl` 国际化 API 以及 `Date` 对象，可以
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>客户端环境与 IP 检测</title>
+  <title>获取本地时区与公网 IP</title>
   <style>
-    body { font-family: system-ui, -apple-system, sans-serif; background: #f4f6f8; padding: 40px 20px; }
-    .card { max-width: 500px; margin: 0 auto; background: #ffffff; padding: 24px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-    h2 { margin-top: 0; color: #1a1a1a; font-size: 20px; border-bottom: 2px solid #eee; padding-bottom: 12px; }
-    .row { display: flex; justify-content: space-between; margin-bottom: 14px; font-size: 14px; }
-    .label { color: #666; font-weight: 500; }
-    .value { font-family: monospace; font-weight: 600; color: #0f172a; word-break: break-all; }
-    .loading { color: #94a3b8; font-style: italic; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      padding: 40px;
+      max-width: 480px;
+      width: 100%;
+    }
+    h1 {
+      font-size: 22px;
+      color: #333;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .subtitle {
+      text-align: center;
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .item:last-child {
+      border-bottom: none;
+    }
+    .label {
+      color: #666;
+      font-size: 15px;
+    }
+    .value {
+      font-weight: 600;
+      color: #333;
+      font-size: 15px;
+      word-break: break-all;
+      text-align: right;
+      max-width: 60%;
+    }
+    .value.loading {
+      color: #999;
+      font-weight: normal;
+    }
+    .value.error {
+      color: #e74c3c;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      margin-top: 28px;
+      padding: 12px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn:hover {
+      opacity: 0.9;
+    }
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
   </style>
 </head>
 <body>
+  <div class="card">
+    <h1>本地时区 & 公网 IP</h1>
+    <p class="subtitle">浏览器原生获取时区 + 第三方接口获取公网 IP</p>
 
-<div class="card">
-  <h2>客户端环境检测结果</h2>
-  <div class="row">
-    <span class="label">当前本地时间:</span>
-    <span class="value" id="localTime">-</span>
-  </div>
-  <div class="row">
-    <span class="label">IANA 时区标识:</span>
-    <span class="value" id="timeZone">-</span>
-  </div>
-  <div class="row">
-    <span class="label">UTC 时间偏移:</span>
-    <span class="value" id="tzOffset">-</span>
-  </div>
-  <div class="row">
-    <span class="label">出口公网 IP:</span>
-    <span class="value loading" id="publicIp">正在检测 IP...</span>
-  </div>
-</div>
+    <div class="item">
+      <span class="label">本地时区</span>
+      <span class="value" id="timezone">获取中...</span>
+    </div>
+    <div class="item">
+      <span class="label">UTC 偏移</span>
+      <span class="value" id="offset">获取中...</span>
+    </div>
+    <div class="item">
+      <span class="label">当前本地时间</span>
+      <span class="value" id="localTime">获取中...</span>
+    </div>
+    <div class="item">
+      <span class="label">公网 IP</span>
+      <span class="value loading" id="publicIP">获取中...</span>
+    </div>
+    <div class="item">
+      <span class="label">获取时间</span>
+      <span class="value" id="fetchTime">-</span>
+    </div>
 
-<script>
-  // 1. 获取本地时间与时区
-  const now = new Date();
-  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const offsetMinutes = now.getTimezoneOffset();
-  const offsetHours = -offsetMinutes / 60;
+    <button class="btn" id="refreshBtn" onclick="loadInfo()">重新获取</button>
+  </div>
 
-  document.getElementById('localTime').textContent = now.toLocaleString();
-  document.getElementById('timeZone').textContent = timeZone;
-  document.getElementById('tzOffset').textContent = `UTC${offsetHours >= 0 ? '+' : ''}${offsetHours} (${offsetMinutes} min)`;
+  <script>
+    // 获取本地时区信息
+    function getTimeInfo() {
+      const now = new Date();
+      const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const offsetMinutes = now.getTimezoneOffset();
+      const offsetHours = -offsetMinutes / 60;
+      const utcOffset = `UTC${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
 
-  // 2. 兼顾国内外网络的高可用 IP 竞速提取
-  const fetchIpProviders = [
-    // 方案 1: Bilibili 官方 CDN 接口（国内直连极速，无 CORS 限制）
-    async () => {
-      const res = await fetch('https://api.bilibili.com/x/web-interface/zone', { cache: 'no-cache' });
-      const data = await res.json();
-      return data.data.addr;
-    },
-    // 方案 2: 网易开放接口（国内直连稳定）
-    async () => {
-      const res = await fetch('https://paimon.163.com/api/v1/ip', { cache: 'no-cache' });
-      const data = await res.json();
-      return data.data.ip;
-    },
-    // 方案 3: IP.SB（海外或开启 VPN 节点时极稳）
-    async () => {
-      const res = await fetch('https://api.ip.sb/jsonip', { cache: 'no-cache' });
-      const data = await res.json();
-      return data.ip;
+      return {
+        timeZone,
+        utcOffset,
+        localTime: now.toLocaleString('zh-CN', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false
+        })
+      };
     }
-  ];
 
-  async function getClientIp() {
-    try {
-      // Promise.any 挑选最快返回且成功的接口，自动忽略因网络阻断报错的 API
-      const ip = await Promise.any(fetchIpProviders.map(fn => fn()));
-      const ipElem = document.getElementById('publicIp');
-      ipElem.textContent = ip;
-      ipElem.classList.remove('loading');
-    } catch (err) {
-      const ipElem = document.getElementById('publicIp');
-      ipElem.textContent = '获取失败 (网络阻断)';
-      ipElem.style.color = '#ef4444';
+    // 获取公网 IP（带多个备用接口）
+    async function getPublicIP() {
+      const apis = [
+        'https://api.ipify.org?format=json',
+        'https://api.ipsimple.org/ipv4?format=json',
+        'https://api.ip.sb/jsonip'
+      ];
+
+      for (const url of apis) {
+        try {
+          const controller = new AbortController();
+          const timer = setTimeout(() => controller.abort(), 4000);
+
+          const res = await fetch(url, { signal: controller.signal });
+          clearTimeout(timer);
+
+          if (!res.ok) continue;
+          const data = await res.json();
+          const ip = data.ip || data.query;
+          if (ip) return ip;
+        } catch (e) {
+          // 继续尝试下一个接口
+        }
+      }
+      throw new Error('所有接口均不可用');
     }
-  }
 
-  getClientIp();
-</script>
+    // 加载并展示信息
+    async function loadInfo() {
+      const btn = document.getElementById('refreshBtn');
+      const ipEl = document.getElementById('publicIP');
 
+      btn.disabled = true;
+      ipEl.className = 'value loading';
+      ipEl.textContent = '获取中...';
+
+      // 1. 本地时区（同步，立即显示）
+      const timeInfo = getTimeInfo();
+      document.getElementById('timezone').textContent = timeInfo.timeZone;
+      document.getElementById('offset').textContent = timeInfo.utcOffset;
+      document.getElementById('localTime').textContent = timeInfo.localTime;
+      document.getElementById('fetchTime').textContent = new Date().toLocaleString('zh-CN');
+
+      // 2. 公网 IP（异步）
+      try {
+        const ip = await getPublicIP();
+        ipEl.className = 'value';
+        ipEl.textContent = ip;
+      } catch (err) {
+        ipEl.className = 'value error';
+        ipEl.textContent = '获取失败';
+        console.error(err);
+      }
+
+      btn.disabled = false;
+    }
+
+    // 页面加载时自动获取
+    loadInfo();
+  </script>
 </body>
 </html>
 ```
 
-## 三、踩坑总结与思考
+### 案例说明
 
-在测试上述代码的过程中，我们可以观察到几个非常有趣的网络现象：
+- **本地时区**：使用 `Intl.DateTimeFormat().resolvedOptions().timeZone` 获取标准 IANA 时区名称。
+- **UTC 偏移**：通过 `getTimezoneOffset()` 计算。
+- **公网 IP**：依次尝试多个免费接口，带超时控制，提高成功率。
+- **界面**：简洁卡片式布局，支持一键刷新。
 
-### 1. VPN 开关的真实影响
-
-- **开启代理**：脚本获取到的 IP 会变成代理节点的机房 IP（例如荷兰、日本等海外 IP）。
-- **关闭代理**：脚本获取到的则是运营商（如中国电信/移动/联通）分配给本地宽带的真实出口公网 IP。
-
-### 2. `127.0.0.1` 坑点
-
-部分传统第三方 IP 接口（如某些 JSONP 接口）为了防盗链或控制成本，拒绝了直接在本地 `file://` 协议或未授权域名下的请求，会直接返回回环地址。**生产环境中推荐优先使用开放 CORS 的主流平台 CDN 接口或自己搭建微服务接口**。
-
-### 3. 安全与隐私提示
-
-时区与时间依赖用户本地系统配置，用户可以通过修改系统时间或安装浏览器插件伪装；而公网 IP 则可以通过代理网络随意切换。在做关键业务校验（如防刷、反作弊）时，前端数据仅能作为参考，核心逻辑仍需在服务端完成校验。
+直接复制保存为 HTML 文件，用浏览器打开即可看到效果。
