@@ -45,6 +45,7 @@ import FeaturedArticles from "../components/home/FeaturedArticles.vue";
 import StatsPanel from "../components/home/StatsPanel.vue";
 import MermaidRenderer from "../components/MermaidRenderer.vue";
 import XinjieHome from "../components/home/XinjieHome.vue";
+import ChangelogTimeline from "../components/ChangelogTimeline.vue";
 import { fetchBusuanziStats } from "../utils/site-stats";
 
 const fetchBusuanzi = () => {
@@ -86,6 +87,7 @@ const theme: Theme = {
     app.component("FeaturedArticles", FeaturedArticles); // 精选文章
     app.component("StatsPanel", StatsPanel); // 统计面板
     app.component("XinjieHome", XinjieHome); // 新首页主组件
+    app.component("ChangelogTimeline", ChangelogTimeline); // 更新记录时间线
 
     /**
      * 访问量统计和进度条配置
