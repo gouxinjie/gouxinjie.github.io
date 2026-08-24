@@ -10,32 +10,32 @@ const nodeList = [
         text: "npm package.json"
       },
       {
-        text: "npm install原理"
+        text: "npm install 原理"
       },
       {
-        text: "npm run原理"
+        text: "npm run 原理"
       },
       {
-        text: "npx 命令"
+        text: "npx 命令使用"
       },
       {
-        text: "全局变量"
+        text: "node 全局变量"
       },
       { text: "模块化规范" },
       {
         text: "模块查找规则"
       },
       {
-        text: "nvm相关"
+        text: "nvm 管理 node 版本"
       },
       {
-        text: "fnm管理node版本"
+        text: "fnm 管理 node 版本"
       },
       {
-        text: "npm serve"
+        text: "npm serve 插件"
       },
       {
-        text: "pnpm解决幽灵依赖"
+        text: "pnpm 解决幽灵依赖"
       }
     ]
   },
