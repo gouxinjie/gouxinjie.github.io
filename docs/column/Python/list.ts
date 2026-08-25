@@ -16,25 +16,31 @@ const pythonList = [
         text: "导入导出模块化"
       },
       {
-        text: "Pip包管理工具"
+        text: "pip 与虚拟环境管理"
       },
       {
-        text: "Env环境变量管理"
+        text: "env 环境变量管理"
       },
       {
-        text: "类型注解详解"
+        text: "__name__ 与 __main__"
       },
       {
-        text: "__name__与__main__"
+        text: '函数与装饰器入门'
       },
       {
-        text: "Async异步编程"
+        text: '面向对象基础讲解'
       },
       {
-        text: 'With语句详解'
+        text: '异常处理'
       },
       {
-        text: "常用内置模块"
+        text: "async 异步编程入门"
+      },
+      {
+        text: 'with 语句与上下文管理'
+      },
+      {
+        text: "常用内置模块与 pathlib"
       },
     ]
   },
@@ -43,10 +49,10 @@ const pythonList = [
     collapsed: false,
     items: [
       {
-        text: "Web框架FastAPI"
+        text: "Web框架 FastAPI"
       },
       {
-        text: "typing"
+        text: "typing 模块详解"
       },
       {
         text: "requests"
