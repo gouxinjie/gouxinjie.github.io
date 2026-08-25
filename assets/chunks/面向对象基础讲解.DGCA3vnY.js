@@ -1,0 +1,210 @@
+const n=`# Python 面向对象基础讲解
+
+面向对象编程（OOP）是把数据和操作数据的方法组织在一起的编程方式。Python 对面向对象的支持非常灵活，既有完整的 OOP 特性，也保留了函数式的简洁。
+
+### 一、类与对象
+
+**类（Class）** 是模板，**对象（Object / Instance）** 是根据模板创建出来的实例。
+
+\`\`\`python
+class Dog:
+    """狗类"""
+    pass
+
+# 创建对象（实例化）
+dog1 = Dog()
+dog2 = Dog()
+
+print(type(dog1))      # <class '__main__.Dog'>
+print(dog1 is dog2)    # False（两个不同的对象）
+\`\`\`
+
+### 二、\`__init__\` 与 \`self\`
+
+\`__init__\` 是初始化方法，创建对象时自动调用。
+\`self\` 代表**当前实例本身**，必须作为实例方法的第一个参数。
+
+\`\`\`python
+class Dog:
+    def __init__(self, name: str, age: int):
+        self.name = name      # 实例属性
+        self.age = age
+
+    def bark(self) -> None:
+        print(f"{self.name}：汪汪！")
+
+    def get_info(self) -> str:
+        return f"{self.name}，{self.age}岁"
+
+dog = Dog("旺财", 3)
+dog.bark()                 # 旺财：汪汪！
+print(dog.get_info())      # 旺财，3岁
+print(dog.name)            # 旺财
+\`\`\`
+
+要点：
+- \`self.name = name\` 是在给**当前对象**添加属性
+- 调用方法时不需要传 \`self\`，Python 会自动把对象传进去
+
+### 三、实例属性 vs 类属性
+
+\`\`\`python
+class Dog:
+    species = "犬科"          # 类属性（所有实例共享）
+
+    def __init__(self, name: str):
+        self.name = name      # 实例属性（每个对象独有）
+
+dog1 = Dog("旺财")
+dog2 = Dog("小白")
+
+print(dog1.species)    # 犬科
+print(dog2.species)    # 犬科
+print(Dog.species)     # 犬科（也可以通过类访问）
+
+dog1.name = "大黄"     # 只修改了 dog1 的实例属性
+print(dog1.name)       # 大黄
+print(dog2.name)       # 小白
+\`\`\`
+
+**区别总结**：
+
+| 类型       | 定义位置          | 归属     | 修改影响          |
+|------------|-------------------|----------|-------------------|
+| 实例属性   | \`__init__\` 中     | 每个对象 | 只影响当前对象    |
+| 类属性     | 类体内直接定义    | 类本身   | 影响所有实例      |
+
+### 四、继承（Inheritance）
+
+子类可以继承父类的属性和方法，并可以重写或扩展。
+
+\`\`\`python
+class Animal:
+    def __init__(self, name: str):
+        self.name = name
+
+    def speak(self) -> None:
+        print(f"{self.name}发出了声音")
+
+class Dog(Animal):          # 继承 Animal
+    def speak(self) -> None:  # 重写父类方法
+        print(f"{self.name}：汪汪！")
+
+class Cat(Animal):
+    def speak(self) -> None:
+        print(f"{self.name}：喵喵～")
+
+dog = Dog("旺财")
+cat = Cat("咪咪")
+
+dog.speak()    # 旺财：汪汪！
+cat.speak()    # 咪咪：喵喵～
+\`\`\`
+
+#### 使用 \`super()\` 调用父类方法
+
+\`\`\`python
+class Dog(Animal):
+    def __init__(self, name: str, breed: str):
+        super().__init__(name)     # 调用父类的 __init__
+        self.breed = breed
+
+    def speak(self) -> None:
+        super().speak()            # 先执行父类逻辑（可选）
+        print(f"{self.name}是{self.breed}，汪汪！")
+\`\`\`
+
+### 五、封装（命名约定）
+
+Python 没有真正的私有属性，但有约定：
+
+\`\`\`python
+class BankAccount:
+    def __init__(self, owner: str, balance: float):
+        self.owner = owner           # 公开
+        self._balance = balance      # 受保护（约定：内部使用）
+        self.__secret = "密码"       # 名义私有（名称改写）
+
+    def get_balance(self) -> float:
+        return self._balance
+
+    def deposit(self, amount: float) -> None:
+        if amount > 0:
+            self._balance += amount
+\`\`\`
+
+- \`_balance\`：单下划线，表示“内部使用，别随便动”
+- \`__secret\`：双下划线，会触发名称改写（\`_BankAccount__secret\`），外部不容易直接访问
+
+更推荐通过方法来控制访问，而不是强依赖双下划线。
+
+### 六、常用特殊方法（魔术方法）
+
+让对象更“像内置类型”：
+
+\`\`\`python
+class Dog:
+    def __init__(self, name: str, age: int):
+        self.name = name
+        self.age = age
+
+    def __str__(self) -> str:
+        """print(对象) 时调用"""
+        return f"狗狗 {self.name}（{self.age}岁）"
+
+    def __repr__(self) -> str:
+        """开发者调试时看到的表示"""
+        return f"Dog(name={self.name!r}, age={self.age})"
+
+dog = Dog("旺财", 3)
+print(dog)        # 狗狗 旺财（3岁）
+print(repr(dog))  # Dog(name='旺财', age=3)
+\`\`\`
+
+其他常用特殊方法（先混个眼熟）：
+- \`__len__\`：支持 \`len(obj)\`
+- \`__eq__\`：支持 \`==\`
+- \`__getitem__\`：支持 \`obj[key]\`
+
+
+### 七、多态（简单理解）
+
+同一个方法调用，不同对象有不同行为：
+
+\`\`\`python
+animals = [Dog("旺财"), Cat("咪咪"), Dog("小黑")]
+
+for animal in animals:
+    animal.speak()     # 每个对象调用自己的 speak
+\`\`\`
+
+这就是多态的基本体现：**接口统一，行为各异**。
+
+
+### 八、什么时候该用类？
+
+适合用类的场景：
+- 有明确的状态（数据）+ 行为（方法）
+- 需要创建多个相似的实例
+- 存在明显的继承关系
+- 想把相关功能组织在一起
+
+不适合强行上类的场景：
+- 只是简单的数据传递 → 用 \`dict\`、\`dataclass\` 或 \`NamedTuple\`
+- 只是一组相关函数 → 用模块即可
+- 没有状态的工具函数 → 普通函数更合适
+
+现代 Python 中，很多时候 \`@dataclass\` 是更简洁的选择：
+
+\`\`\`python
+from dataclasses import dataclass
+
+@dataclass
+class Dog:
+    name: str
+    age: int
+
+    def bark(self) -> None:
+        print(f"{self.name}：汪汪！")
+\`\`\`
+`;export{n as default};

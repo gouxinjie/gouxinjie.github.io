@@ -1,0 +1,240 @@
+const n=`# Python 导入导出与模块化详解
+
+> 模块化是 Python 项目从「脚本」走向「工程」的第一步。理解导入机制、包结构和命名约定，能让代码更清晰、可维护、可复用。
+
+
+### 一、什么是模块？
+
+在 Python 中，**每一个 \`.py\` 文件就是一个模块**（module）。
+
+\`\`\`python
+# math_utils.py
+def add(a: int, b: int) -> int:
+    return a + b
+
+PI = 3.14159
+\`\`\`
+
+这个文件本身就是一个名为 \`math_utils\` 的模块。其他文件可以通过 \`import\` 使用它里面的函数和变量。
+
+
+### 二、最基本的导入方式
+
+#### 1. 普通导入
+
+\`\`\`python
+import math_utils
+
+print(math_utils.add(1, 2))
+print(math_utils.PI)
+\`\`\`
+
+优点：命名空间清晰，不会污染当前作用域。
+缺点：每次使用都要加前缀。
+
+#### 2. 别名导入（\`as\`）
+
+\`\`\`python
+import math_utils as mu
+
+print(mu.add(3, 4))
+\`\`\`
+
+常用于名字较长或容易冲突的情况：
+
+\`\`\`python
+import numpy as np
+import pandas as pd
+\`\`\`
+
+#### 3. 从模块中导入具体内容（\`from ... import\`）
+
+\`\`\`python
+from math_utils import add, PI
+
+print(add(5, 6))
+print(PI)
+\`\`\`
+
+也可以一次性导入所有公开内容（**不推荐**）：
+
+\`\`\`python
+from math_utils import *   # 尽量避免
+\`\`\`
+
+#### 4. 给导入的内容起别名
+
+\`\`\`python
+from math_utils import add as addition
+\`\`\`
+
+
+### 三、\`__name__\` 与 \`__main__\`：模块的「入口判断」
+
+每个模块都有一个内置变量 \`__name__\`。
+
+- 当文件被**直接运行**时，\`__name__ == "__main__"\`
+- 当文件被**导入**时，\`__name__\` 等于模块名
+
+\`\`\`python
+# math_utils.py
+def add(a, b):
+    return a + b
+
+if __name__ == "__main__":
+    # 只有直接运行这个文件时才会执行
+    print("测试 add:", add(10, 20))
+\`\`\`
+
+这是 Python 中最常见的「模块既可被导入，又可独立测试」的写法。
+
+
+### 四、包（Package）—— 模块的组织方式
+
+当项目变大时，我们用**文件夹**来组织模块，这个文件夹就叫**包**。
+
+\`\`\`
+myproject/
+├── main.py
+├── utils/
+│   ├── __init__.py      # 必须有（Python 3.3 前必须，现在推荐保留）
+│   ├── string_utils.py
+│   └── math_utils.py
+└── services/
+    ├── __init__.py
+    └── user_service.py
+\`\`\`
+
+#### \`__init__.py\` 的作用
+
+1. 告诉 Python「这是一个包」
+2. 可以在里面写初始化代码
+3. 可以控制 \`from package import *\` 时导出哪些内容
+
+\`\`\`python
+# utils/__init__.py
+from .math_utils import add, PI
+from .string_utils import upper_case
+
+__all__ = ["add", "PI", "upper_case"]  # 控制 from utils import * 的内容
+\`\`\`
+
+之后就可以这样使用：
+
+\`\`\`python
+from utils import add, upper_case
+\`\`\`
+
+
+### 五、绝对导入 vs 相对导入
+
+#### 绝对导入（推荐）
+
+从项目根目录开始写完整路径：
+
+\`\`\`python
+from utils.math_utils import add
+from services.user_service import get_user
+\`\`\`
+
+优点：清晰、不容易出错，适合大多数项目。
+
+#### 相对导入
+
+使用 \`.\` 表示当前包，\`..\` 表示上一级包：
+
+\`\`\`python
+# 在 services/user_service.py 中
+from ..utils.math_utils import add   # 上一级的 utils
+from . import helper                 # 同级模块
+\`\`\`
+
+注意：
+- 相对导入只能在包内部使用
+- 直接运行某个子模块时（\`python services/user_service.py\`）相对导入会失败
+- 推荐用绝对导入 + 正确的运行方式
+
+
+### 六、如何正确运行带包的项目
+
+推荐把项目根目录加入 \`PYTHONPATH\`，或使用模块方式运行：
+
+\`\`\`bash
+# 方式一：模块方式运行（推荐）
+python -m main
+
+# 方式二：设置 PYTHONPATH
+export PYTHONPATH=.
+python main.py
+\`\`\`
+
+在现代项目中，更推荐使用 \`pyproject.toml\` + 可编辑安装（\`pip install -e .\`），这样导入路径会更规范。
+
+
+### 七、常见坑与最佳实践
+
+| 问题 | 建议 |
+|------|------|
+| 循环导入（A 导入 B，B 又导入 A） | 把公共逻辑抽到第三个模块，或延迟导入（函数内部 import） |
+| \`from module import *\` | 尽量不用，会污染命名空间 |
+| 文件名与标准库冲突 | 不要命名为 \`test.py\`、\`email.py\`、\`random.py\` 等 |
+| 相对导入报错 | 优先使用绝对导入 |
+| 想知道模块从哪里来 | \`print(module.__file__)\` 或 \`importlib.util.find_spec\` |
+
+**推荐风格（参考 PEP 8）：**
+
+\`\`\`python
+# 1. 标准库
+import os
+import sys
+from pathlib import Path
+
+# 2. 第三方库
+import requests
+from fastapi import FastAPI
+
+# 3. 本地模块
+from utils.math_utils import add
+from services.user_service import get_user
+\`\`\`
+
+中间用空行分隔三类导入。
+
+
+### 八、实际项目中的模块化建议
+
+1. **按功能分目录**，而不是按文件类型硬分
+2. **单一职责**：一个模块尽量只做一件事
+3. **公开接口写在 \`__init__.py\`**，方便外部使用
+4. **私有内容用单下划线开头**（约定）：\`_internal_helper\`
+5. 大型项目考虑使用命名空间包或更清晰的层级
+
+简单示例结构：
+
+\`\`\`
+myapp/
+├── pyproject.toml
+├── src/
+│   └── myapp/
+│       ├── __init__.py
+│       ├── main.py
+│       ├── api/
+│       ├── services/
+│       ├── models/
+│       └── utils/
+└── tests/
+\`\`\`
+
+
+### 九、小结
+
+- **模块** = 一个 \`.py\` 文件
+- **包** = 包含 \`__init__.py\` 的文件夹
+- 优先使用**绝对导入**
+- 善用 \`if __name__ == "__main__"\` 做测试入口
+- 保持导入顺序清晰，避免循环依赖
+- 项目变大后，合理的目录结构比「能跑起来」更重要
+
+模块化不是为了炫技，而是为了让代码在半年后自己还能看懂，团队协作时也不会互相踩脚。
+
+`;export{n as default};

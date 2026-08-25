@@ -1,0 +1,212 @@
+const n=`# Python 异常处理讲解
+
+异常（Exception）是程序运行时出现的错误信号。合理处理异常可以让程序更健壮，避免因为一个小错误就整体崩溃。
+
+
+### 一、什么是异常？
+
+当 Python 无法继续正常执行时，就会**抛出（raise）**一个异常。
+
+常见例子：
+- \`ZeroDivisionError\`：除以 0
+- \`ValueError\`：值不合适
+- \`TypeError\`：类型不匹配
+- \`FileNotFoundError\`：文件不存在
+- \`KeyError\`：字典键不存在
+- \`IndexError\`：列表索引越界
+
+\`\`\`python
+print(1 / 0)          # ZeroDivisionError
+int("abc")            # ValueError
+open("不存在的文件.txt")  # FileNotFoundError
+\`\`\`
+
+
+### 二、基本语法：\`try / except\`
+
+\`\`\`python
+try:
+    # 可能出错的代码
+    result = 10 / 0
+    print(result)
+except ZeroDivisionError:
+    # 专门处理除零错误
+    print("不能除以 0！")
+\`\`\`
+
+执行流程：
+1. 执行 \`try\` 里的代码
+2. 如果没有异常，跳过 \`except\`
+3. 如果发生异常，且类型匹配，就执行对应的 \`except\` 块
+
+
+### 三、完整结构：\`try / except / else / finally\`
+
+\`\`\`python
+try:
+    num = int(input("请输入一个数字："))
+    result = 10 / num
+except ValueError:
+    print("输入的不是有效数字")
+except ZeroDivisionError:
+    print("不能输入 0")
+else:
+    # 只有 try 完全没有异常时才执行
+    print(f"结果是：{result}")
+finally:
+    # 无论是否发生异常，都会执行（常用于清理资源）
+    print("程序结束，清理工作完成")
+\`\`\`
+
+| 子句     | 执行时机                     | 常见用途           |
+|----------|------------------------------|--------------------|
+| \`try\`    | 正常执行的代码               | 可能出错的逻辑     |
+| \`except\` | 发生对应异常时               | 错误处理           |
+| \`else\`   | try 成功（无异常）时         | 成功后的逻辑       |
+| \`finally\`| 不管是否异常，都会执行       | 关闭文件、释放资源 |
+
+### 四、捕获多种异常
+
+#### 1. 多个 \`except\`
+
+\`\`\`python
+try:
+    # 一些操作
+    ...
+except ValueError:
+    print("值错误")
+except (TypeError, KeyError):
+    print("类型或键错误")
+except Exception as e:          # 捕获所有异常（慎用）
+    print(f"发生未知错误：{e}")
+\`\`\`
+
+#### 2. 获取异常信息
+
+\`\`\`python
+try:
+    1 / 0
+except ZeroDivisionError as e:
+    print(f"错误类型：{type(e)}")
+    print(f"错误信息：{e}")
+    print(f"详细信息：{e.args}")
+\`\`\`
+
+### 五、主动抛出异常：\`raise\`
+
+\`\`\`python
+def set_age(age: int) -> None:
+    if age < 0 or age > 150:
+        raise ValueError(f"年龄不合法：{age}")
+    print(f"年龄设置为：{age}")
+
+set_age(25)      # 正常
+set_age(-5)      # 抛出 ValueError
+\`\`\`
+
+常见用法：
+- 参数校验失败
+- 业务逻辑不满足条件
+- 把底层异常转换成更有业务含义的异常
+
+\`\`\`python
+try:
+    # 调用别人的代码
+    ...
+except LowLevelError as e:
+    raise RuntimeError("业务操作失败") from e   # 保留原始异常链
+\`\`\`
+
+### 六、自定义异常
+
+通过继承 \`Exception\`（或它的子类）创建自己的异常：
+
+\`\`\`python
+class InsufficientFundsError(Exception):
+    """余额不足异常"""
+    def __init__(self, balance: float, amount: float):
+        self.balance = balance
+        self.amount = amount
+        super().__init__(f"余额不足：当前 {balance}，需要 {amount}")
+
+class BankAccount:
+    def __init__(self, balance: float = 0):
+        self.balance = balance
+
+    def withdraw(self, amount: float) -> None:
+        if amount > self.balance:
+            raise InsufficientFundsError(self.balance, amount)
+        self.balance -= amount
+
+account = BankAccount(100)
+try:
+    account.withdraw(150)
+except InsufficientFundsError as e:
+    print(e)               # 余额不足：当前 100，需要 150
+    print(e.balance)       # 100
+\`\`\`
+
+建议：
+- 自定义异常名以 \`Error\` 结尾
+- 继承合适的内置异常（如 \`ValueError\`、\`RuntimeError\`）或直接继承 \`Exception\`
+- 可以添加额外属性，方便后续处理
+
+
+### 七、常见内置异常（建议熟悉）
+
+| 异常                  | 触发场景                 |
+|-----------------------|--------------------------|
+| \`ValueError\`          | 值不正确                 |
+| \`TypeError\`           | 类型不支持               |
+| \`KeyError\`            | 字典键不存在             |
+| \`IndexError\`          | 序列索引越界             |
+| \`FileNotFoundError\`   | 文件不存在               |
+| \`PermissionError\`     | 权限不足                 |
+| \`ZeroDivisionError\`   | 除以零                   |
+| \`AttributeError\`      | 对象没有该属性/方法      |
+| \`ImportError\` / \`ModuleNotFoundError\` | 导入失败     |
+| \`AssertionError\`      | \`assert\` 失败            |
+| \`RuntimeError\`        | 一般运行时错误           |
+| \`Exception\`           | 所有异常的基类（几乎）   |
+| \`BaseException\`       | 更顶层（包括 KeyboardInterrupt 等） |
+
+注意：\`except Exception\` 不会捕获 \`KeyboardInterrupt\` 和 \`SystemExit\`，这通常是好事。
+
+
+### 八、最佳实践
+
+1. **尽量捕获具体异常**，而不是裸 \`except:\` 或 \`except Exception:\`
+2. **不要用异常控制正常流程**（比如用 \`try\` 判断键是否存在，优先用 \`in\` 或 \`.get()\`）
+3. **\`finally\` 或 \`with\` 确保资源释放**
+4. **抛出有意义的异常信息**，方便排查
+5. **使用 \`raise ... from ...\` 保留异常链**
+6. **日志记录异常**（生产环境很重要）：
+
+\`\`\`python
+import logging
+
+try:
+    ...
+except Exception:
+    logging.exception("发生严重错误")   # 自动记录堆栈
+    raise
+\`\`\`
+
+7. 入门阶段优先掌握 \`try/except/else/finally\` + 自定义异常，再逐步学习异常组（\`ExceptionGroup\`，Python 3.11+）等高级特性。
+
+
+
+### 九、与 \`with\` 语句的关系
+
+很多资源（文件、网络连接、锁等）都支持上下文管理器，用 \`with\` 可以自动处理异常时的清理：
+
+\`\`\`python
+try:
+    with open("file.txt", "r", encoding="utf-8") as f:
+        data = f.read()
+except FileNotFoundError:
+    print("文件不存在")
+# 文件会自动关闭，即使中间发生异常
+\`\`\`
+
+`;export{n as default};
