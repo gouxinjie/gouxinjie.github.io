@@ -55,10 +55,16 @@ const pythonList = [
         text: "typing 模块详解"
       },
       {
-        text: "requests"
+        text: "Pydantic 数据验证"
       },
       {
-        text: 'sqlalchemy'
+        text: 'requests 与 httpx'
+      },
+      {
+        text: 'SQLAlchemy 与数据库操作'
+      },
+      {
+        text: '项目结构与打包发布'
       }
     ]
   }
