@@ -10,12 +10,6 @@ const pythonList = [
         text: "基础语法入门"
       },
       {
-        text: '基础项目环境搭建流程'
-      },
-      {
-        text: "导入导出模块化"
-      },
-      {
         text: "pip 与虚拟环境管理"
       },
       {
@@ -23,6 +17,9 @@ const pythonList = [
       },
       {
         text: "__name__ 与 __main__"
+      },
+      {
+        text: "导入导出模块化"
       },
       {
         text: '函数与装饰器入门'
@@ -41,6 +38,9 @@ const pythonList = [
       },
       {
         text: "常用内置模块与 pathlib"
+      },
+      {
+        text: '基础项目环境搭建流程'
       },
     ]
   },
@@ -62,9 +62,6 @@ const pythonList = [
       },
       {
         text: 'SQLAlchemy 与数据库操作'
-      },
-      {
-        text: '项目结构与打包发布'
       }
     ]
   }
