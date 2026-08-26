@@ -8,7 +8,7 @@
  * 数据来源：
  *   - 文章总数：手动维护（docs/column 下 .md 不含 index.md）
  *   - 分类数量：sidebar 一级分类数（静态 22）
- *   - 累计字数：静态统计（docs/column 下全部 md 正文约 60 万字）
+ *   - 累计字数：静态统计（docs/column 下全部 md 正文约 61.9 万字）
  *   - 创建天数：首次提交 2024-11-05，运行时自动计算
  *
  * 每个图标的颜色和分类色与首页 hero 特性标签一致：
@@ -17,8 +17,8 @@
 import { computed, ref, onMounted } from "vue";
 
 // 累计字数 = 全站文章正文总字数（静态统计，docs/column 下全部 md 不含 index.md）
-// 展示 60.1 万（实际统计约 601169 字）
-const totalWords = "60.1万";
+// 展示 61.9 万（实际统计约 618522 字）
+const totalWords = "61.9万";
 
 interface StatItem {
   title: string;
@@ -41,7 +41,7 @@ onMounted(() => {
 const stats = computed<StatItem[]>(() => [
   {
     title: "文章总数",
-    value: "444",
+    value: "455",
     sub: "持续更新中",
     iconBg: "rgba(239, 68, 68, 0.12)",
     iconColor: "#ef4444",

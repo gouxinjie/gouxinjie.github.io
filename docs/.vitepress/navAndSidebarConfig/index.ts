@@ -165,12 +165,12 @@ export const nav: DefaultTheme.NavItem[] = [
     text: "其它",
     items: [
       {
-        text: "样式测试",
-        link: "/column/StyleText/index.md"
-      },
-      {
         text: "更新记录",
         link: "/column/UpdateLog/changelog.md"
+      },
+      {
+        text: "样式测试",
+        link: "/column/StyleText/index.md"
       },
       {
         text: "诗词相关",
