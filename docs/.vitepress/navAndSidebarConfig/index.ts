@@ -23,6 +23,7 @@ import { transformCommonSenseList } from "../../column/CommonSense/list";
 import { transformGitList } from "../../column/Git/list";
 import { transformNginxList } from "../../column/Nginx/list";
 import { transformDockerList } from "../../column/Docker/list";
+import { transformLinuxList } from "../../column/Linux/list";
 import { transformAIFutureList } from "../../column/AIFuture/list";
 import { transformAliyunList } from "../../column/Aliyun/list";
 
@@ -82,6 +83,10 @@ export const nav: DefaultTheme.NavItem[] = [
       {
         text: "Docker常用",
         link: "/column/Docker/index.md"
+      },
+      {
+        text: "Linux常用",
+        link: "/column/Linux/index.md"
       },
       {
         text: "阿里云ECS",
@@ -243,6 +248,9 @@ export const sidebar: DefaultTheme.Sidebar = {
 
   /** docker相关 */
   "/column/Docker/": transformDockerList("/column/Docker/"),
+
+  /** linux相关 */
+  "/column/Linux/": transformLinuxList("/column/Linux/"),
 
   /** 阿里云相关 */
   "/column/Aliyun/": transformAliyunList("/column/Aliyun/"),
