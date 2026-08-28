@@ -8,7 +8,7 @@ const linuxList = [
       { text: "Linux 简介与常见发行版" },
       { text: "目录结构与基础命令" },
       { text: "文件权限与用户管理" },
-      { text: "包管理器使用（apt / yum）" },
+      { text: "包管理器使用 apt、yum" },
       { text: "环境变量与软硬链接" }
     ]
   },
