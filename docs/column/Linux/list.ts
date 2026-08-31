@@ -28,7 +28,7 @@ const linuxList = [
     collapsed: false,
     items: [
       { text: "网络常用命令" },
-      { text: "防火墙基础（firewalld / iptables）" },
+      { text: "防火墙基础" },
       { text: "SSH 使用与免密登录" }
     ]
   },
