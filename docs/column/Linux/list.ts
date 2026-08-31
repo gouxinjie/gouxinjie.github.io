@@ -31,15 +31,6 @@ const linuxList = [
       { text: "防火墙基础" },
       { text: "SSH 使用与免密登录" }
     ]
-  },
-  {
-    text: "Shell 与实战",
-    collapsed: false,
-    items: [
-      { text: "Bash 基础与脚本入门" },
-      { text: "grep / sed / awk 文本处理" },
-      { text: "常用排查与部署脚本实践" }
-    ]
   }
 ];
 
