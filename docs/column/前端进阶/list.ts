@@ -56,6 +56,9 @@ const frontendAdvanceList = [
       },
       {
         text: "网站主题切换的原理与最佳实践"
+      },
+      {
+        text: "前端 Monorepo 指南"
       }
     ]
   },
