@@ -6,19 +6,27 @@
  *
  * 4 项统计：文章总数 / 分类数量 / 累计字数 / 创建天数
  * 数据来源：
- *   - 文章总数：手动维护（docs/column 下 .md 不含 index.md）
- *   - 分类数量：sidebar 一级分类数（静态 22）
- *   - 累计字数：静态统计（docs/column 下全部 md 正文约 61.9 万字）
+ *   - 文章总数 / 分类数量 / 累计字数：构建期自动扫描 docs/column（虚拟模块 virtual:site-summary）
  *   - 创建天数：首次提交 2024-11-05，运行时自动计算
  *
  * 每个图标的颜色和分类色与首页 hero 特性标签一致：
  *   文章总数（红）、分类数量（橙）、累计字数（绿）、创建天数（蓝）
  */
 import { computed, ref, onMounted } from "vue";
+import siteSummary from "virtual:site-summary";
 
-// 累计字数 = 全站文章正文总字数（静态统计，docs/column 下全部 md 不含 index.md）
-// 展示 61.9 万（实际统计约 618522 字）
-const totalWords = "61.9万";
+/** 字数展示：超过 1 万以「万」为单位，保留一位小数 */
+const formatWordCount = (count: number): string =>
+  count >= 10000 ? `${(count / 10000).toFixed(1)}万` : String(count);
+
+// 文章总数：docs/column 下全部 .md（不含各专栏 index.md）
+const articleTotal = String(siteSummary.articleCount);
+
+// 分类数量：包含文章的一级目录数
+const categoryTotal = String(siteSummary.categoryCount);
+
+// 累计字数：全部文章正文总字数
+const totalWords = formatWordCount(siteSummary.wordCount);
 
 interface StatItem {
   title: string;
@@ -41,7 +49,7 @@ onMounted(() => {
 const stats = computed<StatItem[]>(() => [
   {
     title: "文章总数",
-    value: "455",
+    value: articleTotal,
     sub: "持续更新中",
     iconBg: "rgba(239, 68, 68, 0.12)",
     iconColor: "#ef4444",
@@ -50,7 +58,7 @@ const stats = computed<StatItem[]>(() => [
   },
   {
     title: "分类数量",
-    value: "22",
+    value: categoryTotal,
     sub: "技术领域覆盖",
     iconBg: "rgba(249, 115, 22, 0.12)",
     iconColor: "#f97316",
@@ -59,7 +67,7 @@ const stats = computed<StatItem[]>(() => [
   },
   {
     title: "累计字数",
-    value: totalWords, // 静态统计值
+    value: totalWords, // 构建期自动统计值
     sub: "全部文章正文",
     iconBg: "rgba(34, 197, 94, 0.12)",
     iconColor: "#22c55e",

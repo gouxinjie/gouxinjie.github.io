@@ -19,6 +19,9 @@ import { MermaidMarkdown } from "vitepress-plugin-mermaid"; // 图表渲染插�
 // 工具函数
 import { wrapMathjaxRenderers } from "./utils/mathjaxStyle";
 
+// Vite 插件
+import { VitePluginSiteSummary } from "./plugins/vite-plugin-site-summary";
+
 /**
  * 站点配置
  */
@@ -235,6 +238,12 @@ export default defineConfig({
    * Vite 相关配置
    */
   vite: {
+    /**
+     * 插件配置
+     * - VitePluginSiteSummary：扫描 docs/column 生成站点统计（虚拟模块 virtual:site-summary）
+     */
+    plugins: [VitePluginSiteSummary()],
+
     /**
      * 服务器配置
      */
