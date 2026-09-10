@@ -77,7 +77,7 @@ export default defineConfig({
   /**
    * 功能配置
    */
-  ignoreDeadLinks: true, // 忽略死链接报错
+  ignoreDeadLinks: false, // 严格校验站内死链：构建时直接报错，避免失效链接上线
   lastUpdated: true, // 开启最后更新时间
   cleanUrls: true, // 启用干净的 URL (去除 .html 后缀)
   transformHtml(code) {

@@ -26,7 +26,7 @@ reduce(callbackFn);
 reduce(callbackFn, initialValue);
 ```
 
-回调函数中有四个参数，回调的外面还有一个参数（`initialValue给定就算的初始值`）；参数截图如下： ![在这里插入图片描述](https://img-blog.csdnimg.cn/5707203e7c6e4b37b3d4fdeeaa6a6c72.png#pic_center =700x )
+回调函数中有四个参数，回调的外面还有一个参数（`initialValue给定就算的初始值`）；参数截图如下： ![在这里插入图片描述](https://img-blog.csdnimg.cn/5707203e7c6e4b37b3d4fdeeaa6a6c72.png#pic_center)
 
 ## 二、Array.reduce()的使用
 

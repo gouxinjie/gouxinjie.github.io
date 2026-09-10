@@ -1,0 +1,146 @@
+name: Deploy VitePress
+
+# 触发方式：
+# 1. push 到 main 分支后自动部署（同时部署到阿里云 ECS 与 GitHub Pages）
+# 2. 也可以在 GitHub Actions 页面手动点击 Run workflow
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+# 默认只读；Pages 部署在 job 级别单独申请写权限
+permissions:
+  contents: read
+
+# 说明：并发控制放在 job 级别，用于精确还原合并前两个独立工作流的语义：
+# - build    ：连续 push 时取消旧构建，避免重复构建、也避免旧产物覆盖新产物
+# - deploy-ecs   ：取消旧部署（与原 ECS 工作流一致）
+# - deploy-pages ：排队执行、不取消（与原 GitHub Pages 工作流一致，避免 gh-pages 推送被中断）
+# 注意：job 级 concurrency 在 job 开始执行时才生效，因此旧 run 的 build 被取消后，
+#       其下游部署任务也不会继续执行。
+
+jobs:
+  # 只构建一次，ECS 与 Pages 两个部署任务共用同一份产物
+  build:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: build-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+      # fetch-depth: 0 获取完整 git 历史，changelog 需要遍历所有 commit
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 安装 pnpm，版本优先读取 package.json 中的 packageManager
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      # 安装 Node.js，并开启 pnpm 依赖缓存，加快后续构建速度
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      # 按 lockfile 安装依赖，保证 CI 环境和本地依赖版本一致
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 构建 VitePress 静态站点，产物目录 docs/.vitepress/dist
+      - name: Build VitePress site
+        run: pnpm run build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: docs/.vitepress/dist
+          # 保留 3 天，便于单独 re-run 失败的部署任务时仍能取到产物
+          retention-days: 3
+
+  # 部署到阿里云 ECS：rsync 同步到 Nginx root 指向的目录
+  deploy-ecs:
+    needs: build
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ecs
+      cancel-in-progress: true
+    permissions:
+      contents: read
+    env:
+      # 以下变量都来自 GitHub 仓库 Settings -> Secrets and variables -> Actions
+      # ECS_HOST: ECS 公网 IP 或域名
+      # ECS_USER: SSH 登录用户，例如 root 或 deploy
+      # ECS_PORT: SSH 端口，默认通常是 22
+      # ECS_PATH: ECS 上 Nginx root 指向的网站目录，例如 /var/www/blog
+      # ECS_SSH_KEY: 可登录 ECS 的私钥完整内容
+      ECS_HOST: ${{ secrets.ECS_HOST }}
+      ECS_USER: ${{ secrets.ECS_USER }}
+      ECS_PORT: ${{ secrets.ECS_PORT }}
+      ECS_PATH: ${{ secrets.ECS_PATH }}
+      ECS_SSH_KEY: ${{ secrets.ECS_SSH_KEY }}
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      # 提前检查部署所需 Secrets 是否存在，
+      # 缺少任意一个就直接失败，避免后续 SSH/rsync 报不清晰的错误。
+      - name: Validate ECS secrets
+        run: |
+          test -n "$ECS_HOST" || (echo "Missing ECS_HOST" && exit 1)
+          test -n "$ECS_USER" || (echo "Missing ECS_USER" && exit 1)
+          test -n "$ECS_PORT" || (echo "Missing ECS_PORT" && exit 1)
+          test -n "$ECS_PATH" || (echo "Missing ECS_PATH" && exit 1)
+          test -n "$ECS_SSH_KEY" || (echo "Missing ECS_SSH_KEY" && exit 1)
+
+      # 写入部署私钥，并把 ECS 主机指纹加入 known_hosts，避免首次连接交互确认。
+      # 注意：私钥通过 env 传入并用 printf 原样写入，保证多行 PEM 不被破坏。
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$ECS_SSH_KEY" > ~/.ssh/ecs_key
+          chmod 600 ~/.ssh/ecs_key
+          ssh-keyscan -p "$ECS_PORT" "$ECS_HOST" >> ~/.ssh/known_hosts
+
+      - name: Ensure remote directory
+        run: |
+          ssh -i ~/.ssh/ecs_key -p "$ECS_PORT" "$ECS_USER@$ECS_HOST" "mkdir -p '$ECS_PATH'"
+
+      # --delete 删除远端本次构建不存在的旧文件，防止历史静态资源残留
+      - name: Deploy to ECS
+        run: |
+          rsync -az --delete \
+            -e "ssh -i ~/.ssh/ecs_key -p $ECS_PORT" \
+            dist/ \
+            "$ECS_USER@$ECS_HOST:$ECS_PATH/"
+
+  # 部署到 GitHub Pages（推送 gh-pages 分支）
+  deploy-pages:
+    needs: build
+    runs-on: ubuntu-latest
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    permissions:
+      contents: write # 需要写入权限来推送构建结果到 gh-pages 分支
+      pages: read
+      id-token: write
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          # 如果使用自定义域名，取消下面注释并填写你的域名
+          # cname: your-domain.com

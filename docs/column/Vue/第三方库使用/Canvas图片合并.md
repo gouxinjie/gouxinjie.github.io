@@ -70,7 +70,7 @@ void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 
 下面是我案例最终实现的效果图：主要流程是后端返回给我一个背景图片的链接，我本地生成一个二维码，然后合并到一起组成一个新的图片；
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/cef0158de42e44f583b389ab19ef9ea7.png#pic_center =340x )
+![在这里插入图片描述](https://img-blog.csdnimg.cn/cef0158de42e44f583b389ab19ef9ea7.png#pic_center)
 
 
 **主要代码如下：**

@@ -4,12 +4,12 @@
 ## 引言
 
 我们知道 JavaScript语言组成包括这三部分：核心（ECMA），文档对象模型（DOM），浏览器对象模型（BOM）；
-![在这里插入图片描述](https://img-blog.csdnimg.cn/cb5f94666c1447a5a63757b460fbc1cc.png#pic_center =450x )
+![在这里插入图片描述](https://img-blog.csdnimg.cn/cb5f94666c1447a5a63757b460fbc1cc.png#pic_center)
 
 
 那么BOM又有五大对象：如图：
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/f283fd5416aa4eeca7342495668aa9b5.png#pic_center =700x )
+![在这里插入图片描述](https://img-blog.csdnimg.cn/f283fd5416aa4eeca7342495668aa9b5.png#pic_center)
 
 
 ## 一、BOM介绍

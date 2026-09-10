@@ -319,7 +319,7 @@ configureWebpack: (config) => {
 
 **2，配置 `chainWebpack`：**
 
-chainWebpack 是可以进行链式操作的，它允许我们更加精确的进行内部配置，在对于一些`loader` 时非常有用；如下比较 vue 的`chainWebpack`链式配置和 webpack 中的`webpack.config.js`文件‘：左侧是 vue 的右侧是 webpack 的配置文件： ![请添加图片描述](https://img-blog.csdnimg.cn/6dedaa5cbb8e42ec891835a4063e7810.png#pic_center =800x) 更加详细的配置说明请见[vue-cli 官网](https://cli.vuejs.org/zh/guide/webpack.html#%E9%93%BE%E5%BC%8F%E6%93%8D%E4%BD%9C-%E9%AB%98%E7%BA%A7)
+chainWebpack 是可以进行链式操作的，它允许我们更加精确的进行内部配置，在对于一些`loader` 时非常有用；如下比较 vue 的`chainWebpack`链式配置和 webpack 中的`webpack.config.js`文件‘：左侧是 vue 的右侧是 webpack 的配置文件： ![请添加图片描述](https://img-blog.csdnimg.cn/6dedaa5cbb8e42ec891835a4063e7810.png#pic_center) 更加详细的配置说明请见[vue-cli 官网](https://cli.vuejs.org/zh/guide/webpack.html#%E9%93%BE%E5%BC%8F%E6%93%8D%E4%BD%9C-%E9%AB%98%E7%BA%A7)
 
 `下面是我常用的chainWebpack配置：` 主要配置了关闭 vconsole 和配置路径别名以及 使用 `image-webpack-loader`图片压缩插件；
 

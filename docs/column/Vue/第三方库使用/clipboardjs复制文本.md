@@ -156,4 +156,4 @@ h4 {
 ```
 **5，clipboardjs的兼容性如下（还是不错的）**
 ****
-![在这里插入图片描述](https://img-blog.csdnimg.cn/d26873a3646449daa5d6f721fe4cd497.png#pic_center =600x)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/d26873a3646449daa5d6f721fe4cd497.png#pic_center)
