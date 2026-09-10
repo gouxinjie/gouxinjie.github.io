@@ -605,5 +605,4 @@ crpi-********.cn-shanghai.personal.cr.aliyuncs.com/codeview/web:latest
 
 如果你想继续看完整的 CodeView 上线过程，可以结合这篇文档一起看：
 
-- [CodeView 部署实战博客](./CodeView部署实战博客.md)
-- [Docker Compose 部署到 ECS 说明](./Docker%20Compose部署到ECS说明.md)
+- [CodeView 部署实战博客](/column/Aliyun/实战部署/React+Node+SQLite项目自动发布到ECS实战-git看板.md)

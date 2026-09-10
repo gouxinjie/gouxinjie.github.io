@@ -50,7 +50,7 @@
 
 如果省略了 Hydration 阶段，用户虽然能看到页面，但点击按钮、切换 Tab 或提交表单都不会有任何响应。
 
-详细介绍见这篇文章：[什么是水合-hydration](/column/Next/基础/什么是RSC渲染#六、什么是水合-hydration)
+详细介绍见这篇文章：[什么是水合-hydration](/column/Next/基础/什么是 RSC 渲染组件#六什么是水合hydration)
 
 
 ## 三、CSR 与 SSR 核心对比

@@ -568,6 +568,5 @@ git tag v1.0.5 && git push origin v1.0.5        # 打 tag 触发自动发布
 
 ## 相关文档
 
-- [mcp核心概念.md](mcp核心概念.md) —— MCP 是什么：角色、原语、真实报文、设计思想
-- [mcp端到端流程.md](mcp端到端流程.md) —— MCP 怎么发生：从配置到关闭的完整流程
-- [返回 README](../README.md)
+- [MCP核心概念.md](MCP核心概念.md) —— MCP 是什么：角色、原语、真实报文、设计思想
+- [MCP端到端流程.md](MCP端到端流程.md) —— MCP 怎么发生：从配置到关闭的完整流程

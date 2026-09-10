@@ -47,7 +47,7 @@ features:
     icon:
       src: /config.svg
     details: fnm 是一个轻量级的 Node.js 版本管理工具，它不仅非常快速，而且安装、使用都简洁，尤其是在不同项目之间切换时非常方便。
-    link: /column/Node/基础/fnm管理node版本
+    link: /column/Node/基础/fnm 管理 node 版本
     linkText: 查看详情
 
   - title: 使用Docker本地部署 CSR 前端项目完整指南
