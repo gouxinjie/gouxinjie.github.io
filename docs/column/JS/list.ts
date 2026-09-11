@@ -36,7 +36,8 @@ export const JSList = [
           { text: "AbortController请求中断" },
           { text: "requestAnimationFrame" },
           { text: "IntersectionObserver" },
-          { text: "IntersectionObserver实现高效懒加载" }
+          { text: "IntersectionObserver实现高效懒加载" },
+          { text: "await处理文件的操作" }
         ]
       },
       {

@@ -38,6 +38,7 @@ const TSList = [
     collapsed: false,
     items: [
       { text: "tsconfig.json配置文件" },
+      { text: "tsconfig.json配置项详解" },
       { text: "三斜线指令" },
       { text: "命名空间" },
       { text: "声明文件" },
