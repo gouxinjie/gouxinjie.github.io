@@ -59,6 +59,9 @@ const frontendAdvanceList = [
       },
       {
         text: "前端 Monorepo 指南"
+      },
+      {
+        text: "大文件上传与断点续传"
       }
     ]
   },

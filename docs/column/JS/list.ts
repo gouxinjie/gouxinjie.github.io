@@ -10,6 +10,7 @@ export const JSList = [
           { text: "标准JS和浏览器JS的区别" },
           { text: "typeof与instanceof区别" },
           { text: "匿名函数和箭头函数" },
+          { text: "闭包讲解" },
           { text: "双重否定与空值合并运算符" },
           { text: "展开运算符的使用" },
           { text: "类型转换" },
@@ -19,7 +20,8 @@ export const JSList = [
           },
           {
             text: "console多种打印方式"
-          }
+          },
+          { text: "正则表达式" }
         ]
       },
       {

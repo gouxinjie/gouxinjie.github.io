@@ -32,7 +32,8 @@ const networkList = [
       { text: "对象存储服务讲解" },
       { text: "客户端数据库IndexedDB" },
       { text: "获取网络状态" },
-      { text: "SSE流式传输" }
+      { text: "SSE流式传输" },
+      { text: "WebSocket实时通信" }
     ]
   },
 
