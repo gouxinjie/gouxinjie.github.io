@@ -24,7 +24,7 @@ export const JSList = [
       },
       {
         text: "面向对象",
-        items: [{ text: "原型和原型链" }, { text: "this指向问题" }, { text: "Proxy与Reflect" }]
+        items: [{ text: "原型和原型链" }, { text: '原型链单独讲解' }, { text: "this指向问题" }, { text: "Proxy与Reflect" }]
       },
       {
         text: "异步编程",
