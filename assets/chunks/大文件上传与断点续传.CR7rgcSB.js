@@ -1,0 +1,184 @@
+const n=`# 大文件上传与断点续传
+
+[[toc]]
+
+在前端开发中，**大文件上传**（如数百 MB 或数 GB 的视频、压缩包）如果直接采用普通的 HTTP 表单或 \`FormData\` 整体上传，会面临**超时率高**、**内存占用大**、**网络波动导致整个文件重来**等严重问题。
+
+解决这一难题的标准方案是：**大文件切片上传（Chunk Upload）+ 断点续传（Resumable Upload） + 秒传（Instant Upload）**。
+
+
+### 一、 整体架构与核心流程
+
+\`\`\`
+[前端]                          [后端]
+  |                               |
+  |--- 1. 文件切片 (Blob.slice) --->|
+  |--- 2. 计算 Hash (Web Worker)->|
+  |--- 3. 发送秒传/预检请求 ------->| (检查已上传切片列表)
+  |<-- 返回已有切片 id 列表 ---------|
+  |                               |
+  |--- 4. 并发上传未完成的切片 ---->| (写入临时目录/对象存储)
+  |--- 5. 发送合并切片请求 -------->|
+  |<-- 返回完整文件 URL ------------| (合并切片，清理临时文件)
+
+\`\`\`
+
+
+### 二、 关键实现步骤拆解
+
+#### 1. 前端文件切片 (\`File.prototype.slice\`)
+
+在 JavaScript 中，\`File\` 对象继承自 \`Blob\`，拥有 \`slice(start, end)\` 方法。我们可以利用它将大文件切割成多个小数据块。
+
+\`\`\`javascript
+/**
+ * 将大文件按指定大小切片
+ * @param {File} file 目标文件
+ * @param {number} chunkSize 切片大小（如 5MB）
+ */
+function createChunks(file, chunkSize = 5 * 1024 * 1024) {
+  const chunks = [];
+  let cur = 0;
+  while (cur < file.size) {
+    chunks.push({
+      file: file.slice(cur, cur + chunkSize),
+      index: chunks.length
+    });
+    cur += chunkSize;
+  }
+  return chunks;
+}
+
+\`\`\`
+
+#### 2. 计算文件唯一标识：Hash（用于断点续传与秒传）
+
+文件 Hash（通常用 MD5）是判断文件内容是否相同的唯一指纹。**不能直接使用文件名**，因为不同用户上传同名文件会导致冲突。
+
+* **性能痛点**：计算大文件的 MD5 非常消耗 CPU，容易导致主线程卡顿。
+* **优化策略**：
+* **Web Worker**：将 MD5 计算任务放到后台子线程处理（例如使用 \`spark-md5\` 库）。
+* **抽样 Hash（Sampling Hash）**：不读取全部内容，而是固定读取头、尾以及中间切片的字节进行计算，将几 GB 文件的计算时间降低到几毫秒（准确率依然极高）。
+
+
+
+\`\`\`javascript
+// 使用 Worker + SparkMD5 计算 Hash 示例（伪代码）
+import SparkMD5 from 'spark-md5';
+
+function calculateHash(chunks) {
+  return new Promise((resolve) => {
+    const spark = new SparkMD5.ArrayBuffer();
+    const reader = new FileReader();
+    let count = 0;
+
+    function readNext(index) {
+      reader.readAsArrayBuffer(chunks[index].file);
+      reader.onload = (e) => {
+        spark.append(e.target.result);
+        count++;
+        if (count === chunks.length) {
+          resolve(spark.end()); // 返回文件的 MD5 Hash
+        } else {
+          readNext(count);
+        }
+      };
+    }
+    readNext(0);
+  });
+}
+
+\`\`\`
+
+#### 3. 秒传与断点续传检测（预检请求）
+
+在切片上传前，向服务器发送一个预检接口，携带 \`fileHash\` 和 \`fileName\`：
+
+\`\`\`javascript
+// POST /api/upload/verify
+{ fileHash: "a1b2c3d4...", fileName: "video.mp4" }
+
+\`\`\`
+
+后端查询处理逻辑：
+
+1. **秒传成功**：数据库中已存在该 \`fileHash\` 记录。后端直接返回“文件已存在”以及完整文件地址，前端**无需上传任何切片**（响应时间小于 1 秒）。
+2. **需要续传**：服务器查询临时存储目录，返回**已成功上传的切片下标列表**，如 \`[0, 1, 3, 4]\`。
+3. **前端过滤**：前端筛选出未上传的切片（如 \`index === 2\`），仅重新上传缺失的切片。
+
+#### 4. 控制切片并发上传与进度条
+
+如果一个文件切出 100 个切片，同时发 100 个 HTTP 请求会导致浏览器崩溃。需要限制最大并发数（如同时最多发 3~6 个请求）。
+
+\`\`\`javascript
+/**
+ * 并发限制请求调度器
+ */
+async function uploadChunksWithLimit(chunks, uploadedList, fileHash, limit = 4) {
+  // 过滤掉已上传的切片
+  const neededChunks = chunks.filter(c => !uploadedList.includes(c.index));
+
+  const pool = [];
+  for (const chunk of neededChunks) {
+    const formData = new FormData();
+    formData.append('chunk', chunk.file);
+    formData.append('hash', \`\${fileHash}-\${chunk.index}\`);
+    formData.append('fileHash', fileHash);
+
+    const task = fetch('/api/upload/chunk', { method: 'POST', body: formData })
+      .then(() => {
+        pool.splice(pool.indexOf(task), 1); // 任务完成后移除自身
+      });
+
+    pool.push(task);
+    if (pool.length >= limit) {
+      await Promise.race(pool); // 达到上限时等待最快的一个请求完成
+    }
+  }
+  await Promise.all(pool); // 等待剩余请求全部完成
+}
+
+\`\`\`
+
+**进度条计算公式**：
+\`总进度 = (所有切片已传输的字节数之和) / 文件总字节数\`
+
+#### 5. 通知后端合并切片
+
+当所有切片全部上传完毕后，前端向后端发送一个合并请求：
+
+\`\`\`javascript
+// POST /api/upload/merge
+{
+  fileHash: "a1b2c3d4...",
+  fileName: "video.mp4",
+  chunkSize: 5242880 // 5MB，告知后端用于流拼接
+}
+
+\`\`\`
+
+后端接收到合并通知后：
+
+1. 读取该 \`fileHash\` 对应的临时目录下的所有切片。
+2. 按 \`index\` 编号升序排序。
+3. 使用 Node.js 的 \`fs.createWriteStream\` 以流（Stream）的形式依次将切片写入目标文件。
+4. 删除临时切片文件，并向前端返回最终访问 URL。
+
+
+### 三、 生产环境四大容错与增强策略
+
+1. **暂停与取消上传**：
+* 前端使用 \`AbortController\`（原生 fetch）或 \`axios.CancelToken\`，在用户点击“暂停”时立刻取消正在进行的切片请求。
+
+
+2. **切片失败自动重试**：
+* 每个切片设置失败计数器（如重试 3 次）。如果切片上传失败，捕获错误并自动重新加入请求队列。
+
+
+3. **网速监测与动态切片大小**：
+* 初始使用较小切片（如 2MB），记录传输速率。如果网速极快，动态将后续切片调整为 10MB，减少 HTTP 请求数；网速较差时降低切片大小，防止请求超时。
+
+
+4. **清理垃圾切片（后端离线任务）**：
+* 某些用户可能上传到一半彻底放弃。后端应设置定时任务（Cron Job），清理创建时间超过 24/48 小时且未合并的临时切片目录。
+`;export{n as default};
