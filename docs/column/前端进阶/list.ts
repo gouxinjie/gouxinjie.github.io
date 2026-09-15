@@ -55,6 +55,9 @@ const frontendAdvanceList = [
         text: "移动端H5适配方案实践"
       },
       {
+        text: "普通H5跳转微信APP完整梳理"
+      },
+      {
         text: "网站主题切换的原理与最佳实践"
       },
       {
