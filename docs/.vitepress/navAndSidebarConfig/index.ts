@@ -34,7 +34,8 @@ import { transformAliyunList } from "../../column/Aliyun/list";
 export const nav: DefaultTheme.NavItem[] = [
   {
     text: "主页",
-    link: "/column/Personal/index.md" // 表示docs/index.md
+    // link: "/column/Personal/index.md"
+    link: "http://gouxinjie.com/zh"
   },
   {
     text: "AI 提效",
