@@ -92,6 +92,12 @@ const frontendAdvanceList = [
     items: [
       {
         text: "神策埋点"
+      },
+      {
+        text: "埋点 SDK 设计与上报机制"
+      },
+      {
+        text: "无痕埋点与曝光停留统计"
       }
     ]
   },
