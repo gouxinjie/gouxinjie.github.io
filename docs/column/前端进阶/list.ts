@@ -29,6 +29,9 @@ const frontendAdvanceList = [
       },
       {
         text: "requestIdleCallback时间切片"
+      },
+      {
+        text: "资源预加载策略与骨架屏白屏优化"
       }
     ]
   },
@@ -47,6 +50,9 @@ const frontendAdvanceList = [
       },
       {
         text: "前端运行时与编译时的理解"
+      },
+      {
+        text: "微前端方案对比与实践"
       }
     ]
   },
