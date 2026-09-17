@@ -58,6 +58,9 @@ const frontendAdvanceList = [
         text: "普通H5跳转微信APP完整梳理"
       },
       {
+        text: "浏览器/微信拉起钉钉微应用实战"
+      },
+      {
         text: "网站主题切换的原理与最佳实践"
       },
       {
