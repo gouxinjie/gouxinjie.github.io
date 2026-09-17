@@ -23,6 +23,12 @@ const frontendAdvanceList = [
       },
       {
         text: "顶部阅读进度条的方案实现"
+      },
+      {
+        text: "Web Worker 与主线程优化"
+      },
+      {
+        text: "requestIdleCallback时间切片"
       }
     ]
   },
@@ -110,6 +116,12 @@ const frontendAdvanceList = [
       },
       {
         text: "现代桌面应用跳转浏览器登录方案解析"
+      },
+      {
+        text: "Token无感刷新（双token）方案"
+      },
+      {
+        text: "单点登录SSO原理"
       }
     ]
   }
