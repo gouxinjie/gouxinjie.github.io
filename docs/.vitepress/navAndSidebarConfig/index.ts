@@ -90,7 +90,7 @@ export const nav: DefaultTheme.NavItem[] = [
         link: "/column/Linux/index.md"
       },
       {
-        text: "阿里云ECS",
+        text: "阿里云ECS部署",
         link: "/column/Aliyun/index.md"
       }
     ]
