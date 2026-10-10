@@ -20,6 +20,7 @@ const dockerList = [
     collapsed: false,
     items: [
       { text: "Docker 镜像与网络隔离" },
+      { text: "Docker 镜像堆积清理与磁盘空间回收" },
       { text: "Docker本地部署CSR前端项目" },
       { text: "Docker本地部署SSR前端项目" }
     ]
