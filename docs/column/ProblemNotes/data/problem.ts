@@ -51,6 +51,9 @@ export const problemData = [
       },
       {
         text: '微信拉起钉钉微应用实战'
+      },
+      {
+        text: '图片替换为OSS后加载依旧慢的原因排查'
       }
 
     ]
