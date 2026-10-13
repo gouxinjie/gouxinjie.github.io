@@ -13,6 +13,9 @@ const aiFutureList = [
         text: "AI模型中的Token含义"
       },
       {
+        text: "什么是AI命中缓存"
+      },
+      {
         text: '模型模型上下文与命中缓存'
       },
       {
