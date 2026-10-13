@@ -30,6 +30,9 @@ const aiFutureList = [
       {
         text: "AI编程中的任务分解与自主协作机制"
       },
+      {
+        text: "为什么AI编辑器工作时爆内存而CPU却空闲"
+      },
     ]
   },
   {
