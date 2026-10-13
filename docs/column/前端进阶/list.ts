@@ -32,6 +32,9 @@ const frontendAdvanceList = [
       },
       {
         text: "资源预加载策略与骨架屏白屏优化"
+      },
+      {
+        text: "为什么从微信下载的图片变模糊了？"
       }
     ]
   },
