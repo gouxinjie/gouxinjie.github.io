@@ -28,11 +28,15 @@ const aiFutureList = [
         text: "什么是模型蒸馏"
       },
       {
+        text: "什么是Embedding"
+      },
+      {
         text: "AI编程中的任务分解与自主协作机制"
       },
       {
         text: "为什么AI编辑器工作时爆内存而CPU却空闲"
       },
+
     ]
   },
   {
@@ -74,6 +78,9 @@ const aiFutureList = [
       },
       {
         text: "后端专用AGENTS.md模板"
+      },
+      {
+        text: "JAVA专用AGENTS.md模板"
       }
     ]
   },
