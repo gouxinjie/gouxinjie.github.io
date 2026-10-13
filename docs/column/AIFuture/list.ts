@@ -27,6 +27,9 @@ const aiFutureList = [
       {
         text: "什么是模型蒸馏"
       },
+      {
+        text: "AI编程中的任务分解与自主协作机制"
+      },
     ]
   },
   {
