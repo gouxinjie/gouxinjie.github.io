@@ -7,7 +7,10 @@ const aiFutureList = [
     collapsed: false,
     items: [
       {
-        text: "AI概念与AI Agent"
+        text: "AI 技术生态全景图"
+      },
+      {
+        text: "AI Agent 全解析"
       },
       {
         text: "AI模型中的Token含义"
