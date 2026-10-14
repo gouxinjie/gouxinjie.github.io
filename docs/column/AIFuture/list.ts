@@ -16,10 +16,7 @@ const aiFutureList = [
         text: "什么是AI命中缓存"
       },
       {
-        text: '模型模型上下文与命中缓存'
-      },
-      {
-        text: "什么是提示词工程"
+        text: "模型上下文与提示词工程"
       },
       {
         text: "什么是RAG检索增强生成"
@@ -29,6 +26,9 @@ const aiFutureList = [
       },
       {
         text: "什么是Embedding"
+      },
+      {
+        text: "Function Calling详解"
       },
       {
         text: "AI编程中的任务分解与自主协作机制"
