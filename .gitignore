@@ -28,6 +28,9 @@ auto-*.d.ts
 # OS
 Thumbs.db
 
+# Playwright CLI 临时目录
+.playwright-cli/
+
 # 临时日志 / 诊断文件
 *.log
 dev.err
