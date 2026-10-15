@@ -39,7 +39,9 @@ const aiFutureList = [
       {
         text: "为什么AI编辑器工作时爆内存而CPU却空闲"
       },
-
+      {
+        text: "AI Agent工程与AI应用开发的区别"
+      },
     ]
   },
   {
