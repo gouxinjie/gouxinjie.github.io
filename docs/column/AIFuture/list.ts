@@ -92,6 +92,30 @@ const aiFutureList = [
       }
     ]
   },
+  {
+    text: "AI Agent 核心技术专题",
+    collapsed: false,
+    items: [
+      {
+        text: "Tool Calling（工具调用）"
+      },
+      {
+        text: "Agent Loop（智能体执行循环）"
+      },
+      {
+        text: "AI Coding Agent 是如何修改项目代码的？"
+      },
+      {
+        text: "AI 为什么需要权限？Sandbox 是如何工作的？"
+      },
+      {
+        text: "MCP 到底解决了什么问题？"
+      },
+      {
+        text: "AI Agent 是如何记住上下文的？"
+      }
+    ]
+  },
 
 ];
 
