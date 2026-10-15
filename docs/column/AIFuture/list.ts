@@ -10,9 +10,6 @@ const aiFutureList = [
         text: "AI 技术生态全景图"
       },
       {
-        text: "AI Agent 全解析"
-      },
-      {
         text: "AI模型中的Token含义"
       },
       {
@@ -97,6 +94,9 @@ const aiFutureList = [
     collapsed: false,
     items: [
       {
+        text: "AI Agent 是什么"
+      },
+      {
         text: "Tool Calling（工具调用）"
       },
       {
@@ -107,9 +107,6 @@ const aiFutureList = [
       },
       {
         text: "AI 为什么需要权限？Sandbox 是如何工作的？"
-      },
-      {
-        text: "MCP 到底解决了什么问题？"
       },
       {
         text: "AI Agent 是如何记住上下文的？"
