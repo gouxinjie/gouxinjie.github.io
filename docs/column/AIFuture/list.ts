@@ -106,7 +106,7 @@ const aiFutureList = [
         text: "AI Coding Agent 是如何修改项目代码的？"
       },
       {
-        text: "AI 为什么需要权限？Sandbox 是如何工作的？"
+        text: "AI 权限控制与沙箱隔离"
       },
       {
         text: "AI Agent 是如何记住上下文的？"
