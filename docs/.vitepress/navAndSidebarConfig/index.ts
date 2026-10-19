@@ -38,7 +38,7 @@ export const nav: DefaultTheme.NavItem[] = [
     link: "http://gouxinjie.com/zh"
   },
   {
-    text: "AI 提效",
+    text: "AI 专题",
     link: "/column/AIFuture/index.md"
   },
   {
