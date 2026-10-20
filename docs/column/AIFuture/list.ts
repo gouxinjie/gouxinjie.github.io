@@ -113,6 +113,15 @@ const aiFutureList = [
       }
     ]
   },
+  {
+    text: "AI 编程工具实操",
+    collapsed: false,
+    items: [
+      {
+        text: "CodeBuddy 还原 Figma 设计稿"
+      }
+    ]
+  },
 
 ];
 
