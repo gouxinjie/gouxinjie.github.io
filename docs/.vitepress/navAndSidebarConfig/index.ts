@@ -135,6 +135,10 @@ export const nav: DefaultTheme.NavItem[] = [
             link: "/column/Ecology/project.md"
           },
           {
+            text: "HTML/CSS 资源",
+            link: "/column/Ecology/html-css.md"
+          },
+          {
             text: "工具推荐",
             link: "/column/Recommend/index.md"
           },

@@ -80,6 +80,7 @@ export default defineConfig({
   ignoreDeadLinks: false, // 严格校验站内死链：构建时直接报错，避免失效链接上线
   lastUpdated: true, // 开启最后更新时间
   cleanUrls: true, // 启用干净的 URL (去除 .html 后缀)
+  srcExclude: ["index-old.md"], // 排除旧版首页备份，避免重复页面被构建发布
   transformHtml(code) {
     // 移除 Mermaid 相关冗余 preload 链接
     return code.replace(/\n\s*<link rel="(?:modulepreload|prefetch)" href="[^"]*(?:mermaid|MermaidRenderer)[^"]*">/gi, "");

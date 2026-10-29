@@ -31,7 +31,7 @@
 
 - **前端基础** — JS/TS 里那些"懂了但说不清楚"的细节
 - **框架实战** — Vue/React/Angular 的真实项目经验，不是文档搬运
-- **AI 应用** — 提示词、RAG、MCP，偏落地和思考，不堆概念
+- **AI 应用** — AI Agent、提示词、RAG、MCP，偏落地和思考，不堆概念
 - **工程化** — Docker、Git、CI/CD，解决实际问题的配置和方案
 - **个人复盘** — 项目里的决策、踩坑、反思
 
@@ -51,7 +51,7 @@
 | 包管理 | pnpm |
 | CI/CD | GitHub Actions（ECS 自动部署 + GitHub Pages） |
 | 部署 | GitHub Pages / Vercel / 阿里云 ECS / Gitee Pages |
-| 自定义 | 诗词展示、项目面板、复制源码、首页动画等 20 个 Vue 组件 |
+| 自定义 | 诗词展示、项目面板、复制源码、首页动画等 21 个 Vue 组件 |
 
 ---
 
@@ -78,6 +78,8 @@ pnpm dev
 | `pnpm build` | 构建生产版本 |
 | `pnpm preview` | 本地预览构建结果 |
 | `pnpm lint` | ESLint 检查 + 自动修复 |
+| `pnpm format` | Prettier 格式化 |
+| `pnpm type-check` | vue-tsc 类型检查 |
 
 ---
 
@@ -89,11 +91,12 @@ docs/
 │   ├── components/    # 自定义 Vue 组件
 │   │   ├── home/      # 首页相关（Hero、精选文章、统计面板）
 │   │   └── poetry/    # 诗词展示相关
-│   ├── theme/         # 主题样式
+│   ├── theme/         # 主题入口与样式
+│   ├── plugins/       # Vite 插件（站点统计 vite-plugin-site-summary）
 │   ├── config.mts     # 站点配置
-│   ├── utils/         # 工具函数（homenav-data、site-stats、mathjaxStyle）
+│   ├── utils/         # 工具函数（site-stats、site-summary、mathjaxStyle）
 │   └── navAndSidebarConfig/  # 导航栏 & 侧边栏
-├── column/            # 文章目录，按主题分类（22 个分类）
+├── column/            # 文章目录，按主题分类（26 个分类）
 │   ├── AIFuture/      # AI 应用与思考
 │   ├── Vue/           # Vue 相关
 │   ├── React/         # React 相关
@@ -103,7 +106,7 @@ docs/
 │   ├── Docker/        # Docker 相关
 │   └── ...            # 更多分类
 ├── public/            # 静态资源（图片、字体等）
-└── utils/             # 工具函数
+└── utils/             # 公共工具与数据（homenav-data 首页导航、functions、types）
 ```
 
 ---
@@ -125,15 +128,15 @@ docs/
 - **GitHub Pages** — `gh-pages` 分支，[gouxinjie.github.io](https://gouxinjie.github.io)
 - **Vercel** — 监听同一个仓库，自动构建，[gouxinjie.vercel.app](https://gouxinjie.vercel.app)
 - **ECS** — 阿里云 ECS 自托管，[blog.gouxinjie.com](http://blog.gouxinjie.com)（HTTP）
-- **Gitee** — 国内镜像，手动 push 同步
+- **Gitee** — 国内镜像，`origin` 已配置多推送地址，`git push` 时与 GitHub 一并同步
 
 ### ECS 部署详情
 
 - **描述**: 个人技术博客（VitePress 静态站点），双线部署保障国内外访问
 - **部署路径**: `/var/www/blog`
-- **启动方式**: Nginx 直接托管静态文件，GitHub Actions 构建后 SCP 上传到 ECS
+- **启动方式**: Nginx 直接托管静态文件，GitHub Actions 构建后 rsync 同步到 ECS
 - **状态**: 正常运行
-- **备注**: GitHub Actions 自动部署，push main 触发 vitepress build → SCP 上传 dist → ECS Nginx reload
+- **备注**: GitHub Actions 自动部署，push main 触发 vitepress build → rsync（--delete）同步 dist 到 ECS，Nginx 直接读取静态文件
 - **端口**: 80（宿主 Nginx）
 - **访问**: [blog.gouxinjie.com](http://blog.gouxinjie.com) · [gouxinjie.github.io](https://gouxinjie.github.io) · [gouxinjie.vercel.app](https://gouxinjie.vercel.app)
 
