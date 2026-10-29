@@ -4,4 +4,4 @@ import { transformAIFutureList } from "./list";
 const aiFutureList = shallowRef(transformAIFutureList("/column/AIFuture/", true));
 </script>
 
-<SearchList title="智研前沿" :data="aiFutureList"></SearchList>
+<SearchList title="AI 专题" :data="aiFutureList"></SearchList>

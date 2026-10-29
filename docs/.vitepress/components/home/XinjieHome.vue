@@ -35,7 +35,7 @@ import { NAV_DATA } from "../../../utils/homenav-data";
           <p class="xinjie-hero__subtitle">专注于 Web 技术与效率提升</p>
 
           <p class="xinjie-hero__desc">
-            记录学习与实践的点滴, 分享经验与思考, 希望能帮助你解决问题,
+            记录学习与实践的点滴，分享经验与思考，希望能帮助你解决问题，
             也期待与更优秀的开发者交流成长。
           </p>
 

@@ -41,7 +41,7 @@ const aiFutureList = [
       },
       {
         text: "AI Agent 是怎么自己执行任务的"
-      },
+      }
     ]
   },
   {
@@ -90,7 +90,7 @@ const aiFutureList = [
     ]
   },
   {
-    text: "AI Agent 核心技术专题",
+    text: "AI Agent 核心技术",
     collapsed: false,
     items: [
       {

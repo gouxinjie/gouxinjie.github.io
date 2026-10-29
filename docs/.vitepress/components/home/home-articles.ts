@@ -20,8 +20,8 @@ export interface HomeArticle {
 
 export const FEATURED_ARTICLES: HomeArticle[] = [
   {
-    title: "为什么前端项目部署需要 nginx 或 Apache?",
-    desc: "部署时需使用Web服务器(如Nginx), 因为浏览器无法直接访问服务器文件系统, 但是可以通过 HTTP 请求访问服务器上暴露的端口和路径。",
+    title: "为什么前端项目部署需要 nginx 或 Apache？",
+    desc: "部署时需使用Web服务器（如Nginx），因为浏览器无法直接访问服务器文件系统，但是可以通过 HTTP 请求访问服务器上暴露的端口和路径。",
     link: "/column/Aliyun/核心概念/为什么前端项目部署需要nginx",
     tag: "Web 部署",
     reading: "7 分钟阅读",
@@ -32,7 +32,7 @@ export const FEATURED_ARTICLES: HomeArticle[] = [
   },
   {
     title: "使用FNM进行多个Node版本的管理",
-    desc: "fnm 是一个轻量级的 Node.js 版本管理工具, 它不仅非常快速, 而且安装、使用都简洁, 尤其是在不同项目之间切换时非常方便。",
+    desc: "fnm 是一个轻量级的 Node.js 版本管理工具，它不仅非常快速，而且安装、使用都简洁，尤其是在不同项目之间切换时非常方便。",
     link: "/column/Node/基础/fnm 管理 node 版本",
     tag: "Node.js",
     reading: "6 分钟阅读",
@@ -43,7 +43,7 @@ export const FEATURED_ARTICLES: HomeArticle[] = [
   },
   {
     title: "使用Docker本地部署 CSR 前端项目完整指南",
-    desc: "本文详解了使用Docker部署Vue3+Vite项目的完整方案, 涵盖多阶段构建、Nginx优化及 docker-compose 编排, 简化部署流程。",
+    desc: "本文详解了使用Docker部署Vue3+Vite项目的完整方案，涵盖多阶段构建、Nginx优化及 docker-compose 编排，简化部署流程。",
     link: "/column/Docker/进阶/Docker本地部署CSR前端项目",
     tag: "Docker",
     reading: "12 分钟阅读",
@@ -54,7 +54,7 @@ export const FEATURED_ARTICLES: HomeArticle[] = [
   },
   {
     title: "工作中常用的 git 操作",
-    desc: "通过分支管理、变更追踪和历史记录等功能, 确保代码的完整性和项目的协同效率, 同时还支持错误回滚和代码审查。",
+    desc: "通过分支管理、变更追踪和历史记录等功能，确保代码的完整性和项目的协同效率，同时还支持错误回滚和代码审查。",
     link: "/column/Git/git相关/工作中常用的git操作-2.html",
     tag: "Git",
     reading: "8 分钟阅读",
@@ -65,7 +65,7 @@ export const FEATURED_ARTICLES: HomeArticle[] = [
   },
   {
     title: "Nginx 开启 Gzip 压缩",
-    desc: "在前端项目中, JS/CSS 文件较大时, 启用 Gzip 压缩可以显著减少传输体积, 提高页面加载速度。",
+    desc: "在前端项目中，JS/CSS 文件较大时，启用 Gzip 压缩可以显著减少传输体积，提高页面加载速度。",
     link: "/column/Nginx/Nginx服务器与部署/开启gzip压缩.html",
     tag: "Nginx",
     reading: "5 分钟阅读",
@@ -75,8 +75,8 @@ export const FEATURED_ARTICLES: HomeArticle[] = [
     tagColor: "#f59e0b"
   },
   {
-    title: "前端常用加密方式有哪些?",
-    desc: "前端常用加密方式有很多, 比如 MD5、SHA1、AES、DES 等。选择合适的加密方式可以提高数据的安全性和完整性。",
+    title: "前端常用加密方式有哪些？",
+    desc: "前端常用加密方式有很多，比如 MD5、SHA1、AES、DES 等。选择合适的加密方式可以提高数据的安全性和完整性。",
     link: "/column/前端进阶/网络安全/前端常用加密方式",
     tag: "安全",
     reading: "10 分钟阅读",

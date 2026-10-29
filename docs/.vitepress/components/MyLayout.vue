@@ -182,11 +182,11 @@ function toggleFooterCol(key: keyof FooterCollapsed) {
               <svg class="col-chevron" :class="{ open: !footerCollapsed.nav }" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
             </h4>
             <div class="footer-col-body" :class="{ collapsed: footerCollapsed.nav }">
-              <a href="/column/Personal/">主页</a>
+              <a href="/column/Personal/">关于我</a>
               <a href="/column/Node/">Node.js</a>
               <a href="/column/Next/">Next.js</a>
               <a href="/column/Network/">网络相关</a>
-              <a href="/column/Docker/">服务与部署</a>
+              <a href="/column/Docker/">Docker</a>
             </div>
           </div>
 
@@ -227,7 +227,7 @@ function toggleFooterCol(key: keyof FooterCollapsed) {
               </a>
               <div class="contact-row no-link">
                 <svg viewBox="0 0 24 24" class="contact-icon" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7A8.38 8.38 0 0 1 4 11.5a8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/></svg>
-                微信: 13113183859
+                微信：13113183859
               </div>
               <div class="contact-row no-link">
                 <svg viewBox="0 0 24 24" class="contact-icon" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>

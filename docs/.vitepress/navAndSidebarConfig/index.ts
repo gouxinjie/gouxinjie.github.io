@@ -33,9 +33,8 @@ import { transformAliyunList } from "../../column/Aliyun/list";
  */
 export const nav: DefaultTheme.NavItem[] = [
   {
-    text: "主页",
-    // link: "/column/Personal/index.md"
-    link: "http://gouxinjie.com/zh"
+    text: '首页',
+    link: "/"
   },
   {
     text: "AI 专题",
@@ -172,7 +171,7 @@ export const nav: DefaultTheme.NavItem[] = [
     ]
   },
   {
-    text: "其它",
+    text: "其他",
     items: [
       {
         text: "更新记录",
@@ -191,6 +190,10 @@ export const nav: DefaultTheme.NavItem[] = [
         link: "/column/CommonSense/index.md"
       }
     ]
+  },
+  {
+    text: "我的主页",
+    link: "http://gouxinjie.com/zh"
   },
   // {
   //   text: "关于我",
